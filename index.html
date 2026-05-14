@@ -1,0 +1,2897 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Group 935 // Archive — Zombies Codex</title>
+<meta name="description" content="A reader's database for every Treyarch Zombies map, Easter egg, relic, and operative — World at War through Black Ops 7 Totenreich." />
+<meta name="theme-color" content="#0a0908" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; background: #0a0908; }
+  body {
+    font-family: "IBM Plex Sans", "Inter", system-ui, sans-serif;
+    color: #e8e2d4;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  #root { min-height: 100vh; }
+  ::selection { background: #9aff6e; color: #0a0908; }
+
+  #boot {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px;
+    font-family: "IBM Plex Mono", monospace; color: #9aff6e; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; background: #0a0908; z-index: 100; padding: 40px;
+  }
+  #boot .boot-line { display: flex; gap: 10px; align-items: center; }
+  #boot .boot-cur { display: inline-block; width: 8px; height: 14px; background: #9aff6e; animation: blink 1s steps(2) infinite; vertical-align: middle; }
+  #boot .boot-err {
+    color: #ef3a3a; font-size: 12px; letter-spacing: 1px; text-transform: none;
+    max-width: 760px; white-space: pre-wrap; word-break: break-word;
+    border: 1px solid #d62828; padding: 14px; background: rgba(214,40,40,0.08);
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  body.booted #boot { display: none; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+
+<script>
+  // Visible error surface — both runtime errors and unhandled rejections.
+  window.__bootErrors = [];
+  function __bootShow(label, err) {
+    const msg = err && (err.stack || err.message) || String(err);
+    window.__bootErrors.push({ label, msg });
+    const boot = document.getElementById('boot');
+    if (!boot) return;
+    let box = boot.querySelector('.boot-err');
+    if (!box) { box = document.createElement('div'); box.className = 'boot-err'; boot.appendChild(box); }
+    box.textContent = window.__bootErrors.map((e) => '[' + e.label + ']\n' + e.msg).join('\n\n');
+  }
+  window.addEventListener('error', (e) => __bootShow('runtime error', e.error || e.message));
+  window.addEventListener('unhandledrejection', (e) => __bootShow('promise rejection', e.reason));
+</script>
+</head>
+<body>
+<div id="boot">
+  <div class="boot-line">› BOOTING GROUP 935 ARCHIVE<span class="boot-cur"></span></div>
+  <div class="boot-line" style="color:#605949">awaiting babel compile + module register</div>
+</div>
+<div id="root"></div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     DATA (inline — no external fetch needed)
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+window.ZD = (function () {
+  const games = [
+    { id: 'waw', code: 'WaW', title: 'World at War', year: 2008, era: 'Origins of Origins', mapCount: 4, color: '#6a5232',
+      imgDir: 'World at War',       imgBase: 'CoDWaW.png', imgHover: ['CoDWaWZ1.png','CoDWaWZ2.png'] },
+    { id: 'bo1', code: 'BO',  title: 'Black Ops', year: 2010, era: 'The Aether Story Begins', mapCount: 7, color: '#7a3b32',
+      imgDir: 'Black Ops',          imgBase: 'CoDBO1.png', imgHover: ['CoDBO1Z.png'] },
+    { id: 'bo2', code: 'BO2', title: 'Black Ops II', year: 2012, era: 'Maxis vs. Richtofen', mapCount: 5, color: '#3f5a6b',
+      imgDir: 'Black Ops 2',        imgBase: 'CoDBO2.png', imgHover: ['CoDBO2Z.png'] },
+    { id: 'bo3', code: 'BO3', title: 'Black Ops III', year: 2015, era: 'The Final Chapter', mapCount: 9, color: '#5a3a6b',
+      imgDir: 'Black Ops 3',        imgBase: 'CoDBO3.png', imgHover: ['CoDBO3Z.png'] },
+    { id: 'bo4', code: 'BO4', title: 'Black Ops 4',  year: 2018, era: 'The Chaos Divergence', mapCount: 8, color: '#2f5a4a',
+      imgDir: 'Black Ops 4',        imgBase: 'CoDBO4.png', imgHover: ['CoDBO4Z.png'] },
+    { id: 'cw',  code: 'CW',  title: 'Cold War',     year: 2020, era: 'The Dark Aether', mapCount: 5, color: '#3a4a6b',
+      imgDir: 'Black Ops Cold War', imgBase: 'CoDCW.png',  imgHover: ['CoDCWZ.png'] },
+    { id: 'bo6', code: 'BO6', title: 'Black Ops 6',  year: 2024, era: 'Pact with the Dark', mapCount: 4, color: '#5a2f2f',
+      imgDir: 'Black Ops 6',        imgBase: 'CoDBO6.png', imgHover: ['CoDBO6Z.png'] },
+    { id: 'bo7', code: 'BO7', title: 'Black Ops 7',  year: 2025, era: 'Relics & Rift Walkers', mapCount: 4, color: '#6b4a2a',
+      imgDir: 'Black Ops 7',        imgBase: 'CoDBO7.png', imgHover: ['CoDBO7Z.png'] },
+  ];
+  const maps = [
+    { id: 'nacht',     game: 'waw', name: 'Nacht der Untoten', tagline: 'Where it all began.', location: 'Unknown bunker, 1945', difficulty: 1, eeCount: 0, relicCount: 0, summary: 'A four-room shell of a downed bomber crew’s last stand. No perks, no Pack-a-Punch, no story beats — just boarded windows and a wall buy. The map that quietly established every rule the franchise would later break.', tags: ['classic', 'survival', 'origin'] },
+    { id: 'verruckt',  game: 'waw', name: 'Verrückt', tagline: 'The asylum where the first crew were broken.', location: 'Wittenau Sanatorium, Berlin, 1945', difficulty: 2, eeCount: 0, relicCount: 0, summary: 'A test site for Element 115 experimentation on captured soldiers. Introduced perk machines and the screaming runner zombies that would haunt every later map. Hidden radios hint at the four prisoners who became Primis.', tags: ['classic', 'perks', 'lore'] },
+    { id: 'shino',     game: 'waw', name: 'Shi No Numa', tagline: 'The swamp that swallowed Division 9.', location: 'Rising Sun Facility, Imperial Japan', difficulty: 2, eeCount: 0, relicCount: 0, summary: 'A Japanese 115 research outpost overrun by Hellhounds and its own staff. First map with the full crew — Dempsey, Nikolai, Takeo, Richtofen — and the first signs that one of them is conducting the others.', tags: ['classic', 'crew-debut', 'hellhounds'] },
+    { id: 'derriese',  game: 'waw', name: 'Der Riese', tagline: 'The Giant. The teleporters. The Pack-a-Punch.', location: 'Group 935 main facility, Breslau', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Group 935’s flagship factory and the cradle of every staple weapon. The first map with a real Easter egg — Fly Trap — forcing the crew to power three teleporters that will scatter them across time.', tags: ['classic', 'teleporter', 'pack-a-punch'] },
+    { id: 'kino',      game: 'bo1', name: 'Kino der Toten', tagline: 'A theatre in the shadow of the bomb.', location: 'Abandoned cinema, East Germany, 1960s', difficulty: 2, eeCount: 1, relicCount: 0, summary: 'The new home of the rebuilt crew after Group 935’s collapse. Behind the projection booth, a teleporter pad and a film reel of corpses suggest the theatre is also a Samantha-controlled stage.', tags: ['classic', 'teleporter', 'samantha'] },
+    { id: 'ascension', game: 'bo1', name: 'Ascension', tagline: 'A monkey, a rocket, and Gersh.', location: 'Soviet cosmodrome, 1963', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Dr. Gersh is trapped in a containment device and asks the crew to free him so he can fight the Vril‑ya from inside. Introduces the PhD Flopper perk and the Gersch Device — a portable singularity grenade.', tags: ['perks', 'space-monkeys', 'wonder-grenade'] },
+    { id: 'moon',      game: 'bo1', name: 'Moon', tagline: 'The crew breaks the Earth to save it.', location: 'Griffin Station, lunar far side', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'The endgame of the Original timeline. Richtofen completes a four‑rocket ritual that swaps his soul into the Aether, leaving the rest of the crew with a fractured planet and three missile craters where home used to be.', tags: ['endgame', 'space', 'great-leap'] },
+    { id: 'origins',   game: 'bo2', name: 'Origins', tagline: 'A Generation Station’s last stand in 1918.', location: 'Excavation Site 64, Northern France', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Before the timeline was bent into Aether, four soldiers digging into a 115‑seeded battlefield are visited by Dr. Maxis and pulled into the cycle that will become the Aether Story. The four Elemental Staves are forged here.', tags: ['primis', 'elemental-staves', 'time-loop'] },
+    { id: 'shadows',   game: 'bo3', name: 'Shadows of Evil', tagline: 'A city remade for the Apothicons.', location: 'Morg City, 1940s', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Four strangers — a magician, a femme fatale, a boxer, and a cop — are pulled into a pocket dimension as a beacon for an invasion. The first map to introduce Gobblegums and the squid‑tendrilled Apothicon design language.', tags: ['noir', 'apothicons', 'gobblegums'] },
+    { id: 'eisendrache', game: 'bo3', name: 'Der Eisendrache', tagline: 'The Iron Dragon.', location: 'Austrian mountain castle, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'A medieval fortress retrofitted by Group 935 as a launch site. Primis chase a soul down via the Bows of Light, Void, Fire, and Wolf — each forged in a separate ritual across the keep.', tags: ['castle', 'bows', 'primis'] },
+    { id: 'mob',       game: 'bo3', name: 'Mob of the Dead', tagline: 'A purgatory loop on the Rock.', location: 'Alcatraz Island, 1933', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Four gangsters wake up in their own execution night and replay it endlessly until they break the cycle. The Golden Spork and the Acid Gat Kit live here, and the bridge can be built — but should it be?', tags: ['purgatory', 'acidgat', 'noir'] },
+    { id: 'revelations', game: 'bo3', name: 'Revelations', tagline: 'The House.', location: 'The Aether', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A patchwork of every prior map stitched into a single battlefield as the Shadowman makes his last play and the Summoning Key changes hands one final time. The end of the Aether Story — and the birth of the cycle.', tags: ['endgame', 'patchwork', 'cycle'] },
+    { id: 'diemaschine', game: 'cw', name: 'Die Maschine', tagline: 'The Dark Aether bleeds through.', location: 'Projekt Endstation, Morasko, 1984', difficulty: 2, eeCount: 1, relicCount: 6, summary: 'A CIA Requiem team and a Soviet Omega squad both arrive at a buried Group 935 site to find a tear in reality already wide open. First map in the Dark Aether continuity — a fresh start in the same haunted soil.', tags: ['dark-aether', 'requiem', 'reboot'] },
+    { id: 'firebase',  game: 'cw',  name: 'Firebase Z', tagline: 'A jungle base built around the wound.', location: 'Outpost 25, Vietnam, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'Omega has been mining the rift for months. Mimics walk the perimeter. Peck — a name that will matter — is interrogated, sliced, and dropped back through.', tags: ['dark-aether', 'mimics', 'peck'] },
+    { id: 'mauer',     game: 'cw',  name: 'Mauer der Toten', tagline: 'The Wall of the Dead.', location: 'East Berlin, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'A divided city, a Klaus, and a defector who has been three things at once. The cleanest map in the Dark Aether era — dense, vertical, and built around a single allied robot you have to assemble.', tags: ['dark-aether', 'klaus', 'urban'] },
+    { id: 'forsaken',  game: 'cw',  name: 'Forsaken', tagline: 'A theme park hiding an Elder.', location: 'Ural Mountains, 1984', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'Built on top of an Omega facility built on top of a rift. The closing chapter of Requiem ends with Maxis on the other side, the Forsaken sealed, and the Sentinel Artifact on a plane headed somewhere very specific.', tags: ['dark-aether', 'finale', 'elder'] },
+    { id: 'terminus',  game: 'bo6', name: 'Terminus', tagline: 'A black‑site island that should not exist.', location: 'Atlantic prison facility, 1991', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'Maya Aguinaldo is pulled into a CIA detention site to find her brother and ends up cracking open the seal on something the Sentinel Artifact has been keeping quiet for seven years.', tags: ['bo6', 'terminus', 'maya'] },
+    { id: 'liberty',   game: 'bo6', name: 'Liberty Falls', tagline: 'A small town with a very big problem.', location: 'West Virginia, 1991', difficulty: 2, eeCount: 1, relicCount: 6, summary: 'A controlled outbreak in an unimportant town becomes uncontrolled when Edward Richtofen — the new one — turns out to be running the operation he’s briefing the team about.', tags: ['bo6', 'small-town', 'richtofen'] },
+    { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', tagline: 'A French castle and four swords.', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'Templar relics, an elemental sword for each member of the team, and a knight who has been waiting a very long time to swing one. The most ritual‑heavy map of the BO6 cycle.', tags: ['bo6', 'castle', 'elemental-swords'] },
+    { id: 'tomb',      game: 'bo6', name: 'The Tomb', tagline: 'Beneath the cathedral.', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'A buried Order site. The Staff of Ice returns in modified form. The map closes the BO6 arc and opens the door for the Relics that BO7 is built around.', tags: ['bo6', 'underground', 'staff'] },
+    { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', tagline: 'A scorched city of the in‑between.', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: 'The first BO7 map drops the team inside a Dark Aether reflection of a city that never finished being built. Nine relics are hidden across the ruins, and one of them is not where the map says it is.', tags: ['bo7', 'dark-aether', 'relics'] },
+    { id: 'astro',     game: 'bo7', name: 'Astro Malorum', tagline: 'An observatory at the edge of the rift.', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: 'A relic‑first map: no full main quest yet, six relics, and a sky that quietly shows the constellation pattern needed to align them.', tags: ['bo7', 'relics', 'observatory'] },
+    { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', tagline: 'A train station that exits into itself.', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: 'Three relics, four platforms, and a clock that runs differently on each. The lightest BO7 map and the easiest to learn the relic mechanic on.', tags: ['bo7', 'relics', 'liminal'] },
+    { id: 'totenreich',game: 'bo7', name: 'Totenreich', tagline: 'A realm of the dead, mid‑construction.', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: 'Six relics and a clear sign that someone on the other side is using them as load‑bearing pieces of architecture. The most ominous BO7 map currently catalogued.', tags: ['bo7', 'relics', 'finale-hint'] },
+  ];
+  const characters = [
+    { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: 'Captured by Group 935 during the Pacific campaign and used as Test Subject Alpha. The hammer of the original crew — leads from the front, loud, and the only one of them who genuinely seems to enjoy himself.', quote: 'Right between the eyes.', hue: 16 },
+    { id: 'nikolai',   name: 'Nikolai Belinski',  role: 'Soviet Soldier · Primis',   origin: 'Soviet Union',            summary: 'A bear of a man with five dead wives and a vodka problem on top of an empire problem. Quiet sadness under the bluster — by Tag der Toten he carries the last weight of the crew.', quote: 'Now I drink to my new friends. And my old wives.', hue: 0 },
+    { id: 'takeo',     name: 'Takeo Masaki',      role: 'Imperial Officer · Primis', origin: 'Empire of Japan',         summary: 'Disowned by his Emperor and turned over to Division 9 for experiments. Carries a katana, a code, and the patience to outlast both. The only crew member who consistently asks what the right thing to do is.', quote: 'Honour requires it.', hue: 40 },
+    { id: 'richtofen', name: 'Edward Richtofen',  role: 'Group 935 · Both Crews',     origin: 'German Empire',           summary: 'Architect of most of it. Primis Richtofen spent the entire saga trying to undo what Ultimis Richtofen had done, and the two of them met exactly long enough for one to shoot the other in the head.', quote: 'Everything is going to be okay.', hue: 280 },
+    { id: 'samantha',  name: 'Samantha Maxis',    role: 'Aether Keeper',                  origin: 'Group 935 facility',      summary: 'A child trapped in an MPD, given near‑omnipotence as a side effect, and made the controller of every zombie horde for most of two timelines. In the Dark Aether continuity she is the team handler — grown, tired, and warning you.', quote: 'Get them, Fluffy.', hue: 200 },
+    { id: 'maxis',     name: 'Dr. Ludvig Maxis',  role: 'Group 935 · Voice in the Static', origin: 'Germany',           summary: 'A father who tried to save his daughter, lost his head, and spent the next several decades as a disembodied voice issuing orders over loudspeakers, radios, and broken pylons.', quote: 'My friends. We are so close.', hue: 220 },
+    { id: 'marlton',   name: 'Marlton Johnson',   role: 'Survivor · Victis Crew',     origin: 'Hanford, USA',            summary: 'An engineer who survived the Nuketown test by hiding in the wrong bunker — and survived everywhere else by being exhausting to be near. Built half the things Victis needed to keep moving, complained about every one of them. Eventually drafted by Richtofen to ring the Aether towers.', quote: 'I am a man of science. Probability is on our side.', hue: 60 },
+    { id: 'misty',     name: 'Abigail “Misty” Briarton', role: 'Survivor · Victis Crew', origin: 'Hanford, Washington', summary: 'Daughter of a Hanford farmer who turned in the first wave. Misty pulled the trigger on her own father and kept walking. The most pragmatic member of Victis, and the only one of them who didn’t lose her grip in the years after the missiles hit.', quote: 'I grew up on a farm. I know what dead looks like.', hue: 340 },
+    { id: 'russman',   name: 'Russman',           role: 'Survivor · Victis Crew',     origin: 'Broken Arrow facility',   summary: 'Former Broken Arrow employee. Carried a Maxis chip in his head for the better part of a decade before he understood what it was for. Old, slow, hard to surprise, and never quite tells the others what he already knows.', quote: 'I’ve been here before. Different building. Same problem.', hue: 100 },
+    { id: 'stuhlinger',name: 'Samuel J. Stuhlinger', role: 'Survivor · Victis Crew',  origin: 'Camden, NJ',              summary: 'A taxi driver who ate something he shouldn’t have during the early collapse — Richtofen’s signal arrived shortly after. The crew’s reluctant conduit between the dead and the living, and the only one of them with a foot on each side of the line.', quote: 'It’s not the voice that bothers me. It’s that he’s right.', hue: 280 },
+    { id: 'maya',      name: 'Maya Aguinaldo',    role: 'Operative · BO6 era',        origin: 'Philippines',             summary: 'Joined Requiem looking for her brother and stayed when she realised the people running it were lying about almost everything. The protagonist the Dark Aether arc deserved.', quote: 'I came here for him. I’ll leave when I have him.', hue: 320 },
+    { id: 'weaver',    name: 'Grigori Weaver',    role: 'Requiem Lead',                   origin: 'Eastern Bloc defector',   summary: 'Eye‑patched cold warrior running the CIA’s ghost division. Trusts no one, has reason not to, and is the only person in the entire arc who reads every classified document before signing it.', quote: 'You should’ve asked first.', hue: 100 },
+  ];
+  const wonderWeapons = [
+    { id: 'raygun',     name: 'Ray Gun',          map: 'Many',             summary: 'The original. A pistol‑sized particle thrower that has appeared on every map since Nacht in some form. Pack‑a‑Punches into the Porter’s X2.' },
+    { id: 'thundergun', name: 'Thundergun',       map: 'Kino der Toten',   summary: 'A two‑barrel concussive wave gun that empties a room in one trigger pull. The crowd‑clearer that defined a generation of late‑round play.' },
+    { id: 'wunderwaffe',name: 'Wunderwaffe DG‑2', map: 'Shi No Numa', summary: 'Group 935’s prototype lightning gun. Chains across nine targets and leaves the crew briefly more electrified than the zombies.' },
+    { id: 'staves',     name: 'Elemental Staves', map: 'Origins',          summary: 'Four staves — Ice, Fire, Lightning, Wind — built from parts scattered across the dig. Each upgrades through a separate ritual.' },
+    { id: 'bows',       name: 'Bows of the Keep', map: 'Der Eisendrache',  summary: 'Four upgraded variants of the wrath‑of‑the‑ancients bow: Wolf, Fire, Void, Storm. The most ritual‑heavy WW chain in the franchise.' },
+    { id: 'rai',        name: 'R.A.I. K‑84', map: 'Die Maschine',     summary: 'A modular Dark Aether‑era replacement for the Ray Gun — three swappable barrels for three damage types.' },
+  ];
+  const perks = [
+    { id: 'jugg', name: 'Juggernog',     tagline: 'Take four hits instead of two.',     summary: 'The single perk you buy first on every map. Doubles your effective health. Cherry‑red can, melodic jingle, and the death of anyone who skips it.' },
+    { id: 'qr',   name: 'Quick Revive',  tagline: 'Get back up faster.',                summary: 'Halves revive times in co‑op; in solo, grants three free self‑revives. The first perk you waste your starting money on in solo.' },
+    { id: 'sc',   name: 'Speed Cola',    tagline: 'Reload twice as fast.',              summary: 'The unglamorous one. You don’t notice it on round 8; you notice its absence on round 32.' },
+    { id: 'ddc',  name: 'Double Tap II', tagline: 'Fire twice. Each shot full damage.', summary: 'Two rounds per trigger pull and they both count. Turns most automatics into one of the best damage perks in the game.' },
+    { id: 'sf',   name: 'Stamin‑Up', tagline: 'Run further, faster.',              summary: 'Increases sprint speed and removes the sprint timer. The perk that lets you train.' },
+    { id: 'mule', name: 'Mule Kick',     tagline: 'Carry a third weapon.',              summary: 'A third primary slot. Buy it last. Lose it first if you go down. Buy it again.' },
+    { id: 'phd',  name: 'PhD Flopper',   tagline: 'Dive to immunity.',                  summary: 'Diving from height creates an explosion. No fall damage, no self‑damage from explosives. The perk people miss the most when it’s gone.' },
+    { id: 'tomb', name: 'Tombstone Soda',tagline: 'Drop a recoverable gravestone.',     summary: 'Down with all your loadout intact and a recoverable grave shows up next round. The reason solo runs feel survivable.' },
+  ];
+  const timeline = [
+    { year: '1294', title: 'The Vril Discovery',      body: 'Templar excavations in the Alsace region uncover an Element 115 deposit and the first relics. The Order seals the site.' },
+    { year: '1918', title: 'Generation Station 64',   body: 'A buried 115 weapon system is breached during a German offensive. Four soldiers and a Maxis are pulled into a recurring loop that will become the Origin Cycle.' },
+    { year: '1939', title: 'Group 935 Founded',       body: 'Dr. Ludvig Maxis assembles a multinational research collective under German backing. Officially: medical applications. Actually: 115 weaponisation.' },
+    { year: '1943', title: 'Division 9 Splits Off',   body: 'An Imperial Japanese cell of Group 935 establishes the Rising Sun Facility and the swamp testing grounds known later as Shi No Numa.' },
+    { year: '1945', title: 'The Giant Falls',         body: 'The crew’s teleporter test at Der Riese scatters them across time and space. Group 935 collapses behind them. Samantha enters the MPD.' },
+    { year: '1963', title: 'Ascension',               body: 'A Soviet cosmodrome inherits 115 from the Reich and tries to weaponise it. Dr. Gersh asks the crew for help. The Vril‑ya answer.' },
+    { year: '1968', title: 'The Great Leap',          body: 'Richtofen completes the Moon ritual. Three missiles strike Earth. The Original timeline ends in a planet on fire and a soul swap.' },
+    { year: '1984', title: 'Projekt Endstation',      body: 'A buried Group 935 site near Morasko tears open. Requiem and Omega arrive at the same time. The Dark Aether era begins.' },
+    { year: '1989', title: 'The Forsaken Seal',       body: 'Requiem closes the largest rift yet, at a cost — Maxis is on the other side, and the Sentinel Artifact is on the move.' },
+    { year: '1991', title: 'The New Richtofen',       body: 'A briefing in a Pentagon basement opens the BO6 cycle. Maya Aguinaldo accepts the file. The Order is already three steps ahead.' },
+  ];
+  const sampleEE = {
+    id: 'kindertot', map: 'citadelle', mapName: 'Citadelle des Morts',
+    title: 'Kinder der Toten', difficulty: 'Hard', duration: '60–90 min', party: 'Recommended 2‑4 players',
+    summary: 'Forge four elemental swords, wake the knight at the altar, and seal the rift in the courtyard before the eighth wave of Doppelganger zombies.',
+    rewards: ['Permanent perk slot', 'Calling card: Carolingian', 'Dark Aether story shard #4'],
+    steps: [
+      { n: 1, title: 'Activate Power', body: 'Restore power in the chapel basement. Three breakers, all on the north walls. The third only flips after you’ve killed a zombie within two metres of it.' },
+      { n: 2, title: 'Find the Sword Hilt', body: 'A blacksmith’s anvil in the courtyard. Drop a Sword Hilt charge near it. The hilt appears after one full round of melee‑only kills.' },
+      { n: 3, title: 'Forge the Elemental Blade', body: 'Carry the hilt through the elemental shrine matching your chosen path — Solais (light), Stachel (fire), Krause (lightning), or Ull (frost). Each shrine requires a different kill condition.' },
+      { n: 4, title: 'Awaken the Knight', body: 'Place your forged sword in the altar in the great hall. The knight rises and walks the perimeter. Follow him; he opens doors no key opens.' },
+      { n: 5, title: 'Defeat the Doppelganger', body: 'A reflection of your character spawns in the keep. Same loadout, same perks, same health. Outlast it. Do not let it down you.' },
+      { n: 6, title: 'Seal the Rift', body: 'Hold the centre of the courtyard for ninety seconds. The knight defends the four cardinal points; you defend the centre. Kill nothing inside the seal radius or it resets.' },
+    ],
+  };
+
+  // ─── augmentations ────────────────────────────────────────────────────
+  // Keeps the core arrays above clean while letting us attach richer data
+  // per game / per map. Edit the entries below to expand the site.
+
+  // Relics are a BO7-only mechanic. Zero out BO6 (was an earlier guess).
+  maps.forEach((m) => { if (m.game === 'bo6') m.relicCount = 0; });
+
+  // Songs: hidden tracks per map. { name, artist, activation, link? }
+  // Confident entries are seeded; uncertain maps have empty arrays you can fill.
+  const mapSongs = {
+    nacht:       [],
+    verruckt:    [{ name: 'Lullaby for a Dead Man', artist: 'Kevin Sherwood', activation: 'Three meteor rocks hidden around the asylum.' }],
+    shino:       [{ name: 'Beauty of Annihilation', artist: 'Elena Siegman', activation: 'Three meteor rocks in the swamp.' }],
+    derriese:    [{ name: 'The One',                artist: 'Elena Siegman', activation: 'Hold the action button on three teddy bears around the factory.' }],
+    kino:        [{ name: '115',                    artist: 'Elena Siegman', activation: 'Three meteor rocks: spawn, dressing room, theater.' }],
+    ascension:   [{ name: 'Abracadavre',            artist: 'Elena Siegman', activation: 'Three teddy bears across the cosmodrome.' }],
+    moon:        [{ name: 'Coming Home',            artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
+    origins:     [{ name: 'Archangel',              artist: 'Malukah & Elena Siegman', activation: 'Three gramophones found across the dig site.' }],
+    shadows:     [{ name: 'Snakeskin Boots',        artist: 'Kevin Sherwood', activation: 'Three rituals at the snake-head altars.' }],
+    eisendrache: [{ name: 'Dead Flowers',           artist: 'Avenged Sevenfold', activation: 'Three teddy bears around the keep.' }],
+    mob:         [
+      { name: 'Where Are We Going',  artist: 'Kevin Sherwood feat. Malukah', activation: 'Three skulls in the prison (warden’s office, cafeteria, infirmary).' },
+      { name: 'Rusty Cage (cover)',  artist: 'Brand-X (Soundgarden cover)',  activation: 'Plays at random on the Citadel record player.' },
+    ],
+    revelations: [{ name: 'Cold Hard Cash',         artist: 'Elena Siegman', activation: 'Three teddy bears in the patchwork.' }],
+    diemaschine: [{ name: 'Alone',                  artist: 'Kevin Sherwood feat. Clémentine Delauney', activation: 'Three teddy bears around Projekt Endstation.' }],
+    firebase:    [{ name: 'Lost in Time',           artist: 'Kevin Sherwood', activation: 'Three teddy bears around the firebase.' }],
+    mauer:       [{ name: 'Faded',                  artist: 'Kevin Sherwood', activation: 'Three meteor rocks on each side of the Wall.' }],
+    forsaken:    [{ name: 'Forsaken (theme)',       artist: 'Kevin Sherwood', activation: 'Three teddy bears in the amusement park.' }],
+    terminus:    [],
+    liberty:     [],
+    citadelle:   [],
+    tomb:        [],
+    ashes:       [],
+    astro:       [],
+    paradox:     [],
+    totenreich:  [],
+  };
+  Object.entries(mapSongs).forEach(([id, songs]) => {
+    const m = maps.find((x) => x.id === id);
+    if (m) m.songs = songs;
+  });
+
+  // Per-game richer metadata: long-form description + feature flags.
+  // Add per-game custom sections by adding flags here and rendering them
+  // in the <Game /> component in pack-a-punch.
+  const gameMeta = {
+    waw: {
+      description: 'Where it all started. The four-map run at the end of World at War wasn’t a story so much as a tone — a downed bomber crew’s last stand that quietly established every rule the franchise would later break. By Der Riese, Group 935 has a name, a factory, and a teleporter pad. The cycle begins here.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
+    },
+    bo1: {
+      description: 'The Aether Story proper. Kino through Moon traces the Ultimis crew across two decades of cosmodromes, secret bases, and one lunar far-side station, ending with three missiles in the air and Earth set on fire. The first map with a real soul-swap.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
+    },
+    bo2: {
+      description: 'The split. While Maxis and Richtofen fight for control of the Aether on the post-Moon Earth, four survivors — Victis — get dragged through TranZit, Die Rise, and Buried doing their bidding. Origins ends the saga by going further back than anyone planned, to four soldiers in 1918.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
+    },
+    bo3: {
+      description: 'The final chapter of the Aether Story. Primis sweeps across Shadows of Evil, Der Eisendrache, Zetsubou, Gorod Krovi, and Revelations chasing souls, bows, staves, and the Summoning Key. The cycle does not end here — it is retired.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasGobblegums: true },
+    },
+    bo4: {
+      description: 'A divergence. While Aether wraps up its old plotline on Blood of the Dead and Tag der Toten, a new Chaos crew runs IX, Voyage, and Ancient Evil across an entirely different mythology. Two stories, both in their final acts at the same time.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasElixirs: true },
+    },
+    cw: {
+      description: 'The reboot. The Dark Aether replaces the Aether. Requiem and Omega arrive at the same Group 935 ruins and find a tear in reality already wide open. A four-map arc ends with Maxis on the other side and the Sentinel Artifact on a plane headed somewhere specific.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
+    },
+    bo6: {
+      description: 'The new cycle picks up seven years after Forsaken. The Sentinel Artifact has been sitting in a vault. A new Richtofen runs the briefings. Maya Aguinaldo signs the papers, and the Order is already three moves ahead.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasAugments: true },
+    },
+    bo7: {
+      description: 'The Relics era. Aetheric fragments are scattered across every BO7 map and used as load-bearing pieces of the Dark Aether’s architecture. Three of the four current maps are relic-first (no main quest yet); the fourth is the most ominous of the cycle.',
+      features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: true, hasSongs: true, hasGobblegums: true },
+    },
+  };
+  Object.entries(gameMeta).forEach(([id, meta]) => {
+    const g = games.find((x) => x.id === id);
+    if (g) Object.assign(g, meta);
+  });
+
+  // Which characters appear in which games (best-effort canon mapping).
+  // Used by the Game detail page's "Crew of this saga" section.
+  const appearances = {
+    waw: ['dempsey','nikolai','takeo','richtofen'],
+    bo1: ['dempsey','nikolai','takeo','richtofen','samantha'],
+    bo2: ['dempsey','nikolai','takeo','richtofen','samantha','maxis','marlton','misty','russman','stuhlinger'],
+    bo3: ['dempsey','nikolai','takeo','richtofen','samantha','maxis'],
+    bo4: ['dempsey','nikolai','takeo','richtofen','samantha','maxis','bruno','diego','scarlet','shaw'],
+    cw:  ['maya','weaver','grey','carver','samantha','maxis','peck','strauss','raptor_one','ravenov','sam_ai'],
+    bo6: ['maya','weaver','grey','carver','director_richtofen','sam_ai','ravenov'],
+    bo7: ['maya','weaver','grey','carver','director_richtofen','sam_ai'],
+  };
+  games.forEach((g) => { g.crewIds = appearances[g.id] || []; });
+
+  // ─── per-game content (gobblegums / elixirs / augments) ────────────────
+  // Each game with the matching feature flag has its own array here.
+  // Item shapes are deliberately flexible — the renderer only needs `name`
+  // and uses `rarity`, `effect`, `perk`, `type` if present.
+  //
+  // FILL FROM YOUR SPREADSHEET when ready. The seeded items below are
+  // canonical examples so the section has something to show in the meantime.
+  const gameContent = {
+    bo3: {
+      gobblegums: [
+        { name: 'Stock Option',         rarity: 'common',     effect: 'Instantly refills the reserve ammo for your current weapon.' },
+        { name: 'Anywhere But Here!',   rarity: 'rare',       effect: 'Teleport to a random location on the map. Resets your training.' },
+        { name: 'Perkaholic',           rarity: 'mega',       effect: 'Grants every perk on the map at once. Lost on down.' },
+        { name: 'Alchemical Antithesis',rarity: 'mega',       effect: 'For 60 seconds, every 10 points becomes one round of weapon ammo.' },
+        { name: 'Wall Power',           rarity: 'whimsical',  effect: 'Pack-a-Punches the next wall weapon you purchase, free.' },
+      ],
+    },
+    bo4: {
+      elixirs: [
+        { name: 'Anywhere But Here',    rarity: 'common',     effect: 'Teleport to a random location on the map.' },
+        { name: 'Crawl Space',          rarity: 'rare',       effect: 'Turns every zombie nearby into a crawler for 30 seconds.' },
+        { name: 'Phoenix Up',           rarity: 'epic',       effect: 'Revives all downed allies with perks intact.' },
+        { name: 'Quacknarok',           rarity: 'legendary',  effect: 'Spawns rubber duckies that explode on contact with the dead.' },
+      ],
+    },
+    bo6: {
+      augments: [
+        { perk: 'Jugger-Nog',   type: 'Major', name: 'Reinforced Hide', effect: 'Take 10% less damage from all sources.' },
+        { perk: 'Jugger-Nog',   type: 'Minor', name: 'Steady Pulse',    effect: 'Health regen delay reduced.' },
+        { perk: 'Quick Revive', type: 'Major', name: 'Equalizer',        effect: 'Teammates revive at full health.' },
+        { perk: 'Stamin-Up',    type: 'Major', name: 'Free Runner',      effect: 'Tactical sprint no longer has a duration cap.' },
+        { perk: 'Speed Cola',   type: 'Minor', name: 'Steady Hand',      effect: 'Faster ADS time after sprinting.' },
+      ],
+    },
+    bo7: {
+      // BO7 returns the gobblegum mechanic with a new twist — fill from spreadsheet.
+      gobblegums: [],
+    },
+  };
+  Object.entries(gameContent).forEach(([id, content]) => {
+    const g = games.find((x) => x.id === id);
+    if (g) Object.assign(g, content);
+  });
+
+  // ─── characters: faction + portrait variants + side-cast roster ───────
+  // Portraits are a dict keyed by variant; each value has { dir, file, label }.
+  // `defaultPortrait` picks which key the dossier opens with.
+  const charAugments = {
+    dempsey: {
+      faction: 'primis',
+      portraits: {
+        primis:  { dir: 'Primis',  file: 'Primis_Dempsey.png',  label: 'Primis' },
+        ultimis: { dir: 'Ultimis', file: 'Ultimis_Dempsey.png', label: 'Ultimis' },
+        tempus:  { dir: 'Tempus',  file: 'Tempus_Dempsey.png',  label: 'Tempus' },
+      }, defaultPortrait: 'primis',
+    },
+    nikolai: {
+      faction: 'primis',
+      portraits: {
+        primis:  { dir: 'Primis',  file: 'Primis_Nikolai.png',  label: 'Primis' },
+        ultimis: { dir: 'Ultimis', file: 'Ultimis_Nikolai.png', label: 'Ultimis' },
+        tempus:  { dir: 'Tempus',  file: 'Tempus_Nikolai.png',  label: 'Tempus' },
+      }, defaultPortrait: 'primis',
+    },
+    takeo: {
+      faction: 'primis',
+      portraits: {
+        primis:  { dir: 'Primis',  file: 'Primis_Takeo.png',  label: 'Primis' },
+        ultimis: { dir: 'Ultimis', file: 'Ultimis_Takeo.png', label: 'Ultimis' },
+        tempus:  { dir: 'Tempus',  file: 'Tempus_Takeo.png',  label: 'Tempus' },
+      }, defaultPortrait: 'primis',
+    },
+    richtofen: {
+      faction: 'primis',
+      portraits: {
+        primis:  { dir: 'Primis',  file: 'Primis_Richtofen.png',  label: 'Primis' },
+        ultimis: { dir: 'Ultimis', file: 'Ultimis_Richtofen.png', label: 'Ultimis' },
+        tempus:  { dir: 'Tempus',  file: 'Tempus_Richtofen.png',  label: 'Tempus' },
+      }, defaultPortrait: 'primis',
+    },
+    samantha: {
+      faction: 'aether',
+      portraits: {
+        moon:    { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Moon_MPD.png',    label: 'Moon · MPD (1968)' },
+        origins: { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Origins.png',     label: 'Origins (1918)' },
+        tag:     { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_TagDerToten.png', label: 'Tag der Toten' },
+        cw:      { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_CW.png',          label: 'Cold War · Dark Aether' },
+      },
+      defaultPortrait: 'moon',
+    },
+    maxis: {
+      faction: 'aether',
+      portraits: {
+        origins:     { dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Origins.png',      label: 'Origins (1918)' },
+        revelations: { dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations.png',  label: 'Revelations' },
+        revelations2:{ dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations2.png', label: 'Revelations (alt.)' },
+      },
+      defaultPortrait: 'origins',
+    },
+    marlton:    { faction: 'victis', portraits: { default: { dir: 'Victis', file: 'Victis_Marlton.png',    label: 'Survivor' } }, defaultPortrait: 'default' },
+    misty:      { faction: 'victis', portraits: { default: { dir: 'Victis', file: 'Victis_Misty.png',      label: 'Survivor' } }, defaultPortrait: 'default' },
+    russman:    { faction: 'victis', portraits: { default: { dir: 'Victis', file: 'Victis_Russman.png',    label: 'Survivor' } }, defaultPortrait: 'default' },
+    stuhlinger: { faction: 'victis', portraits: { default: { dir: 'Victis', file: 'Victis_Stuhlinger.png', label: 'Survivor' } }, defaultPortrait: 'default' },
+    maya: {
+      faction: 'requiem',
+      portraits: {
+        default: { dir: 'Requiem',              file: 'Requiem_Maya.png',     label: 'Requiem (CW / BO6)' },
+        bo7:     { dir: 'Requiem/Requiem BO7',  file: 'Req_BO7_Maya.png',     label: 'Requiem (BO7)' },
+      }, defaultPortrait: 'default',
+    },
+    weaver: {
+      faction: 'requiem',
+      portraits: {
+        default: { dir: 'Requiem',              file: 'Requiem_Weaver.png',   label: 'Requiem (CW / BO6)' },
+        bo7:     { dir: 'Requiem/Requiem BO7',  file: 'Req_BO7_Weaver.png',   label: 'Requiem (BO7)' },
+      }, defaultPortrait: 'default',
+    },
+  };
+  Object.entries(charAugments).forEach(([id, aug]) => {
+    const c = characters.find((x) => x.id === id);
+    if (c) Object.assign(c, aug);
+  });
+
+  // New character entries — Requiem additions, Chaos crew, Order, Support.
+  characters.push(
+    // ── Requiem main (BO6/CW) ──
+    { id: 'grey',   name: 'Elizabeth Grey',   role: 'Operative · Requiem', origin: 'United Kingdom', faction: 'requiem',
+      summary: 'A Requiem field operative who came up through MI6 before crossing over. Methodical, dry, and the only member of Maya\'s squad with a service record longer than Weaver lets on.',
+      quote: 'Right. Let\'s have a proper look.', hue: 40,
+      portraits: { default: { dir: 'Requiem',             file: 'Requiem_Grey.png',  label: 'Requiem (CW / BO6)' },
+                   bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Grey.png',  label: 'Requiem (BO7)' } },
+      defaultPortrait: 'default' },
+    { id: 'carver', name: 'Mackenzie Carver', role: 'Operative · Requiem', origin: 'United States',  faction: 'requiem',
+      summary: 'A Requiem field operative drawn from Pentagon black ops. Talks less than the others, hits harder. Carver reads the room before anyone else has noticed there is one.',
+      quote: 'On point.', hue: 140,
+      portraits: { default: { dir: 'Requiem',             file: 'Requiem_Carver.png',  label: 'Requiem (CW / BO6)' },
+                   bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Carver.png',  label: 'Requiem (BO7)' } },
+      defaultPortrait: 'default' },
+
+    // ── Chaos crew (BO4) ──
+    { id: 'bruno',   name: 'Bruno Delacroix',   role: 'Magician · Chaos Crew', origin: 'France', faction: 'chaos',
+      summary: 'A French sleight-of-hand artist and reluctant occultist drawn into the Chaos cycle through a deal he didn\'t read carefully. The closest the crew has to a strategist.',
+      quote: 'The trick is knowing when the trick ends.', hue: 320,
+      portraits: { default: { dir: 'Chaos', file: 'Chaos_Bruno.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
+    { id: 'diego',   name: 'Diego Necalli',     role: 'Luchador · Chaos Crew', origin: 'Mexico', faction: 'chaos',
+      summary: 'A masked Mexican luchador whose ring persona turned out to be uncomfortably literal once the dead started showing up at his matches.',
+      quote: 'En el ring, en la vida — mismo trabajo.', hue: 20,
+      portraits: { default: { dir: 'Chaos', file: 'Chaos_Diego.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
+    { id: 'scarlet', name: 'Scarlett Rhodes',   role: 'Adventurer · Chaos Crew', origin: 'United States', faction: 'chaos',
+      summary: 'An American socialite-turned-grave-robber chasing the artefacts her father died for. The first to read the Sentinel inscription out loud.',
+      quote: 'Daddy\'s journal said it would be in a tomb. It is.', hue: 0,
+      portraits: { default: { dir: 'Chaos', file: 'Chaos_Scarlet.png', label: 'Chaos Crew' } }, defaultPortrait: 'default' },
+    { id: 'shaw',    name: 'Stanton Shaw',      role: 'Detective · Chaos Crew', origin: 'United States', faction: 'chaos',
+      summary: 'A 1940s American gumshoe who took a missing-persons case in Egypt and ended up partnered with three strangers and a mythology.',
+      quote: 'I came here to find a girl. I\'ll settle for an exit.', hue: 220,
+      portraits: { default: { dir: 'Chaos', file: 'Chaos_Shaw.png',    label: 'Chaos Crew' } }, defaultPortrait: 'default' },
+
+    // ── Aether story figures (non-playable) ──
+    { id: 'monty',     name: 'Dr. Monty',     role: 'Aether Keeper · BO3 finale', origin: 'The Aether', faction: 'aether',
+      summary: 'The voice that runs the wheel. Claims to have made the Aether, perhaps made the cycle, certainly made Primis. Speaks to the crew like an old friend; speaks about them like an exhausted parent.',
+      quote: 'I don\'t make the rules. I just made everything.', hue: 200,
+      portraits: {
+        one:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_1.png', label: 'Monty I' },
+        two:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_2.png', label: 'Monty II' },
+        three: { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_3.png', label: 'Monty III' },
+      }, defaultPortrait: 'one' },
+    { id: 'shadowman', name: 'The Shadowman', role: 'Apothicon Avatar · BO3 antagonist', origin: 'The Apothicon plane', faction: 'aether',
+      summary: 'A Keeper turned traitor, exiled to the Apothicon plane and refashioned as their mouthpiece. Spends most of his screen time pretending to be friendlier than he is.',
+      quote: 'I have been waiting a very long time for this.', hue: 280,
+      portraits: {
+        one:   { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_1.png', label: 'Shadowman I' },
+        two:   { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_2.png', label: 'Shadowman II' },
+        three: { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_3.png', label: 'Shadowman III' },
+      }, defaultPortrait: 'one' },
+
+    // ── The Order (BO6 antagonists) ──
+    { id: 'director_richtofen', name: 'Edward Richtofen', role: 'Director · The Order', origin: 'Unknown · uses the name', faction: 'order',
+      summary: 'The new Edward. Runs Requiem from a basement office in Langley and briefs Maya on the parts of the Sentinel file he wants her to read. Same surname, same accent, an entirely different problem.',
+      quote: 'Everything is going to be fine.', hue: 280,
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Director_Richtofen.png', label: 'Director', objectPosition: 'center 25%' } },
+      defaultPortrait: 'default' },
+
+    // ── Requiem support cast ──
+    { id: 'peck',       name: 'Dr. Peck',         role: 'Researcher · Requiem (presumed MIA)', origin: 'Germany', faction: 'support',
+      summary: 'A Requiem researcher whose work was on every desk in the building until the day he wasn\'t. Currently classified as missing, possibly because he is on the wrong side of a rift again.',
+      quote: 'I\'m exactly where I need to be.', hue: 60,
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Peck.png', label: 'Last on record' } }, defaultPortrait: 'default' },
+    { id: 'strauss',    name: 'Dr. Strauss',      role: 'Analyst · Requiem', origin: 'Germany', faction: 'support',
+      summary: 'A Requiem analyst — clipboards, Geiger counters, and an audible sigh whenever Maya brings back an artefact. Survived the cycle this long out of pure stubbornness.',
+      quote: 'We are not equipped for this.', hue: 200,
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Strauss.png', label: 'Requiem', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
+    { id: 'raptor_one', name: 'Raptor One',       role: 'Callsign · Extraction', origin: 'Classified', faction: 'support',
+      summary: 'Callsign for the Requiem extraction pilot. The voice on the radio when things go wrong. Never seen on a map; always there at the end of one.',
+      quote: 'Raptor One on station. Move.', hue: 80,
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Raptor_One.png', label: 'Extraction' } }, defaultPortrait: 'default' },
+    { id: 'ravenov',    name: 'Sergei Ravenov',   role: 'Operative · ex-Omega', origin: 'Soviet Union', faction: 'support',
+      summary: 'A former Omega operative who switched sides somewhere between Endstation and the Wall. Has been three things at once, on three different sides, in three different decades.',
+      quote: 'I have been everywhere you have. I just did not tell you.', hue: 0,
+      portraits: {
+        bocw: { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_BOCW.png', label: 'Cold War (1984)', objectPosition: 'center 25%' },
+        bo6:  { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_BO6.png',  label: 'BO6 (1991)',      objectPosition: 'center 25%' },
+        mwz:  { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_MWZ.png',  label: 'MWZ',             objectPosition: 'center 25%' },
+      }, defaultPortrait: 'bo6' },
+    { id: 'sam_ai',     name: 'Samantha (AI)',    role: 'Aether Construct · Requiem briefing', origin: 'Reconstructed', faction: 'aether',
+      summary: 'The Aether keeper\'s voice, retrofitted into a Requiem briefing terminal. Maya hears her on the headset. Grey thinks she\'s a recording. Weaver knows she isn\'t.',
+      quote: 'Listen carefully.', hue: 200,
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Sam_AI.png', label: 'Construct', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
+  );
+
+  // Wonder weapons → primary map(s) they originate from. Used to filter
+  // weapons onto their parent saga's page.
+  const weaponOrigin = {
+    raygun:     { mapId: 'derriese', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'] }, // universal
+    thundergun: { mapId: 'kino',     gameIds: ['bo1'] },
+    wunderwaffe:{ mapId: 'shino',    gameIds: ['waw'] },
+    staves:     { mapId: 'origins',  gameIds: ['bo2'] },
+    bows:       { mapId: 'eisendrache', gameIds: ['bo3'] },
+    rai:        { mapId: 'diemaschine', gameIds: ['cw'] },
+  };
+  wonderWeapons.forEach((w) => {
+    const o = weaponOrigin[w.id];
+    if (o) { w.mapId = o.mapId; w.gameIds = o.gameIds; }
+  });
+
+  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE };
+})();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     PRIMARY DIRECTION — PACK-A-PUNCH (Group 935 Archive)
+     ════════════════════════════════════════════════════════════════════ -->
+<script type="text/babel" data-presets="react">
+(function () {
+  const { useState, useMemo, useEffect, useCallback } = React;
+  const ZD = window.ZD;
+
+  // ─── image base ────────────────────────────────────────────────────────
+  // Path from index.html to the Images folder. Lives inside the project
+  // directory, so ready to upload to group935.net as-is.
+  const IMG_BASE = './Images';
+  function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
+  function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
+
+  const T = {
+    bg0:     '#0a0908',
+    bg1:     '#100f0d',
+    bg2:     '#16140f',
+    bg3:     '#1f1c16',
+    bgHover: '#26221a',
+    line:    '#2a2620',
+    lineHi:  '#3a3530',
+    bone:    '#e8e2d4',
+    mute:    '#9b9282',
+    faint:   '#605949',
+    e115:    '#9aff6e',
+    e115dim: '#4a7a2c',
+    e115bg:  'rgba(154, 255, 110, 0.08)',
+    blood:   '#d62828',
+    bloodH:  '#ef3a3a',
+    hazard:  '#f5c518',
+    hazardDim:'#9a7d10',
+    display: '"Oswald", "Barlow Condensed", "Inter", sans-serif',
+    sans:    '"IBM Plex Sans", "Inter", system-ui, sans-serif',
+    mono:    '"IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace',
+  };
+
+  if (typeof document !== 'undefined' && !document.getElementById('pap-styles')) {
+    const s = document.createElement('style');
+    s.id = 'pap-styles';
+    s.textContent = `
+      .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
+      .pap-link:hover { color: ${T.e115}; }
+      .pap-card { background: ${T.bg2}; border: 1px solid ${T.line}; transition: border-color .12s, transform .12s, background .12s; }
+      .pap-card:hover { border-color: ${T.e115dim}; background: ${T.bg3}; }
+      .pap-card-clickable { cursor: pointer; }
+      .pap-card-clickable:hover { transform: translateY(-1px); }
+      .pap-btn { font-family: ${T.display}; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
+      .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
+      .pap-btn-primary:hover { background: ${T.bone}; }
+      .pap-btn-ghost { background: transparent; color: ${T.bone}; border: 1px solid ${T.lineHi}; }
+      .pap-btn-ghost:hover { border-color: ${T.e115}; color: ${T.e115}; }
+      .pap-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-family: ${T.mono}; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid ${T.line}; color: ${T.mute}; background: transparent; cursor: pointer; }
+      .pap-chip:hover { color: ${T.bone}; border-color: ${T.lineHi}; }
+      .pap-chip.is-active { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
+      .pap-row { transition: background .08s; }
+      .pap-row:hover { background: ${T.bg2}; }
+      @keyframes pap-blink { 50% { opacity: 0; } }
+      .pap-stencil { font-family: ${T.display}; font-weight: 700; letter-spacing: -0.5px; line-height: 0.92; text-transform: uppercase; }
+      .pap-num { font-family: ${T.mono}; font-variant-numeric: tabular-nums; }
+      .pap-stamp { display: inline-block; padding: 4px 10px 3px; border: 2px solid currentColor; font-family: ${T.display}; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transform: rotate(-2deg); }
+    `;
+    document.head.appendChild(s);
+  }
+
+  const Slot = ({ w, h, label, tone = 'green', style, kind = 'PHOTO' }) => {
+    const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
+    return (
+      <div style={{
+        width: w, height: h, position: 'relative', overflow: 'hidden',
+        background: `radial-gradient(ellipse at 25% 30%, ${T.bg3} 0%, ${T.bg1} 65%, ${T.bg0} 100%)`,
+        border: `1px solid ${T.line}`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        ...style,
+      }}>
+        <svg width="56%" height="56%" viewBox="0 0 100 100" style={{ position: 'absolute', opacity: 0.06, color: accent }} aria-hidden>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          <path d="M50 8 L50 92 M8 50 L92 50" stroke="currentColor" strokeWidth="0.5" />
+          <path d="M22 22 L78 78 M22 78 L78 22" stroke="currentColor" strokeWidth="0.3" />
+        </svg>
+        <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.6 }}>{kind}</div>
+        <div style={{ position: 'absolute', top: 8, right: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: T.faint }}>NO IMG</div>
+        <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div className="pap-stencil" style={{ fontSize: Math.min(typeof h === 'number' ? h * 0.18 : 28, 26), color: T.bone, opacity: 0.85, maxWidth: '85%' }}>{label}</div>
+          <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.5, color: T.faint }}>G935 // ARCHIV</div>
+        </div>
+      </div>
+    );
+  };
+
+  const HazardStripe = ({ height = 14, style }) => (
+    <div style={{
+      height, width: '100%',
+      backgroundImage: `repeating-linear-gradient(45deg, ${T.hazard} 0 14px, ${T.bg0} 14px 28px)`,
+      ...style,
+    }} aria-hidden />
+  );
+
+  const Stamp = ({ children, tone = 'green', style }) => {
+    const c = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.e115;
+    return <span className="pap-stamp" style={{ color: c, ...style }}>{children}</span>;
+  };
+
+  const Mono = ({ children, color, size = 10.5, letter = 1.8, style }) => (
+    <span style={{ fontFamily: T.mono, fontSize: size, letterSpacing: letter, textTransform: 'uppercase', color: color || T.mute, ...style }}>{children}</span>
+  );
+
+  const Difficulty = ({ value = 1, style }) => (
+    <div style={{ display: 'inline-flex', gap: 3, alignItems: 'center', ...style }} aria-label={'Difficulty ' + value + ' of 5'}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} style={{ width: 12, height: 5, background: i < value ? T.e115 : T.line }} />
+      ))}
+    </div>
+  );
+
+  const BigStat = ({ value, label, tone = 'bone' }) => {
+    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.bone;
+    return (
+      <div>
+        <div className="pap-stencil pap-num" style={{ fontSize: 44, color: c }}>{String(value).padStart(2, '0')}</div>
+        <Mono color={T.faint} size={9.5} letter={2}>{label}</Mono>
+      </div>
+    );
+  };
+
+  const SectionHead = ({ kicker, title, action }) => (
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 18, marginBottom: 16, borderBottom: `1px solid ${T.line}`, paddingBottom: 10 }}>
+      <div>
+        {kicker && <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 6 }}>{kicker}</div>}
+        <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{title}</div>
+      </div>
+      {action}
+    </div>
+  );
+
+  const Crumbs = ({ parts, nav }) => (
+    <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.faint, textTransform: 'uppercase', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+      {parts.map((p, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <span style={{ color: T.faint }}>/</span>}
+          {p.to ? (
+            <button className="pap-link" onClick={() => nav(p.to)} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.mute, textTransform: 'uppercase' }}>{p.label}</button>
+          ) : (
+            <span style={{ color: T.bone }}>{p.label}</span>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+
+  function Shell({ route, nav, query, setQuery, mode, setMode, children }) {
+    const navItems = [
+      { id: 'home',       label: 'Archive' },
+      { id: 'games',      label: 'Sagas' },
+      { id: 'maps',       label: 'Maps' },
+      { id: 'characters', label: 'Crew' },
+      { id: 'weapons',    label: 'Wonders' },
+      { id: 'perks',      label: 'Perks' },
+      { id: 'songs',      label: 'Songs' },
+      { id: 'timeline',   label: 'Chronicle' },
+      { id: 'lore',       label: 'Lore' },
+    ];
+    const now = useNow();
+    return (
+      <div style={{ background: T.bg0, color: T.bone, fontFamily: T.sans, minHeight: '100%', position: 'relative' }}>
+        <div style={{ background: T.bg1, borderBottom: `1px solid ${T.line}`, position: 'sticky', top: 0, zIndex: 30 }}>
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
+            <div style={{ display: 'flex', gap: 18, alignItems: 'center', minWidth: 0, overflow: 'hidden' }}>
+              <span style={{ color: T.blood, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: 3, background: T.blood, animation: 'pap-blink 1.4s steps(2) infinite' }} />
+                Declassified
+              </span>
+              <span>{'Doc 7-G935 · Annot. Requiem · 1991'}</span>
+              <span style={{ color: T.mute, whiteSpace: 'nowrap' }}>Clearance: Agent</span>
+            </div>
+            <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+              <span>{now}</span>
+              <span>group935.net</span>
+            </div>
+          </div>
+        </div>
+        <HazardStripe height={4} />
+        <header style={{ borderBottom: `1px solid ${T.line}`, background: `linear-gradient(180deg, ${T.bg1} 0%, ${T.bg0} 100%)` }}>
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 28 }}>
+            <button onClick={() => nav({ name: 'home' })} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
+              <Monogram />
+              <div style={{ textAlign: 'left' }}>
+                <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, letterSpacing: 1.2 }}>
+                  {'Group 935 '}<span style={{ color: T.e115 }}>//</span>{' Archive'}
+                </div>
+                <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 2.5, color: T.faint, marginTop: 2 }}>
+                  {'ELEMENT 115 · OPERATIONS DATABASE · NO. ' + dossierNo()}
+                </div>
+              </div>
+            </button>
+            <nav style={{ display: 'flex', gap: 2, marginLeft: 14, flexWrap: 'wrap' }}>
+              {navItems.map((n) => {
+                const active = route.name === n.id
+                  || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
+                  || (n.id === 'characters' && route.name === 'character')
+                  || (n.id === 'games' && route.name === 'game');
+                return (
+                  <button key={n.id} onClick={() => nav({ name: n.id })}
+                    style={{
+                      background: active ? T.e115bg : 'transparent',
+                      border: 0,
+                      borderBottom: active ? `2px solid ${T.e115}` : '2px solid transparent',
+                      color: active ? T.e115 : T.mute,
+                      padding: '8px 12px',
+                      fontFamily: T.display, fontWeight: 700, fontSize: 13, letterSpacing: 2, textTransform: 'uppercase',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = T.bone; }}
+                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = T.mute; }}
+                  >{n.label}</button>
+                );
+              })}
+            </nav>
+            <div style={{ flex: 1 }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, border: `1px solid ${T.line}`, padding: '4px 10px 4px 12px', background: T.bg1, minWidth: 230 }}>
+              <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke={T.mute} strokeWidth="1.4"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l3 3"/></svg>
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') nav({ name: 'search' }); }}
+                placeholder="search the archive…"
+                style={{ background: 'transparent', border: 0, outline: 'none', color: T.bone, fontFamily: T.mono, fontSize: 11.5, width: '100%' }} />
+              <span style={{ fontFamily: T.mono, fontSize: 9, color: T.faint, border: `1px solid ${T.line}`, padding: '1px 5px' }}>/</span>
+            </div>
+            <ModeToggle mode={mode} setMode={setMode} />
+          </div>
+        </header>
+        <main style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 56px', position: 'relative', zIndex: 1 }}>
+          {children}
+        </main>
+        <footer style={{ borderTop: `1px solid ${T.line}`, marginTop: 32, background: T.bg1 }}>
+          <HazardStripe height={6} style={{ opacity: 0.85 }} />
+          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 40px', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 32 }}>
+            <div>
+              <div className="pap-stencil" style={{ fontSize: 22, color: T.bone }}>{'Group 935 '}<span style={{ color: T.e115 }}>//</span>{' Archive'}</div>
+              <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 10, maxWidth: 380 }}>
+                {'A reader’s database for every map, Easter egg, relic, and operative across the entire Treyarch Zombies canon — World at War through Black Ops 7 Totenreich.'}
+              </p>
+              <div style={{ marginTop: 14, fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.faint, textTransform: 'uppercase' }}>
+                {'group935.net · doc ' + dossierNo()}
+              </div>
+            </div>
+            <FooterCol title="Archive" links={[['Sagas','games'],['Maps','maps'],['Crew','characters']]} nav={nav} />
+            <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
+            <FooterCol title="Reading" links={[['Chronicle','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
+          </div>
+          <div style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
+            <div>Fan project. Not affiliated with Activision or Treyarch. All trademarks belong to their owners.</div>
+            <div>{'Compiled 2025 — Annot. Requiem'}</div>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
+  function FooterCol({ title, links, nav }) {
+    return (
+      <div>
+        <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 14 }}>{title}</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {links.map(([label, page]) => (
+            <button key={page} onClick={() => nav({ name: page })} className="pap-link"
+              style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, letterSpacing: 1, color: T.bone, textAlign: 'left', textTransform: 'uppercase' }}>{label}</button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Monogram() {
+    return (
+      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden>
+        <rect x="2" y="2" width="44" height="44" fill={T.bg0} stroke={T.e115} strokeWidth="2"/>
+        <text x="24" y="20" textAnchor="middle" fontFamily="Oswald, sans-serif" fontSize="11" fontWeight="700" fill={T.e115} letterSpacing="1">{'G·935'}</text>
+        <line x1="6" y1="26" x2="42" y2="26" stroke={T.line} strokeWidth="1"/>
+        <text x="24" y="38" textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize="6.5" fill={T.mute} letterSpacing="1.5">ELEMENT 115</text>
+      </svg>
+    );
+  }
+
+  function ModeToggle({ mode, setMode }) {
+    if (!setMode) return null;
+    return (
+      <div style={{ display: 'flex', border: `1px solid ${T.line}`, background: T.bg1 }}>
+        {['field','terminal'].map((m) => (
+          <button key={m} onClick={() => setMode(m)}
+            style={{
+              background: mode === m ? T.e115 : 'transparent',
+              color: mode === m ? T.bg0 : T.mute,
+              border: 0, padding: '8px 12px',
+              fontFamily: T.display, fontWeight: 700, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase',
+              cursor: 'pointer',
+            }}>{m === 'field' ? 'Field' : 'TTY'}</button>
+        ))}
+      </div>
+    );
+  }
+
+  function useNow() {
+    const [t, setT] = useState(() => fmt(new Date()));
+    useEffect(() => {
+      const id = setInterval(() => setT(fmt(new Date())), 1000);
+      return () => clearInterval(id);
+    }, []);
+    return t;
+  }
+  function fmt(d) {
+    const pad = (n) => String(n).padStart(2, '0');
+    const mon = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getMonth()];
+    return pad(d.getDate()) + ' ' + mon + ' · ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  }
+  function dossierNo() {
+    return '2025·VII·' + (new Date().toISOString().slice(2,10).replace(/-/g,'')).slice(0,4);
+  }
+
+  // ─── HOME ──────────────────────────────────────────────────────────────
+  function Home({ nav }) {
+    const featured = ZD.maps.find((m) => m.id === 'citadelle');
+    const featuredGame = ZD.games.find((g) => g.id === featured.game);
+    const totalSongs = ZD.maps.reduce((a, m) => a + ((m.songs && m.songs.length) || 0), 0);
+    const totalEE = ZD.maps.reduce((a, m) => a + (m.eeCount || 0), 0);
+    return (
+      <div>
+        <section style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 36, marginBottom: 56, alignItems: 'stretch' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 18 }}>
+              <Stamp tone="red">{'Classified — Eyes Only'}</Stamp>
+              <Mono color={T.mute}>{'Vol. VII · 2008–2025'}</Mono>
+            </div>
+            <h1 className="pap-stencil" style={{ fontSize: 112, color: T.bone, margin: 0 }}>
+              {'Element '}<span style={{ color: T.e115 }}>115</span><br />
+              <span style={{ color: T.bone }}>field manual.</span>
+            </h1>
+            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, lineHeight: 1.55, maxWidth: 560, marginTop: 22 }}>
+              {'Every Treyarch Zombies map — World at War through Black Ops 7 '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{' — catalogued with full Easter egg walkthroughs, wonder weapon notes, relic locations, perk references, and a chronological reading of the lore.'}
+            </p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 26 }}>
+              <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'maps' })}>{'Enter the Maps →'}</button>
+              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'timeline' })}>Read the Chronicle</button>
+            </div>
+            <div style={{ flex: 1 }} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
+              <BigStat value={ZD.games.length} label="Sagas" tone="green" />
+              <BigStat value={ZD.maps.length} label="Maps" tone="green" />
+              <BigStat value={totalEE} label="Main EEs" tone="yellow" />
+              <BigStat value={totalSongs} label="Songs" tone="green" />
+            </div>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', top: -8, right: -8, width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', border: `1px solid ${T.e115dim}`, pointerEvents: 'none' }} />
+            <Slot w="100%" h="100%" label={featured.name} tone="green" kind="INTEL ◐ FEATURE" style={{ minHeight: 480 }} />
+            <div style={{ position: 'absolute', bottom: 18, left: 18, right: 18, background: T.bg0, padding: 18, border: `1px solid ${T.lineHi}` }}>
+              <Mono color={T.e115}>{'★ Featured Intel · ' + featuredGame.code + ' ' + featuredGame.year}</Mono>
+              <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{featured.name}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{featured.tagline}</div>
+              <button className="pap-btn pap-btn-ghost" style={{ marginTop: 14, padding: '10px 16px', fontSize: 11.5 }} onClick={() => nav({ name: 'map', id: featured.id })}>
+                {'Open dossier →'}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section style={{ marginBottom: 56 }}>
+          <SectionHead kicker="The Eight Sagas" title="Pick a chapter" action={
+            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>{'All sagas →'}</button>
+          } />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+            {ZD.games.map((g) => <SagaTile key={g.id} game={g} nav={nav} />)}
+          </div>
+        </section>
+
+        <section style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 28, marginBottom: 56 }}>
+          <FeaturedEE nav={nav} />
+          <CrewPreview nav={nav} />
+        </section>
+
+        <section style={{ marginBottom: 24 }}>
+          <SectionHead kicker="Most recent intel" title="Latest from the Aether" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+            {ZD.maps.filter((m) => m.game === 'bo7').map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  function SagaTile({ game, nav }) {
+    const mapsIn = ZD.maps.filter((m) => m.game === game.id);
+    const [hover, setHover] = useState(false);
+    const [hoverIdx, setHoverIdx] = useState(0);
+    const onEnter = () => {
+      if (game.imgHover && game.imgHover.length > 1) {
+        setHoverIdx(Math.floor(Math.random() * game.imgHover.length));
+      }
+      setHover(true);
+    };
+    const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
+    const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    return (
+      <button onClick={() => nav({ name: 'game', id: game.id })}
+        onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
+        className="pap-card pap-card-clickable"
+        style={{ padding: 0, textAlign: 'left', color: T.bone, position: 'relative', overflow: 'hidden',
+          minHeight: 280, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+        {baseSrc && (
+          <img src={baseSrc} alt={game.title} loading="lazy" style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            opacity: hover && hoverSrc ? 0 : 1,
+            transition: 'opacity .25s ease, transform .5s ease',
+            transform: hover ? 'scale(1.05)' : 'scale(1)',
+          }} />
+        )}
+        {hoverSrc && (
+          <img src={hoverSrc} alt="" aria-hidden loading="lazy" style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+            opacity: hover ? 1 : 0,
+            transition: 'opacity .25s ease, transform .5s ease',
+            transform: hover ? 'scale(1.05)' : 'scale(1)',
+          }} />
+        )}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0) 35%, rgba(10,9,8,0.85) 78%, rgba(10,9,8,0.98) 100%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'relative', padding: 18 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <Mono color={T.e115} letter={2}>{game.code + ' · ' + game.year}</Mono>
+            <Mono color={T.faint}>{mapsIn.length + '/' + game.mapCount}</Mono>
+          </div>
+          <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 8, lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>{game.title}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 6 }}>{game.era}</div>
+        </div>
+      </button>
+    );
+  }
+
+  function FeaturedEE({ nav }) {
+    const ee = ZD.sampleEE;
+    const m = ZD.maps.find((x) => x.id === ee.map);
+    return (
+      <div className="pap-card" style={{ padding: 0, position: 'relative', overflow: 'hidden' }}>
+        <Slot w="100%" h={220} label={ee.title} kind="EASTER EGG" tone="red" />
+        <div style={{ padding: 22 }}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 12, alignItems: 'center' }}>
+            <Stamp tone="red">Main Quest</Stamp>
+            <Mono color={T.mute}>{m.name + ' · ' + ee.difficulty + ' · ' + ee.duration}</Mono>
+          </div>
+          <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{ee.title}</div>
+          <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, lineHeight: 1.55, marginTop: 10 }}>{ee.summary}</p>
+          <button className="pap-btn pap-btn-primary" style={{ marginTop: 16, padding: '11px 18px', fontSize: 12 }}
+            onClick={() => nav({ name: 'ee', id: ee.id })}>
+            {'Open walkthrough →'}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  function CrewPreview({ nav }) {
+    return (
+      <div className="pap-card" style={{ padding: 22 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <div>
+            <Mono color={T.e115} letter={2.5}>Personnel</Mono>
+            <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6 }}>The Crew</div>
+          </div>
+          <button className="pap-link" onClick={() => nav({ name: 'characters' })}
+            style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'All →'}</button>
+        </div>
+        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column' }}>
+          {ZD.characters.slice(0, 5).map((c) => (
+            <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })}
+              className="pap-row"
+              style={{
+                display: 'grid', gridTemplateColumns: '54px 1fr auto', gap: 14, alignItems: 'center',
+                padding: '10px 6px', background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`,
+                cursor: 'pointer', color: T.bone, textAlign: 'left',
+              }}>
+              <CharacterImage character={c} showKind={false} style={{ width: 54, height: 54 }} />
+              <div>
+                <div className="pap-stencil" style={{ fontSize: 17, color: T.bone, letterSpacing: 0.5 }}>{c.name}</div>
+                <Mono color={T.faint}>{c.role}</Mono>
+              </div>
+              <span style={{ color: T.e115, fontFamily: T.mono, fontSize: 14 }}>{'›'}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Games({ nav }) {
+    return (
+      <div>
+        <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Sagas'}]}
+          kicker="The Eight Sagas"
+          title="Twenty years, three timelines, one wheel."
+          sub={'From Nacht der Untoten to Totenreich — all eight Treyarch entries arranged in canon order. Each opens to its maps.'} nav={nav} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginTop: 32 }}>
+          {ZD.games.map((g) => <GameRow key={g.id} game={g} nav={nav} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function GameRow({ game, nav }) {
+    const mapsIn = ZD.maps.filter((m) => m.game === game.id);
+    const [hover, setHover] = useState(false);
+    const [hoverIdx, setHoverIdx] = useState(0);
+    const onEnter = () => {
+      if (game.imgHover && game.imgHover.length > 1) {
+        setHoverIdx(Math.floor(Math.random() * game.imgHover.length));
+      }
+      setHover(true);
+    };
+    const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
+    const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    return (
+      <button onClick={() => nav({ name: 'game', id: game.id })}
+        onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
+        className="pap-card pap-card-clickable"
+        style={{ display: 'grid', gridTemplateColumns: '200px 1fr', padding: 0, color: T.bone, textAlign: 'left' }}>
+        <div style={{ position: 'relative', width: 200, height: 220, overflow: 'hidden', borderRight: `1px solid ${T.line}` }}>
+          {baseSrc && (
+            <img src={baseSrc} alt={game.title} loading="lazy" style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+              opacity: hover && hoverSrc ? 0 : 1,
+              transition: 'opacity .25s ease, transform .5s ease',
+              transform: hover ? 'scale(1.05)' : 'scale(1)',
+            }} />
+          )}
+          {hoverSrc && (
+            <img src={hoverSrc} alt="" aria-hidden loading="lazy" style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
+              opacity: hover ? 1 : 0,
+              transition: 'opacity .25s ease, transform .5s ease',
+              transform: hover ? 'scale(1.05)' : 'scale(1)',
+            }} />
+          )}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,9,8,0) 60%, rgba(10,9,8,0.5) 100%)', pointerEvents: 'none' }} />
+        </div>
+        <div style={{ padding: 22, display: 'flex', flexDirection: 'column' }}>
+          <Mono color={T.e115} letter={2}>{game.code + ' · ' + game.year}</Mono>
+          <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 6 }}>{game.title}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 4 }}>{game.era}</div>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
+            {mapsIn.map((m) => (
+              <span key={m.id} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.2, color: T.mute, padding: '3px 8px', background: T.bg1, border: `1px solid ${T.line}`, textTransform: 'uppercase' }}>{m.name}</span>
+            ))}
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  function Game({ id, nav }) {
+    const g = ZD.games.find((x) => x.id === id);
+    if (!g) return <NotFound nav={nav} what="Saga" />;
+    const mapsIn   = ZD.maps.filter((m) => m.game === id);
+    const songsIn  = mapsIn.flatMap((m) => (m.songs || []).map((s) => ({ ...s, mapId: m.id, mapName: m.name })));
+    const wwIn     = ZD.wonderWeapons.filter((w) => (w.gameIds || []).includes(id));
+    const crewIn   = (g.crewIds || []).map((cid) => ZD.characters.find((c) => c.id === cid)).filter(Boolean);
+    const relicMapsIn = mapsIn.filter((m) => (m.relicCount || 0) > 0);
+    const totalRelics = relicMapsIn.reduce((a, m) => a + m.relicCount, 0);
+
+    return (
+      <div>
+        {/* HERO with key art background */}
+        <GameHero game={g} nav={nav} mapsIn={mapsIn} />
+
+        {/* ABOUT */}
+        {g.description && (
+          <section style={{ marginTop: 48 }}>
+            <SectionHead kicker={'About ' + g.code} title={g.era} />
+            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.75, maxWidth: 820 }}>{g.description}</p>
+          </section>
+        )}
+
+        {/* MAPS */}
+        <section style={{ marginTop: 48 }}>
+          <SectionHead kicker={mapsIn.length + ' of ' + g.mapCount + ' sites'} title="Maps in this saga" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+            {mapsIn.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
+          </div>
+        </section>
+
+        {/* SONGS */}
+        {songsIn.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <SectionHead kicker={songsIn.length + ' catalogued track' + (songsIn.length === 1 ? '' : 's')} title="Songs"
+              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'songs' })}>All songs →</button>}
+            />
+            <SongTable songs={songsIn} nav={nav} />
+          </section>
+        )}
+
+        {/* WONDER WEAPONS */}
+        {wwIn.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <SectionHead kicker="Aetheric Ordinance" title="Wonder Weapons" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
+              {wwIn.map((w, i) => (
+                <div key={w.id} className="pap-card" style={{ padding: 22, display: 'grid', gridTemplateColumns: '90px 1fr', gap: 18 }}>
+                  <Slot w={90} h={110} label={String(i+1).padStart(2,'0')} kind="WW" tone="green" />
+                  <div>
+                    <Mono color={T.e115}>{w.map}</Mono>
+                    <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4 }}>{w.name}</div>
+                    <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 8 }}>{w.summary}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* GOBBLEGUMS — feature-flagged per game */}
+        {g.features && g.features.hasGobblegums && (
+          <ContentSection
+            kicker={g.id === 'bo3' ? 'Vending mechanic · Classic era' : g.id === 'bo7' ? 'Returning mechanic · BO7 rules' : 'Gobblegums'}
+            title={'Gobblegums' + (g.id === 'bo3' ? '' : g.id === 'bo7' ? ' — Reforged' : '')}
+            items={g.gobblegums}
+            kind="gobblegum"
+            emptyHint={'Drop your ' + g.code + ' gobblegum spreadsheet rows into the gameContent block in the data IIFE — name, rarity, effect.'}
+          />
+        )}
+
+        {/* ELIXIRS — BO4 */}
+        {g.features && g.features.hasElixirs && (
+          <ContentSection
+            kicker="Vending mechanic · BO4 rules"
+            title="Elixirs"
+            items={g.elixirs}
+            kind="elixir"
+            emptyHint="Drop your BO4 elixir spreadsheet rows into the gameContent block — name, rarity, effect."
+          />
+        )}
+
+        {/* AUGMENTS — BO6 */}
+        {g.features && g.features.hasAugments && (
+          <ContentSection
+            kicker="Perk modifications · BO6 rules"
+            title="Augments"
+            items={g.augments}
+            kind="augment"
+            emptyHint="Drop your BO6 augment spreadsheet rows into the gameContent block — perk, type (Major/Minor), name, effect."
+          />
+        )}
+
+        {/* CREW */}
+        {crewIn.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <SectionHead kicker="Personnel" title="Crew of this saga"
+              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'characters' })}>All crew →</button>}
+            />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+              {crewIn.map((c) => (
+                <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                  style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
+                  <CharacterImage character={c} kind="OPERATIVE" style={{ height: 180 }} />
+                  <div style={{ padding: 14 }}>
+                    <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
+                    <Mono color={T.faint}>{c.role}</Mono>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* RELICS — gated by feature flag (BO7 only) */}
+        {g.features && g.features.hasRelics && relicMapsIn.length > 0 && (
+          <section style={{ marginTop: 48 }}>
+            <SectionHead kicker={'BO7 mechanic · ' + totalRelics + ' relics across ' + relicMapsIn.length + ' sites'} title="Relics" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+              {relicMapsIn.map((m) => (
+                <button key={m.id} onClick={() => nav({ name: 'map', id: m.id })} className="pap-card pap-card-clickable"
+                  style={{ padding: 20, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, color: T.bone, textAlign: 'left' }}>
+                  <div>
+                    <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
+                    <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{m.name}</div>
+                    <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{m.location}</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div className="pap-stencil pap-num" style={{ fontSize: 44, color: T.hazard, lineHeight: 1 }}>{String(m.relicCount).padStart(2,'0')}</div>
+                    <Mono color={T.faint}>Relics</Mono>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* CONTINUE */}
+        <section style={{ marginTop: 48 }}>
+          <SectionHead kicker="Other sagas" title="Continue exploring" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+            {ZD.games.filter((x) => x.id !== g.id).slice(0, 4).map((other) => <SagaTile key={other.id} game={other} nav={nav} />)}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  function GameHero({ game, nav, mapsIn }) {
+    const [hover, setHover] = useState(false);
+    const [hoverIdx, setHoverIdx] = useState(0);
+    const onEnter = () => {
+      if (game.imgHover && game.imgHover.length > 1) {
+        setHoverIdx(Math.floor(Math.random() * game.imgHover.length));
+      }
+      setHover(true);
+    };
+    const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
+    const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    return (
+      <div>
+        <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Sagas',to:{name:'games'}},{label:game.title}]} nav={nav} />
+        <div onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
+          style={{ marginTop: 16, position: 'relative', overflow: 'hidden', border: `1px solid ${T.line}`, minHeight: 420, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          {baseSrc && <img src={baseSrc} alt={game.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: hover && hoverSrc ? 0 : 1, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
+          {hoverSrc && <img src={hoverSrc} alt="" aria-hidden style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: hover ? 1 : 0, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.55) 55%, rgba(10,9,8,0.95) 100%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'relative', padding: 36 }}>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
+              <Stamp tone="green">{game.code}</Stamp>
+              <Mono color={T.bone}>{game.year + ' · ' + game.era}</Mono>
+            </div>
+            <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: 0, textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}>{game.title}</h1>
+            <div style={{ display: 'flex', gap: 22, marginTop: 22, paddingTop: 18, borderTop: `1px solid rgba(232,226,212,0.18)` }}>
+              <BigStat value={mapsIn.length} label="Maps" tone="green" />
+              <BigStat value={mapsIn.reduce((a, m) => a + (m.eeCount || 0), 0)} label="Main EEs" tone="yellow" />
+              <BigStat value={mapsIn.reduce((a, m) => a + ((m.songs && m.songs.length) || 0), 0)} label="Songs" tone="green" />
+              {game.features && game.features.hasRelics && (
+                <BigStat value={mapsIn.reduce((a, m) => a + (m.relicCount || 0), 0)} label="Relics" tone="red" />
+              )}
+            </div>
+          </div>
+        </div>
+        <HazardStripe height={3} style={{ marginTop: 18, opacity: 0.7 }} />
+      </div>
+    );
+  }
+
+  function SongTable({ songs, nav }) {
+    return (
+      <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
+        {songs.map((s, i) => (
+          <button key={i} onClick={() => nav({ name: 'map', id: s.mapId })}
+            className="pap-row"
+            style={{ display: 'grid', gridTemplateColumns: '52px 1.4fr 1fr 1.6fr auto', gap: 18, alignItems: 'center',
+              background: 'transparent', border: 0, borderTop: i ? `1px solid ${T.line}` : 0,
+              padding: '14px 20px', cursor: 'pointer', color: T.bone, textAlign: 'left', width: '100%' }}>
+            <Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono>
+            <div>
+              <div className="pap-stencil" style={{ fontSize: 18, color: T.bone }}>{s.name}</div>
+              <Mono color={T.faint}>{s.artist}</Mono>
+            </div>
+            <Mono color={T.mute}>{s.mapName}</Mono>
+            <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.5 }}>{s.activation}</div>
+            <Mono color={T.e115}>{'›'}</Mono>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  // ─── content cards: gobblegums / elixirs / augments ────────────────────
+  // Shared rarity palette used by gobblegums + elixirs.
+  const RARITY_COLOR = {
+    'common':     '#9b9282',
+    'rare':       '#3a8fff',
+    'ultra-rare': '#9aff6e',
+    'epic':       '#b066ff',
+    'legendary':  '#f5c518',
+    'mega':       '#d062ff',
+    'whimsical':  '#ff6eb5',
+  };
+
+  function GumBubble({ color }) {
+    return (
+      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden>
+        <circle cx="24" cy="24" r="20" fill={color} opacity="0.12" />
+        <circle cx="24" cy="24" r="20" fill="none" stroke={color} strokeWidth="2.5" />
+        <circle cx="17" cy="17" r="3.5" fill="#fff" opacity="0.35" />
+      </svg>
+    );
+  }
+  function ElixirVial({ color }) {
+    return (
+      <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden>
+        <path d="M14 4 L22 4 L22 16 L29 26 L29 40 Q29 44 25 44 L11 44 Q7 44 7 40 L7 26 L14 16 Z"
+              fill={color} fillOpacity="0.12" stroke={color} strokeWidth="2" strokeLinejoin="round" />
+        <line x1="12" y1="4" x2="24" y2="4" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M7 32 L29 32" stroke={color} strokeWidth="1" opacity="0.5" />
+      </svg>
+    );
+  }
+  function AugmentIcon({ perk, type }) {
+    const isMajor = type && type.toLowerCase() === 'major';
+    const color = isMajor ? T.e115 : T.bone;
+    return (
+      <div style={{
+        width: 48, height: 48, position: 'relative',
+        border: `2px solid ${color}`,
+        borderRadius: isMajor ? 24 : 4,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: T.display, fontWeight: 700, fontSize: 13, color,
+        background: 'rgba(154,255,110,0.04)',
+      }}>
+        {(perk || 'A').replace(/[^A-Za-z]/g, '').slice(0, 3).toUpperCase()}
+        {isMajor && <div style={{ position: 'absolute', top: -6, right: -6, width: 14, height: 14, borderRadius: 7, background: T.e115, border: `2px solid ${T.bg0}` }} />}
+      </div>
+    );
+  }
+
+  function ContentCard({ kind, item }) {
+    const color = item.rarity ? (RARITY_COLOR[item.rarity.toLowerCase()] || T.mute) : T.e115;
+    const icon = kind === 'gobblegum' ? <GumBubble color={color} />
+              : kind === 'elixir'    ? <ElixirVial color={color} />
+              : kind === 'augment'   ? <AugmentIcon perk={item.perk} type={item.type} />
+              : null;
+    return (
+      <div className="pap-card" style={{ padding: 18, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 52 }}>{icon}</div>
+        <div className="pap-stencil" style={{ fontSize: 17, color: T.bone, lineHeight: 1.15 }}>{item.name}</div>
+        {/* contextual subline */}
+        {item.rarity && (
+          <div style={{ marginTop: 6 }}>
+            <span style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 1.8, color, textTransform: 'uppercase', padding: '2px 8px', border: `1px solid ${color}`, background: 'rgba(154,255,110,0.04)' }}>{item.rarity}</span>
+          </div>
+        )}
+        {item.perk && (
+          <div style={{ marginTop: 6, display: 'flex', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
+            <Mono color={T.e115} letter={1.5}>{item.perk}</Mono>
+            {item.type && <Mono color={T.faint} letter={1.5}>{'· ' + item.type}</Mono>}
+          </div>
+        )}
+        {item.effect && (
+          <p style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.5, marginTop: 10, marginBottom: 0 }}>{item.effect}</p>
+        )}
+      </div>
+    );
+  }
+
+  function ContentSection({ kicker, title, items, kind, emptyHint, columns = 4, action }) {
+    const isEmpty = !items || items.length === 0;
+    return (
+      <section style={{ marginTop: 48 }}>
+        <SectionHead kicker={kicker} title={title} action={action} />
+        {isEmpty ? (
+          <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Stamp tone="yellow">Awaiting Sync</Stamp>
+            <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute }}>{emptyHint}</div>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(' + columns + ', 1fr)', gap: 14 }}>
+            {items.map((item, i) => <ContentCard key={(item.name || '') + i} kind={kind} item={item} />)}
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  // ─── character portraits ───────────────────────────────────────────────
+  function CharacterImage({ character, variant, style, kind = 'OPERATIVE', showKind = true }) {
+    if (!character) return null;
+    const variants = character.portraits || null;
+    const v = variants ? (variant || character.defaultPortrait) : null;
+    const p = variants ? (variants[v] || variants[character.defaultPortrait] || variants[Object.keys(variants)[0]]) : null;
+    const src = p ? charImg(p) : null;
+    if (!src) {
+      // Fallback for characters without portraits (samantha, maxis — voice/disembodied).
+      const last = character.name.split(' ').slice(-1)[0];
+      return <Slot label={last} kind={kind} tone="green" style={style} />;
+    }
+    const objectPosition = p.objectPosition || 'center top';
+    return (
+      <div style={{ position: 'relative', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, ...style }}>
+        <img src={src} alt={character.name} loading="lazy"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition }} />
+        {showKind && (
+          <div style={{ position: 'absolute', top: 6, left: 8, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.5, color: T.bone, opacity: 0.85, background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>
+        )}
+      </div>
+    );
+  }
+
+  function VariantToggle({ character, variant, setVariant }) {
+    if (!character.portraits) return null;
+    const keys = Object.keys(character.portraits);
+    if (keys.length <= 1) return null;
+    return (
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 12 }}>
+        {keys.map((k) => {
+          const active = (variant || character.defaultPortrait) === k;
+          const label = character.portraits[k].label || k;
+          return (
+            <button key={k} onClick={() => setVariant(k)} className={'pap-chip ' + (active ? 'is-active' : '')}>{label}</button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function Maps({ nav }) {
+    const [filter, setFilter] = useState('all');
+    const [sort, setSort] = useState('canon');
+    const list = useMemo(() => {
+      let l = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+      if (sort === 'difficulty') l = [...l].sort((a, b) => b.difficulty - a.difficulty);
+      if (sort === 'name')       l = [...l].sort((a, b) => a.name.localeCompare(b.name));
+      return l;
+    }, [filter, sort]);
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
+          kicker={ZD.maps.length + ' catalogued sites'}
+          title="All Maps"
+          sub="Every Treyarch Zombies map in canon order. Filter by saga, sort by canon, name, or difficulty."
+          nav={nav}
+        />
+        <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <button className={'pap-chip ' + (filter==='all'?'is-active':'')} onClick={() => setFilter('all')}>All</button>
+            {ZD.games.map((g) => (
+              <button key={g.id} className={'pap-chip ' + (filter===g.id?'is-active':'')} onClick={() => setFilter(g.id)}>{g.code}</button>
+            ))}
+          </div>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Mono color={T.faint}>sort</Mono>
+            {[['canon','Canon'],['name','Name'],['difficulty','Diff']].map(([k,l]) => (
+              <button key={k} className={'pap-chip ' + (sort===k?'is-active':'')} onClick={() => setSort(k)}>{l}</button>
+            ))}
+          </div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 24 }}>
+          {list.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function MapCard({ map, nav }) {
+    const g = ZD.games.find((x) => x.id === map.game);
+    return (
+      <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
+        style={{ padding: 0, color: T.bone, textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
+        <Slot w="100%" h={180} label={map.name} kind={g.code + ' · ' + g.year} tone="green" />
+        <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
+            <Difficulty value={map.difficulty} />
+          </div>
+          <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ width: 6, height: 6, background: T.blood }} />
+              <Mono color={T.mute}>{map.eeCount + ' EE'}</Mono>
+            </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ width: 6, height: 6, background: T.e115 }} />
+              <Mono color={T.mute}>{((map.songs && map.songs.length) || 0) + ' Songs'}</Mono>
+            </span>
+            {map.relicCount > 0 && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 6, height: 6, background: T.hazard }} />
+                <Mono color={T.mute}>{map.relicCount + ' Relics'}</Mono>
+              </span>
+            )}
+            <span style={{ flex: 1 }} />
+            <Mono color={T.e115}>{'Open ›'}</Mono>
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  function MapDetail({ id, nav }) {
+    const m = ZD.maps.find((x) => x.id === id);
+    if (!m) return <NotFound nav={nav} what="Map" />;
+    const g = ZD.games.find((x) => x.id === m.game);
+    const hasEE = m.eeCount > 0;
+    const ee = hasEE && ZD.sampleEE.map === m.id ? ZD.sampleEE : null;
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name}]}
+          kicker={g.code + ' · ' + g.year + ' · ' + g.era}
+          title={m.name}
+          sub={m.tagline}
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
+          <Slot w="100%" h={400} label={m.name} kind={'SITE · IMAGERY'} tone="green" />
+          <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
+            <Mono color={T.e115}>Intel Sheet</Mono>
+            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
+            <IntelRow label="Designation" value={m.name} />
+            <IntelRow label="Saga" value={g.title + ' · ' + g.code} />
+            <IntelRow label="Location" value={m.location} />
+            <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
+            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
+            <IntelRow label="Songs" value={(m.songs && m.songs.length) ? (m.songs.length + ' catalogued') : '—'} tone={(m.songs && m.songs.length) ? 'green' : 'mute'} />
+            {m.relicCount > 0 && <IntelRow label="Relics" value={m.relicCount + ' hidden'} tone="yellow" />}
+            <div style={{ flex: 1 }} />
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
+              {(m.tags || []).map((t) => (
+                <span key={t} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.2, color: T.e115, padding: '3px 8px', background: T.e115bg, border: `1px solid ${T.e115dim}`, textTransform: 'uppercase' }}>{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <section style={{ marginTop: 40 }}>
+          <SectionHead kicker="Site Brief" title="Operational summary" />
+          <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7, maxWidth: 780 }}>{m.summary}</p>
+        </section>
+
+        <section style={{ marginTop: 40 }}>
+          <SectionHead kicker={hasEE ? 'Primary Easter Egg' : 'No primary quest catalogued'} title="Main Quest" />
+          {hasEE && ee ? (
+            <button onClick={() => nav({ name: 'ee', id: ee.id })} className="pap-card pap-card-clickable"
+              style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
+              <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />
+              <div style={{ padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                  <Stamp tone="red">{ee.difficulty}</Stamp>
+                  <Mono color={T.mute}>{ee.duration + ' · ' + ee.party}</Mono>
+                </div>
+                <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 10 }}>{ee.title}</div>
+                <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6, maxWidth: 540 }}>{ee.summary}</div>
+              </div>
+              <div style={{ alignSelf: 'center', padding: '0 28px' }}>
+                <Mono color={T.e115} size={13} letter={2.5}>{'Begin →'}</Mono>
+              </div>
+            </button>
+          ) : hasEE ? (
+            <ComingSoon what="Full walkthrough" />
+          ) : (
+            <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
+              <Stamp tone="mute">Classic Era</Stamp>
+              <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute }}>No main quest catalogued for this site. This is a pure-survival map.</div>
+            </div>
+          )}
+        </section>
+
+        {/* SONGS section */}
+        {(m.songs && m.songs.length > 0) && (
+          <section style={{ marginTop: 40 }}>
+            <SectionHead kicker={m.songs.length + ' track' + (m.songs.length === 1 ? '' : 's')} title="Hidden Songs" />
+            <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
+              {m.songs.map((s, i) => (
+                <div key={i} style={{
+                  display: 'grid', gridTemplateColumns: '52px 1fr 1.4fr', gap: 18, alignItems: 'center',
+                  padding: '16px 22px', borderTop: i ? `1px solid ${T.line}` : 0, color: T.bone,
+                }}>
+                  <Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono>
+                  <div>
+                    <div className="pap-stencil" style={{ fontSize: 20, color: T.bone }}>{s.name}</div>
+                    <Mono color={T.faint}>{s.artist}</Mono>
+                  </div>
+                  <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55 }}>{s.activation}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* RELICS (BO7 only after restructure) */}
+        {m.relicCount > 0 && (
+          <section style={{ marginTop: 40 }}>
+            <SectionHead kicker={m.relicCount + ' relics on site'} title="Relics" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(m.relicCount, 6) + ', 1fr)', gap: 12 }}>
+              {Array.from({ length: m.relicCount }).map((_, i) => (
+                <div key={i} className="pap-card" style={{ padding: 16, textAlign: 'center', position: 'relative' }}>
+                  <Mono color={T.hazard}>{'№ ' + String(i + 1).padStart(2, '0')}</Mono>
+                  <div style={{ margin: '14px auto', width: 44, height: 44, border: `1px solid ${T.lineHi}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: T.hazard, fontFamily: T.display, fontSize: 18, fontWeight: 700 }}>R</div>
+                  <div style={{ fontFamily: T.sans, fontSize: 12, color: T.mute }}>Location TBC</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontFamily: T.mono, fontSize: 11, color: T.faint, marginTop: 12, letterSpacing: 1 }}>
+              Individual relic write-ups arriving with the next archive sync.
+            </div>
+          </section>
+        )}
+
+        <section style={{ marginTop: 40 }}>
+          <SectionHead kicker="Personnel present" title="On site" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+            {pickCharactersForMap(m).map((c) => (
+              <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
+                <CharacterImage character={c} kind="OPERATIVE" style={{ height: 170 }} />
+                <div style={{ padding: 14 }}>
+                  <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
+                  <Mono color={T.faint}>{c.role}</Mono>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section style={{ marginTop: 40 }}>
+          <SectionHead kicker="Other sites in this saga" title="Continue" action={
+            <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }}
+              onClick={() => nav({ name: 'game', id: g.id })}>{'All in ' + g.code + ' →'}</button>
+          } />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
+            {ZD.maps.filter((x) => x.game === g.id && x.id !== m.id).slice(0, 3).map((x) => (
+              <MapCard key={x.id} map={x} nav={nav} />
+            ))}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  function pickCharactersForMap(m) {
+    // Pull from the per-saga roster (`game.crewIds`, set in the data IIFE).
+    // For finer-grained per-map casting, add a `crewIds` field directly on
+    // each map object in the data — this falls back to the saga roster.
+    if (m.crewIds && m.crewIds.length) {
+      return m.crewIds.map((id) => ZD.characters.find((c) => c.id === id)).filter(Boolean);
+    }
+    const g = ZD.games.find((x) => x.id === m.game);
+    const ids = (g && g.crewIds) || [];
+    return ids.map((id) => ZD.characters.find((c) => c.id === id)).filter(Boolean).slice(0, 8);
+  }
+
+  function IntelRow({ label, value, tone }) {
+    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 12, padding: '10px 0', borderBottom: `1px solid ${T.line}` }}>
+        <Mono color={T.faint}>{label}</Mono>
+        <div style={{ fontFamily: T.sans, fontSize: 14, color: c, fontWeight: 500 }}>{value}</div>
+      </div>
+    );
+  }
+
+  function ComingSoon({ what }) {
+    return (
+      <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <Stamp tone="yellow">Awaiting Sync</Stamp>
+        <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute }}>{what + ' arriving with the next archive update.'}</div>
+      </div>
+    );
+  }
+
+  function EEPage({ id, nav }) {
+    const ee = ZD.sampleEE;
+    const m = ZD.maps.find((x) => x.id === ee.map);
+    const g = ZD.games.find((x) => x.id === m.game);
+    const [completed, setCompleted] = useState(() => new Set());
+    const [active, setActive] = useState(0);
+    const toggle = (n) => setCompleted((s) => {
+      const ns = new Set(s);
+      if (ns.has(n)) ns.delete(n); else ns.add(n);
+      return ns;
+    });
+    const advance = () => {
+      toggle(ee.steps[active].n);
+      if (active < ee.steps.length - 1) setActive(active + 1);
+    };
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name,to:{name:'map',id:m.id}},{label:ee.title}]}
+          kicker={'Main Quest · ' + m.name + ' · ' + g.code}
+          title={ee.title}
+          sub={ee.summary}
+          nav={nav}
+        />
+        <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
+          <Stamp tone="red">{ee.difficulty}</Stamp>
+          <Stamp tone="yellow">{ee.duration}</Stamp>
+          <Stamp tone="green">{ee.party}</Stamp>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
+          <div>
+            <Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + ee.steps.length}</Mono>
+            <div style={{ height: 4, background: T.line, marginTop: 10, marginBottom: 18, position: 'relative' }}>
+              <div style={{ height: '100%', background: T.e115, width: ((completed.size/ee.steps.length)*100) + '%', transition: 'width .2s' }} />
+            </div>
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', left: 16, top: 14, bottom: 14, width: 1, background: T.line }} />
+              {ee.steps.map((s, i) => {
+                const done = completed.has(s.n);
+                const isActive = i === active;
+                return (
+                  <button key={s.n} onClick={() => setActive(i)}
+                    style={{
+                      display: 'grid', gridTemplateColumns: '34px 1fr', gap: 12, alignItems: 'flex-start',
+                      width: '100%', padding: '10px 0', background: 'transparent', border: 0,
+                      cursor: 'pointer', textAlign: 'left', color: T.bone, position: 'relative',
+                    }}>
+                    <span onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
+                      width: 34, height: 34, flexShrink: 0,
+                      border: `1.5px solid ${done ? T.e115 : isActive ? T.bone : T.lineHi}`,
+                      background: done ? T.e115 : T.bg0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: T.display, fontSize: 14, fontWeight: 700,
+                      color: done ? T.bg0 : isActive ? T.bone : T.mute,
+                    }}>
+                      {done ? '✓' : String(s.n).padStart(2,'0')}
+                    </span>
+                    <div style={{ paddingTop: 6 }}>
+                      <Mono color={isActive ? T.e115 : T.faint}>{'Step ' + s.n}</Mono>
+                      <div className="pap-stencil" style={{ fontSize: 16, color: isActive ? T.bone : T.mute, marginTop: 2, textDecoration: done ? 'line-through' : 'none' }}>{s.title}</div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div>
+            <Slot w="100%" h={300} label={'Step ' + ee.steps[active].n + ' — ' + ee.steps[active].title} kind={'STEP ' + ee.steps[active].n} tone="red" />
+            <div style={{ marginTop: 22 }}>
+              <Mono color={T.e115} letter={2.5}>{'Step ' + ee.steps[active].n + ' of ' + ee.steps.length}</Mono>
+              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{ee.steps[active].title}</h2>
+              <p style={{ fontFamily: T.sans, fontSize: 16.5, color: T.bone, lineHeight: 1.7, maxWidth: 660 }}>{ee.steps[active].body}</p>
+            </div>
+            <div style={{ display: 'flex', gap: 10, marginTop: 26 }}>
+              <button className="pap-btn pap-btn-ghost" disabled={active === 0} onClick={() => setActive(active - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'← Previous'}</button>
+              <button className="pap-btn pap-btn-primary" onClick={advance}>{completed.has(ee.steps[active].n) ? 'Next step →' : 'Mark complete →'}</button>
+            </div>
+            <div style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
+              <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+                {ee.rewards.map((r) => <Stamp key={r} tone="yellow">{r}</Stamp>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function Characters({ nav }) {
+    const factions = [
+      { id: 'primis',  title: 'Aether Crew',     kicker: 'Ultimis / Primis / Tempus — the original four' },
+      { id: 'aether',  title: 'Aether Keepers',  kicker: 'Voices in the static · MPD constructs' },
+      { id: 'victis',  title: 'Victis',          kicker: 'BO2 survivors · TranZit · Die Rise · Buried' },
+      { id: 'chaos',   title: 'Chaos Crew',      kicker: 'BO4 divergence · Voyage · IX · Ancient Evil' },
+      { id: 'requiem', title: 'Requiem',         kicker: 'CW & BO6 · Dark Aether operations' },
+      { id: 'order',   title: 'The Order',       kicker: 'BO6 antagonists · The new cycle' },
+      { id: 'support', title: 'Support Cast',    kicker: 'Auxiliaries, defectors, and the voices on the radio' },
+    ];
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Crew'}]}
+          kicker={ZD.characters.length + ' personnel on file'}
+          title="The Crew"
+          sub="Every named operative across both Zombies storylines — Aether and Dark Aether — grouped by faction."
+          nav={nav}
+        />
+        {factions.map((f) => {
+          const inFaction = ZD.characters.filter((c) => c.faction === f.id);
+          if (inFaction.length === 0) return null;
+          return (
+            <section key={f.id} style={{ marginTop: 44 }}>
+              <SectionHead kicker={f.kicker} title={f.title} />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
+                {inFaction.map((c) => (
+                  <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                    style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
+                    <CharacterImage character={c} kind="OPERATIVE" style={{ height: 280 }} />
+                    <div style={{ padding: 16 }}>
+                      <Mono color={T.e115}>{c.role}</Mono>
+                      <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{c.name}</div>
+                      {c.quote && <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 6, lineHeight: 1.5 }}>{'"' + c.quote + '"'}</div>}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function CharacterDetail({ id, nav }) {
+    const c = ZD.characters.find((x) => x.id === id);
+    if (!c) return <NotFound nav={nav} what="Operative" />;
+    const [variant, setVariant] = useState(c.defaultPortrait || (c.portraits && Object.keys(c.portraits)[0]) || null);
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Crew',to:{name:'characters'}},{label:c.name}]}
+          kicker={c.role}
+          title={c.name}
+          sub={c.origin}
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: 36, marginTop: 32 }}>
+          <div>
+            <CharacterImage character={c} variant={variant} kind="DOSSIER" style={{ width: 380, height: 480 }} />
+            <VariantToggle character={c} variant={variant} setVariant={setVariant} />
+            <div style={{ marginTop: 18, padding: 16, background: T.bg1, border: `1px solid ${T.line}` }}>
+              <IntelRow label="Origin" value={c.origin} />
+              <IntelRow label="Role" value={c.role} />
+              <IntelRow label="Status" value="Active" tone="green" />
+            </div>
+          </div>
+          <div>
+            <div style={{ borderLeft: `3px solid ${T.e115}`, paddingLeft: 22, marginBottom: 28 }}>
+              <Mono color={T.e115}>On record</Mono>
+              <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 8, lineHeight: 1.1 }}>{'"' + c.quote + '"'}</div>
+            </div>
+            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7 }}>{c.summary}</p>
+            <div style={{ marginTop: 36 }}>
+              <SectionHead kicker="Cross-Reference" title="Sites visited" />
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {ZD.maps.slice(0, 8).map((m) => (
+                  <button key={m.id} onClick={() => nav({ name: 'map', id: m.id })} className="pap-chip">{m.name}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function WonderWeapons({ nav }) {
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Wonder Weapons'}]}
+          kicker="Catalogued Aetheric Ordinance"
+          title="Wonder Weapons"
+          sub="Group 935 prototypes, Soviet derivatives, and Aether-era successors. Each entry pinned to its origin site."
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
+          {ZD.wonderWeapons.map((w, i) => (
+            <div key={w.id} className="pap-card" style={{ padding: 22, display: 'grid', gridTemplateColumns: '90px 1fr', gap: 18 }}>
+              <Slot w={90} h={110} label={String(i+1).padStart(2,'0')} kind="WW" tone="green" />
+              <div>
+                <Mono color={T.e115}>{w.map}</Mono>
+                <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{w.name}</div>
+                <p style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, lineHeight: 1.55, marginTop: 8 }}>{w.summary}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Perks({ nav }) {
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Perks'}]}
+          kicker="Vending Anomalies"
+          title="Perk-a-Cola"
+          sub="The cans that keep you upright. Buy Juggernog first. Buy Mule Kick last. Never skip Quick Revive in solo."
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18, marginTop: 32 }}>
+          {ZD.perks.map((p) => (
+            <div key={p.id} className="pap-card" style={{ padding: 20 }}>
+              <div style={{ width: 56, height: 80, margin: '0 auto', background: `linear-gradient(180deg, ${T.bg3} 0%, ${T.bg0} 100%)`, border: `1px solid ${T.lineHi}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.display, fontWeight: 800, fontSize: 18, color: T.e115, letterSpacing: 1 }}>
+                {p.id.toUpperCase().slice(0, 3)}
+              </div>
+              <div className="pap-stencil" style={{ fontSize: 18, color: T.bone, marginTop: 16, textAlign: 'center' }}>{p.name}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.e115, marginTop: 6, textAlign: 'center' }}>{p.tagline}</div>
+              <p style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.55, marginTop: 12 }}>{p.summary}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Timeline({ nav }) {
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Chronicle'}]}
+          kicker="Canonical Sequence"
+          title="The Chronicle"
+          sub={'From the Templar dig of 1294 to the new Richtofen briefing of 1991 — the order of events as compiled from cross-referenced field intel.'}
+          nav={nav}
+        />
+        <div style={{ position: 'relative', marginTop: 48, paddingLeft: 40 }}>
+          <div style={{ position: 'absolute', left: 11, top: 12, bottom: 12, width: 2, background: `linear-gradient(to bottom, ${T.e115}, ${T.hazard}, ${T.blood})` }} />
+          {ZD.timeline.map((t, i) => (
+            <div key={i} style={{ position: 'relative', marginBottom: 36 }}>
+              <div style={{ position: 'absolute', left: -40, top: 6, width: 24, height: 24, background: T.bg0, border: `2px solid ${i < 7 ? T.e115 : T.blood}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.mono, fontSize: 9, color: T.bone }}>
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 24, alignItems: 'baseline' }}>
+                <div className="pap-stencil pap-num" style={{ fontSize: 36, color: i < 7 ? T.e115 : T.blood }}>{t.year}</div>
+                <div>
+                  <div className="pap-stencil" style={{ fontSize: 22, color: T.bone }}>{t.title}</div>
+                  <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.65, marginTop: 6, maxWidth: 700 }}>{t.body}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Songs({ nav }) {
+    // Build a flat list of every song across every map, grouped by saga.
+    const allSongs = ZD.maps.flatMap((m) => (m.songs || []).map((s) => ({ ...s, mapId: m.id, mapName: m.name, gameId: m.game })));
+    const byGame = ZD.games
+      .map((g) => ({ game: g, songs: allSongs.filter((s) => s.gameId === g.id) }))
+      .filter((row) => row.songs.length > 0);
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Songs'}]}
+          kicker={allSongs.length + ' catalogued track' + (allSongs.length === 1 ? '' : 's')}
+          title="Hidden Songs"
+          sub="The custom soundtrack you have to earn. Activation triggers — teddy bears, meteors, gramophones, skulls — listed per track. Maps with empty lists are awaiting transcription."
+          nav={nav}
+        />
+        <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 36 }}>
+          {byGame.map(({ game, songs }) => (
+            <section key={game.id}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: `1px solid ${T.line}`, paddingBottom: 8, marginBottom: 14 }}>
+                <div>
+                  <Mono color={T.e115}>{game.code + ' · ' + game.year}</Mono>
+                  <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{game.title}</div>
+                </div>
+                <button className="pap-link" onClick={() => nav({ name: 'game', id: game.id })}
+                  style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open saga →'}</button>
+              </div>
+              <SongTable songs={songs} nav={nav} />
+            </section>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function RelicsBO7({ nav }) {
+    // Direct route landing for #/relics — sends users to the BO7 saga page,
+    // since relics are a BO7-only concept now.
+    useEffect(() => { nav({ name: 'game', id: 'bo7' }); }, []);
+    return <div style={{ padding: 60, textAlign: 'center', color: T.mute }}>Redirecting to BO7…</div>;
+  }
+
+  function Lore({ nav }) {
+    const articles = [
+      ['origin-cycle','On the Origin Cycle','Why Maxis keeps starting over.','Reading the loop, its breakers, and the cost of breaking it.'],
+      ['sentinel','The Sentinel Artifact','A piece of the Forsaken in a CIA briefcase.','How one object connects three eras.'],
+      ['order','The Order of the Templar','Element 115 in 1294.','The dig at Alsace and the relics they buried.'],
+      ['mpd','Samantha and the MPD','How a girl became the keeper of the Aether.','And why she let her father out.'],
+      ['115','On Element 115','The cosmic metal at the centre of everything.','Properties, sources, and the people it has made dangerous.'],
+      ['groups','Group 935 vs. Division 9','Two halves of the same compromise.','Maxis in Germany, Kawasaki in the Pacific.'],
+    ];
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Lore'}]}
+          kicker="Long-form readings"
+          title="Lore"
+          sub="Annotated essays that follow a single thread across multiple maps and decades."
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
+          {articles.map(([id, title, kicker, sub]) => (
+            <button key={id} onClick={() => nav({ name: 'lore', id })} className="pap-card pap-card-clickable"
+              style={{ padding: 24, color: T.bone, textAlign: 'left' }}>
+              <Mono color={T.e115}>{kicker}</Mono>
+              <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{title}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, marginTop: 8 }}>{sub}</div>
+              <div style={{ marginTop: 16, paddingTop: 12, borderTop: `1px solid ${T.line}`, display: 'flex', justifyContent: 'space-between' }}>
+                <Mono color={T.faint}>Annot. Requiem</Mono>
+                <Mono color={T.e115}>{'Read →'}</Mono>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function LoreArticle({ id, nav }) {
+    const articles = {
+      'origin-cycle': {
+        title: 'On the Origin Cycle',
+        kicker: 'Reading the loop',
+        pull: 'No matter how many times we run this, the ending is always the same. The difference is what gets dragged into it.',
+        sections: [
+          ['The First Turn', 'The cycle begins at Generation Station 64, a German dig that breached an Element 115 deposit during the closing months of the Great War. Four soldiers — the men we will come to call Primis — are killed, brought back, and given a fragment of memory that does not belong to them. What they remember is the previous turn of the wheel: a moon shattered, a daughter trapped in a machine, a friend with a syringe. They do not have the words for any of it.'],
+          ['The Conductor', 'Dr. Maxis is the closest thing the loop has to a narrator, and even he does not control the rotation. He is only the one who keeps the lights on between turns. By Revelations he is exhausted, a voice in the static of a transmitter that should not still be on the air.'],
+          ['The Cost of Breaking It', 'By the time of Revelations, every variable that can be moved has been moved. The cycle does not end — it is retired. The new cycle, the Dark Aether era, begins on the same battlefield with none of the same actors and one new word for the same thing. That word is Forsaken, and it remembers everything.'],
+        ],
+      },
+    };
+    const a = articles[id];
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Lore',to:{name:'lore'}},{label: a ? a.title : 'Article'}]}
+          kicker={a ? a.kicker : 'Awaiting Sync'}
+          title={a ? a.title : 'Article pending'}
+          nav={nav}
+        />
+        {!a ? (
+          <div style={{ marginTop: 32 }}><ComingSoon what="Full article" /></div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 240px', gap: 48, marginTop: 36 }}>
+            <article style={{ fontFamily: T.sans, fontSize: 17.5, lineHeight: 1.75, color: T.bone, maxWidth: 720 }}>
+              <div style={{ fontFamily: T.display, fontWeight: 600, fontSize: 26, color: T.bone, borderLeft: `3px solid ${T.e115}`, paddingLeft: 22, margin: '0 0 32px' }}>
+                {'"' + a.pull + '"'}
+              </div>
+              {a.sections.map(([h, body]) => (
+                <div key={h}>
+                  <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>{h}</h3>
+                  <p style={{ margin: 0 }}>{body}</p>
+                </div>
+              ))}
+            </article>
+            <aside>
+              <div style={{ position: 'sticky', top: 70 }}>
+                <Mono color={T.e115}>On this page</Mono>
+                <div style={{ display: 'flex', flexDirection: 'column', borderLeft: `1px solid ${T.line}`, marginTop: 12 }}>
+                  {a.sections.map(([h], i) => (
+                    <div key={i} style={{ padding: '8px 14px', fontFamily: T.sans, fontSize: 13.5, color: i === 0 ? T.bone : T.mute, borderLeft: i === 0 ? `2px solid ${T.e115}` : '2px solid transparent', marginLeft: -1 }}>{h}</div>
+                  ))}
+                </div>
+              </div>
+            </aside>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  function Search({ query, nav }) {
+    const q = (query || '').toLowerCase().trim();
+    const hits = useMemo(() => {
+      if (!q) return [];
+      const out = [];
+      ZD.maps.forEach((m) => {
+        if (m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q) || (m.tags || []).some((t) => t.includes(q)))
+          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.tagline });
+      });
+      ZD.games.forEach((g) => {
+        if (g.title.toLowerCase().includes(q) || g.era.toLowerCase().includes(q))
+          out.push({ kind: 'game', id: g.id, title: g.title, sub: g.era });
+      });
+      ZD.characters.forEach((c) => {
+        if (c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q) || c.role.toLowerCase().includes(q))
+          out.push({ kind: 'character', id: c.id, title: c.name, sub: c.role });
+      });
+      ZD.wonderWeapons.forEach((w) => {
+        if (w.name.toLowerCase().includes(q) || w.summary.toLowerCase().includes(q))
+          out.push({ kind: 'weapon', id: w.id, title: w.name, sub: w.summary });
+      });
+      ZD.perks.forEach((p) => {
+        if (p.name.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q))
+          out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.tagline });
+      });
+      return out;
+    }, [q]);
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Search'}]}
+          kicker={hits.length + ' result' + (hits.length === 1 ? '' : 's')}
+          title={q ? ('"' + query + '"') : 'Search the archive'}
+          sub={q ? 'Matches across maps, sagas, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
+          nav={nav}
+        />
+        {!q && (
+          <div style={{ marginTop: 32, padding: 22, background: T.bg1, border: `1px solid ${T.line}` }}>
+            <Mono color={T.mute}>Try: kino, primis, ray gun, jugg, citadelle, dark aether</Mono>
+          </div>
+        )}
+        <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column' }}>
+          {hits.map((h, i) => {
+            const route = h.kind === 'map' ? { name: 'map', id: h.id }
+                       : h.kind === 'game' ? { name: 'game', id: h.id }
+                       : h.kind === 'character' ? { name: 'character', id: h.id }
+                       : h.kind === 'weapon' ? { name: 'weapons' }
+                       : h.kind === 'perk' ? { name: 'perks' }
+                       : { name: 'home' };
+            return (
+              <button key={i} onClick={() => nav(route)} className="pap-row"
+                style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 22, alignItems: 'center',
+                  background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`, padding: '16px 6px',
+                  cursor: 'pointer', color: T.bone, textAlign: 'left' }}>
+                <Mono color={T.e115} letter={2}>{h.kind}</Mono>
+                <div>
+                  <div className="pap-stencil" style={{ fontSize: 20, color: T.bone }}>{h.title}</div>
+                  <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, marginTop: 3 }}>{h.sub}</div>
+                </div>
+                <span style={{ color: T.e115, fontFamily: T.mono, fontSize: 14 }}>{'›'}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  function About({ nav }) {
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'About'}]}
+          kicker="Field Manual"
+          title="About the Archive"
+          sub="What this site is, what it is not, and how to read it."
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 36, marginTop: 32 }}>
+          <article style={{ fontFamily: T.sans, fontSize: 16.5, lineHeight: 1.7, color: T.bone }}>
+            <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 0, marginBottom: 12 }}>What this is</h3>
+            <p>{'group935.net is a fan-built database for the Treyarch Zombies canon — every map from '}<strong style={{ color: T.bone, fontWeight: 600 }}>Nacht der Untoten</strong>{' (2008) to '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{' (2025), with full Easter egg walkthroughs, wonder weapon notes, perk references, relic counts, character bios, and a chronological reading of the lore.'}</p>
+            <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>The two modes</h3>
+            <p><strong style={{ color: T.e115, fontWeight: 600 }}>FIELD</strong>{' is the default — the Group 935 Archive interface you’re reading now. '}<strong style={{ color: T.e115, fontWeight: 600 }}>TTY</strong>{' is a brutalist CRT terminal view of the same content, for the players who want to grep the lore instead of browsing it. Switch any time via the toggle top right, or hit the backtick (`) key.'}</p>
+            <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>What this is not</h3>
+            <p>Not affiliated with Activision, Treyarch, or any other party that owns trademarks in the Call of Duty franchise. No copy is lifted from official sources. Every writeup here is original.</p>
+          </article>
+          <aside>
+            <div style={{ padding: 22, background: T.bg1, border: `1px solid ${T.line}`, position: 'sticky', top: 70 }}>
+              <Mono color={T.e115}>Quick links</Mono>
+              <div style={{ display: 'flex', flexDirection: 'column', marginTop: 12, gap: 2 }}>
+                {[['Browse all maps','maps'],['Read the chronicle','timeline'],['Meet the crew','characters'],['Perk reference','perks'],['Wonder weapons','weapons']].map(([l, p]) => (
+                  <button key={p} onClick={() => nav({ name: p })} className="pap-link"
+                    style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, color: T.bone, textAlign: 'left', padding: '6px 0', borderBottom: `1px solid ${T.line}`, textTransform: 'uppercase' }}>{l + ' →'}</button>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
+  function NotFound({ nav, what }) {
+    return (
+      <div style={{ padding: '80px 0', textAlign: 'center' }}>
+        <Stamp tone="red">Record Not Found</Stamp>
+        <div className="pap-stencil" style={{ fontSize: 80, color: T.bone, marginTop: 22 }}>404</div>
+        <p style={{ fontFamily: T.sans, fontSize: 16, color: T.mute, marginTop: 12, maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}>
+          {'That ' + (what || 'page') + ' is not in the archive — or it’s been redacted since you last checked.'}
+        </p>
+        <button className="pap-btn pap-btn-primary" style={{ marginTop: 22 }} onClick={() => nav({ name: 'home' })}>{'Return to archive →'}</button>
+      </div>
+    );
+  }
+
+  function PageHead({ crumbs, kicker, title, sub, nav }) {
+    return (
+      <div>
+        <Crumbs parts={crumbs} nav={nav} />
+        <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
+          <div style={{ maxWidth: 900 }}>
+            {kicker && <Mono color={T.e115} size={11} letter={2.5}>{kicker}</Mono>}
+            <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: '12px 0 0' }}>{title}</h1>
+            {sub && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, marginTop: 14, lineHeight: 1.55, maxWidth: 760 }}>{sub}</p>}
+          </div>
+        </div>
+        <HazardStripe height={3} style={{ marginTop: 28, opacity: 0.7 }} />
+      </div>
+    );
+  }
+
+  function parseHash(hash) {
+    if (!hash || hash === '#' || hash === '#/') return { name: 'home' };
+    const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+    return { name: parts[0] || 'home', id: parts[1] };
+  }
+  function buildHash(r) {
+    if (!r || r.name === 'home') return '#/';
+    let h = '#/' + r.name;
+    if (r.id) h += '/' + r.id;
+    return h;
+  }
+  window.__papParseHash = parseHash;
+  window.__papBuildHash = buildHash;
+
+  function PackAPunch({ mode, setMode }) {
+    const [route, setRouteState] = useState(() => parseHash(window.location.hash));
+    const [query, setQuery] = useState('');
+    useEffect(() => {
+      const onHash = () => setRouteState(parseHash(window.location.hash));
+      window.addEventListener('hashchange', onHash);
+      return () => window.removeEventListener('hashchange', onHash);
+    }, []);
+    const nav = useCallback((r) => {
+      const h = buildHash(r);
+      if (window.location.hash !== h) window.location.hash = h;
+      else setRouteState(parseHash(h));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+    let page;
+    switch (route.name) {
+      case 'games':      page = <Games nav={nav} />; break;
+      case 'game':       page = <Game id={route.id} nav={nav} />; break;
+      case 'maps':       page = <Maps nav={nav} />; break;
+      case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
+      case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
+      case 'characters': page = <Characters nav={nav} />; break;
+      case 'character':  page = <CharacterDetail id={route.id} nav={nav} />; break;
+      case 'weapons':    page = <WonderWeapons nav={nav} />; break;
+      case 'perks':      page = <Perks nav={nav} />; break;
+      case 'timeline':   page = <Timeline nav={nav} />; break;
+      case 'songs':      page = <Songs nav={nav} />; break;
+      case 'relics':     page = <RelicsBO7 nav={nav} />; break;
+      case 'lore':       page = route.id ? <LoreArticle id={route.id} nav={nav} /> : <Lore nav={nav} />; break;
+      case 'search':     page = <Search query={query} nav={nav} />; break;
+      case 'about':      page = <About nav={nav} />; break;
+      case 'home':       page = <Home nav={nav} />; break;
+      default:           page = <NotFound nav={nav} />;
+    }
+    return (
+      <Shell route={route} nav={nav} query={query} setQuery={setQuery} mode={mode} setMode={setMode}>
+        {page}
+      </Shell>
+    );
+  }
+
+  window.PackAPunch = PackAPunch;
+})();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SECONDARY DIRECTION — TERMINAL (CRT tty view)
+     ════════════════════════════════════════════════════════════════════ -->
+<script type="text/babel" data-presets="react">
+(function () {
+  const { useState, useMemo, useEffect, useCallback } = React;
+  const ZD = window.ZD;
+  const parseHash = window.__papParseHash;
+  const buildHash = window.__papBuildHash;
+
+  const C = {
+    bg:     '#0a0a08',
+    bgSoft: '#13130f',
+    ink:    '#d8d2bc',
+    dim:    '#7a755f',
+    bright: '#fff4d2',
+    line:   '#3a382c',
+    lineHi: '#6a6650',
+    mono:   '"JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace',
+    pixel:  '"VT323", "JetBrains Mono", monospace',
+  };
+
+  if (typeof document !== 'undefined' && !document.getElementById('term-styles')) {
+    const s = document.createElement('style');
+    s.id = 'term-styles';
+    s.textContent = `
+      @keyframes term-blink { 50% { opacity: 0; } }
+      .term-link { color: ${C.ink}; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; background: transparent; border: 0; padding: 0; font: inherit; }
+      .term-link:hover { background: ${C.ink}; color: ${C.bg}; text-decoration: none; padding: 0 2px; }
+      .term-card { background: ${C.bgSoft}; border: 1px solid ${C.line}; transition: border-color .1s; }
+      .term-card:hover { border-color: ${C.bright}; }
+      .term-row { transition: background .08s; }
+      .term-row:hover { background: rgba(216, 210, 188, 0.06); }
+      .term-btn { background: transparent; color: ${C.ink}; border: 1px solid ${C.line}; font: inherit; cursor: pointer; padding: 4px 12px; }
+      .term-btn:hover { background: ${C.ink}; color: ${C.bg}; border-color: ${C.ink}; }
+      .term-btn.active { background: ${C.ink}; color: ${C.bg}; border-color: ${C.ink}; }
+    `;
+    document.head.appendChild(s);
+  }
+
+  const Cursor = () => (
+    <span style={{ display: 'inline-block', width: '0.55em', height: '1em', background: C.ink, verticalAlign: '-2px', marginLeft: 2, animation: 'term-blink 1.05s steps(2) infinite' }} />
+  );
+  const Prompt = ({ cmd, sub }) => (
+    <div style={{ margin: '0 0 12px' }}>
+      <div><span style={{ color: C.dim }}>{'$ aether:~> '}</span><span style={{ color: C.bright }}>{cmd}</span></div>
+      {sub && <div style={{ color: C.dim, marginTop: 4 }}>{sub}</div>}
+    </div>
+  );
+  const Slot = ({ w, h, label, kind = 'photo', style }) => (
+    <div style={{
+      width: w, height: h, position: 'relative', background: C.bg,
+      border: `1px solid ${C.lineHi}`, color: C.dim, fontFamily: C.mono,
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      backgroundImage: 'repeating-linear-gradient(45deg, transparent 0 7px, rgba(216,210,188,0.035) 7px 8px)',
+      ...style,
+    }}>
+      <div style={{ fontFamily: C.pixel, fontSize: 32, opacity: 0.6, letterSpacing: -1 }}>{'×××'}</div>
+      <div style={{ fontSize: 10.5, letterSpacing: 2, textTransform: 'uppercase', marginTop: 6 }}>{label}</div>
+      <div style={{ fontSize: 9.5, letterSpacing: 1.5, marginTop: 4, opacity: 0.6 }}>{'[' + kind + ' — awaiting upload]'}</div>
+      <div style={{ position: 'absolute', top: 8, left: 10, fontSize: 9, letterSpacing: 1.5, opacity: 0.7 }}>NO-SIG</div>
+      <div style={{ position: 'absolute', top: 8, right: 10, fontSize: 9, letterSpacing: 1.5, opacity: 0.7 }}>{'REC ●'}</div>
+    </div>
+  );
+  const HRule = ({ ch = '─', cols = 200, color = C.dim }) => (
+    <div style={{ color, userSelect: 'none', lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', opacity: 0.6 }}>{ch.repeat(cols)}</div>
+  );
+  const Link = ({ onClick, children, style }) => (
+    <button className="term-link" onClick={onClick} style={style}>{children}</button>
+  );
+
+  function Shell({ route, setRoute, query, setQuery, mode, setMode, children }) {
+    const nav = [
+      ['home','home'], ['games','games'], ['maps','sites'],
+      ['characters','subjects'], ['lore','memos'], ['timeline','chronology'], ['relics','relics'],
+    ];
+    return (
+      <div style={{ background: C.bg, color: C.ink, fontFamily: C.mono, minHeight: '100%', fontSize: 14, lineHeight: 1.55 }}>
+        <div style={{ borderBottom: `1px solid ${C.line}`, padding: '14px 28px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
+          <div onClick={() => setRoute({ name: 'home' })} style={{ cursor: 'pointer', display: 'flex', alignItems: 'baseline', gap: 14 }}>
+            <span style={{ fontFamily: C.pixel, fontSize: 32, color: C.bright, lineHeight: 1, letterSpacing: 1 }}>group935.tty</span>
+            <span style={{ color: C.dim, fontSize: 11 }}>{'rev 17.4 · tty04 · sess 0xAE3F'}</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, color: C.dim, fontSize: 11 }}>
+            <span>agent 03741</span><span>UMBRA</span><span style={{ color: C.ink }}>14 SEP 91  14:22 UTC</span>
+            {setMode && (
+              <div style={{ display: 'flex', border: `1px solid ${C.line}`, marginLeft: 8 }}>
+                <button onClick={() => setMode('field')} style={{ background: mode === 'field' ? C.ink : 'transparent', color: mode === 'field' ? C.bg : C.dim, border: 0, padding: '5px 10px', font: 'inherit', fontSize: 11, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: 1.5 }}>field</button>
+                <button onClick={() => setMode('terminal')} style={{ background: mode === 'terminal' ? C.ink : 'transparent', color: mode === 'terminal' ? C.bg : C.dim, border: 0, padding: '5px 10px', font: 'inherit', fontSize: 11, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: 1.5 }}>tty</button>
+              </div>
+            )}
+          </div>
+        </div>
+        <div style={{ borderBottom: `1px solid ${C.line}`, padding: '10px 28px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          <span style={{ color: C.dim, fontSize: 12, marginRight: 6 }}>menu</span>
+          {nav.map(([id, label], i) => {
+            const active = route.name === id || (id === 'maps' && route.name === 'map') || (id === 'games' && route.name === 'game') || (id === 'characters' && route.name === 'character');
+            return (
+              <button key={id} className={'term-btn' + (active ? ' active' : '')} onClick={() => setRoute({ name: id })} style={{ fontSize: 13 }}>
+                <span style={{ color: active ? C.bg : C.dim, marginRight: 6 }}>{i + 1}</span>{label}
+              </button>
+            );
+          })}
+          <div style={{ flex: 1 }} />
+          <div style={{ display: 'flex', alignItems: 'center', border: `1px solid ${C.line}`, padding: '3px 8px', gap: 6 }}>
+            <span style={{ color: C.dim, fontSize: 12 }}>find</span>
+            <input value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && setRoute({ name: 'search' })}
+              placeholder="type then enter"
+              style={{ background: 'transparent', border: 0, outline: 0, color: C.bright, font: 'inherit', fontSize: 13, width: 200 }} />
+            <Cursor />
+          </div>
+        </div>
+        <div style={{ padding: '8px 28px 4px', color: C.dim, fontSize: 12 }}>
+          <span>cwd</span>{' '}
+          <Link onClick={() => setRoute({ name: 'home' })} style={{ color: C.dim }}>/aether</Link>
+          {route.name !== 'home' && <span>{' / '}<Link onClick={() => setRoute({ name: route.name })} style={{ color: C.dim }}>{route.name}</Link></span>}
+          {route.id && <span>{' / '}<span style={{ color: C.ink }}>{route.id}</span></span>}
+        </div>
+        <main style={{ padding: '20px 28px 60px' }}>{children}</main>
+      </div>
+    );
+  }
+
+  function Row({ k, v }) {
+    return (
+      <div>
+        <span style={{ color: C.dim, display: 'inline-block', width: 130, fontSize: 12.5 }}>{k}</span>
+        <span style={{ fontSize: 13.5 }}>{v}</span>
+      </div>
+    );
+  }
+
+  function PageHead({ cmd, title, sub }) {
+    return (
+      <div style={{ marginBottom: 22 }}>
+        <Prompt cmd={cmd} />
+        <h1 style={{ fontFamily: C.pixel, fontSize: 46, color: C.bright, margin: '4px 0 4px', fontWeight: 400, letterSpacing: 0.5, lineHeight: 1 }}>{title}</h1>
+        {sub && <div style={{ color: C.dim, maxWidth: 760, fontSize: 13.5, lineHeight: 1.55 }}>{sub}</div>}
+        <HRule cols={300} />
+      </div>
+    );
+  }
+
+  function Home({ setRoute }) {
+    const featured = ZD.maps.find((m) => m.id === 'citadelle');
+    const game = ZD.games.find((g) => g.id === featured.game);
+    return (
+      <div>
+        <Prompt cmd="cat /aether/featured/citadelle.brief" />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 22, marginBottom: 36 }}>
+          <Slot w="100%" h={400} label={featured.name.toUpperCase()} kind="overhead surveillance" />
+          <div className="term-card" style={{ padding: 22 }}>
+            <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>FEATURED SITE</div>
+            <div style={{ fontFamily: C.pixel, fontSize: 36, color: C.bright, lineHeight: 1, marginTop: 6, letterSpacing: 1 }}>{featured.name}</div>
+            <div style={{ color: C.dim, marginTop: 6 }}>{featured.tagline}</div>
+            <div style={{ marginTop: 18, lineHeight: 1.8 }}>
+              <Row k="operation"   v={game.title} />
+              <Row k="location"    v={featured.location} />
+              <Row k="difficulty"  v={featured.difficulty + ' / 5'} />
+              <Row k="easter eggs" v={featured.eeCount} />
+              <Row k="relics"      v={featured.relicCount} />
+            </div>
+            <p style={{ margin: '18px 0 0', maxWidth: 360, color: C.ink, lineHeight: 1.55 }}>{featured.summary}</p>
+            <div style={{ marginTop: 22, display: 'flex', gap: 10 }}>
+              <button className="term-btn" onClick={() => setRoute({ name: 'map', id: featured.id })}
+                style={{ background: C.ink, color: C.bg, borderColor: C.ink, fontWeight: 600 }}>{'open site →'}</button>
+              <button className="term-btn" onClick={() => setRoute({ name: 'ee', id: 'kindertot' })}>begin main quest</button>
+            </div>
+          </div>
+        </div>
+
+        <Prompt cmd="ls /aether/operations --thumbs" sub={'total ' + ZD.games.length + ' volumes, sorted canonical'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 36 }}>
+          {ZD.games.map((g, i) => {
+            const n = ZD.maps.filter((m) => m.game === g.id).length;
+            return (
+              <button key={g.id} className="term-card" onClick={() => setRoute({ name: 'game', id: g.id })}
+                style={{ padding: 0, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit' }}>
+                <Slot w="100%" h={120} label={g.code} kind="cover" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
+                <div style={{ padding: 12 }}>
+                  <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'vol.' + String(i + 1).padStart(2, '0') + ' · ' + g.year}</div>
+                  <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, lineHeight: 1, marginTop: 4 }}>{g.title}</div>
+                  <div style={{ color: C.dim, fontSize: 12, marginTop: 4 }}>{g.era}</div>
+                  <div style={{ color: C.dim, fontSize: 11, marginTop: 12, display: 'flex', justifyContent: 'space-between' }}>
+                    <span>{'[' + n + ' of ' + g.mapCount + ']'}</span>
+                    <span style={{ color: C.ink }}>{'open →'}</span>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  function Games({ setRoute }) {
+    return (
+      <div>
+        <PageHead cmd="ls -l /aether/operations" title="operations" sub={'Eight catalogued volumes. ' + ZD.maps.length + ' total sites.'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
+          {ZD.games.map((g, i) => {
+            const gameMaps = ZD.maps.filter((m) => m.game === g.id);
+            return (
+              <button key={g.id} className="term-card" onClick={() => setRoute({ name: 'game', id: g.id })}
+                style={{ padding: 0, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit', display: 'grid', gridTemplateColumns: '160px 1fr' }}>
+                <Slot w={160} h={150} label={g.code} kind="cover" style={{ border: 'none', borderRight: `1px solid ${C.line}` }} />
+                <div style={{ padding: 14 }}>
+                  <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'vol.' + String(i + 1).padStart(2, '0') + ' · ' + g.year + ' · ' + gameMaps.length + '/' + g.mapCount}</div>
+                  <div style={{ fontFamily: C.pixel, fontSize: 26, color: C.bright, marginTop: 4, lineHeight: 1 }}>{g.title}</div>
+                  <div style={{ color: C.ink, fontSize: 13, marginTop: 4 }}>{g.era}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  function Game({ id, setRoute }) {
+    const g = ZD.games.find((x) => x.id === id);
+    if (!g) return null;
+    const gameMaps = ZD.maps.filter((m) => m.game === id);
+    return (
+      <div>
+        <PageHead cmd={'cd /aether/operations/' + g.id + ' && ls'} title={g.title} sub={g.era + '  ·  ' + g.year + '  ·  ' + gameMaps.length + ' of ' + g.mapCount + ' sites mounted.'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          {gameMaps.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function MapCard({ map, setRoute }) {
+    return (
+      <button className="term-card" onClick={() => setRoute({ name: 'map', id: map.id })}
+        style={{ padding: 0, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit' }}>
+        <Slot w="100%" h={150} label={map.name} kind="surveillance" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
+        <div style={{ padding: 14 }}>
+          <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'site/' + map.id}</div>
+          <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 2, lineHeight: 1 }}>{map.name}</div>
+          <div style={{ color: C.dim, fontSize: 12.5, marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 11, color: C.dim, letterSpacing: 1 }}>
+            <span>{'diff ' + map.difficulty + '/5'}</span>
+            <span>{'ee ' + map.eeCount}</span>
+            <span>{'rel ' + map.relicCount}</span>
+            <span style={{ color: C.ink }}>{'open →'}</span>
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  function Maps({ setRoute }) {
+    const [filter, setFilter] = useState('all');
+    const list = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+    return (
+      <div>
+        <PageHead cmd={'find /aether/sites' + (filter !== 'all' ? ' --vol=' + filter : '')} title="sites" sub={list.length + ' sites match.'} />
+        <div style={{ display: 'flex', gap: 6, marginBottom: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ color: C.dim, fontSize: 12, marginRight: 4 }}>--vol=</span>
+          <button className={'term-btn' + (filter === 'all' ? ' active' : '')} onClick={() => setFilter('all')} style={{ fontSize: 12, padding: '3px 10px' }}>all</button>
+          {ZD.games.map((g) => (
+            <button key={g.id} className={'term-btn' + (filter === g.id ? ' active' : '')} onClick={() => setFilter(g.id)} style={{ fontSize: 12, padding: '3px 10px' }}>{g.code.toLowerCase()}</button>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          {list.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function MapDetail({ id, setRoute }) {
+    const m = ZD.maps.find((x) => x.id === id);
+    if (!m) return null;
+    const g = ZD.games.find((x) => x.id === m.game);
+    const ee = ZD.sampleEE;
+    return (
+      <div>
+        <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.tagline} />
+        <Slot w="100%" h={360} label={m.name.toUpperCase()} kind="recon photograph" style={{ marginBottom: 18 }} />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 22, marginBottom: 32 }}>
+          <div>
+            <Prompt cmd={'cat ./brief.txt'} />
+            <p style={{ margin: 0, lineHeight: 1.65, maxWidth: 760, fontSize: 14.5 }}>{m.summary}</p>
+          </div>
+          <div className="term-card" style={{ padding: 16 }}>
+            <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>MANIFEST</div>
+            <div style={{ marginTop: 8, lineHeight: 1.9 }}>
+              <Row k="site id"        v={m.id} />
+              <Row k="operation"      v={<Link onClick={() => setRoute({ name: 'game', id: g.id })}>{g.title}</Link>} />
+              <Row k="year"           v={g.year} />
+              <Row k="location"       v={m.location} />
+              <Row k="difficulty"     v={m.difficulty + ' / 5'} />
+              <Row k="easter eggs"    v={m.eeCount} />
+              <Row k="relics"         v={m.relicCount} />
+              <Row k="classification" v="UMBRA" />
+            </div>
+          </div>
+        </div>
+        <Prompt cmd={'ls ./quests'} sub={m.eeCount ? 'one main quest catalogued.' : 'no quests on file.'} />
+        {m.eeCount && ee.map === m.id ? (
+          <button className="term-card" onClick={() => setRoute({ name: 'ee', id: ee.id })}
+            style={{ padding: 0, width: '100%', cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit', display: 'grid', gridTemplateColumns: '180px 1fr auto', marginBottom: 32 }}>
+            <Slot w={180} h={130} label="EE.01" kind="quest still" style={{ border: 'none', borderRight: `1px solid ${C.line}` }} />
+            <div style={{ padding: 16 }}>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 1.5 }}>{'main quest · ' + ee.difficulty.toLowerCase() + ' · ' + ee.duration}</div>
+              <div style={{ fontFamily: C.pixel, fontSize: 24, color: C.bright, marginTop: 4, lineHeight: 1 }}>{ee.title}</div>
+              <div style={{ color: C.ink, fontSize: 13.5, marginTop: 8, maxWidth: 560 }}>{ee.summary}</div>
+            </div>
+            <div style={{ padding: '16px 22px', display: 'flex', alignItems: 'center', borderLeft: `1px solid ${C.line}` }}>
+              <span style={{ color: C.bright, letterSpacing: 1 }}>{'run →'}</span>
+            </div>
+          </button>
+        ) : (
+          <div style={{ color: C.dim, marginBottom: 32 }}>(empty directory)</div>
+        )}
+      </div>
+    );
+  }
+
+  function EE({ setRoute }) {
+    const ee = ZD.sampleEE;
+    const m = ZD.maps.find((x) => x.id === ee.map);
+    const [completed, setCompleted] = useState(new Set());
+    const [active, setActive] = useState(0);
+    const toggle = (n) => setCompleted((s) => { const ns = new Set(s); if (ns.has(n)) ns.delete(n); else ns.add(n); return ns; });
+    const filled = Math.floor((completed.size / ee.steps.length) * 30);
+    const bar = '█'.repeat(filled) + '░'.repeat(30 - filled);
+    return (
+      <div>
+        <PageHead cmd={'run /aether/quests/' + ee.id} title={ee.title} sub="" />
+        <div style={{ color: C.dim, marginTop: -16, marginBottom: 18, fontSize: 13.5 }}>
+          {'on '}<Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>{'  ·  ' + ee.difficulty + '  ·  ' + ee.duration + '  ·  ' + ee.party}
+        </div>
+        <p style={{ margin: '0 0 22px', maxWidth: 820, lineHeight: 1.65, fontSize: 14.5 }}>{ee.summary}</p>
+        <div className="term-card" style={{ padding: 14, marginBottom: 22 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 18 }}>
+            <div>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>PROGRESS</div>
+              <div style={{ fontFamily: C.mono, marginTop: 4, color: C.ink }}>
+                {'[' + bar + '] ' + completed.size + '/' + ee.steps.length + ' · ' + Math.round((completed.size / ee.steps.length) * 100) + '%'}
+              </div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>REWARDS</div>
+              <div style={{ marginTop: 4 }}>{ee.rewards.join(' · ')}</div>
+            </div>
+          </div>
+        </div>
+        <Prompt cmd={'open step.' + String(ee.steps[active].n).padStart(2, '0')} />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22, marginBottom: 22 }}>
+          <Slot w="100%" h={280} label={'STEP ' + String(ee.steps[active].n).padStart(2, '0')} kind="reference still" />
+          <div>
+            <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>{'STEP ' + ee.steps[active].n + ' OF ' + ee.steps.length}</div>
+            <div style={{ fontFamily: C.pixel, fontSize: 30, color: C.bright, marginTop: 4, lineHeight: 1.05 }}>{ee.steps[active].title}</div>
+            <p style={{ margin: '14px 0 0', maxWidth: 560, lineHeight: 1.65, fontSize: 14.5 }}>{ee.steps[active].body}</p>
+            <div style={{ marginTop: 22, display: 'flex', gap: 8, alignItems: 'center' }}>
+              <button className="term-btn" disabled={active === 0} onClick={() => setActive((a) => a - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'< prev'}</button>
+              <button className="term-btn" onClick={() => { toggle(ee.steps[active].n); if (active < ee.steps.length - 1) setActive((a) => a + 1); }}
+                style={{ background: C.ink, color: C.bg, borderColor: C.ink, fontWeight: 600 }}>
+                {completed.has(ee.steps[active].n) ? 'undo' : '[ ] mark complete'}{' >'}
+              </button>
+              <button className="term-btn" disabled={active === ee.steps.length - 1} onClick={() => setActive((a) => a + 1)}
+                style={{ opacity: active === ee.steps.length - 1 ? 0.4 : 1 }}>{'next >'}</button>
+            </div>
+          </div>
+        </div>
+        <Prompt cmd="steps --list" />
+        <div className="term-card" style={{ padding: '4px 0' }}>
+          {ee.steps.map((s, i) => {
+            const done = completed.has(s.n);
+            const isActive = i === active;
+            return (
+              <button key={s.n} onClick={() => setActive(i)}
+                style={{ display: 'grid', gridTemplateColumns: '32px 28px 110px 1fr 80px', alignItems: 'baseline', gap: 8, padding: '7px 14px',
+                  background: isActive ? 'rgba(216,210,188,0.07)' : 'transparent',
+                  border: 0, borderTop: i ? `1px dotted ${C.line}` : 0, font: 'inherit', color: C.ink, cursor: 'pointer', width: '100%', textAlign: 'left' }}>
+                <span style={{ color: C.dim }}>{isActive ? '▸' : ' '}</span>
+                <span onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{ color: done ? C.bright : C.dim, textAlign: 'center' }}>{'[' + (done ? 'x' : ' ') + ']'}</span>
+                <span style={{ color: C.dim, fontSize: 12 }}>{'step.' + String(s.n).padStart(2, '0')}</span>
+                <span style={{ textDecoration: done ? 'line-through' : 'none', color: done ? C.dim : C.ink }}>{s.title}</span>
+                <span style={{ color: C.dim, fontSize: 11, textAlign: 'right' }}>{isActive ? 'ACTIVE' : (done ? 'done' : '')}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  function Characters({ setRoute }) {
+    return (
+      <div>
+        <PageHead cmd="ls /aether/subjects --thumbs" title="subjects" sub={ZD.characters.length + ' subjects of interest on file.'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+          {ZD.characters.map((c, i) => (
+            <button key={c.id} className="term-card" onClick={() => setRoute({ name: 'character', id: c.id })}
+              style={{ padding: 0, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit' }}>
+              <Slot w="100%" h={220} label={c.name.split(' ').pop().toUpperCase()} kind="portrait" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
+              <div style={{ padding: 12 }}>
+                <div style={{ color: C.dim, fontSize: 11, letterSpacing: 1.5 }}>{'s.' + String(i + 1).padStart(2, '0')}</div>
+                <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, lineHeight: 1, marginTop: 2 }}>{c.name}</div>
+                <div style={{ color: C.dim, fontSize: 12, marginTop: 4 }}>{c.role}</div>
+                <div style={{ color: C.ink, fontSize: 12.5, marginTop: 8 }}>{'"' + c.quote + '"'}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function CharacterDetail({ id, setRoute }) {
+    const c = ZD.characters.find((x) => x.id === id);
+    if (!c) return null;
+    return (
+      <div>
+        <PageHead cmd={'cat /aether/subjects/' + c.id + '.dossier'} title={c.name} sub={c.role} />
+        <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 26 }}>
+          <div>
+            <Slot w="100%" h={400} label={c.name.split(' ').pop().toUpperCase()} kind="portrait" />
+            <div className="term-card" style={{ padding: 16, marginTop: 14 }}>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2, marginBottom: 8 }}>FILE</div>
+              <Row k="name"   v={<span style={{ color: C.bright }}>{c.name}</span>} />
+              <Row k="role"   v={c.role} />
+              <Row k="origin" v={c.origin} />
+              <Row k="status" v="active" />
+            </div>
+          </div>
+          <div>
+            <div className="term-card" style={{ padding: 22 }}>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>RECORDED STATEMENT</div>
+              <div style={{ fontFamily: C.pixel, fontSize: 28, color: C.bright, marginTop: 8, lineHeight: 1.3 }}>{'"' + c.quote + '"'}</div>
+            </div>
+            <Prompt cmd="cat ./biography.txt" />
+            <p style={{ margin: '0 0 22px', maxWidth: 760, lineHeight: 1.7, fontSize: 14.5 }}>{c.summary}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function Lore() {
+    return (
+      <div>
+        <PageHead cmd="less /aether/memos/origin-cycle.txt" title="on the origin cycle" sub={'14 sept 1991  ·  D/SIX  ·  classified UMBRA'} />
+        <div className="term-card" style={{ padding: 0, maxWidth: 880 }}>
+          <div style={{ background: C.ink, color: C.bg, padding: '8px 18px', fontSize: 12, letterSpacing: 2, display: 'flex', justifyContent: 'space-between' }}>
+            <span>{'MEMORANDUM · D/SIX'}</span><span>14 SEP 91</span><span>EYES ONLY</span>
+          </div>
+          <div style={{ padding: '24px 32px' }}>
+            <article style={{ lineHeight: 1.75, fontSize: 14.5, maxWidth: 700 }}>
+              <p style={{ color: C.bright, margin: 0 }}>{'"no matter how many times we run this, the ending is always the same. the difference is what gets dragged into it."'}</p>
+              <p>{'The Aether Story is not a sequence; it is a wheel. '}<span style={{ color: C.bright }}>Dr. Maxis</span>{' is the closest thing the loop has to a narrator, and even he does not control the rotation. He is only the one who keeps the lights on between turns.'}</p>
+              <div style={{ color: C.dim, fontSize: 12, letterSpacing: 1.5, marginTop: 22, marginBottom: 8 }}>## THE FIRST TURN</div>
+              <p style={{ margin: 0 }}>{'The cycle begins at '}<span style={{ color: C.bright }}>Generation Station 64</span>{', a German dig that breached an Element 115 deposit during the closing months of the Great War. Four soldiers — the men we will come to call '}<span style={{ color: C.bright }}>Primis</span>{' — are killed, brought back, and given a fragment of memory that does not belong to them.'}</p>
+              <div style={{ color: C.dim, fontSize: 12, letterSpacing: 1.5, marginTop: 22, marginBottom: 8 }}>## THE COST OF BREAKING IT</div>
+              <p style={{ margin: 0 }}>{'By the time of Revelations, every variable that can be moved has been moved. The cycle does not end — it is '}<span style={{ color: C.bright }}>retired</span>{'. The new cycle, the Dark Aether era, begins on the same battlefield with none of the same actors and one new word for the same thing. That word is '}<span style={{ color: C.bright }}>Forsaken</span>{', and it remembers everything.'}</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function Timeline() {
+    return (
+      <div>
+        <PageHead cmd="cat /aether/chrono/incidents.log" title="chronology" sub="Strict chronological order. Oldest first." />
+        <div className="term-card" style={{ padding: 0 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '90px 110px 270px 1fr', padding: '10px 18px', borderBottom: `1px solid ${C.line}`, color: C.dim, fontSize: 11, letterSpacing: 2 }}>
+            <span>YEAR</span><span>CODE</span><span>INCIDENT</span><span>REPORT</span>
+          </div>
+          {ZD.timeline.map((t, i) => (
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: '90px 110px 270px 1fr', padding: '14px 18px', borderTop: i ? `1px dotted ${C.line}` : 0, alignItems: 'baseline' }}>
+              <span style={{ color: C.bright, fontFamily: C.pixel, fontSize: 22, lineHeight: 1 }}>{t.year}</span>
+              <span style={{ color: C.dim, fontSize: 12 }}>{'inc-' + String(i + 1).padStart(3, '0')}</span>
+              <span style={{ color: C.ink, fontWeight: 500 }}>{t.title}</span>
+              <span style={{ color: C.dim, lineHeight: 1.55, fontSize: 13.5 }}>{t.body}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Relics({ setRoute }) {
+    const relicMaps = ZD.maps.filter((m) => m.relicCount > 0);
+    return (
+      <div>
+        <PageHead cmd="grep -r class:RELIC /aether/sites/" title="relics" sub={relicMaps.length + ' sites carry relics.'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {relicMaps.map((m) => (
+            <button key={m.id} className="term-card" onClick={() => setRoute({ name: 'map', id: m.id })}
+              style={{ padding: 14, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit' }}>
+              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 1.5 }}>{'site/' + m.id}</div>
+              <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 4, lineHeight: 1 }}>{m.name}</div>
+              <div style={{ color: C.ink, fontSize: 13, marginTop: 8 }}>{m.relicCount + ' relics on site'}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Search({ query, setRoute }) {
+    const q = (query || '').toLowerCase();
+    const hits = useMemo(() => {
+      const out = [];
+      if (!q) return out;
+      ZD.maps.forEach((m) => {
+        if (m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
+          out.push({ kind: 'site', title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+      });
+      ZD.characters.forEach((c) => {
+        if (c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))
+          out.push({ kind: 'subject', title: c.name, sub: c.role, route: { name: 'character', id: c.id } });
+      });
+      return out.slice(0, 14);
+    }, [q]);
+    return (
+      <div>
+        <PageHead cmd={'grep -ri "' + (query || '') + '" /aether'} title={'find: ' + (query || '—')} sub={hits.length + ' result' + (hits.length === 1 ? '' : 's') + '.'} />
+        <div className="term-card" style={{ padding: 0 }}>
+          {hits.length === 0 && <div style={{ padding: 16, color: C.dim }}>(no matches)</div>}
+          {hits.map((h, i) => (
+            <button key={i} onClick={() => setRoute(h.route)} className="term-row"
+              style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 14, padding: '12px 18px', alignItems: 'baseline',
+                background: 'transparent', border: 0, borderTop: i ? `1px dotted ${C.line}` : 0, font: 'inherit', color: C.ink, textAlign: 'left', cursor: 'pointer', width: '100%' }}>
+              <span style={{ color: C.dim, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase' }}>{h.kind}</span>
+              <div>
+                <div style={{ fontFamily: C.pixel, fontSize: 18, color: C.bright, lineHeight: 1 }}>{h.title}</div>
+                <div style={{ color: C.dim, marginTop: 4, fontSize: 12.5 }}>{h.sub}</div>
+              </div>
+              <span style={{ color: C.dim, fontSize: 12 }}>{'open →'}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function Terminal({ mode, setMode }) {
+    const [route, setRouteRaw] = useState(() => parseHash(window.location.hash));
+    const [query, setQuery] = useState('');
+    useEffect(() => {
+      const onHash = () => setRouteRaw(parseHash(window.location.hash));
+      window.addEventListener('hashchange', onHash);
+      return () => window.removeEventListener('hashchange', onHash);
+    }, []);
+    const setRoute = useCallback((r) => {
+      const h = buildHash(r);
+      if (window.location.hash !== h) window.location.hash = h;
+      else setRouteRaw(parseHash(h));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+    let page;
+    switch (route.name) {
+      case 'games':      page = <Games setRoute={setRoute} />; break;
+      case 'game':       page = <Game id={route.id} setRoute={setRoute} />; break;
+      case 'maps':       page = <Maps setRoute={setRoute} />; break;
+      case 'map':        page = <MapDetail id={route.id} setRoute={setRoute} />; break;
+      case 'ee':         page = <EE setRoute={setRoute} />; break;
+      case 'characters': page = <Characters setRoute={setRoute} />; break;
+      case 'character':  page = <CharacterDetail id={route.id} setRoute={setRoute} />; break;
+      case 'lore':       page = <Lore />; break;
+      case 'timeline':   page = <Timeline />; break;
+      case 'relics':     page = <Relics setRoute={setRoute} />; break;
+      case 'search':     page = <Search query={query} setRoute={setRoute} />; break;
+      default:           page = <Home setRoute={setRoute} />;
+    }
+    return (
+      <Shell route={route} setRoute={setRoute} query={query} setQuery={setQuery} mode={mode} setMode={setMode}>
+        {page}
+      </Shell>
+    );
+  }
+
+  window.Terminal = Terminal;
+})();
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     APP BOOT — mode toggle, mount React
+     ════════════════════════════════════════════════════════════════════ -->
+<script type="text/babel" data-presets="react">
+(function () {
+  const { useState, useEffect } = React;
+  const MODE_KEY = 'g935.mode';
+
+  class ErrorBoundary extends React.Component {
+    constructor(p) { super(p); this.state = { err: null }; }
+    static getDerivedStateFromError(err) { return { err }; }
+    componentDidCatch(err) { __bootShow('render error', err); }
+    render() {
+      if (this.state.err) {
+        return React.createElement('div',
+          { style: { padding: 40, fontFamily: 'IBM Plex Mono, monospace', color: '#ef3a3a' } },
+          'render error: ' + (this.state.err.message || String(this.state.err)));
+      }
+      return this.props.children;
+    }
+  }
+
+  function App() {
+    const [mode, setModeRaw] = useState(() => {
+      try { return localStorage.getItem(MODE_KEY) || 'field'; }
+      catch (e) { return 'field'; }
+    });
+    const setMode = (m) => {
+      setModeRaw(m);
+      try { localStorage.setItem(MODE_KEY, m); } catch (e) {}
+    };
+    useEffect(() => {
+      const onKey = (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === '`') { e.preventDefault(); setMode(mode === 'field' ? 'terminal' : 'field'); }
+      };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, [mode]);
+
+    if (mode === 'terminal' && window.Terminal) return <window.Terminal mode={mode} setMode={setMode} />;
+    if (window.PackAPunch) return <window.PackAPunch mode={mode} setMode={setMode} />;
+    return React.createElement('div', null, 'Loading…');
+  }
+
+  function mount() {
+    const missing = [];
+    if (!window.ZD)         missing.push('ZD');
+    if (!window.PackAPunch) missing.push('PackAPunch');
+    if (!window.Terminal)   missing.push('Terminal');
+    if (missing.length) {
+      __bootShow('still waiting on', missing.join(', '));
+      setTimeout(mount, 200);
+      return;
+    }
+    try {
+      ReactDOM.createRoot(document.getElementById('root')).render(
+        <ErrorBoundary><App /></ErrorBoundary>
+      );
+      document.body.classList.add('booted');
+    } catch (err) {
+      __bootShow('mount error', err);
+    }
+  }
+  mount();
+})();
+</script>
+</body>
+</html>

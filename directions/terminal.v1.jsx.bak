@@ -1,0 +1,910 @@
+// Direction 3 — TERMINAL
+// CRT green-on-black, monospace, ASCII frames, command-line nav.
+
+(function () {
+  const { useState, useMemo, useEffect, useRef } = React;
+  const ZD = window.ZD;
+
+  const C = {
+    bg: '#040908',
+    bg2: '#081311',
+    grid: 'rgba(70, 220, 130, 0.04)',
+    line: 'rgba(70, 220, 130, 0.22)',
+    line2: 'rgba(70, 220, 130, 0.08)',
+    green: '#5fff96',
+    greenDim: '#41c576',
+    greenFaint: '#1f7042',
+    amber: '#ffb13a',
+    amberFaint: '#a26f1c',
+    red: '#ff5566',
+    cyan: '#5fe6ff',
+    white: '#e2ffe8',
+    mono: '"JetBrains Mono", "IBM Plex Mono", "Berkeley Mono", ui-monospace, monospace',
+  };
+
+  // ─── primitives ────────────────────────────────────────────────────────
+  // ASCII frame box. Draws double-line corners if double=true.
+  const Box = ({ title, children, hue = 'green', style, padded = true, status }) => {
+    const col = hue === 'amber' ? C.amber : hue === 'red' ? C.red : hue === 'cyan' ? C.cyan : C.green;
+    const dim = hue === 'amber' ? C.amberFaint : hue === 'red' ? '#7a232f' : hue === 'cyan' ? '#1c6a7a' : C.greenFaint;
+    return (
+      <div style={{
+        position: 'relative',
+        border: `1px solid ${col}`,
+        background: 'rgba(8, 19, 17, 0.55)',
+        color: col,
+        fontFamily: C.mono,
+        ...style,
+      }}>
+        {title && (
+          <div style={{
+            position: 'absolute', top: -10, left: 12, padding: '0 8px',
+            background: C.bg, color: col,
+            fontSize: 10.5, letterSpacing: 2.5, textTransform: 'uppercase',
+          }}>
+            <span style={{ opacity: 0.6 }}>[</span> {title} <span style={{ opacity: 0.6 }}>]</span>
+          </div>
+        )}
+        <div style={{ padding: padded ? '18px 18px 16px' : 0 }}>{children}</div>
+        {status && (
+          <div style={{
+            position: 'absolute', bottom: -10, right: 12, padding: '0 8px',
+            background: C.bg, color: dim, fontSize: 9.5, letterSpacing: 2,
+          }}>{status}</div>
+        )}
+      </div>
+    );
+  };
+
+  const Blink = ({ children = '█', style }) => (
+    <span style={{ animation: 'crt-blink 1.05s steps(2) infinite', ...style }}>{children}</span>
+  );
+
+  const Slot = ({ w, h, label, hue = 'green', style }) => {
+    const col = hue === 'amber' ? C.amberFaint : hue === 'cyan' ? '#1c6a7a' : C.greenFaint;
+    return (
+      <div style={{
+        width: w, height: h, position: 'relative',
+        background: C.bg2,
+        border: `1px solid ${col}`,
+        color: col,
+        fontFamily: C.mono,
+        overflow: 'hidden',
+        ...style,
+      }}>
+        {/* faint grid */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.5,
+          backgroundImage: `
+            linear-gradient(${col} 1px, transparent 1px),
+            linear-gradient(90deg, ${col} 1px, transparent 1px)`,
+          backgroundSize: '24px 24px',
+          opacity: 0.08,
+        }} />
+        <div style={{
+          position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 10.5, letterSpacing: 2.5, textTransform: 'uppercase',
+        }}>
+          <span style={{ marginRight: 8, opacity: 0.5 }}>▣</span>
+          {label}
+        </div>
+        <div style={{ position: 'absolute', top: 6, left: 8, fontSize: 9, letterSpacing: 1.5 }}>NO‑SIGNAL</div>
+        <div style={{ position: 'absolute', top: 6, right: 8, fontSize: 9, letterSpacing: 1.5 }}><Blink>■</Blink></div>
+      </div>
+    );
+  };
+
+  // ─── one-time stylesheet (scanlines, blink, selection) ─────────────────
+  if (typeof document !== 'undefined' && !document.getElementById('term-styles')) {
+    const s = document.createElement('style');
+    s.id = 'term-styles';
+    s.textContent = `
+      @keyframes crt-blink { 50% { opacity: 0; } }
+      @keyframes crt-flicker { 0%,100%{opacity:1} 50%{opacity:.97} }
+      .term-scan::before {
+        content:""; position:absolute; inset:0; pointer-events:none; z-index: 5;
+        background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.10) 2px 3px);
+        mix-blend-mode: multiply;
+      }
+      .term-scan::after {
+        content:""; position:absolute; inset:0; pointer-events:none; z-index: 6;
+        background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.4) 100%);
+      }
+      .term-input::selection { background: ${C.green}; color: ${C.bg}; }
+    `;
+    document.head.appendChild(s);
+  }
+
+  // ─── shell ─────────────────────────────────────────────────────────────
+  function Shell({ route, setRoute, query, setQuery, children }) {
+    const [time, setTime] = useState(new Date());
+    useEffect(() => {
+      const t = setInterval(() => setTime(new Date()), 1000);
+      return () => clearInterval(t);
+    }, []);
+
+    const cmd = (id, label, shortcut) => ({ id, label, shortcut });
+    const nav = [
+      cmd('home', 'home', 'h'),
+      cmd('games', 'games', 'g'),
+      cmd('maps', 'maps', 'm'),
+      cmd('characters', 'crew', 'c'),
+      cmd('lore', 'lore', 'l'),
+      cmd('timeline', 'chrono', 't'),
+      cmd('relics', 'relics', 'r'),
+      cmd('search', 'search', '/'),
+    ];
+
+    return (
+      <div className="term-scan" style={{
+        background: C.bg, color: C.green, fontFamily: C.mono,
+        minHeight: '100%', position: 'relative', animation: 'crt-flicker 6s infinite',
+        backgroundImage: `
+          radial-gradient(ellipse at center, rgba(20, 50, 35, 0.4) 0%, ${C.bg} 70%),
+          linear-gradient(${C.grid} 1px, transparent 1px),
+          linear-gradient(90deg, ${C.grid} 1px, transparent 1px)
+        `,
+        backgroundSize: '100% 100%, 48px 48px, 48px 48px',
+      }}>
+        {/* status bar */}
+        <div style={{
+          background: C.green, color: C.bg, padding: '4px 16px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          fontSize: 11, letterSpacing: 2, textTransform: 'uppercase', fontWeight: 600,
+        }}>
+          <span>$ aether — sys.tty</span>
+          <span>RTM-9 · UPLINK STABLE · RELIC-IDX v0.7.3</span>
+          <span>
+            {String(time.getUTCHours()).padStart(2, '0')}:{String(time.getUTCMinutes()).padStart(2, '0')}:{String(time.getUTCSeconds()).padStart(2, '0')} UTC
+            <Blink style={{ marginLeft: 8 }}>█</Blink>
+          </span>
+        </div>
+
+        {/* header */}
+        <header style={{ padding: '16px 24px 0', position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, marginBottom: 14 }}>
+            <div onClick={() => setRoute({ name: 'home' })} style={{ cursor: 'pointer' }}>
+              <pre style={{ margin: 0, fontSize: 11, lineHeight: 1.1, color: C.greenDim, letterSpacing: 1 }}>
+{`+---+
+| Z |  --THE.AETHER//KERNEL--
++---+  rev 17.4.0  build// 1991.09.14`}
+              </pre>
+              <div style={{ fontSize: 22, marginTop: 8, color: C.white, letterSpacing: -0.3, fontWeight: 600 }}>
+                aether
+                <span style={{ color: C.greenDim, fontWeight: 400 }}>.zombies.</span>
+                kernel
+                <Blink style={{ marginLeft: 8, color: C.green }}>█</Blink>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+              <div style={{ fontSize: 10, letterSpacing: 2, color: C.amber, textTransform: 'uppercase' }}>
+                ● SESSION · AGENT 03741 · CLR/UMBRA
+              </div>
+              <div style={{ fontSize: 9.5, color: C.greenFaint }}>connected to relay-04.aether.local // ssh-id 0xAE3F</div>
+            </div>
+          </div>
+
+          {/* command rail */}
+          <div style={{ borderTop: `1px solid ${C.line}`, borderBottom: `1px solid ${C.line}`, padding: '10px 0', display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
+            <span style={{ color: C.amber, marginRight: 14, fontSize: 12, letterSpacing: 1 }}>$ cmd&gt;</span>
+            {nav.map((n) => {
+              const active = route.name === n.id;
+              return (
+                <button key={n.id} onClick={() => setRoute({ name: n.id })} style={{
+                  background: active ? C.green : 'transparent',
+                  color: active ? C.bg : C.green,
+                  border: 'none',
+                  padding: '4px 10px',
+                  fontFamily: C.mono, fontSize: 12, letterSpacing: 1.5,
+                  cursor: 'pointer',
+                  fontWeight: active ? 700 : 500,
+                  marginRight: 4,
+                }}>
+                  {active && <span style={{ marginRight: 4 }}>&gt;</span>}
+                  {n.label}
+                  <span style={{ opacity: 0.55, marginLeft: 6, fontSize: 10 }}>[{n.shortcut}]</span>
+                </button>
+              );
+            })}
+            <div style={{ flex: 1 }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
+              <span style={{ color: C.amber }}>/?</span>
+              <input className="term-input" value={query} onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && setRoute({ name: 'search' })}
+                placeholder="query the index…"
+                style={{ background: 'transparent', border: `1px solid ${C.line}`, outline: 'none',
+                  color: C.white, fontFamily: C.mono, fontSize: 12, letterSpacing: 0.5, padding: '4px 8px', width: 220 }} />
+              <Blink>█</Blink>
+            </div>
+          </div>
+
+          {/* breadcrumb / prompt */}
+          <div style={{ padding: '8px 0 0', fontSize: 11, color: C.greenDim, letterSpacing: 1 }}>
+            $ /aether/{route.name}{route.id ? '/' + route.id : ''} — last-access 1991-09-14 14:22 UTC
+          </div>
+        </header>
+
+        <main style={{ padding: '24px 24px 48px', position: 'relative', zIndex: 1 }}>
+          {children}
+        </main>
+
+        {/* footer status */}
+        <footer style={{
+          position: 'sticky', bottom: 0, background: C.bg,
+          borderTop: `1px solid ${C.line}`,
+          padding: '6px 16px', display: 'flex', justifyContent: 'space-between',
+          fontSize: 10, letterSpacing: 2, color: C.greenDim, textTransform: 'uppercase',
+        }}>
+          <span>STATUS: NOMINAL</span>
+          <span>ENTRIES INDEXED: {ZD.maps.length + ZD.characters.length + ZD.timeline.length}</span>
+          <span>UPTIME: 174:32:08</span>
+          <span>WARN: 1 · ERR: 0</span>
+        </footer>
+      </div>
+    );
+  }
+
+  // ─── primitives for content ────────────────────────────────────────────
+  function CmdLine({ children, color = C.amber }) {
+    return (
+      <div style={{ fontFamily: C.mono, fontSize: 12, color, letterSpacing: 1, marginBottom: 8 }}>
+        <span style={{ color: C.greenDim, marginRight: 8 }}>$&gt;</span>{children}
+      </div>
+    );
+  }
+
+  function PageHead({ cmd, title, sub }) {
+    return (
+      <div style={{ marginBottom: 24 }}>
+        <CmdLine>{cmd}</CmdLine>
+        <h1 style={{ fontFamily: C.mono, fontSize: 38, color: C.white, margin: 0, fontWeight: 700, letterSpacing: -0.8 }}>
+          <span style={{ color: C.green }}>&gt;</span> {title}<Blink style={{ color: C.green, marginLeft: 6 }}>_</Blink>
+        </h1>
+        {sub && <p style={{ fontFamily: C.mono, fontSize: 13, color: C.greenDim, marginTop: 10, maxWidth: 760, lineHeight: 1.6 }}>{sub}</p>}
+      </div>
+    );
+  }
+
+  // ─── home ──────────────────────────────────────────────────────────────
+  function Home({ setRoute }) {
+    return (
+      <div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginBottom: 32 }}>
+          <Box title="BOOT.LOG" hue="green" status="OK • 200">
+            <pre style={{ margin: 0, fontSize: 11, lineHeight: 1.6, color: C.greenDim }}>
+{`[00:00:01] reading /etc/aether/policy.umbra .................. OK
+[00:00:02] mounting //relics/index-bo7 ........................ OK
+[00:00:03] mounting //relics/index-bo6 ........................ OK
+[00:00:04] loading subjects/* (8 records) ..................... OK
+[00:00:04] loading sites/*    (24 records) .................... OK
+[00:00:05] decrypting //incidents/chronology .................. `}
+              <span style={{ color: C.green }}>OK</span>{`
+[00:00:06] establishing uplink to relay-04 .................... `}
+              <span style={{ color: C.amber }}>WARN</span>{`
+[00:00:06] handshake complete — session id 0xAE3F
+[00:00:07] aether.zombies.kernel ready.
+
+$ welcome, agent 03741. you have `}
+              <span style={{ color: C.amber }}>1</span>
+              {` new bulletin and `}
+              <span style={{ color: C.green }}>0</span>
+              {` unread memos.`}
+            </pre>
+            <div style={{ marginTop: 18, display: 'flex', gap: 10 }}>
+              <button onClick={() => setRoute({ name: 'maps' })} style={btn(true)}>$ explore /sites</button>
+              <button onClick={() => setRoute({ name: 'timeline' })} style={btn(false)}>$ cat /chrono</button>
+            </div>
+          </Box>
+
+          <Box title="NOW.PLAYING — CITADELLE" hue="amber" status="LIVE">
+            <Slot w="100%" h={170} label="CITADELLE · SURVEILLANCE FEED" hue="amber" />
+            <div style={{ marginTop: 14, fontSize: 12, color: C.amber, lineHeight: 1.65 }}>
+              <div><span style={{ color: C.amberFaint }}>site_id</span> = "citadelle"</div>
+              <div><span style={{ color: C.amberFaint }}>diff</span> = 4/5 | <span style={{ color: C.amberFaint }}>ee</span> = 1 | <span style={{ color: C.amberFaint }}>relics</span> = 6</div>
+              <div><span style={{ color: C.amberFaint }}>quest</span> = "Kinder der Toten"</div>
+              <div><span style={{ color: C.amberFaint }}>last_run</span> = 2h 14m ago</div>
+            </div>
+            <button onClick={() => setRoute({ name: 'map', id: 'citadelle' })}
+              style={{ ...btn(true), marginTop: 14, background: C.amber, color: C.bg }}>
+              $ open /sites/citadelle
+            </button>
+          </Box>
+        </div>
+
+        <Box title="LS /OPS — OPERATIONAL VOLUMES" style={{ marginBottom: 24 }} hue="green">
+          <pre style={{ margin: 0, fontSize: 11.5, color: C.greenDim, lineHeight: 1.5 }}>
+{`total ${ZD.games.length} entries`}
+          </pre>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 12 }}>
+            {ZD.games.map((g, i) => (
+              <button key={g.id} onClick={() => setRoute({ name: 'game', id: g.id })} style={{
+                background: 'transparent', border: `1px solid ${C.line}`, color: C.green,
+                padding: 12, fontFamily: C.mono, fontSize: 11, textAlign: 'left', cursor: 'pointer', letterSpacing: 0.5,
+              }}>
+                <div style={{ color: C.amber, fontSize: 10, letterSpacing: 2 }}>VOL.{String(i + 1).padStart(2, '0')} · {g.year}</div>
+                <div style={{ fontSize: 15, color: C.white, marginTop: 4, fontWeight: 600 }}>{g.title}</div>
+                <div style={{ fontSize: 11, color: C.greenDim, marginTop: 4 }}>{g.era}</div>
+                <div style={{ fontSize: 10, color: C.greenFaint, marginTop: 10, letterSpacing: 1.5 }}>
+                  [{g.mapCount} SITES]  <span style={{ color: C.green }}>open →</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </Box>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <Box title="LS /SUBJECTS" hue="green">
+            <pre style={{ margin: 0, fontSize: 11, color: C.greenDim, lineHeight: 1.5 }}>
+{`-rw-r-- agent  primary cast
+-rw-r-- agent  4 records (showing 4 of 8)`}
+            </pre>
+            <div style={{ display: 'flex', flexDirection: 'column', marginTop: 12 }}>
+              {ZD.characters.slice(0, 4).map((c, i) => (
+                <button key={c.id} onClick={() => setRoute({ name: 'character', id: c.id })} style={{
+                  background: 'transparent', border: 'none', borderTop: i === 0 ? 'none' : `1px solid ${C.line2}`,
+                  display: 'grid', gridTemplateColumns: '40px 1fr auto', alignItems: 'center', gap: 14,
+                  padding: '10px 0', cursor: 'pointer', textAlign: 'left',
+                  color: C.green, fontFamily: C.mono,
+                }}>
+                  <span style={{ fontSize: 10, color: C.amber, letterSpacing: 1.5 }}>S{String(i + 1).padStart(2, '0')}</span>
+                  <div>
+                    <div style={{ fontSize: 14, color: C.white }}>{c.name}</div>
+                    <div style={{ fontSize: 11, color: C.greenDim, marginTop: 2 }}>{c.role}</div>
+                  </div>
+                  <span style={{ fontSize: 11, color: C.green }}>cat →</span>
+                </button>
+              ))}
+            </div>
+          </Box>
+
+          <Box title="TAIL /MEMOS" hue="amber">
+            {[
+              ['1991-09-14', 'On the Origin Cycle', 'D/SIX'],
+              ['1991-09-02', 'The Sentinel Artifact', 'WEAVER, G.'],
+              ['1991-08-21', 'Notes on Templar 1294', 'AGUINALDO, M.'],
+              ['1991-08-08', 'Re: Forsaken Seal', '————'],
+            ].map(([date, title, author], i) => (
+              <div key={i} style={{
+                display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 12,
+                padding: '8px 0', borderTop: i === 0 ? 'none' : `1px solid ${C.line2}`,
+                fontFamily: C.mono, fontSize: 12,
+              }}>
+                <span style={{ color: C.amberFaint }}>{date}</span>
+                <span style={{ color: C.white }}>{title}</span>
+                <span style={{ color: C.amberFaint }}>{author}</span>
+              </div>
+            ))}
+            <button onClick={() => setRoute({ name: 'lore' })} style={{ ...btn(false), marginTop: 14, color: C.amber, borderColor: C.amber }}>
+              $ cat /memos/origin-cycle
+            </button>
+          </Box>
+        </div>
+      </div>
+    );
+  }
+
+  function btn(primary) {
+    return {
+      background: primary ? C.green : 'transparent',
+      color: primary ? C.bg : C.green,
+      border: `1px solid ${C.green}`,
+      padding: '7px 14px',
+      fontFamily: C.mono, fontSize: 12, letterSpacing: 1,
+      cursor: 'pointer', fontWeight: primary ? 700 : 500,
+    };
+  }
+
+  // ─── games ─────────────────────────────────────────────────────────────
+  function Games({ setRoute }) {
+    return (
+      <div>
+        <PageHead cmd="ls /aether/operations --long --sort=canonical" title="operations.dir" sub="Eight operational volumes catalogued. Each is a fixed-size partition; the canonical sequence is the order in which they were filed." />
+        <Box hue="green" padded={false}>
+          <pre style={{ margin: 0, padding: '14px 18px 0', fontSize: 11.5, color: C.greenFaint, letterSpacing: 0.5 }}>
+{`PERM    INDX   YEAR  ERA                              MAPS  OPEN`}
+          </pre>
+          {ZD.games.map((g, i) => {
+            const gameMaps = ZD.maps.filter((m) => m.game === g.id);
+            return (
+              <button key={g.id} onClick={() => setRoute({ name: 'game', id: g.id })} style={{
+                display: 'grid', gridTemplateColumns: '90px 80px 70px 1fr 80px 80px',
+                background: i % 2 === 0 ? 'rgba(70, 220, 130, 0.03)' : 'transparent',
+                border: 'none', padding: '12px 18px',
+                fontFamily: C.mono, fontSize: 12.5, letterSpacing: 0.4,
+                color: C.green, alignItems: 'baseline', width: '100%', cursor: 'pointer',
+                textAlign: 'left', borderTop: `1px solid ${C.line2}`,
+              }}>
+                <span style={{ color: C.greenFaint }}>drwxr-x</span>
+                <span style={{ color: C.amber }}>VOL.{String(i + 1).padStart(2, '0')}</span>
+                <span style={{ color: C.cyan }}>{g.year}</span>
+                <span>
+                  <span style={{ color: C.white, fontWeight: 600 }}>{g.title}</span>
+                  <span style={{ color: C.greenFaint }}> — {g.era}</span>
+                </span>
+                <span style={{ color: C.greenDim }}>[{gameMaps.length}/{g.mapCount}]</span>
+                <span style={{ color: C.green }}>cd →</span>
+              </button>
+            );
+          })}
+        </Box>
+      </div>
+    );
+  }
+
+  function Game({ id, setRoute }) {
+    const g = ZD.games.find((x) => x.id === id);
+    const gameMaps = ZD.maps.filter((m) => m.game === id);
+    return (
+      <div>
+        <PageHead cmd={'ls /aether/operations/' + g.id + '/sites'} title={g.title.toLowerCase()} sub={g.era + ' · ' + g.year + ' · ' + gameMaps.length + '/' + g.mapCount + ' sites mounted.'} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          {gameMaps.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function MapCard({ map, setRoute }) {
+    return (
+      <button onClick={() => setRoute({ name: 'map', id: map.id })} style={{
+        background: 'transparent', border: `1px solid ${C.line}`, padding: 0,
+        color: C.green, textAlign: 'left', cursor: 'pointer', fontFamily: C.mono,
+      }}>
+        <Slot w="100%" h={130} label={map.name.toUpperCase()} hue="green" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
+        <div style={{ padding: 14 }}>
+          <div style={{ fontSize: 10, color: C.amber, letterSpacing: 1.5 }}>SITE/{map.id.toUpperCase()}</div>
+          <div style={{ fontSize: 16, color: C.white, marginTop: 4, fontWeight: 600 }}>{map.name}</div>
+          <div style={{ fontSize: 11.5, color: C.greenDim, marginTop: 4, fontStyle: 'italic' }}>// {map.tagline}</div>
+          <div style={{ display: 'flex', gap: 12, marginTop: 12, fontSize: 11, color: C.greenFaint, letterSpacing: 0.5 }}>
+            <span><span style={{ color: C.amber }}>diff</span>={map.difficulty}/5</span>
+            <span><span style={{ color: C.amber }}>ee</span>={map.eeCount}</span>
+            <span><span style={{ color: C.amber }}>rel</span>={map.relicCount}</span>
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  function Maps({ setRoute }) {
+    const [filter, setFilter] = useState('all');
+    const list = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+    return (
+      <div>
+        <PageHead cmd="find /aether/sites -type d --all" title="sites.dir" sub={'Total: ' + ZD.maps.length + ' indexed. Filter via --vol=<id>.'} />
+        <div style={{ display: 'flex', gap: 8, marginBottom: 18, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ fontFamily: C.mono, fontSize: 11, color: C.greenFaint, letterSpacing: 1, marginRight: 4 }}>--vol=</span>
+          <Chip active={filter === 'all'} onClick={() => setFilter('all')}>all</Chip>
+          {ZD.games.map((g) => <Chip key={g.id} active={filter === g.id} onClick={() => setFilter(g.id)}>{g.code.toLowerCase()}</Chip>)}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          {list.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function Chip({ active, onClick, children }) {
+    return (
+      <button onClick={onClick} style={{
+        background: active ? C.green : 'transparent',
+        color: active ? C.bg : C.green,
+        border: `1px solid ${C.green}`,
+        padding: '4px 10px',
+        fontFamily: C.mono, fontSize: 11, letterSpacing: 1,
+        cursor: 'pointer', fontWeight: active ? 700 : 500,
+      }}>{children}</button>
+    );
+  }
+
+  function MapDetail({ id, setRoute }) {
+    const m = ZD.maps.find((x) => x.id === id);
+    const g = ZD.games.find((x) => x.id === m.game);
+    const ee = ZD.sampleEE;
+    return (
+      <div>
+        <PageHead cmd={'cat /aether/sites/' + m.id + '/manifest.json'} title={m.name.toLowerCase()} sub={'// ' + m.tagline} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 18, marginBottom: 24 }}>
+          <Box hue="green" padded={false} status={'site.id // ' + m.id}>
+            <Slot w="100%" h={320} label={m.name.toUpperCase()} hue="green" style={{ border: 'none' }} />
+          </Box>
+          <Box title="MANIFEST" hue="amber">
+            <pre style={{ margin: 0, fontSize: 12, color: C.amber, lineHeight: 1.75, letterSpacing: 0.3 }}>
+{`{
+  "id":          "${m.id}",
+  "name":        "${m.name}",
+  "operation":   "${g.title}",
+  "year":        ${g.year},
+  "location":    "${m.location}",
+  "difficulty":  ${m.difficulty},
+  "easter_eggs": ${m.eeCount},
+  "relics":      ${m.relicCount},
+  "tags": [${m.tags.map((t) => '"' + t + '"').join(', ')}],
+  "classification": "UMBRA"
+}`}
+            </pre>
+          </Box>
+        </div>
+
+        <Box title="SITE BRIEF" hue="green" style={{ marginBottom: 24 }}>
+          <p style={{ margin: 0, fontFamily: C.mono, fontSize: 13.5, color: C.white, lineHeight: 1.75 }}>{m.summary}</p>
+        </Box>
+
+        <Box title={'EASTER EGGS · ' + m.eeCount + ' filed'} hue="amber" style={{ marginBottom: 24 }}>
+          {m.eeCount ? (
+            <button onClick={() => setRoute({ name: 'ee', id: ee.id })} style={{
+              width: '100%', background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left',
+              display: 'grid', gridTemplateColumns: '110px 1fr auto', gap: 18, alignItems: 'center',
+              fontFamily: C.mono, color: C.green,
+            }}>
+              <Slot w={110} h={88} label="EE.01" hue="amber" />
+              <div>
+                <div style={{ fontSize: 10.5, color: C.amber, letterSpacing: 2 }}>MAIN.QUEST · {ee.difficulty.toUpperCase()} · {ee.duration}</div>
+                <div style={{ fontSize: 22, color: C.white, marginTop: 4, fontWeight: 600 }}>{ee.title}</div>
+                <div style={{ fontSize: 12.5, color: C.greenDim, marginTop: 4, maxWidth: 500 }}>{ee.summary}</div>
+              </div>
+              <span style={{ fontSize: 12, color: C.amber, letterSpacing: 1.5 }}>$ run →</span>
+            </button>
+          ) : (
+            <div style={{ fontFamily: C.mono, fontSize: 13, color: C.greenDim }}>// no main quest on file. focus is relic recovery.</div>
+          )}
+        </Box>
+
+        <Box title={'RELICS · ' + m.relicCount + ' on site'} hue="cyan">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 10 }}>
+            {Array.from({ length: m.relicCount }).map((_, i) => (
+              <div key={i} style={{ border: `1px solid ${C.line}`, padding: 10, fontFamily: C.mono }}>
+                <div style={{ fontSize: 10, color: C.cyan, letterSpacing: 1.5 }}>R-{String(i + 1).padStart(3, '0')}</div>
+                <Slot w="100%" h={60} label="OBJ" hue="cyan" style={{ marginTop: 6 }} />
+                <div style={{ fontSize: 11, color: C.white, marginTop: 8 }}>relic_{String.fromCharCode(97 + i)}</div>
+              </div>
+            ))}
+            {m.relicCount === 0 && <div style={{ fontFamily: C.mono, fontSize: 13, color: C.greenDim }}>// no relics filed.</div>}
+          </div>
+        </Box>
+      </div>
+    );
+  }
+
+  // ─── EE ────────────────────────────────────────────────────────────────
+  function EE({ setRoute }) {
+    const ee = ZD.sampleEE;
+    const m = ZD.maps.find((x) => x.id === ee.map);
+    const [completed, setCompleted] = useState(new Set());
+    const [active, setActive] = useState(0);
+
+    const toggle = (n) => setCompleted((s) => {
+      const ns = new Set(s); if (ns.has(n)) ns.delete(n); else ns.add(n); return ns;
+    });
+
+    const progress = completed.size / ee.steps.length;
+    const barW = 40;
+    const filled = Math.floor(progress * barW);
+
+    return (
+      <div>
+        <PageHead cmd={'run /aether/quests/' + ee.id + ' --interactive'} title={ee.title.toLowerCase()} sub={ee.summary} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 20, marginBottom: 20 }}>
+          <Box title="QUEST.META" hue="amber">
+            <pre style={{ margin: 0, fontSize: 12, color: C.amber, lineHeight: 1.7 }}>
+{`site:        ${m.name}
+difficulty:  ${ee.difficulty}
+duration:    ${ee.duration}
+party:       ${ee.party}
+steps:       ${ee.steps.length}
+state:       in-progress`}
+            </pre>
+            <div style={{ marginTop: 14, fontFamily: C.mono, fontSize: 11, color: C.greenDim }}>
+              progress  [{'█'.repeat(filled) + '░'.repeat(barW - filled)}] {Math.round(progress * 100)}%
+            </div>
+            <div style={{ marginTop: 18, fontFamily: C.mono, fontSize: 10.5, color: C.amber, letterSpacing: 1.8 }}>REWARDS ON COMPLETE</div>
+            <ul style={{ margin: '6px 0 0', paddingLeft: 14, fontFamily: C.mono, fontSize: 12, color: C.white, lineHeight: 1.6 }}>
+              {ee.rewards.map((r) => <li key={r}>{r}</li>)}
+            </ul>
+          </Box>
+
+          <Box title="QUEST.STEPS" hue="green">
+            {ee.steps.map((s, i) => {
+              const done = completed.has(s.n);
+              const isActive = i === active;
+              return (
+                <button key={s.n} onClick={() => setActive(i)} style={{
+                  display: 'grid', gridTemplateColumns: '24px 50px 1fr auto', alignItems: 'baseline', gap: 12,
+                  width: '100%', textAlign: 'left', background: isActive ? 'rgba(70,220,130,0.08)' : 'transparent',
+                  border: 'none', padding: '10px 8px', cursor: 'pointer', color: C.green, fontFamily: C.mono,
+                }}>
+                  <span onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
+                    width: 18, height: 18,
+                    border: `1.5px solid ${done ? C.green : C.greenFaint}`,
+                    background: done ? C.green : 'transparent',
+                    color: done ? C.bg : C.green,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: C.mono, fontSize: 12, fontWeight: 700,
+                  }}>{done ? '✓' : ' '}</span>
+                  <span style={{ fontSize: 10, color: C.amber, letterSpacing: 1.5 }}>STEP.{String(s.n).padStart(2, '0')}</span>
+                  <span style={{ fontSize: 14, color: isActive ? C.white : (done ? C.greenFaint : C.green), textDecoration: done ? 'line-through' : 'none' }}>{s.title}</span>
+                  <span style={{ fontSize: 11, color: C.greenDim }}>{isActive ? 'ACTIVE' : ''}</span>
+                </button>
+              );
+            })}
+          </Box>
+        </div>
+
+        <Box title={'STEP.' + String(ee.steps[active].n).padStart(2, '0') + ' — ' + ee.steps[active].title.toUpperCase()} hue="green" status={'(' + (active + 1) + ' of ' + ee.steps.length + ')'}>
+          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: 24 }}>
+            <Slot w="100%" h={210} label="REFERENCE.IMG" hue="green" />
+            <div>
+              <div style={{ fontFamily: C.mono, fontSize: 11, color: C.amber, letterSpacing: 1.5 }}>// instruction</div>
+              <p style={{ fontFamily: C.mono, fontSize: 15, color: C.white, lineHeight: 1.8, margin: '8px 0 0', maxWidth: 540 }}>
+                {ee.steps[active].body}
+              </p>
+              <div style={{ marginTop: 24, display: 'flex', gap: 10 }}>
+                <button disabled={active === 0} onClick={() => setActive((a) => a - 1)} style={{
+                  ...btn(false), opacity: active === 0 ? 0.4 : 1, cursor: active === 0 ? 'not-allowed' : 'pointer',
+                }}>&lt; prev</button>
+                <button onClick={() => { toggle(ee.steps[active].n); if (active < ee.steps.length - 1) setActive((a) => a + 1); }}
+                  style={btn(true)}>{completed.has(ee.steps[active].n) ? '$ done; goto next' : '$ mark.complete'} →</button>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </div>
+    );
+  }
+
+  // ─── characters ────────────────────────────────────────────────────────
+  function Characters({ setRoute }) {
+    return (
+      <div>
+        <PageHead cmd="ls /aether/subjects --long" title="subjects.dir" sub={ZD.characters.length + ' records on file.'} />
+        <Box hue="green" padded={false}>
+          <pre style={{ margin: 0, padding: '14px 18px 0', fontSize: 11.5, color: C.greenFaint, letterSpacing: 0.5 }}>
+{`SUBJ.ID  CRYPTONYM            ROLE                              ORIGIN`}
+          </pre>
+          {ZD.characters.map((c, i) => (
+            <button key={c.id} onClick={() => setRoute({ name: 'character', id: c.id })} style={{
+              display: 'grid', gridTemplateColumns: '90px 220px 1fr 220px',
+              background: i % 2 === 0 ? 'rgba(70, 220, 130, 0.03)' : 'transparent',
+              border: 'none', borderTop: `1px solid ${C.line2}`,
+              padding: '12px 18px',
+              fontFamily: C.mono, fontSize: 13, letterSpacing: 0.4,
+              color: C.green, alignItems: 'baseline', width: '100%', cursor: 'pointer', textAlign: 'left',
+            }}>
+              <span style={{ color: C.amber }}>S{String(i + 1).padStart(2, '0')}</span>
+              <span style={{ color: C.white, fontWeight: 600 }}>{c.name}</span>
+              <span style={{ color: C.greenDim }}>{c.role}</span>
+              <span style={{ color: C.cyan }}>{c.origin}</span>
+            </button>
+          ))}
+        </Box>
+      </div>
+    );
+  }
+
+  function CharacterDetail({ id, setRoute }) {
+    const c = ZD.characters.find((x) => x.id === id);
+    if (!c) return null;
+    return (
+      <div>
+        <PageHead cmd={'cat /aether/subjects/' + c.id + '.dossier'} title={c.name.toLowerCase()} sub={c.role} />
+        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 18 }}>
+          <Box hue="green" padded={false} status={'S/' + c.id.toUpperCase()}>
+            <Slot w="100%" h={380} label={c.name.split(' ').pop().toUpperCase()} hue="green" style={{ border: 'none' }} />
+          </Box>
+          <div>
+            <Box title="STATEMENT.LOG" hue="amber" style={{ marginBottom: 14 }}>
+              <div style={{ fontFamily: C.mono, fontSize: 18, color: C.amber, lineHeight: 1.5 }}>
+                <span style={{ color: C.amberFaint }}>"</span>{c.quote}<span style={{ color: C.amberFaint }}>"</span>
+              </div>
+              <div style={{ fontSize: 10, color: C.amberFaint, marginTop: 12, letterSpacing: 1.5 }}>
+                ATTRIBUTED · {c.name.toUpperCase()} · OPS.LOG — ////
+              </div>
+            </Box>
+
+            <Box title="BIOGRAPHY" hue="green" style={{ marginBottom: 14 }}>
+              <p style={{ margin: 0, fontFamily: C.mono, fontSize: 13.5, color: C.white, lineHeight: 1.75 }}>{c.summary}</p>
+            </Box>
+
+            <Box title="OBSERVED.AT" hue="cyan">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {ZD.maps.slice(0, 8).map((m) => (
+                  <button key={m.id} onClick={() => setRoute({ name: 'map', id: m.id })} style={{
+                    background: 'transparent', border: `1px solid ${C.cyan}`, color: C.cyan,
+                    padding: '4px 10px', fontFamily: C.mono, fontSize: 11, letterSpacing: 0.5, cursor: 'pointer',
+                  }}>~/sites/{m.id}</button>
+                ))}
+              </div>
+            </Box>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── lore ──────────────────────────────────────────────────────────────
+  function Lore() {
+    return (
+      <div>
+        <PageHead cmd="less /aether/memos/origin-cycle.txt" title="on.the.origin.cycle" sub="// memorandum from D/SIX. 1991-09-14. classified UMBRA." />
+        <Box hue="green" status="EOF • line 248">
+          <pre style={{
+            margin: 0, fontFamily: C.mono, fontSize: 13.5, color: C.white, lineHeight: 1.85, whiteSpace: 'pre-wrap',
+            maxWidth: 780,
+          }}>
+{`# ON THE ORIGIN CYCLE
+# from: D/SIX
+# to:   //////////////
+# re:   why maxis keeps starting over
+
+`}<span style={{ color: C.amber }}>{`> "no matter how many times we run this,
+> the ending is always the same.
+> the difference is what gets dragged into it."`}</span>{`
+
+The Aether Story is not a sequence; it is a wheel. `}<span style={{ color: C.cyan }}>Dr. Maxis</span>{` is
+the closest thing the loop has to a narrator, and even he does
+not control the rotation. He is only the one who keeps the
+lights on between turns.
+
+## the first turn
+
+The cycle begins at `}<span style={{ color: C.cyan }}>Generation Station 64</span>{`, a German dig
+that breached an Element 115 deposit during the closing months of
+the Great War. Four soldiers — the men we will come to call
+`}<span style={{ color: C.cyan }}>Primis</span>{` — are killed, brought back, and given a fragment of
+memory that does not belong to them.
+
+What they remember is the previous turn of the wheel: a moon
+shattered, a daughter trapped in a machine, a friend with a
+syringe. They do not have the words for any of it.
+
+## the cost of breaking it
+
+By the time of `}<span style={{ color: C.cyan }}>Revelations</span>{`, every variable that can be moved
+has been moved. The cycle does not end — it is `}<span style={{ color: C.amber }}>retired</span>{`. The new
+cycle, the Dark Aether era, begins on the same battlefield with
+none of the same actors and one new word for the same thing.
+
+That word is `}<span style={{ color: C.amber }}>Forsaken</span>{`, and it remembers everything.
+
+--
+signed,
+D/SIX
+office of aetheric affairs
+14 sept 1991`}
+          </pre>
+        </Box>
+      </div>
+    );
+  }
+
+  // ─── timeline ──────────────────────────────────────────────────────────
+  function Timeline() {
+    return (
+      <div>
+        <PageHead cmd="head -n 10 /aether/chrono/incidents.log" title="chronology.log" sub="In strict chronological order. Each entry is a single incident record." />
+        <Box hue="green" padded={false}>
+          <pre style={{ margin: 0, padding: '14px 18px 0', fontSize: 11.5, color: C.greenFaint, letterSpacing: 0.5 }}>
+{`TIMESTAMP   CODE       INCIDENT                              REPORT`}
+          </pre>
+          {ZD.timeline.map((t, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '90px 90px 230px 1fr',
+              borderTop: `1px solid ${C.line2}`,
+              background: i % 2 === 0 ? 'rgba(70, 220, 130, 0.03)' : 'transparent',
+              padding: '14px 18px',
+              fontFamily: C.mono, fontSize: 13, alignItems: 'baseline', gap: 16,
+            }}>
+              <span style={{ color: C.amber, fontWeight: 600 }}>{t.year}</span>
+              <span style={{ color: C.cyan, letterSpacing: 1 }}>INC‑{String(i + 1).padStart(3, '0')}</span>
+              <span style={{ color: C.white, fontWeight: 600 }}>{t.title}</span>
+              <span style={{ color: C.greenDim, lineHeight: 1.55 }}>{t.body}</span>
+            </div>
+          ))}
+          <div style={{ padding: '12px 18px', fontFamily: C.mono, fontSize: 11, color: C.greenFaint, borderTop: `1px solid ${C.line2}` }}>
+            -- END OF LOG -- <Blink>█</Blink>
+          </div>
+        </Box>
+      </div>
+    );
+  }
+
+  // ─── relics ────────────────────────────────────────────────────────────
+  function Relics() {
+    const items = [
+      'Templar Shard', 'Reliquary Coin', 'Sentinel Fragment', 'Echoing Bell',
+      'Spine of Ull', 'Wreath of Krause', 'Vril Pendant', 'Eye of Stachel',
+      'Crown of Solais', 'Brand Mark', 'Carolingian Quill', 'Bone of the First',
+    ];
+    return (
+      <div>
+        <PageHead cmd="grep -r 'class:RELIC' /aether/sites" title="relics.idx" sub="All catalogued Aetheric artefacts." />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+          {items.map((name, i) => (
+            <Box key={i} title={'R/' + String(i + 1).padStart(3, '0')} hue={i % 4 === 0 ? 'amber' : i % 4 === 2 ? 'cyan' : 'green'}>
+              <Slot w="100%" h={90} label="OBJ" hue={i % 4 === 0 ? 'amber' : i % 4 === 2 ? 'cyan' : 'green'} />
+              <div style={{ fontFamily: C.mono, fontSize: 13, color: C.white, marginTop: 10, fontWeight: 600 }}>{name}</div>
+              <div style={{ fontFamily: C.mono, fontSize: 10.5, color: C.greenDim, marginTop: 4 }}>// recovered · redacted</div>
+            </Box>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── search ────────────────────────────────────────────────────────────
+  function Search({ query, setRoute }) {
+    const q = (query || '').toLowerCase();
+    const hits = useMemo(() => {
+      const out = [];
+      ZD.maps.forEach((m) => {
+        if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
+          out.push({ kind: 'SITE', title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+      });
+      ZD.characters.forEach((c) => {
+        if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))
+          out.push({ kind: 'SUBJ', title: c.name, sub: c.role, route: { name: 'character', id: c.id } });
+      });
+      ZD.wonderWeapons.forEach((w) => {
+        if (!q || w.name.toLowerCase().includes(q))
+          out.push({ kind: 'OBJ', title: w.name, sub: w.summary, route: { name: 'home' } });
+      });
+      return out.slice(0, 12);
+    }, [q]);
+    return (
+      <div>
+        <PageHead cmd={'grep -ri "' + (query || '') + '" /aether'} title="search.results" sub={hits.length + ' hits.'} />
+        <Box hue="green" padded={false}>
+          {hits.map((h, i) => (
+            <button key={i} onClick={() => setRoute(h.route)} style={{
+              display: 'grid', gridTemplateColumns: '80px 1fr auto',
+              gap: 16, padding: '12px 18px', alignItems: 'baseline',
+              background: i % 2 === 0 ? 'rgba(70, 220, 130, 0.03)' : 'transparent',
+              border: 'none', borderTop: i ? `1px solid ${C.line2}` : 'none',
+              fontFamily: C.mono, fontSize: 13, color: C.green,
+              width: '100%', textAlign: 'left', cursor: 'pointer',
+            }}>
+              <span style={{ color: C.amber, letterSpacing: 1.5 }}>{h.kind}</span>
+              <div>
+                <div style={{ color: C.white, fontWeight: 600 }}>{h.title}</div>
+                <div style={{ color: C.greenDim, marginTop: 2, fontSize: 12 }}>{h.sub}</div>
+              </div>
+              <span style={{ color: C.green, fontSize: 11 }}>open →</span>
+            </button>
+          ))}
+        </Box>
+      </div>
+    );
+  }
+
+  // ─── router ────────────────────────────────────────────────────────────
+  function Terminal() {
+    const [route, setRoute] = useState({ name: 'home' });
+    const [query, setQuery] = useState('Citadelle');
+    useEffect(() => {
+      const wrap = document.getElementById('term-scroll');
+      if (wrap) wrap.scrollTop = 0;
+    }, [route]);
+    let page;
+    switch (route.name) {
+      case 'games': page = <Games setRoute={setRoute} />; break;
+      case 'game': page = <Game id={route.id} setRoute={setRoute} />; break;
+      case 'maps': page = <Maps setRoute={setRoute} />; break;
+      case 'map': page = <MapDetail id={route.id} setRoute={setRoute} />; break;
+      case 'ee': page = <EE setRoute={setRoute} />; break;
+      case 'characters': page = <Characters setRoute={setRoute} />; break;
+      case 'character': page = <CharacterDetail id={route.id} setRoute={setRoute} />; break;
+      case 'lore': page = <Lore />; break;
+      case 'timeline': page = <Timeline />; break;
+      case 'relics': page = <Relics />; break;
+      case 'search': page = <Search query={query} setRoute={setRoute} />; break;
+      default: page = <Home setRoute={setRoute} />;
+    }
+    return (
+      <Shell route={route} setRoute={setRoute} query={query} setQuery={setQuery}>
+        <div id="term-scroll">{page}</div>
+      </Shell>
+    );
+  }
+
+  window.Terminal = Terminal;
+})();

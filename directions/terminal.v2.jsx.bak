@@ -1,0 +1,782 @@
+// Direction 3 — TERMINAL (rev 2)
+// Plain CLI. One phosphor color on black. No scanlines, no framed widgets.
+// Every page is the output of a typed command. Page transitions are typed commands.
+
+(function () {
+  const { useState, useMemo, useEffect, useRef } = React;
+  const ZD = window.ZD;
+
+  // Single-ink phosphor + ONE dim shade. That's it.
+  const C = {
+    bg:    '#0a0a08',
+    ink:   '#d8d2bc',      // phosphor body
+    dim:   '#7a755f',      // faded
+    bright:'#fff4d2',      // highlight
+    mono:  '"VT323", "IBM Plex Mono", "Courier Prime", ui-monospace, monospace',
+  };
+
+  // ─── small primitives ─────────────────────────────────────────────────
+  // Prompt + typed command (no fake animation, but reads as a session).
+  const Prompt = ({ cwd = 'aether', cmd, children, style }) => (
+    <div style={{ marginBottom: 8, ...style }}>
+      <span style={{ color: C.dim }}>$ </span>
+      <span style={{ color: C.dim }}>{cwd}</span>
+      <span style={{ color: C.dim }}>:~&gt; </span>
+      <span style={{ color: C.bright }}>{cmd}</span>
+      {children}
+    </div>
+  );
+
+  const Cursor = () => (
+    <span style={{
+      display: 'inline-block', width: '0.6em', height: '1em', background: C.ink,
+      verticalAlign: '-2px', marginLeft: 2,
+      animation: 'term-blink 1.05s steps(2) infinite',
+    }} />
+  );
+
+  const HRule = ({ ch = '-', cols = 110 }) => (
+    <div style={{ color: C.dim, userSelect: 'none', lineHeight: 1, whiteSpace: 'pre' }}>{ch.repeat(cols)}</div>
+  );
+
+  // ASCII block. Used very sparingly — mostly for the boot banner and image
+  // slots, where it acts as the "no signal" pattern. NOT as page chrome.
+  const Slot = ({ w, h, label }) => (
+    <div style={{
+      width: w, height: h, background: C.bg,
+      border: `1px solid ${C.dim}`,
+      color: C.dim, fontFamily: C.mono,
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      backgroundImage: `repeating-linear-gradient(45deg, transparent 0 6px, rgba(216,210,188,0.04) 6px 7px)`,
+      position: 'relative',
+    }}>
+      <div style={{ fontSize: 28, opacity: 0.4 }}>×××</div>
+      <div style={{ fontSize: 10.5, letterSpacing: 2, textTransform: 'uppercase', marginTop: 8 }}>{label}</div>
+      <div style={{ fontSize: 9.5, letterSpacing: 1.5, color: C.dim, marginTop: 4, opacity: 0.5 }}>--no signal--</div>
+    </div>
+  );
+
+  // One-time style injection.
+  if (typeof document !== 'undefined' && !document.getElementById('term-styles')) {
+    const s = document.createElement('style');
+    s.id = 'term-styles';
+    s.textContent = `
+      @keyframes term-blink { 50% { opacity: 0; } }
+      .term-link { color: ${C.ink}; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; background: transparent; border: 0; padding: 0; font: inherit; }
+      .term-link:hover { color: ${C.bright}; background: ${C.ink}; color: ${C.bg}; text-decoration: none; }
+      .term-row { display: grid; align-items: baseline; }
+      .term-row:hover { background: rgba(216, 210, 188, 0.06); }
+    `;
+    document.head.appendChild(s);
+  }
+
+  // Convenience link: looks like an underlined word in the terminal,
+  // hovers to a reverse-video block (very BO1 menu).
+  const Link = ({ onClick, children, style }) => (
+    <button className="term-link" onClick={onClick} style={style}>{children}</button>
+  );
+
+  // ─── header / shell ───────────────────────────────────────────────────
+  // Persistent banner + breadcrumb + plain horizontal nav. Looks like the
+  // top of a login session, not a "framed app".
+  function Shell({ route, setRoute, query, setQuery, children }) {
+    const cwd = '/aether/' + route.name + (route.id ? '/' + route.id : '');
+    return (
+      <div style={{
+        background: C.bg, color: C.ink, fontFamily: C.mono,
+        minHeight: '100%', fontSize: 17, lineHeight: 1.4,
+        padding: '20px 28px 56px',
+      }}>
+        {/* boot banner — ASCII letterhead only at the very top */}
+        <pre style={{ margin: 0, color: C.dim, fontSize: 12, lineHeight: 1.15 }}>
+{`AETHER//KERNEL  rev 17.4.0   tty04    sess 0xAE3F
+Copyright (c) Office of Aetheric Affairs, Section IX.
+This terminal is for authorised use only.  Activity is logged.
+Type 'help' or 'man <topic>' to begin.  Use 'logout' to disconnect.`}
+        </pre>
+        <HRule />
+
+        {/* top nav reads like a menu item list — no boxes, just words */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px', padding: '4px 0' }}>
+          <span style={{ color: C.dim }}>menu:</span>
+          {[
+            ['home',       '1 home'],
+            ['games',      '2 games'],
+            ['maps',       '3 sites'],
+            ['characters', '4 subjects'],
+            ['lore',       '5 memos'],
+            ['timeline',   '6 chronology'],
+            ['relics',     '7 relics'],
+            ['search',     '8 search'],
+          ].map(([id, label]) => {
+            const active = route.name === id;
+            return (
+              <button key={id} onClick={() => setRoute({ name: id })} style={{
+                background: active ? C.ink : 'transparent',
+                color: active ? C.bg : C.ink,
+                border: 0, padding: active ? '0 6px' : 0,
+                font: 'inherit', cursor: 'pointer',
+              }}>{label}</button>
+            );
+          })}
+          <span style={{ flex: 1 }} />
+          <span style={{ color: C.dim }}>
+            cwd <span style={{ color: C.ink }}>{cwd}</span>
+          </span>
+        </div>
+        <HRule />
+
+        {/* query line — typed in like any other command */}
+        <div style={{ padding: '6px 0' }}>
+          <span style={{ color: C.dim }}>$ aether:~&gt; </span>
+          <span>find -name &quot;</span>
+          <input value={query} onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && setRoute({ name: 'search' })}
+            placeholder=""
+            style={{
+              background: 'transparent', border: 0, outline: 0,
+              color: C.bright, font: 'inherit',
+              width: Math.max(8, (query || '').length + 2) + 'ch',
+              padding: 0,
+            }} />
+          <span>&quot;</span>
+          <span style={{ color: C.dim }}> &nbsp;(press enter to search)</span>
+        </div>
+        <HRule />
+
+        <div style={{ paddingTop: 12 }}>{children}</div>
+      </div>
+    );
+  }
+
+  // ─── headers, used per page ───────────────────────────────────────────
+  // Every page begins with one prompt that "ran" the command, then output.
+  function PageHeader({ cmd, sub }) {
+    return (
+      <>
+        <Prompt cmd={cmd} />
+        {sub && <div style={{ color: C.dim, margin: '0 0 14px' }}>{sub}</div>}
+      </>
+    );
+  }
+
+  // ─── HOME ─────────────────────────────────────────────────────────────
+  function Home({ setRoute }) {
+    return (
+      <div>
+        <Prompt cmd="login" />
+        <div style={{ marginBottom: 14 }}>
+          <div>Welcome, <span style={{ color: C.bright }}>agent 03741</span>. Last login: 1991-09-14 14:22 UTC from relay-04.</div>
+          <div style={{ color: C.dim }}>You have 1 new bulletin and 0 unread memos.</div>
+        </div>
+
+        <Prompt cmd="bulletin" />
+        <div style={{ marginBottom: 18, maxWidth: 760 }}>
+          <div style={{ color: C.bright }}>** D/SIX → ALL STATIONS **</div>
+          <div style={{ margin: '6px 0 6px' }}>
+            Activity at site CITADELLE has spiked in the past 36 hours. Field teams report a viable
+            main-quest opening. Stand-by orders rescinded; relic recovery authorised under UMBRA.
+          </div>
+          <div style={{ color: C.dim }}>filed 1991-09-14 14:18  ·  signed D/SIX</div>
+        </div>
+
+        <Prompt cmd="man aether" />
+        <div style={{ marginBottom: 22, maxWidth: 780 }}>
+          <div>NAME</div>
+          <div style={{ paddingLeft: 24 }}>aether — a reference for the undead.</div>
+          <div style={{ marginTop: 10 }}>SYNOPSIS</div>
+          <div style={{ paddingLeft: 24 }}>aether [subject] [site] [memo] [chronology] [relic]</div>
+          <div style={{ marginTop: 10 }}>DESCRIPTION</div>
+          <div style={{ paddingLeft: 24, color: C.dim, maxWidth: 700 }}>
+            The complete in-house index of incidents, sites, subjects, and recoverable artefacts
+            related to Aetheric activity from 1918 to present. Operates under classification UMBRA.
+            All entries cross-reference; type the name of any underlined word to jump.
+          </div>
+        </div>
+
+        <Prompt cmd="ls /aether/operations" />
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ color: C.dim, marginBottom: 4 }}>total {ZD.games.length}</div>
+          {ZD.games.map((g, i) => {
+            const n = ZD.maps.filter((m) => m.game === g.id).length;
+            const code = g.code.padEnd(4, ' ');
+            return (
+              <div key={g.id} className="term-row" style={{ gridTemplateColumns: '70px 60px 70px 1fr 70px' }}>
+                <span style={{ color: C.dim }}>vol.{String(i + 1).padStart(2, '0')}</span>
+                <span style={{ color: C.dim }}>{code}</span>
+                <span style={{ color: C.dim }}>{g.year}</span>
+                <span>
+                  <Link onClick={() => setRoute({ name: 'game', id: g.id })}>{g.title}</Link>
+                  <span style={{ color: C.dim }}>  — {g.era}</span>
+                </span>
+                <span style={{ color: C.dim, textAlign: 'right' }}>[{n}/{g.mapCount}]</span>
+              </div>
+            );
+          })}
+        </div>
+
+        <Prompt cmd="ls /aether/sites --recent --limit=4" />
+        <div style={{ marginBottom: 24 }}>
+          {ZD.maps.slice(-4).reverse().map((m) => (
+            <div key={m.id} className="term-row" style={{ gridTemplateColumns: '160px 70px 70px 1fr' }}>
+              <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
+              <span style={{ color: C.dim }}>diff {m.difficulty}/5</span>
+              <span style={{ color: C.dim }}>ee {m.eeCount}</span>
+              <span style={{ color: C.dim }}>{m.tagline}</span>
+            </div>
+          ))}
+        </div>
+
+        <Prompt cmd="tail -n 3 /aether/memos" />
+        <div style={{ marginBottom: 24 }}>
+          {[
+            ['1991-09-14', 'on-the-origin-cycle', 'D/SIX'],
+            ['1991-09-02', 'the-sentinel-artifact', 'WEAVER,G'],
+            ['1991-08-21', 'notes-on-templar-1294', 'AGUINALDO,M'],
+          ].map(([date, slug, author]) => (
+            <div key={slug} className="term-row" style={{ gridTemplateColumns: '110px 1fr 140px' }}>
+              <span style={{ color: C.dim }}>{date}</span>
+              <Link onClick={() => setRoute({ name: 'lore' })}>{slug}</Link>
+              <span style={{ color: C.dim }}>filed by {author}</span>
+            </div>
+          ))}
+        </div>
+
+        <Prompt cmd="" />
+        <div style={{ display: 'inline' }}>
+          <Cursor />
+        </div>
+      </div>
+    );
+  }
+
+  // ─── GAMES ────────────────────────────────────────────────────────────
+  function Games({ setRoute }) {
+    return (
+      <div>
+        <PageHeader cmd="ls -l /aether/operations" sub={'total ' + ZD.games.length + ' volumes  ·  sorted canonical'} />
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 80, display: 'inline-block' }}>perm</span>
+          <span style={{ width: 80, display: 'inline-block' }}>vol</span>
+          <span style={{ width: 70, display: 'inline-block' }}>year</span>
+          <span style={{ width: 60, display: 'inline-block' }}>code</span>
+          <span style={{ width: 60, display: 'inline-block' }}>maps</span>
+          <span>name</span>
+        </div>
+        <HRule cols={120} />
+        {ZD.games.map((g, i) => {
+          const n = ZD.maps.filter((m) => m.game === g.id).length;
+          return (
+            <div key={g.id} className="term-row" style={{ gridTemplateColumns: '80px 80px 70px 60px 60px 1fr', padding: '2px 0' }}>
+              <span style={{ color: C.dim }}>drwxr-x</span>
+              <span style={{ color: C.dim }}>vol.{String(i + 1).padStart(2, '0')}</span>
+              <span style={{ color: C.dim }}>{g.year}</span>
+              <span style={{ color: C.dim }}>{g.code}</span>
+              <span style={{ color: C.dim }}>{n}/{g.mapCount}</span>
+              <span>
+                <Link onClick={() => setRoute({ name: 'game', id: g.id })}>{g.title}</Link>
+                <span style={{ color: C.dim }}>  — {g.era}</span>
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function Game({ id, setRoute }) {
+    const g = ZD.games.find((x) => x.id === id);
+    const gameMaps = ZD.maps.filter((m) => m.game === id);
+    return (
+      <div>
+        <PageHeader cmd={'cd /aether/operations/' + g.id + ' && ls'} sub={g.title + '  ·  ' + g.year + '  ·  ' + g.era + '  ·  ' + gameMaps.length + ' of ' + g.mapCount + ' sites mounted.'} />
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 60, display: 'inline-block' }}>perm</span>
+          <span style={{ width: 50, display: 'inline-block' }}>diff</span>
+          <span style={{ width: 60, display: 'inline-block' }}>ee</span>
+          <span style={{ width: 80, display: 'inline-block' }}>relics</span>
+          <span style={{ width: 250, display: 'inline-block' }}>name</span>
+          <span>tagline</span>
+        </div>
+        <HRule cols={120} />
+        {gameMaps.map((m) => (
+          <div key={m.id} className="term-row" style={{ gridTemplateColumns: '60px 50px 60px 80px 250px 1fr', padding: '2px 0' }}>
+            <span style={{ color: C.dim }}>-rwxr-x</span>
+            <span style={{ color: C.dim }}>{m.difficulty}/5</span>
+            <span style={{ color: C.dim }}>{m.eeCount}</span>
+            <span style={{ color: C.dim }}>{m.relicCount}</span>
+            <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
+            <span style={{ color: C.dim }}>{m.tagline}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // ─── MAPS (filtered) ──────────────────────────────────────────────────
+  function Maps({ setRoute }) {
+    const [filter, setFilter] = useState('all');
+    const list = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+    return (
+      <div>
+        <PageHeader cmd={'find /aether/sites' + (filter !== 'all' ? ' --vol=' + filter : '')} sub={list.length + ' sites match.'} />
+        <div style={{ marginBottom: 14 }}>
+          <span style={{ color: C.dim }}>filter:</span>{' '}
+          <span style={{ marginLeft: 4 }}>
+            <Filter on={filter === 'all'} onClick={() => setFilter('all')}>all</Filter>
+            {ZD.games.map((g) => <Filter key={g.id} on={filter === g.id} onClick={() => setFilter(g.id)}>{g.code.toLowerCase()}</Filter>)}
+          </span>
+        </div>
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 90, display: 'inline-block' }}>vol</span>
+          <span style={{ width: 50, display: 'inline-block' }}>diff</span>
+          <span style={{ width: 60, display: 'inline-block' }}>ee</span>
+          <span style={{ width: 80, display: 'inline-block' }}>relics</span>
+          <span style={{ width: 260, display: 'inline-block' }}>name</span>
+          <span>location</span>
+        </div>
+        <HRule cols={120} />
+        {list.map((m) => {
+          const g = ZD.games.find((x) => x.id === m.game);
+          return (
+            <div key={m.id} className="term-row" style={{ gridTemplateColumns: '90px 50px 60px 80px 260px 1fr', padding: '2px 0' }}>
+              <span style={{ color: C.dim }}>{g.code.toLowerCase()}</span>
+              <span style={{ color: C.dim }}>{m.difficulty}/5</span>
+              <span style={{ color: C.dim }}>{m.eeCount}</span>
+              <span style={{ color: C.dim }}>{m.relicCount}</span>
+              <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
+              <span style={{ color: C.dim }}>{m.location}</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function Filter({ on, onClick, children }) {
+    return (
+      <button onClick={onClick} style={{
+        background: on ? C.ink : 'transparent',
+        color: on ? C.bg : C.ink,
+        border: 0, font: 'inherit', cursor: 'pointer',
+        padding: on ? '0 6px' : '0 4px', marginRight: 4,
+      }}>{children}</button>
+    );
+  }
+
+  // ─── MAP DETAIL ────────────────────────────────────────────────────────
+  function MapDetail({ id, setRoute }) {
+    const m = ZD.maps.find((x) => x.id === id);
+    const g = ZD.games.find((x) => x.id === m.game);
+    const ee = ZD.sampleEE;
+    const row = (k, v) => (
+      <div key={k}>
+        <span style={{ color: C.dim, display: 'inline-block', width: 160 }}>{k}</span>
+        <span>{v}</span>
+      </div>
+    );
+    return (
+      <div>
+        <PageHeader cmd={'cat /aether/sites/' + m.id + '.json'} sub={null} />
+        <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: 32, marginBottom: 18 }}>
+          <Slot w="100%" h={240} label={m.name} />
+          <div>
+            {row('id', m.id)}
+            {row('name', <span style={{ color: C.bright }}>{m.name}</span>)}
+            {row('operation', <Link onClick={() => setRoute({ name: 'game', id: g.id })}>{g.title}</Link>)}
+            {row('year', g.year)}
+            {row('location', m.location)}
+            {row('difficulty', m.difficulty + ' / 5')}
+            {row('easter eggs', m.eeCount)}
+            {row('relics', m.relicCount)}
+            {row('classification', 'UMBRA')}
+            {row('tags', m.tags.join(', '))}
+          </div>
+        </div>
+
+        <Prompt cmd={'cat /aether/sites/' + m.id + '/brief.txt'} />
+        <p style={{ margin: '0 0 22px', maxWidth: 820, lineHeight: 1.55 }}>{m.summary}</p>
+
+        <Prompt cmd={'ls /aether/sites/' + m.id + '/quests'} />
+        {m.eeCount ? (
+          <div className="term-row" style={{ gridTemplateColumns: '60px 110px 110px 1fr 80px', padding: '2px 0', marginBottom: 22 }}>
+            <span style={{ color: C.dim }}>q.01</span>
+            <span style={{ color: C.dim }}>{ee.difficulty}</span>
+            <span style={{ color: C.dim }}>{ee.duration}</span>
+            <Link onClick={() => setRoute({ name: 'ee', id: ee.id })}>{ee.title}</Link>
+            <span style={{ color: C.dim }}>main quest</span>
+          </div>
+        ) : (
+          <div style={{ color: C.dim, marginBottom: 22 }}>no quests on file.</div>
+        )}
+
+        <Prompt cmd={'ls /aether/sites/' + m.id + '/relics'} />
+        {m.relicCount ? (
+          <div style={{ marginBottom: 22 }}>
+            {Array.from({ length: m.relicCount }).map((_, i) => (
+              <div key={i} className="term-row" style={{ gridTemplateColumns: '90px 1fr 90px', padding: '1px 0' }}>
+                <span style={{ color: C.dim }}>r.{String(i + 1).padStart(3, '0')}</span>
+                <span>relic_{String.fromCharCode(97 + i)}.obj</span>
+                <span style={{ color: C.dim }}>recovered: —</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ color: C.dim, marginBottom: 22 }}>(empty)</div>
+        )}
+
+        <Prompt cmd="" />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── EE WALKTHROUGH ────────────────────────────────────────────────────
+  function EE({ setRoute }) {
+    const ee = ZD.sampleEE;
+    const m = ZD.maps.find((x) => x.id === ee.map);
+    const [completed, setCompleted] = useState(new Set());
+    const [active, setActive] = useState(0);
+    const toggle = (n) => setCompleted((s) => { const ns = new Set(s); ns.has(n) ? ns.delete(n) : ns.add(n); return ns; });
+
+    const progressBar = (n, total, width = 40) => {
+      const filled = Math.floor((n / total) * width);
+      return '[' + '#'.repeat(filled) + '.'.repeat(width - filled) + ']';
+    };
+
+    return (
+      <div>
+        <PageHeader cmd={'run /aether/quests/' + ee.id} sub={ee.title + '  ·  on ' + m.name + '  ·  ' + ee.difficulty + '  ·  ' + ee.duration} />
+
+        <p style={{ margin: '0 0 18px', maxWidth: 820, lineHeight: 1.55 }}>{ee.summary}</p>
+
+        <Prompt cmd="status" />
+        <div style={{ marginBottom: 22 }}>
+          <div>progress  {progressBar(completed.size, ee.steps.length)}  {completed.size}/{ee.steps.length}</div>
+          <div style={{ color: C.dim }}>party:    {ee.party}</div>
+          <div style={{ color: C.dim }}>rewards:  {ee.rewards.join('  ·  ')}</div>
+        </div>
+
+        <Prompt cmd="steps --list" />
+        <div style={{ marginBottom: 18 }}>
+          {ee.steps.map((s, i) => {
+            const done = completed.has(s.n);
+            const isActive = i === active;
+            return (
+              <button key={s.n} onClick={() => setActive(i)} style={{
+                display: 'grid', gridTemplateColumns: '36px 24px 90px 1fr 90px',
+                background: isActive ? 'rgba(216, 210, 188, 0.10)' : 'transparent',
+                border: 0, font: 'inherit', color: C.ink,
+                textAlign: 'left', cursor: 'pointer', padding: '3px 4px',
+                width: '100%', alignItems: 'baseline',
+              }}>
+                <span style={{ color: C.dim }}>{isActive ? '>' : ' '}</span>
+                <span onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
+                  display: 'inline-block', width: 16, textAlign: 'center',
+                  color: done ? C.bright : C.dim,
+                }}>[{done ? 'x' : ' '}]</span>
+                <span style={{ color: C.dim }}>step.{String(s.n).padStart(2, '0')}</span>
+                <span style={{ textDecoration: done ? 'line-through' : 'none', color: done ? C.dim : C.ink }}>{s.title}</span>
+                <span style={{ color: C.dim, fontSize: 14, textAlign: 'right' }}>{isActive ? 'ACTIVE' : ''}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <Prompt cmd={'open step.' + String(ee.steps[active].n).padStart(2, '0')} />
+        <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: 28, marginBottom: 18 }}>
+          <Slot w="100%" h={210} label={'STEP ' + String(ee.steps[active].n).padStart(2, '0')} />
+          <div>
+            <div style={{ color: C.bright, marginBottom: 6 }}>{ee.steps[active].title}</div>
+            <div style={{ color: C.dim, marginBottom: 12 }}>step {ee.steps[active].n} of {ee.steps.length}</div>
+            <p style={{ margin: 0, maxWidth: 540, lineHeight: 1.6 }}>{ee.steps[active].body}</p>
+
+            <div style={{ marginTop: 18 }}>
+              <span style={{ color: C.dim }}>actions:</span>{' '}
+              <Link onClick={() => active > 0 && setActive((a) => a - 1)} style={{ marginRight: 14, opacity: active === 0 ? 0.4 : 1 }}>prev</Link>
+              <Link onClick={() => { toggle(ee.steps[active].n); if (active < ee.steps.length - 1) setActive((a) => a + 1); }} style={{ marginRight: 14 }}>
+                {completed.has(ee.steps[active].n) ? 'unmark' : 'mark complete'}
+              </Link>
+              <Link onClick={() => active < ee.steps.length - 1 && setActive((a) => a + 1)} style={{ opacity: active === ee.steps.length - 1 ? 0.4 : 1 }}>next</Link>
+            </div>
+          </div>
+        </div>
+
+        <Prompt cmd="" />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── CHARACTERS ────────────────────────────────────────────────────────
+  function Characters({ setRoute }) {
+    return (
+      <div>
+        <PageHeader cmd="ls -l /aether/subjects" sub={ZD.characters.length + ' records on file'} />
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 70, display: 'inline-block' }}>id</span>
+          <span style={{ width: 240, display: 'inline-block' }}>cryptonym</span>
+          <span style={{ width: 280, display: 'inline-block' }}>role</span>
+          <span>origin</span>
+        </div>
+        <HRule cols={120} />
+        {ZD.characters.map((c, i) => (
+          <div key={c.id} className="term-row" style={{ gridTemplateColumns: '70px 240px 280px 1fr', padding: '2px 0' }}>
+            <span style={{ color: C.dim }}>s.{String(i + 1).padStart(2, '0')}</span>
+            <Link onClick={() => setRoute({ name: 'character', id: c.id })}>{c.name}</Link>
+            <span style={{ color: C.dim }}>{c.role}</span>
+            <span style={{ color: C.dim }}>{c.origin}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  function CharacterDetail({ id, setRoute }) {
+    const c = ZD.characters.find((x) => x.id === id);
+    if (!c) return null;
+    const row = (k, v) => (
+      <div key={k}><span style={{ color: C.dim, display: 'inline-block', width: 160 }}>{k}</span><span>{v}</span></div>
+    );
+    return (
+      <div>
+        <PageHeader cmd={'cat /aether/subjects/' + c.id + '.dossier'} sub={null} />
+        <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: 32, marginBottom: 18 }}>
+          <Slot w="100%" h={360} label={c.name.split(' ').pop()} />
+          <div>
+            {row('name', <span style={{ color: C.bright }}>{c.name}</span>)}
+            {row('role', c.role)}
+            {row('origin', c.origin)}
+            {row('status', 'active')}
+            {row('clearance', '████ UMBRA')}
+            {row('aliases', '—')}
+
+            <div style={{ marginTop: 18 }}>
+              <span style={{ color: C.dim, display: 'inline-block', width: 160 }}>statement</span>
+              <span style={{ color: C.bright }}>"{c.quote}"</span>
+            </div>
+          </div>
+        </div>
+
+        <Prompt cmd="cat ./biography.txt" />
+        <p style={{ margin: '0 0 22px', maxWidth: 820, lineHeight: 1.6 }}>{c.summary}</p>
+
+        <Prompt cmd={'grep -l subject:' + c.id + ' /aether/sites/*'} />
+        <div style={{ marginBottom: 22 }}>
+          {ZD.maps.slice(0, 6).map((m) => (
+            <div key={m.id} className="term-row" style={{ gridTemplateColumns: '180px 1fr', padding: '1px 0' }}>
+              <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
+              <span style={{ color: C.dim }}>{m.tagline}</span>
+            </div>
+          ))}
+        </div>
+
+        <Prompt cmd="" />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── LORE / MEMO ───────────────────────────────────────────────────────
+  function Lore() {
+    return (
+      <div>
+        <PageHeader cmd="less /aether/memos/origin-cycle.txt" sub="14 sept 1991  ·  D/SIX  ·  classified UMBRA" />
+        <div style={{ maxWidth: 760, lineHeight: 1.7, marginBottom: 22 }}>
+          <pre style={{ margin: 0, font: 'inherit', whiteSpace: 'pre-wrap' }}>
+{`MEMORANDUM
+from:  D/SIX
+to:    ████████████
+re:    why maxis keeps starting over
+
+`}
+          </pre>
+          <p style={{ marginTop: 0, color: C.bright }}>
+            "no matter how many times we run this, the ending is always the same.
+            the difference is what gets dragged into it."
+          </p>
+          <p>
+            The Aether Story is not a sequence; it is a wheel. <span style={{ color: C.bright }}>Dr. Maxis</span> is
+            the closest thing the loop has to a narrator, and even he does not control the
+            rotation. He is only the one who keeps the lights on between turns.
+          </p>
+          <div style={{ color: C.dim, marginTop: 18, marginBottom: 6 }}>## the first turn</div>
+          <p style={{ margin: 0 }}>
+            The cycle begins at <span style={{ color: C.bright }}>Generation Station 64</span>, a German dig that
+            breached an Element 115 deposit during the closing months of the Great War.
+            Four soldiers — the men we will come to call <span style={{ color: C.bright }}>Primis</span> — are
+            killed, brought back, and given a fragment of memory that does not belong to them.
+          </p>
+          <p>
+            What they remember is the previous turn of the wheel: a moon shattered, a daughter
+            trapped in a machine, a friend with a syringe. They do not have the words for any of it.
+          </p>
+          <div style={{ color: C.dim, marginTop: 18, marginBottom: 6 }}>## the cost of breaking it</div>
+          <p style={{ margin: 0 }}>
+            By the time of Revelations, every variable that can be moved has been moved. The cycle
+            does not end — it is <span style={{ color: C.bright }}>retired</span>. The new cycle, the Dark Aether era, begins on
+            the same battlefield with none of the same actors and one new word for the same thing.
+          </p>
+          <p>
+            That word is <span style={{ color: C.bright }}>Forsaken</span>, and it remembers everything.
+          </p>
+
+          <div style={{ marginTop: 22, color: C.dim }}>
+            --<br />
+            signed,<br />
+            D/SIX<br />
+            office of aetheric affairs · 14 sept 1991
+          </div>
+        </div>
+
+        <Prompt cmd="" />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── TIMELINE ──────────────────────────────────────────────────────────
+  function Timeline() {
+    return (
+      <div>
+        <PageHeader cmd="cat /aether/chrono/incidents.log" sub="strict chronological order  ·  oldest first" />
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 80,  display: 'inline-block' }}>year</span>
+          <span style={{ width: 100, display: 'inline-block' }}>code</span>
+          <span style={{ width: 260, display: 'inline-block' }}>incident</span>
+          <span>report</span>
+        </div>
+        <HRule cols={120} />
+        {ZD.timeline.map((t, i) => (
+          <div key={i} style={{
+            display: 'grid', gridTemplateColumns: '80px 100px 260px 1fr', gap: 8,
+            padding: '6px 0', borderBottom: '1px dotted ' + C.dim, alignItems: 'baseline',
+          }}>
+            <span style={{ color: C.bright }}>{t.year}</span>
+            <span style={{ color: C.dim }}>inc-{String(i + 1).padStart(3, '0')}</span>
+            <span>{t.title}</span>
+            <span style={{ color: C.dim, lineHeight: 1.55 }}>{t.body}</span>
+          </div>
+        ))}
+        <div style={{ color: C.dim, marginTop: 10 }}>-- end of log --</div>
+        <Prompt cmd="" style={{ marginTop: 10 }} />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── RELICS ────────────────────────────────────────────────────────────
+  function Relics({ setRoute }) {
+    const items = [
+      ['Templar Shard',     'citadelle'],
+      ['Reliquary Coin',    'tomb'],
+      ['Sentinel Fragment', 'forsaken'],
+      ['Echoing Bell',      'terminus'],
+      ['Spine of Ull',      'liberty'],
+      ['Wreath of Krause',  'astro'],
+      ['Vril Pendant',      'ashes'],
+      ['Eye of Stachel',    'paradox'],
+      ['Crown of Solais',   'totenreich'],
+      ['Brand Mark',        'citadelle'],
+      ['Carolingian Quill', 'tomb'],
+      ['Bone of the First', 'astro'],
+    ];
+    return (
+      <div>
+        <PageHeader cmd="grep -r 'class:RELIC' /aether/sites/" sub={items.length + ' artefacts catalogued'} />
+        <div style={{ color: C.dim, marginBottom: 4 }}>
+          <span style={{ width: 90,  display: 'inline-block' }}>cat.id</span>
+          <span style={{ width: 260, display: 'inline-block' }}>name</span>
+          <span style={{ width: 220, display: 'inline-block' }}>recovered at</span>
+          <span>checksum</span>
+        </div>
+        <HRule cols={120} />
+        {items.map(([name, where], i) => {
+          const m = ZD.maps.find((x) => x.id === where);
+          return (
+            <div key={i} className="term-row" style={{ gridTemplateColumns: '90px 260px 220px 1fr', padding: '2px 0' }}>
+              <span style={{ color: C.dim }}>r.{String(i + 1).padStart(3, '0')}</span>
+              <span>{name}</span>
+              {m ? (
+                <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
+              ) : (
+                <span style={{ color: C.dim }}>—</span>
+              )}
+              <span style={{ color: C.dim }}>0x{('0' + (i + 1).toString(16)).slice(-2)}AE3F{('0' + ((i * 7) & 0xff).toString(16)).slice(-2).toUpperCase()}</span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // ─── SEARCH ────────────────────────────────────────────────────────────
+  function Search({ query, setRoute }) {
+    const q = (query || '').toLowerCase();
+    const hits = useMemo(() => {
+      const out = [];
+      ZD.maps.forEach((m) => {
+        if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
+          out.push({ kind: 'site',    title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+      });
+      ZD.characters.forEach((c) => {
+        if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))
+          out.push({ kind: 'subject', title: c.name, sub: c.role,    route: { name: 'character', id: c.id } });
+      });
+      ZD.wonderWeapons.forEach((w) => {
+        if (!q || w.name.toLowerCase().includes(q))
+          out.push({ kind: 'object',  title: w.name, sub: w.summary, route: { name: 'home' } });
+      });
+      return out.slice(0, 14);
+    }, [q]);
+
+    return (
+      <div>
+        <PageHeader cmd={'grep -ri "' + (query || '') + '" /aether'} sub={hits.length + ' result' + (hits.length === 1 ? '' : 's') + '.'} />
+        {hits.length === 0 && <div style={{ color: C.dim }}>(no matches)</div>}
+        {hits.map((h, i) => (
+          <div key={i} className="term-row" style={{ gridTemplateColumns: '80px 320px 1fr', padding: '2px 0' }}>
+            <span style={{ color: C.dim }}>{h.kind}</span>
+            <Link onClick={() => setRoute(h.route)}>{h.title}</Link>
+            <span style={{ color: C.dim }}>{h.sub}</span>
+          </div>
+        ))}
+        <Prompt cmd="" style={{ marginTop: 14 }} />
+        <Cursor />
+      </div>
+    );
+  }
+
+  // ─── ROUTER ────────────────────────────────────────────────────────────
+  function Terminal() {
+    const [route, setRoute] = useState({ name: 'home' });
+    const [query, setQuery] = useState('citadelle');
+    useEffect(() => {
+      const wrap = document.getElementById('term-scroll');
+      if (wrap) wrap.scrollTop = 0;
+    }, [route]);
+
+    let page;
+    switch (route.name) {
+      case 'games':       page = <Games setRoute={setRoute} />; break;
+      case 'game':        page = <Game id={route.id} setRoute={setRoute} />; break;
+      case 'maps':        page = <Maps setRoute={setRoute} />; break;
+      case 'map':         page = <MapDetail id={route.id} setRoute={setRoute} />; break;
+      case 'ee':          page = <EE setRoute={setRoute} />; break;
+      case 'characters':  page = <Characters setRoute={setRoute} />; break;
+      case 'character':   page = <CharacterDetail id={route.id} setRoute={setRoute} />; break;
+      case 'lore':        page = <Lore />; break;
+      case 'timeline':    page = <Timeline />; break;
+      case 'relics':      page = <Relics setRoute={setRoute} />; break;
+      case 'search':      page = <Search query={query} setRoute={setRoute} />; break;
+      default:            page = <Home setRoute={setRoute} />;
+    }
+    return (
+      <Shell route={route} setRoute={setRoute} query={query} setQuery={setQuery}>
+        <div id="term-scroll">{page}</div>
+      </Shell>
+    );
+  }
+
+  window.Terminal = Terminal;
+})();
