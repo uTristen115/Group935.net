@@ -6,6 +6,8 @@
 <title>Group 935 // Archive — Zombies Codex</title>
 <meta name="description" content="A reader's database for every Treyarch Zombies map, Easter egg, relic, and operative — World at War through Black Ops 7 Totenreich." />
 <meta name="theme-color" content="#0a0908" />
+<link rel="icon" type="image/png" href="./Images/Icons/Group935icon.png" />
+<link rel="apple-touch-icon" href="./Images/Icons/Group935icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -182,6 +184,51 @@ window.ZD = (function () {
   // Relics are a BO7-only mechanic. Zero out BO6 (was an earlier guess).
   maps.forEach((m) => { if (m.game === 'bo6') m.relicCount = 0; });
 
+  // Additional map pages for folders that already have local imagery.
+  // These sit here as augmentations so the original seed list stays readable.
+  const extraMaps = [
+    { id: 'five', game: 'bo1', name: 'Five', tagline: 'The Pentagon becomes a panic room.', location: 'The Pentagon, Washington D.C., 1963', difficulty: 3, eeCount: 0, relicCount: 0, summary: 'A classified meeting between Kennedy, Nixon, McNamara, and Castro is cut short by the dead. Tight halls, DEFCON switches, and the Pentagon Thief turn a government bunker into one of the strangest survival files in the archive.', tags: ['pentagon', 'classic', 'defcon'] },
+    { id: 'callofthedead', game: 'bo1', name: 'Call of the Dead', tagline: 'A film set at the end of the world.', location: 'Siberian coast, 2011', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Romero production on a frozen coastline gets interrupted by the real thing. The celebrity cast keeps moving through shipwrecks, fog, and lighthouse machinery while Ultimis remains trapped behind a steel door asking for help.', tags: ['celebrity-crew', 'siberia', 'vril'] },
+    { id: 'shangri', game: 'bo1', name: 'Shangri-La', tagline: 'A lost temple that refuses to stay lost.', location: 'Himalayan jungle temple', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Vril temple, a stuck eclipse, and two explorers folded into a time loop. Shangri-La is compact, hostile, and full of moving machinery that turns the map itself into the trap.', tags: ['temple', 'vril', 'time-loop'] },
+    { id: 'tranzit', game: 'bo2', name: 'TranZit', tagline: 'The blasted road between broken towns.', location: 'Hanford, Washington, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Victis wakes up after the missiles and follows a bus route through fog, fire, and half-working infrastructure. It is the first map where the world after Moon feels less like a backdrop and more like the problem.', tags: ['victis', 'bus-route', 'tower'] },
+    { id: 'dierise', game: 'bo2', name: 'Die Rise', tagline: 'The skyline falls upward.', location: 'Shanghai, post-Moon Earth', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A shattered set of skyscrapers leans over the void while Maxis and Richtofen keep pulling Victis in opposite directions. Elevators, buildables, and the Sliquifier turn every route into a risk calculation.', tags: ['victis', 'vertical', 'tower'] },
+    { id: 'buried', game: 'bo2', name: 'Buried', tagline: 'An Old West town under Africa.', location: 'Angolan mine, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'The final Victis tower is hidden in a buried frontier town with ghosts, chalk outlines, and a giant ally who changes the map as much as any weapon does.', tags: ['victis', 'western', 'final-tower'] },
+    { id: 'thegiant', game: 'bo3', name: 'The Giant', tagline: 'Der Riese, altered by one fatal arrival.', location: 'Group 935 facility, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Primis arrives at the old factory just in time to fracture the familiar timeline. The Giant is Der Riese through the BO3 lens: same teleporters, same factory bones, one gunshot that starts the soul hunt.', tags: ['primis', 'factory', 'teleporter'] },
+    { id: 'zetsubou', game: 'bo3', name: 'Zetsubou No Shima', tagline: 'Division 9 lets the island rot.', location: 'Pohnpei Island, Pacific theater', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Primis follows Takeo to a Division 9 island where plant experiments, spider venom, and 115 have blended into a living swamp. The map is less a facility than an infection with doors.', tags: ['primis', 'division-9', 'swamp'] },
+    { id: 'gorod', game: 'bo3', name: 'Gorod Krovi', tagline: 'Dragons over Stalingrad.', location: 'Stalingrad, 1945', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'Nikolai\'s soul is waiting in a city that never stopped burning. Robots, dragons, manglers, and Group 935 wreckage make Gorod Krovi the loudest, hardest edge of the Primis hunt.', tags: ['primis', 'dragons', 'stalingrad'] },
+    { id: 'ix', game: 'bo4', name: 'IX', tagline: 'The arena wants a sacrifice.', location: 'Roman coliseum, Chaos timeline', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'The Chaos crew enters a ritual arena built for gods, champions, and spectacle. IX turns the map into a circular gauntlet where each tower has its own trial and every chant sounds like a warning.', tags: ['chaos', 'arena', 'trials'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'voyage', game: 'bo4', name: 'Voyage of Despair', tagline: 'The Titanic goes down twice.', location: 'RMS Titanic, 1912', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Sentinel artifact turns the Titanic into a sealed ritual site. The Chaos crew fights through flooded decks, grand staircases, and a disaster that was already impossible to survive once.', tags: ['chaos', 'titanic', 'sentinel'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'blood', game: 'bo4', name: 'Blood of the Dead', tagline: 'Alcatraz remembers the cycle.', location: 'Alcatraz pocket dimension', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Primis returns to the Rock and finds the old escape plan rotting underneath them. Blood of the Dead reframes Alcatraz as a trap designed for the cycle itself.', tags: ['primis', 'alcatraz', 'cycle'], crewIds: ['dempsey','nikolai','takeo','richtofen'] },
+    { id: 'dotn', game: 'bo4', name: 'Dead of the Night', tagline: 'A manor party with teeth.', location: 'Rhodes estate, England', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'An occult gathering turns into a locked-room outbreak. Vampires, werewolves, and artifact rituals pull the Chaos story into gothic horror.', tags: ['chaos', 'manor', 'occult'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'ancientevil', game: 'bo4', name: 'Ancient Evil', tagline: 'Delphi opens beneath the world.', location: 'Delphi, Greece', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The Chaos crew follows the Sentinel trail to Delphi and into a mythic undercity. Ancient Evil pushes the story fully into gods, statues, gauntlets, and a finale that feels carved from stone.', tags: ['chaos', 'delphi', 'gauntlets'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'tag', game: 'bo4', name: 'Tag der Toten', tagline: 'The day the old story ends.', location: 'Siberian facility', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The Aether story returns to the frozen coast for its last move. Tag der Toten gathers loose ends, Victis, and the old lighthouse signal into a quiet ending for a very loud cycle.', tags: ['aether', 'siberia', 'finale'], crewIds: ['marlton','misty','russman','stuhlinger'] },
+    { id: 'shatteredveil', game: 'bo6', name: 'Shattered Veil', tagline: 'A manor hides the next breach.', location: 'Liberty Falls perimeter, 1991', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The BO6 investigation moves from public outbreak to private architecture. Shattered Veil turns a research mansion into a controlled breach where every clean surface is lying.', tags: ['bo6', 'mansion', 'breach'] },
+    { id: 'reckoning', game: 'bo6', name: 'The Reckoning', tagline: 'The facility answers back.', location: 'Janus facility, 1991', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'The Reckoning pushes the BO6 arc into its most hostile facility space: containment rooms, prototype horrors, and the sense that the operation has finally stopped pretending it is under control.', tags: ['bo6', 'facility', 'finale'] },
+  ];
+  extraMaps.forEach((entry) => {
+    if (!maps.some((m) => m.id === entry.id)) maps.push(entry);
+  });
+  const mobMap = maps.find((m) => m.id === 'mob');
+  if (mobMap) mobMap.game = 'bo2';
+  const canonOrder = [
+    'nacht','verruckt','shino','derriese',
+    'kino','five','ascension','callofthedead','shangri','moon',
+    'tranzit','dierise','mob','buried','origins',
+    'shadows','thegiant','eisendrache','zetsubou','gorod','revelations',
+    'ix','voyage','blood','dotn','ancientevil','tag',
+    'diemaschine','firebase','mauer','forsaken',
+    'terminus','liberty','citadelle','tomb','shatteredveil','reckoning',
+    'ashes','astro','paradox','totenreich',
+  ];
+  maps.sort((a, b) => {
+    const ai = canonOrder.indexOf(a.id);
+    const bi = canonOrder.indexOf(b.id);
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
+  games.forEach((g) => {
+    g.mapCount = Math.max(g.mapCount, maps.filter((m) => m.game === g.id).length);
+  });
+
   // Songs: hidden tracks per map. { name, artist, activation, link? }
   // Confident entries are seeded; uncertain maps have empty arrays you can fill.
   const mapSongs = {
@@ -190,11 +237,20 @@ window.ZD = (function () {
     shino:       [{ name: 'Beauty of Annihilation', artist: 'Elena Siegman', activation: 'Three meteor rocks in the swamp.' }],
     derriese:    [{ name: 'The One',                artist: 'Elena Siegman', activation: 'Hold the action button on three teddy bears around the factory.' }],
     kino:        [{ name: '115',                    artist: 'Elena Siegman', activation: 'Three meteor rocks: spawn, dressing room, theater.' }],
+    five:        [],
     ascension:   [{ name: 'Abracadavre',            artist: 'Elena Siegman', activation: 'Three teddy bears across the cosmodrome.' }],
+    callofthedead: [],
+    shangri:     [],
     moon:        [{ name: 'Coming Home',            artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
+    tranzit:     [],
+    dierise:     [],
+    buried:      [],
     origins:     [{ name: 'Archangel',              artist: 'Malukah & Elena Siegman', activation: 'Three gramophones found across the dig site.' }],
     shadows:     [{ name: 'Snakeskin Boots',        artist: 'Kevin Sherwood', activation: 'Three rituals at the snake-head altars.' }],
+    thegiant:    [],
     eisendrache: [{ name: 'Dead Flowers',           artist: 'Avenged Sevenfold', activation: 'Three teddy bears around the keep.' }],
+    zetsubou:    [],
+    gorod:       [],
     mob:         [
       { name: 'Where Are We Going',  artist: 'Kevin Sherwood feat. Malukah', activation: 'Three skulls in the prison (warden’s office, cafeteria, infirmary).' },
       { name: 'Rusty Cage (cover)',  artist: 'Brand-X (Soundgarden cover)',  activation: 'Plays at random on the Citadel record player.' },
@@ -216,6 +272,56 @@ window.ZD = (function () {
   Object.entries(mapSongs).forEach(([id, songs]) => {
     const m = maps.find((x) => x.id === id);
     if (m) m.songs = songs;
+  });
+
+  // Local image folders mapped to their map pages. `hero` drives the detail
+  // page, `thumb` drives cards, and `gallery` renders the extra frames.
+  const mapMedia = {
+    nacht:       { dir: 'World at War/Maps/Nacht Der Untoten', hero: 'Nacht_Thumbnail.png', thumb: 'Nacht_Thumbnail.png', gallery: ['Nacht1.png','Nacht2.png','Nacht3.png','Nacht4.png'] },
+    verruckt:    { dir: 'World at War/Maps/Verruckt', hero: 'verruckt_LoadingSCreen.png', thumb: 'verruckt_Thumbnail.png', gallery: ['verruckt1.png','verruckt2.png','verruckt3.png','verruckt4.png','verruckt5.png','verruckt6.png'] },
+    shino:       { dir: 'World at War/Maps/Shi No Numa', hero: 'ShiNo_LoadingSCreen.png', thumb: 'ShiNo_Thumbnail.png', gallery: ['ShiNo1.png','ShiNo2.png','ShiNo3.png','ShiNo4.png','ShiNo_Promo.png'] },
+    derriese:    { dir: 'World at War/Maps/Der Riese', hero: 'DerRiese_Promo.png', thumb: 'DerRiese_Thumbnail.png', gallery: ['DerRiese1.png','DerRiese2.png','DerRiese3.png','DerRiese4.png','DerRiese5.png','DerRieseMap.png'] },
+    kino:        { dir: 'Black Ops/Maps/Kino Der Toten', hero: 'Kino_Loading_Screen.png', thumb: 'Kino_1.png', gallery: ['Kino_1.png','Kino_2.png','Kino_3.png'] },
+    five:        { dir: 'Black Ops/Maps/Five', hero: 'Five_LoadingScreen.png', thumb: 'Five.png', gallery: ['Five_1.png','Five_3.png'] },
+    ascension:   { dir: 'Black Ops/Maps/Ascension', hero: 'Ascension_LoadingScreen.png', thumb: 'Ascension_Thumbnail.png', gallery: ['Ascension_1.png','Ascension_2.png','Ascension_3.png'] },
+    callofthedead: { dir: 'Black Ops/Maps/Call of the Dead', hero: 'CotD_Poster.png', thumb: 'CotD_Thumbnail.png', gallery: ['CotD_LoadingScreen.png','CotD_1.png','CotD_2.png','CotD_3.png','CotD_4.png'] },
+    shangri:     { dir: 'Black Ops/Maps/Shangri-La', hero: 'Shangri_La_LoadingScreen.png', thumb: 'Shangri_La_1.png', gallery: ['Shangri_La_1.png','Shangri_La_2.png','Shangri_La_3.png','Shangri_La_4.png'] },
+    moon:        { dir: 'Black Ops/Maps/Moon', hero: 'Moon_LoadingScreen.png', thumb: 'Moon_Thumbnail.png', gallery: ['Moon_1.png','Moon_2.png','Moon_3.png','Moon_4.png'] },
+    tranzit:     { dir: 'Black Ops 2/Maps/TranZit', hero: 'TranZit_Thumbnail.png', thumb: 'TranZit_Thumbnail.png', gallery: ['TranZit_1.png','TranZit_2.png','TranZit_3.png','TranZit_4.png','TranZit_5.png'] },
+    dierise:     { dir: 'Black Ops 2/Maps/Die Rise', hero: 'Die_Rise_Thumbnail.png', thumb: 'Die_Rise_Thumbnail.png', gallery: ['Die_Rise1.png','Die_Rise2.png','Die_Rise3.png','Die_Rise4.png','Die_Rise5.png'] },
+    mob:         { dir: 'Black Ops 2/Maps/Mob of the Dead', hero: 'MotD_Poster.png', thumb: 'MotD_ThumbNail.png', gallery: ['MotD_LoadingScreen.png','MotD1.png','MotD2.png','MotD3.png','MotD4.png','MotD5.png'] },
+    buried:      { dir: 'Black Ops 2/Maps/Buried', hero: 'Buried_Thumbnail.png', thumb: 'Buried_Thumbnail.png', gallery: ['Buried1.png','Buried2.png','Buried3.png','Buried4.png','Buried5.png'] },
+    origins:     { dir: 'Black Ops 2/Maps/Origins', hero: 'origins_poster.png', thumb: 'Origins_Thumbnail.png', gallery: ['Origins1.png','Origins2.png','Origins3.png','Origins4.png','Origins5.png','Origins_Panzer.png'] },
+    shadows:     { dir: 'Black Ops 3/Maps/Shadows of Evil', hero: 'SoE_Poster.png', thumb: 'SoE1.png', gallery: ['SoE1.png','SoE2.png','SoE3.png','SoE4.png','SoE5.png'] },
+    thegiant:    { dir: 'Black Ops 3/Maps/The Giant', hero: 'The_Giant_Ultrawide.png', thumb: 'The_Giant_Thumbnail.png', gallery: ['The_Giant1.png','The_Giant2.png','The_Giant3.png','The_Giant4.png'] },
+    eisendrache: { dir: 'Black Ops 3/Maps/Der Eisendrache', hero: 'Der_Eisendrache_Poster.png', thumb: 'DE1.png', gallery: ['DE1.png','DE2.png','DE3.png','DE4.png','DE5.png','DE6.png'] },
+    zetsubou:    { dir: 'Black Ops 3/Maps/Zetsubou No Shima', hero: 'ZnS_Poster.png', thumb: 'ZnS1.png', gallery: ['ZnS1.png','ZnS2.png','ZnS3_Spider.png','ZnS4.png','ZnS5.png','ZnS6.png','ZnS7_Thrasher.png','NoJapanese.png'] },
+    gorod:       { dir: 'Black Ops 3/Maps/Gorod Krovi', hero: 'GK_Poster.png', thumb: 'GK1.png', gallery: ['GK1.png','GK2.png','GK3.png','GK4.png','GK5.png','GK6.png'] },
+    revelations: { dir: 'Black Ops 3/Maps/Revelations', hero: 'Rev_Poster.png', thumb: 'Rev1.png', gallery: ['Rev1.png','Rev2.png','Rev3.png','Rev4.png','Rev5.png','Rev6.png'] },
+    ix:          { dir: 'Black Ops 4/Maps/IX', hero: 'IX_Poster.png', thumb: 'IX1.png', gallery: ['IX1.png','IX2.png','IX3.png','IX4.png','IX5.png','IX6.png'] },
+    voyage:      { dir: 'Black Ops 4/Maps/Voyage of Despair', hero: 'VoD_Poster.png', thumb: 'VoD1.png', gallery: ['VoD1.png','VoD2.png','VoD3.png','VoD4.png','VoD5.png'] },
+    blood:       { dir: 'Black Ops 4/Maps/Blood of the Dead', hero: 'BloodPoster.png', thumb: 'BotD1.png', gallery: ['BotD1.png','BotD2.png','BotD3.png','BotD4.png','BotD5.png'] },
+    dotn:        { dir: 'Black Ops 4/Maps/Dead of the Night', hero: 'DotN_Poster.png', thumb: 'DotN1.png', gallery: ['DotN1.png','DotN2.png','DotN3.png','DotN4.png','DotN5.png'] },
+    ancientevil: { dir: 'Black Ops 4/Maps/Ancient Evil', hero: 'AE1.png', thumb: 'AE1.png', gallery: ['AE2.png','AE3.png','AE4.png','AE5.png','AE6.png'] },
+    tag:         { dir: 'Black Ops 4/Maps/Tag Der Toten', hero: 'TagDerToten1_Poster.png', thumb: 'TagDerToten2.png', gallery: ['TagDerToten2.png','TagDerToten3.png','TagDerToten4.png','TagDerToten5.png','TagDerToten_TheEnd.png'] },
+    diemaschine: { dir: 'Black Ops Cold War/Maps/Die Maschine', hero: 'DM1.png', thumb: 'DM1.png', gallery: ['DM2.png','DM3.png','DM4.png','DM5.png','DM6.png','DM7.png'] },
+    firebase:    { dir: 'Black Ops Cold War/Maps/Firebase Z', hero: 'FBZ1.png', thumb: 'FBZ1.png', gallery: ['FBZ2.png','FBZ3.png','FBZ4.png','FBZ5.png','FBZ6.png','FBZ7.png'] },
+    mauer:       { dir: 'Black Ops Cold War/Maps/Mauer Der Toten', hero: 'Mauer1.png', thumb: 'Mauer1.png', gallery: ['Mauer2.png','Mauer3.png','Mauer4.png','Mauer5.png','Mauer6.png'] },
+    forsaken:    { dir: 'Black Ops Cold War/Maps/Forsaken', hero: 'Forsaken1.png', thumb: 'Forsaken1.png', gallery: ['Forsaken2.png','Forsaken3.png','Forsaken4.png','Forsaken5.png','Forsaken6.png','Forsaken_Margwa.png','Forsaken_The_Forsaken.png'] },
+    terminus:    { dir: 'Black Ops 6/Maps/Terminus', hero: 'Terminus1.png', thumb: 'Terminus1.png', gallery: ['Terminus2.png','Terminus3.png','Terminus4.png','Terminus5.png','Terminus6.png','Terminus7.png','Terminus_Amalgum.png'] },
+    liberty:     { dir: 'Black Ops 6/Maps/Liberty Falls', hero: 'LibertyFalls1.png', thumb: 'LibertyFalls1.png', gallery: ['LibertyFalls2.png','LibertyFalls3.png','LibertyFalls4.png','LibertyFalls5.png','LibertyFalls6.png'] },
+    citadelle:   { dir: 'Black Ops 6/Maps/Citadelle Des Morts', hero: 'CDM1.png', thumb: 'CDM1.png', gallery: ['CDM2.png','CDM3.png','CDM4.png','CDM5.png','CDM6.png','CDM_BossFight.png'] },
+    tomb:        { dir: 'Black Ops 6/Maps/The Tomb', hero: 'Tomb.png', thumb: 'Tomb.png', gallery: ['Tomb2.png','Tomb3.png','Tomb4.png','Tomb5.png','Tomb6.png','Tomb7.png'] },
+    shatteredveil: { dir: 'Black Ops 6/Maps/Shattered Veil', hero: 'SV1.png', thumb: 'SV1.png', gallery: ['SV2.png','SV3.png','SV4.png','SV5.png','SV6.png','SV7.png'] },
+    reckoning:   { dir: 'Black Ops 6/Maps/The Reckoning', hero: 'Reckoning1.png', thumb: 'Reckoning1.png', gallery: ['Reckoning2.png','Reckoning3.png','Reckoning4.png','Reckoning5.png','Reckoning6.png','Reckoning_Gorgofex.png','Reckoning_UberKlaus.png'] },
+    ashes:       { dir: 'Black Ops 7/Ashes of the Damned', hero: 'AotD1.png', thumb: 'AotD1.png', gallery: ['AotD2.png','AotD3.png','AotD4.png','AotD5.png','AotD6.png','AotD7.png','AotD_Zursa.png'] },
+    astro:       { dir: 'Black Ops 7/Astra Malorum', hero: 'Astra1.png', thumb: 'Astra1.png', gallery: ['Astra2.png','Astra3.png','Astra4.png','Astra5.png','Astra6.png','Astra7.png','Astra_Oscar.png'] },
+    paradox:     { dir: 'Black Ops 7/Paradox Junction', hero: 'Paradox1.png', thumb: 'Paradox1.png', gallery: ['Paradox2.png','Paradox3.png','Paradox4.png','Paradox5.png','Paradox6.png'] },
+    totenreich:  { dir: 'Black Ops 7/Totenreich', hero: 'Totenreich1.png', thumb: 'Totenreich1.png', gallery: ['Totenreich2.png','Totenreich3.png','Totenreich4.png','Totenreich5.png','Totenreich6.png','Totenreich7.png','Totenreich8.png','Totenreich9.png'] },
+  };
+  Object.entries(mapMedia).forEach(([id, media]) => {
+    const m = maps.find((x) => x.id === id);
+    if (m) m.media = media;
   });
 
   // Per-game richer metadata: long-form description + feature flags.
@@ -516,6 +622,7 @@ window.ZD = (function () {
   const IMG_BASE = './Images';
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
+  function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
 
   const T = {
     bg0:     '#0a0908',
@@ -593,6 +700,43 @@ window.ZD = (function () {
       </div>
     );
   };
+
+  function mapPrimaryFile(map, slot = 'hero') {
+    const media = map && map.media;
+    if (!media) return null;
+    if (slot === 'thumb') return media.thumb || media.hero || (media.gallery && media.gallery[0]) || null;
+    return media.hero || media.thumb || (media.gallery && media.gallery[0]) || null;
+  }
+
+  function mapGalleryItems(map) {
+    const media = map && map.media;
+    if (!media || !media.gallery || !media.gallery.length) return [];
+    return media.gallery.map((file, i) => ({ file, label: 'Frame ' + String(i + 1).padStart(2, '0') }));
+  }
+
+  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy' }) {
+    const [failed, setFailed] = useState(false);
+    const src = !failed ? mapImg(map, file || mapPrimaryFile(map)) : null;
+    const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
+    const title = label || (map && map.name) || 'Map image';
+    if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
+    return (
+      <div style={{
+        width: '100%', height, position: 'relative', overflow: 'hidden',
+        background: T.bg2, border: `1px solid ${T.line}`,
+        ...style,
+      }}>
+        <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: (map.media && map.media.objectPosition) || 'center center' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>
+        <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+          <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+          <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
+        </div>
+      </div>
+    );
+  }
 
   const HazardStripe = ({ height = 14, style }) => (
     <div style={{
@@ -1456,7 +1600,7 @@ window.ZD = (function () {
     return (
       <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-        <Slot w="100%" h={180} label={map.name} kind={g.code + ' · ' + g.year} tone="green" />
+        <MapImage map={map} file={mapPrimaryFile(map, 'thumb')} height={180} label={map.name} kind={g.code + ' / ' + g.year} tone="green" />
         <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
@@ -1494,6 +1638,7 @@ window.ZD = (function () {
     const g = ZD.games.find((x) => x.id === m.game);
     const hasEE = m.eeCount > 0;
     const ee = hasEE && ZD.sampleEE.map === m.id ? ZD.sampleEE : null;
+    const gallery = mapGalleryItems(m);
     return (
       <div>
         <PageHead
@@ -1504,7 +1649,7 @@ window.ZD = (function () {
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
-          <Slot w="100%" h={400} label={m.name} kind={'SITE · IMAGERY'} tone="green" />
+          <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="green" loading="eager" />
           <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
             <Mono color={T.e115}>Intel Sheet</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
@@ -1528,6 +1673,17 @@ window.ZD = (function () {
           <SectionHead kicker="Site Brief" title="Operational summary" />
           <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7, maxWidth: 780 }}>{m.summary}</p>
         </section>
+
+        {gallery.length > 0 && (
+          <section style={{ marginTop: 40 }}>
+            <SectionHead kicker={gallery.length + ' recovered frames'} title="Gallery" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+              {gallery.map((item) => (
+                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="ARCHIVE FRAME" tone="green" />
+              ))}
+            </div>
+          </section>
+        )}
 
         <section style={{ marginTop: 40 }}>
           <SectionHead kicker={hasEE ? 'Primary Easter Egg' : 'No primary quest catalogued'} title="Main Quest" />
@@ -2250,6 +2406,19 @@ window.ZD = (function () {
   const ZD = window.ZD;
   const parseHash = window.__papParseHash;
   const buildHash = window.__papBuildHash;
+  const IMG_BASE = './Images';
+  function termMapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
+  function termMapPrimaryFile(map, slot = 'hero') {
+    const media = map && map.media;
+    if (!media) return null;
+    if (slot === 'thumb') return media.thumb || media.hero || (media.gallery && media.gallery[0]) || null;
+    return media.hero || media.thumb || (media.gallery && media.gallery[0]) || null;
+  }
+  function termMapGalleryItems(map) {
+    const media = map && map.media;
+    if (!media || !media.gallery || !media.gallery.length) return [];
+    return media.gallery.map((file, i) => ({ file, label: 'FRAME.' + String(i + 1).padStart(2, '0') }));
+  }
 
   const C = {
     bg:     '#0a0a08',
@@ -2308,6 +2477,24 @@ window.ZD = (function () {
   const HRule = ({ ch = '─', cols = 200, color = C.dim }) => (
     <div style={{ color, userSelect: 'none', lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', opacity: 0.6 }}>{ch.repeat(cols)}</div>
   );
+  function MapImage({ map, file, label, kind = 'surveillance', h = 150, style }) {
+    const [failed, setFailed] = useState(false);
+    const src = !failed ? termMapImg(map, file || termMapPrimaryFile(map)) : null;
+    const title = label || (map && map.name) || 'image';
+    if (!src) return <Slot w="100%" h={h} label={title} kind={kind} style={style} />;
+    return (
+      <div style={{ width: '100%', height: h, position: 'relative', overflow: 'hidden', background: C.bg, border: `1px solid ${C.lineHi}`, ...style }}>
+        <img src={src} alt={title} loading="lazy" onError={() => setFailed(true)}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: (map.media && map.media.objectPosition) || 'center center', filter: 'grayscale(0.35) contrast(1.08)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, rgba(10,10,8,0.18) 0 1px, transparent 1px 4px), linear-gradient(180deg, rgba(10,10,8,0.05), rgba(10,10,8,0.7))', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: 8, left: 10, fontSize: 9, letterSpacing: 1.5, color: C.bright, background: 'rgba(10,10,8,0.55)', padding: '1px 6px', textTransform: 'uppercase' }}>{kind}</div>
+        <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-end' }}>
+          <div style={{ fontFamily: C.pixel, fontSize: Math.min(typeof h === 'number' ? h * 0.16 : 24, 28), color: C.bright, lineHeight: 1, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>{title}</div>
+          <div style={{ fontSize: 9, letterSpacing: 1.5, color: C.dim, whiteSpace: 'nowrap' }}>IMG-SIG</div>
+        </div>
+      </div>
+    );
+  }
   const Link = ({ onClick, children, style }) => (
     <button className="term-link" onClick={onClick} style={style}>{children}</button>
   );
@@ -2479,7 +2666,7 @@ window.ZD = (function () {
     return (
       <button className="term-card" onClick={() => setRoute({ name: 'map', id: map.id })}
         style={{ padding: 0, cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit' }}>
-        <Slot w="100%" h={150} label={map.name} kind="surveillance" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
+        <MapImage map={map} file={termMapPrimaryFile(map, 'thumb')} h={150} label={map.name} kind="surveillance" style={{ border: 'none', borderBottom: `1px solid ${C.line}` }} />
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'site/' + map.id}</div>
           <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 2, lineHeight: 1 }}>{map.name}</div>
@@ -2520,10 +2707,11 @@ window.ZD = (function () {
     if (!m) return null;
     const g = ZD.games.find((x) => x.id === m.game);
     const ee = ZD.sampleEE;
+    const gallery = termMapGalleryItems(m);
     return (
       <div>
         <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.tagline} />
-        <Slot w="100%" h={360} label={m.name.toUpperCase()} kind="recon photograph" style={{ marginBottom: 18 }} />
+        <MapImage map={m} h={360} label={m.name.toUpperCase()} kind="recon photograph" style={{ marginBottom: 18 }} />
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 22, marginBottom: 32 }}>
           <div>
             <Prompt cmd={'cat ./brief.txt'} />
@@ -2543,6 +2731,16 @@ window.ZD = (function () {
             </div>
           </div>
         </div>
+        {gallery.length > 0 && (
+          <>
+            <Prompt cmd={'ls ./imagery'} sub={gallery.length + ' recovered frames.'} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 32 }}>
+              {gallery.map((item) => (
+                <MapImage key={item.file} map={m} file={item.file} h={170} label={item.label} kind="archive frame" />
+              ))}
+            </div>
+          </>
+        )}
         <Prompt cmd={'ls ./quests'} sub={m.eeCount ? 'one main quest catalogued.' : 'no quests on file.'} />
         {m.eeCount && ee.map === m.id ? (
           <button className="term-card" onClick={() => setRoute({ name: 'ee', id: ee.id })}
