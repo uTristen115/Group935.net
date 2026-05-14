@@ -834,6 +834,9 @@ window.ZD = (function () {
         .pap-card, .term-card { overflow-wrap: anywhere; }
         #root [style*="display: flex"] { flex-wrap: wrap !important; }
         #root [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+        #root .pap-stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 8px !important; }
+        #root .pap-stats-grid > div { min-width: 0 !important; }
+        #root .pap-stats-grid .pap-num { font-size: clamp(24px, 7vw, 32px) !important; }
         #root [style*="position: sticky"] { position: static !important; top: auto !important; }
         #root [style*="width: 160px"],
         #root [style*="width: 180px"],
@@ -922,10 +925,10 @@ window.ZD = (function () {
   function mapGalleryItems(map) {
     const media = map && map.media;
     if (!media || !media.gallery || !media.gallery.length) return [];
-    return media.gallery.map((file, i) => ({ file, label: 'Frame ' + String(i + 1).padStart(2, '0') }));
+    return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
   }
 
-  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy' }) {
+  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true }) {
     const [failed, setFailed] = useState(false);
     const src = !failed ? mapImg(map, file || mapPrimaryFile(map)) : null;
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
@@ -939,12 +942,14 @@ window.ZD = (function () {
       }}>
         <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: (map.media && map.media.objectPosition) || 'center center' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>
-        <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-          <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
-          <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
-        </div>
+        {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />}
+        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+        {showOverlay && (
+          <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+            <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
+          </div>
+        )}
       </div>
     );
   }
@@ -1159,7 +1164,23 @@ window.ZD = (function () {
 
   // ─── HOME ──────────────────────────────────────────────────────────────
   function Home({ nav }) {
-    const featured = ZD.maps.find((m) => m.id === 'citadelle');
+    const featuredPool = useMemo(() => ZD.maps.filter((m) => m.media), []);
+    const [featuredIndex, setFeaturedIndex] = useState(() => {
+      const count = ZD.maps.filter((m) => m.media).length || ZD.maps.length || 1;
+      return Math.floor(Math.random() * count);
+    });
+    useEffect(() => {
+      if (featuredPool.length <= 1) return;
+      const id = setInterval(() => {
+        setFeaturedIndex((current) => {
+          let next = Math.floor(Math.random() * featuredPool.length);
+          if (next === current % featuredPool.length) next = (next + 1) % featuredPool.length;
+          return next;
+        });
+      }, 9000);
+      return () => clearInterval(id);
+    }, [featuredPool.length]);
+    const featured = featuredPool[featuredIndex % featuredPool.length] || ZD.maps.find((m) => m.id === 'citadelle') || ZD.maps[0];
     const featuredGame = ZD.games.find((g) => g.id === featured.game);
     const totalSongs = ZD.maps.reduce((a, m) => a + ((m.songs && m.songs.length) || 0), 0);
     const totalEE = ZD.maps.reduce((a, m) => a + (m.eeCount || 0), 0);
@@ -1183,7 +1204,7 @@ window.ZD = (function () {
               <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'timeline' })}>Read the Chronicle</button>
             </div>
             <div style={{ flex: 1 }} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
+            <div className="pap-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
               <BigStat value={ZD.games.length} label="Sagas" tone="green" />
               <BigStat value={ZD.maps.length} label="Maps" tone="green" />
               <BigStat value={totalEE} label="Main EEs" tone="yellow" />
@@ -1192,7 +1213,7 @@ window.ZD = (function () {
           </div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: -8, right: -8, width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', border: `1px solid ${T.e115dim}`, pointerEvents: 'none' }} />
-            <Slot w="100%" h="100%" label={featured.name} tone="green" kind="INTEL ◐ FEATURE" style={{ minHeight: 480 }} />
+            <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="green" loading="eager" style={{ minHeight: 480, borderColor: T.e115dim }} />
             <div style={{ position: 'absolute', bottom: 18, left: 18, right: 18, background: T.bg0, padding: 18, border: `1px solid ${T.lineHi}` }}>
               <Mono color={T.e115}>{'★ Featured Intel · ' + featuredGame.code + ' ' + featuredGame.year}</Mono>
               <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{featured.name}</div>
@@ -1868,7 +1889,7 @@ window.ZD = (function () {
             <SectionHead kicker={gallery.length + ' recovered frames'} title="Gallery" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
               {gallery.map((item) => (
-                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="ARCHIVE FRAME" tone="green" />
+                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} />
               ))}
             </div>
           </section>
@@ -2608,7 +2629,7 @@ window.ZD = (function () {
   function termMapGalleryItems(map) {
     const media = map && map.media;
     if (!media || !media.gallery || !media.gallery.length) return [];
-    return media.gallery.map((file, i) => ({ file, label: 'FRAME.' + String(i + 1).padStart(2, '0') }));
+    return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
   }
 
   const C = {
@@ -2668,7 +2689,7 @@ window.ZD = (function () {
   const HRule = ({ ch = '─', cols = 200, color = C.dim }) => (
     <div style={{ color, userSelect: 'none', lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', opacity: 0.6 }}>{ch.repeat(cols)}</div>
   );
-  function MapImage({ map, file, label, kind = 'surveillance', h = 150, style }) {
+  function MapImage({ map, file, label, kind = 'surveillance', h = 150, style, showOverlay = true }) {
     const [failed, setFailed] = useState(false);
     const src = !failed ? termMapImg(map, file || termMapPrimaryFile(map)) : null;
     const title = label || (map && map.name) || 'image';
@@ -2677,12 +2698,14 @@ window.ZD = (function () {
       <div style={{ width: '100%', height: h, position: 'relative', overflow: 'hidden', background: C.bg, border: `1px solid ${C.lineHi}`, ...style }}>
         <img src={src} alt={title} loading="lazy" onError={() => setFailed(true)}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: (map.media && map.media.objectPosition) || 'center center', filter: 'grayscale(0.35) contrast(1.08)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, rgba(10,10,8,0.18) 0 1px, transparent 1px 4px), linear-gradient(180deg, rgba(10,10,8,0.05), rgba(10,10,8,0.7))', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 8, left: 10, fontSize: 9, letterSpacing: 1.5, color: C.bright, background: 'rgba(10,10,8,0.55)', padding: '1px 6px', textTransform: 'uppercase' }}>{kind}</div>
-        <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-end' }}>
-          <div style={{ fontFamily: C.pixel, fontSize: Math.min(typeof h === 'number' ? h * 0.16 : 24, 28), color: C.bright, lineHeight: 1, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>{title}</div>
-          <div style={{ fontSize: 9, letterSpacing: 1.5, color: C.dim, whiteSpace: 'nowrap' }}>IMG-SIG</div>
-        </div>
+        {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, rgba(10,10,8,0.18) 0 1px, transparent 1px 4px), linear-gradient(180deg, rgba(10,10,8,0.05), rgba(10,10,8,0.7))', pointerEvents: 'none' }} />}
+        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontSize: 9, letterSpacing: 1.5, color: C.bright, background: 'rgba(10,10,8,0.55)', padding: '1px 6px', textTransform: 'uppercase' }}>{kind}</div>}
+        {showOverlay && (
+          <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-end' }}>
+            <div style={{ fontFamily: C.pixel, fontSize: Math.min(typeof h === 'number' ? h * 0.16 : 24, 28), color: C.bright, lineHeight: 1, textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>{title}</div>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, color: C.dim, whiteSpace: 'nowrap' }}>IMG-SIG</div>
+          </div>
+        )}
       </div>
     );
   }
@@ -2921,7 +2944,7 @@ window.ZD = (function () {
             <Prompt cmd={'ls ./imagery'} sub={gallery.length + ' recovered frames.'} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 32 }}>
               {gallery.map((item) => (
-                <MapImage key={item.file} map={m} file={item.file} h={170} label={item.label} kind="archive frame" />
+                <MapImage key={item.file} map={m} file={item.file} h={170} label={item.label} kind="gallery" showOverlay={false} />
               ))}
             </div>
           </>
