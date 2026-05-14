@@ -119,18 +119,18 @@ window.ZD = (function () {
     { id: 'totenreich',game: 'bo7', name: 'Totenreich', tagline: 'A realm of the dead, mid‑construction.', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: 'Six relics and a clear sign that someone on the other side is using them as load‑bearing pieces of architecture. The most ominous BO7 map currently catalogued.', tags: ['bo7', 'relics', 'finale-hint'] },
   ];
   const characters = [
-    { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: 'Captured by Group 935 during the Pacific campaign and used as Test Subject Alpha. The hammer of the original crew — leads from the front, loud, and the only one of them who genuinely seems to enjoy himself.', quote: 'Right between the eyes.', hue: 16 },
-    { id: 'nikolai',   name: 'Nikolai Belinski',  role: 'Soviet Soldier · Primis',   origin: 'Soviet Union',            summary: 'A bear of a man with five dead wives and a vodka problem on top of an empire problem. Quiet sadness under the bluster — by Tag der Toten he carries the last weight of the crew.', quote: 'Now I drink to my new friends. And my old wives.', hue: 0 },
-    { id: 'takeo',     name: 'Takeo Masaki',      role: 'Imperial Officer · Primis', origin: 'Empire of Japan',         summary: 'Disowned by his Emperor and turned over to Division 9 for experiments. Carries a katana, a code, and the patience to outlast both. The only crew member who consistently asks what the right thing to do is.', quote: 'Honour requires it.', hue: 40 },
-    { id: 'richtofen', name: 'Edward Richtofen',  role: 'Group 935 · Both Crews',     origin: 'German Empire',           summary: 'Architect of most of it. Primis Richtofen spent the entire saga trying to undo what Ultimis Richtofen had done, and the two of them met exactly long enough for one to shoot the other in the head.', quote: 'Everything is going to be okay.', hue: 280 },
-    { id: 'samantha',  name: 'Samantha Maxis',    role: 'Aether Keeper',                  origin: 'Group 935 facility',      summary: 'A child trapped in an MPD, given near‑omnipotence as a side effect, and made the controller of every zombie horde for most of two timelines. In the Dark Aether continuity she is the team handler — grown, tired, and warning you.', quote: 'Get them, Fluffy.', hue: 200 },
-    { id: 'maxis',     name: 'Dr. Ludvig Maxis',  role: 'Group 935 · Voice in the Static', origin: 'Germany',           summary: 'A father who tried to save his daughter, lost his head, and spent the next several decades as a disembodied voice issuing orders over loudspeakers, radios, and broken pylons.', quote: 'My friends. We are so close.', hue: 220 },
-    { id: 'marlton',   name: 'Marlton Johnson',   role: 'Survivor · Victis Crew',     origin: 'Hanford, USA',            summary: 'An engineer who survived the Nuketown test by hiding in the wrong bunker — and survived everywhere else by being exhausting to be near. Built half the things Victis needed to keep moving, complained about every one of them. Eventually drafted by Richtofen to ring the Aether towers.', quote: 'I am a man of science. Probability is on our side.', hue: 60 },
-    { id: 'misty',     name: 'Abigail “Misty” Briarton', role: 'Survivor · Victis Crew', origin: 'Hanford, Washington', summary: 'Daughter of a Hanford farmer who turned in the first wave. Misty pulled the trigger on her own father and kept walking. The most pragmatic member of Victis, and the only one of them who didn’t lose her grip in the years after the missiles hit.', quote: 'I grew up on a farm. I know what dead looks like.', hue: 340 },
-    { id: 'russman',   name: 'Russman',           role: 'Survivor · Victis Crew',     origin: 'Broken Arrow facility',   summary: 'Former Broken Arrow employee. Carried a Maxis chip in his head for the better part of a decade before he understood what it was for. Old, slow, hard to surprise, and never quite tells the others what he already knows.', quote: 'I’ve been here before. Different building. Same problem.', hue: 100 },
-    { id: 'stuhlinger',name: 'Samuel J. Stuhlinger', role: 'Survivor · Victis Crew',  origin: 'Camden, NJ',              summary: 'A taxi driver who ate something he shouldn’t have during the early collapse — Richtofen’s signal arrived shortly after. The crew’s reluctant conduit between the dead and the living, and the only one of them with a foot on each side of the line.', quote: 'It’s not the voice that bothers me. It’s that he’s right.', hue: 280 },
-    { id: 'maya',      name: 'Maya Aguinaldo',    role: 'Operative · BO6 era',        origin: 'Philippines',             summary: 'Joined Requiem looking for her brother and stayed when she realised the people running it were lying about almost everything. The protagonist the Dark Aether arc deserved.', quote: 'I came here for him. I’ll leave when I have him.', hue: 320 },
-    { id: 'weaver',    name: 'Grigori Weaver',    role: 'Requiem Lead',                   origin: 'Eastern Bloc defector',   summary: 'Eye‑patched cold warrior running the CIA’s ghost division. Trusts no one, has reason not to, and is the only person in the entire arc who reads every classified document before signing it.', quote: 'You should’ve asked first.', hue: 100 },
+    { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: 'Captured by Group 935 during the Pacific campaign and used as Test Subject Alpha. The hammer of the original crew — leads from the front, loud, and the only one of them who genuinely seems to enjoy himself.', quote: null, hue: 16 },
+    { id: 'nikolai',   name: 'Nikolai Belinski',  role: 'Soviet Soldier · Primis',   origin: 'Soviet Union',            summary: 'A bear of a man with five dead wives and a vodka problem on top of an empire problem. Quiet sadness under the bluster — by Tag der Toten he carries the last weight of the crew.', quote: null, hue: 0 },
+    { id: 'takeo',     name: 'Takeo Masaki',      role: 'Imperial Officer · Primis', origin: 'Empire of Japan',         summary: 'Disowned by his Emperor and turned over to Division 9 for experiments. Carries a katana, a code, and the patience to outlast both. The only crew member who consistently asks what the right thing to do is.', quote: null, hue: 40 },
+    { id: 'richtofen', name: 'Edward Richtofen',  role: 'Group 935 · Both Crews',     origin: 'German Empire',           summary: 'Architect of most of it. Primis Richtofen spent the entire saga trying to undo what Ultimis Richtofen had done, and the two of them met exactly long enough for one to shoot the other in the head.', quote: "I do what I do only to secure a better tomorrow.", hue: 280 },
+    { id: 'samantha',  name: 'Samantha Maxis',    role: 'Aether Keeper',                  origin: 'Group 935 facility',      summary: 'A child trapped in an MPD, given near‑omnipotence as a side effect, and made the controller of every zombie horde for most of two timelines. In the Dark Aether continuity she is the team handler — grown, tired, and warning you.', quote: null, hue: 200 },
+    { id: 'maxis',     name: 'Dr. Ludvig Maxis',  role: 'Group 935 · Voice in the Static', origin: 'Germany',           summary: 'A father who tried to save his daughter, lost his head, and spent the next several decades as a disembodied voice issuing orders over loudspeakers, radios, and broken pylons.', quote: null, hue: 220 },
+    { id: 'marlton',   name: 'Marlton Johnson',   role: 'Survivor · Victis Crew',     origin: 'Hanford, USA',            summary: 'An engineer who survived the Nuketown test by hiding in the wrong bunker — and survived everywhere else by being exhausting to be near. Built half the things Victis needed to keep moving, complained about every one of them. Eventually drafted by Richtofen to ring the Aether towers.', quote: null, hue: 60 },
+    { id: 'misty',     name: 'Abigail “Misty” Briarton', role: 'Survivor · Victis Crew', origin: 'Hanford, Washington', summary: 'Daughter of a Hanford farmer who turned in the first wave. Misty pulled the trigger on her own father and kept walking. The most pragmatic member of Victis, and the only one of them who didn’t lose her grip in the years after the missiles hit.', quote: null, hue: 340 },
+    { id: 'russman',   name: 'Russman',           role: 'Survivor · Victis Crew',     origin: 'Broken Arrow facility',   summary: 'Former Broken Arrow employee. Carried a Maxis chip in his head for the better part of a decade before he understood what it was for. Old, slow, hard to surprise, and never quite tells the others what he already knows.', quote: null, hue: 100 },
+    { id: 'stuhlinger',name: 'Samuel J. Stuhlinger', role: 'Survivor · Victis Crew',  origin: 'Camden, NJ',              summary: 'A taxi driver who ate something he shouldn’t have during the early collapse — Richtofen’s signal arrived shortly after. The crew’s reluctant conduit between the dead and the living, and the only one of them with a foot on each side of the line.', quote: null, hue: 280 },
+    { id: 'maya',      name: 'Maya Aguinaldo',    role: 'Operative · BO6 era',        origin: 'Philippines',             summary: 'Joined Requiem looking for her brother and stayed when she realised the people running it were lying about almost everything. The protagonist the Dark Aether arc deserved.', quote: null, hue: 320 },
+    { id: 'weaver',    name: 'Grigori Weaver',    role: 'Requiem Lead',                   origin: 'Eastern Bloc defector',   summary: 'Eye‑patched cold warrior running the CIA’s ghost division. Trusts no one, has reason not to, and is the only person in the entire arc who reads every classified document before signing it.', quote: null, hue: 100 },
   ];
   const wonderWeapons = [
     { id: 'raygun',     name: 'Ray Gun',          map: 'Many',             summary: 'The original. A pistol‑sized particle thrower that has appeared on every map since Nacht in some form. Pack‑a‑Punches into the Porter’s X2.' },
@@ -329,35 +329,35 @@ window.ZD = (function () {
   // in the <Game /> component in pack-a-punch.
   const gameMeta = {
     waw: {
-      description: 'Where it all started. The four-map run at the end of World at War wasn’t a story so much as a tone — a downed bomber crew’s last stand that quietly established every rule the franchise would later break. By Der Riese, Group 935 has a name, a factory, and a teleporter pad. The cycle begins here.',
+      description: 'The WaW files are small because the outbreak still had the decency to look simple. Nacht, Verruckt, Shi No Numa, and Der Riese document the jump from survival incident to Group 935 infrastructure. By the factory, the machines are already named.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
     },
     bo1: {
-      description: 'The Aether Story proper. Kino through Moon traces the Ultimis crew across two decades of cosmodromes, secret bases, and one lunar far-side station, ending with three missiles in the air and Earth set on fire. The first map with a real soul-swap.',
+      description: 'Black Ops is where the Aether story learns to leave fingerprints. The crew moves from theater to Pentagon, cosmodrome, temple, coast, and Moon while Samantha\'s reach turns every site into a test chamber.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
     },
     bo2: {
-      description: 'The split. While Maxis and Richtofen fight for control of the Aether on the post-Moon Earth, four survivors — Victis — get dragged through TranZit, Die Rise, and Buried doing their bidding. Origins ends the saga by going further back than anyone planned, to four soldiers in 1918.',
+      description: 'Black Ops II splits the signal. Victis walks the ruined Earth under competing voices while Mob and Origins show the cycle from stranger angles: one prison that will not end, one battlefield where Primis begins.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
     },
     bo3: {
-      description: 'The final chapter of the Aether Story. Primis sweeps across Shadows of Evil, Der Eisendrache, Zetsubou, Gorod Krovi, and Revelations chasing souls, bows, staves, and the Summoning Key. The cycle does not end here — it is retired.',
+      description: 'Black Ops III is the soul hunt. Primis moves through cities, castles, islands, war zones, and the House, cutting pieces out of the old timeline until the cycle has nowhere left to hide.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasGobblegums: true },
     },
     bo4: {
-      description: 'A divergence. While Aether wraps up its old plotline on Blood of the Dead and Tag der Toten, a new Chaos crew runs IX, Voyage, and Ancient Evil across an entirely different mythology. Two stories, both in their final acts at the same time.',
+      description: 'Black Ops 4 is two files arguing in the same drawer. Aether folds toward Blood and Tag while Chaos follows artifacts, gods, and old orders through a mythology that does not need Group 935 to be dangerous.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasElixirs: true },
     },
     cw: {
-      description: 'The reboot. The Dark Aether replaces the Aether. Requiem and Omega arrive at the same Group 935 ruins and find a tear in reality already wide open. A four-map arc ends with Maxis on the other side and the Sentinel Artifact on a plane headed somewhere specific.',
+      description: 'Cold War opens the Dark Aether file with old Group 935 ground under new agencies. Requiem and Omega call it research, but every mission reads like containment after the fact.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true },
     },
     bo6: {
-      description: 'The new cycle picks up seven years after Forsaken. The Sentinel Artifact has been sitting in a vault. A new Richtofen runs the briefings. Maya Aguinaldo signs the papers, and the Order is already three moves ahead.',
+      description: 'Black Ops 6 treats the Dark Aether like a case that was never closed. Terminus, Liberty Falls, Citadelle, The Tomb, Shattered Veil, and Reckoning keep pulling old names through new doors.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: false, hasSongs: true, hasAugments: true },
     },
     bo7: {
-      description: 'The Relics era. Aetheric fragments are scattered across every BO7 map and used as load-bearing pieces of the Dark Aether’s architecture. Three of the four current maps are relic-first (no main quest yet); the fourth is the most ominous of the cycle.',
+      description: 'Black Ops 7 is the relic file. The maps read less like battlefields and more like structures built around missing pieces, with Totenreich sitting at the edge of whatever the Dark Aether is assembling.',
       features: { hasMainQuests: true, hasWonderWeapons: true, hasPerks: true, hasRelics: true, hasSongs: true, hasGobblegums: true },
     },
   };
@@ -508,13 +508,13 @@ window.ZD = (function () {
     // ── Requiem main (BO6/CW) ──
     { id: 'grey',   name: 'Elizabeth Grey',   role: 'Operative · Requiem', origin: 'United Kingdom', faction: 'requiem',
       summary: 'A Requiem field operative who came up through MI6 before crossing over. Methodical, dry, and the only member of Maya\'s squad with a service record longer than Weaver lets on.',
-      quote: 'Right. Let\'s have a proper look.', hue: 40,
+      quote: null, hue: 40,
       portraits: { default: { dir: 'Requiem',             file: 'Requiem_Grey.png',  label: 'Requiem (CW / BO6)' },
                    bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Grey.png',  label: 'Requiem (BO7)' } },
       defaultPortrait: 'default' },
     { id: 'carver', name: 'Mackenzie Carver', role: 'Operative · Requiem', origin: 'United States',  faction: 'requiem',
       summary: 'A Requiem field operative drawn from Pentagon black ops. Talks less than the others, hits harder. Carver reads the room before anyone else has noticed there is one.',
-      quote: 'On point.', hue: 140,
+      quote: null, hue: 140,
       portraits: { default: { dir: 'Requiem',             file: 'Requiem_Carver.png',  label: 'Requiem (CW / BO6)' },
                    bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Carver.png',  label: 'Requiem (BO7)' } },
       defaultPortrait: 'default' },
@@ -522,25 +522,25 @@ window.ZD = (function () {
     // ── Chaos crew (BO4) ──
     { id: 'bruno',   name: 'Bruno Delacroix',   role: 'Magician · Chaos Crew', origin: 'France', faction: 'chaos',
       summary: 'A French sleight-of-hand artist and reluctant occultist drawn into the Chaos cycle through a deal he didn\'t read carefully. The closest the crew has to a strategist.',
-      quote: 'The trick is knowing when the trick ends.', hue: 320,
+      quote: null, hue: 320,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Bruno.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'diego',   name: 'Diego Necalli',     role: 'Luchador · Chaos Crew', origin: 'Mexico', faction: 'chaos',
       summary: 'A masked Mexican luchador whose ring persona turned out to be uncomfortably literal once the dead started showing up at his matches.',
-      quote: 'En el ring, en la vida — mismo trabajo.', hue: 20,
+      quote: null, hue: 20,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Diego.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'scarlet', name: 'Scarlett Rhodes',   role: 'Adventurer · Chaos Crew', origin: 'United States', faction: 'chaos',
       summary: 'An American socialite-turned-grave-robber chasing the artefacts her father died for. The first to read the Sentinel inscription out loud.',
-      quote: 'Daddy\'s journal said it would be in a tomb. It is.', hue: 0,
+      quote: null, hue: 0,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Scarlet.png', label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'shaw',    name: 'Stanton Shaw',      role: 'Detective · Chaos Crew', origin: 'United States', faction: 'chaos',
       summary: 'A 1940s American gumshoe who took a missing-persons case in Egypt and ended up partnered with three strangers and a mythology.',
-      quote: 'I came here to find a girl. I\'ll settle for an exit.', hue: 220,
+      quote: null, hue: 220,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Shaw.png',    label: 'Chaos Crew' } }, defaultPortrait: 'default' },
 
     // ── Aether story figures (non-playable) ──
     { id: 'monty',     name: 'Dr. Monty',     role: 'Aether Keeper · BO3 finale', origin: 'The Aether', faction: 'aether',
       summary: 'The voice that runs the wheel. Claims to have made the Aether, perhaps made the cycle, certainly made Primis. Speaks to the crew like an old friend; speaks about them like an exhausted parent.',
-      quote: 'I don\'t make the rules. I just made everything.', hue: 200,
+      quote: null, hue: 200,
       portraits: {
         one:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_1.png', label: 'Monty I' },
         two:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_2.png', label: 'Monty II' },
@@ -548,7 +548,7 @@ window.ZD = (function () {
       }, defaultPortrait: 'one' },
     { id: 'shadowman', name: 'The Shadowman', role: 'Apothicon Avatar · BO3 antagonist', origin: 'The Apothicon plane', faction: 'aether',
       summary: 'A Keeper turned traitor, exiled to the Apothicon plane and refashioned as their mouthpiece. Spends most of his screen time pretending to be friendlier than he is.',
-      quote: 'I have been waiting a very long time for this.', hue: 280,
+      quote: null, hue: 280,
       portraits: {
         one:   { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_1.png', label: 'Shadowman I' },
         two:   { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_2.png', label: 'Shadowman II' },
@@ -558,26 +558,26 @@ window.ZD = (function () {
     // ── The Order (BO6 antagonists) ──
     { id: 'director_richtofen', name: 'Edward Richtofen', role: 'Director · The Order', origin: 'Unknown · uses the name', faction: 'order',
       summary: 'The new Edward. Runs Requiem from a basement office in Langley and briefs Maya on the parts of the Sentinel file he wants her to read. Same surname, same accent, an entirely different problem.',
-      quote: 'Everything is going to be fine.', hue: 280,
+      quote: null, hue: 280,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Director_Richtofen.png', label: 'Director', objectPosition: 'center 25%' } },
       defaultPortrait: 'default' },
 
     // ── Requiem support cast ──
     { id: 'peck',       name: 'Dr. Peck',         role: 'Researcher · Requiem (presumed MIA)', origin: 'Germany', faction: 'support',
       summary: 'A Requiem researcher whose work was on every desk in the building until the day he wasn\'t. Currently classified as missing, possibly because he is on the wrong side of a rift again.',
-      quote: 'I\'m exactly where I need to be.', hue: 60,
+      quote: null, hue: 60,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Peck.png', label: 'Last on record' } }, defaultPortrait: 'default' },
     { id: 'strauss',    name: 'Dr. Strauss',      role: 'Analyst · Requiem', origin: 'Germany', faction: 'support',
       summary: 'A Requiem analyst — clipboards, Geiger counters, and an audible sigh whenever Maya brings back an artefact. Survived the cycle this long out of pure stubbornness.',
-      quote: 'We are not equipped for this.', hue: 200,
+      quote: null, hue: 200,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Strauss.png', label: 'Requiem', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
     { id: 'raptor_one', name: 'Raptor One',       role: 'Callsign · Extraction', origin: 'Classified', faction: 'support',
       summary: 'Callsign for the Requiem extraction pilot. The voice on the radio when things go wrong. Never seen on a map; always there at the end of one.',
-      quote: 'Raptor One on station. Move.', hue: 80,
+      quote: null, hue: 80,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Raptor_One.png', label: 'Extraction' } }, defaultPortrait: 'default' },
     { id: 'ravenov',    name: 'Sergei Ravenov',   role: 'Operative · ex-Omega', origin: 'Soviet Union', faction: 'support',
       summary: 'A former Omega operative who switched sides somewhere between Endstation and the Wall. Has been three things at once, on three different sides, in three different decades.',
-      quote: 'I have been everywhere you have. I just did not tell you.', hue: 0,
+      quote: null, hue: 0,
       portraits: {
         bocw: { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_BOCW.png', label: 'Cold War (1984)', objectPosition: 'center 25%' },
         bo6:  { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_BO6.png',  label: 'BO6 (1991)',      objectPosition: 'center 25%' },
@@ -585,12 +585,132 @@ window.ZD = (function () {
       }, defaultPortrait: 'bo6' },
     { id: 'sam_ai',     name: 'Samantha (AI)',    role: 'Aether Construct · Requiem briefing', origin: 'Reconstructed', faction: 'aether',
       summary: 'The Aether keeper\'s voice, retrofitted into a Requiem briefing terminal. Maya hears her on the headset. Grey thinks she\'s a recording. Weaver knows she isn\'t.',
-      quote: 'Listen carefully.', hue: 200,
+      quote: null, hue: 200,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Sam_AI.png', label: 'Construct', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
   );
 
   // Wonder weapons → primary map(s) they originate from. Used to filter
   // weapons onto their parent saga's page.
+  // Copy pass: keep the site voice closer to a classified field archive.
+  // Quotes are intentionally sparse. If a line is not verified, it is omitted.
+  const mapCopy = {
+    nacht: { tagline: 'One bunker. One radio. No cavalry.', summary: 'The first file is barely a file at all: four rooms, a crashed airfield, boarded windows, and the dead testing every seam in the walls. Nacht has no machines to explain itself and no quest to soften the shape. It is the baseline. Everything after this is escalation.' },
+    verruckt: { tagline: 'Wittenau kept records. Then the records screamed.', summary: 'Verruckt is where the outbreak stops looking accidental. Power comes online. Perk machines hum. The asylum layout splits the squad and makes the building feel like it is sorting survivors for study. Group 935 fingerprints are everywhere, even when the file pretends otherwise.' },
+    shino: { tagline: 'Division 9 left the swamp alive.', summary: 'A Japanese 115 station sinks into mud, rot, and bad science. Shi No Numa brings the full Ultimis crew into view and leaves enough radio traffic behind to make one thing clear: this was never just a weapons program. Someone was already conducting the experiment from inside it.' },
+    derriese: { tagline: 'The factory where the rules were written.', summary: 'Der Riese is the machine room of early Zombies: teleporters, Pack-a-Punch, the Fly Trap, and enough Group 935 infrastructure to explain how far the infection had already spread. It does not feel abandoned. It feels interrupted.' },
+    kino: { tagline: 'A stage, a projector, and an audience that will not stay dead.', summary: 'Kino looks simple until the theatre starts behaving like a memory palace. Film reels, a teleporter pad, and Samantha\'s reach turn an empty East German cinema into a rehearsal space for the Aether story.' },
+    five: { tagline: 'DEFCON rises. The elevator drops.', summary: 'A Pentagon meeting becomes a containment drill with no briefing and no exit plan. Five trades ruins for fluorescent panic: narrow corridors, DEFCON switches, stolen weapons, and the kind of classified disaster nobody in the room can admit exists.' },
+    ascension: { tagline: 'Gersh is in the device. The rocket is not the worst part.', summary: 'Ascension is Soviet ambition bolted to captured 115 research. The cosmodrome has answers, but every answer is wired to a launch system, a black-hole device, or a voice asking to be let out.' },
+    callofthedead: { tagline: 'The lighthouse signal cuts through the storm.', summary: 'Call of the Dead takes the old crew off camera and lets a film set carry the emergency. Fog, steel, ice, and Romero\'s shadow make the map feel like a production that kept shooting after everyone realized the danger was real.' },
+    shangri: { tagline: 'The eclipse is stuck for a reason.', summary: 'Shangri-La is a temple file with half the pages missing. The environment folds in on itself: eclipse stones, pressure plates, mine carts, and two explorers trapped in a loop the crew can only briefly disturb.' },
+    moon: { tagline: 'The last door opens above Earth.', summary: 'Moon is where Ultimis turns the key and the cost finally lands. Griffin Station is sterile, enormous, and already compromised. By the end, Richtofen has the power he wanted and Earth has three new wounds.' },
+    tranzit: { tagline: 'The road keeps moving because stopping is worse.', summary: 'TranZit is post-Moon Earth as a route map: fog, lava, bus stops, broken utilities, and Victis taking orders from voices that do not agree. The tower is the objective. Survival is the argument.' },
+    dierise: { tagline: 'Shanghai is falling in more than one direction.', summary: 'Die Rise makes height the enemy. Elevators, gaps, collapsed floors, and the Sliquifier turn every shortcut into a bet. Victis is still following instructions, but the instructions are starting to sound like a war over their heads.' },
+    mob: { tagline: 'Alcatraz did not need bars for this prison.', summary: 'Mob of the Dead is a loop with blood on the paperwork. Four inmates keep replaying one night on the Rock while the map quietly asks whether escape means leaving, remembering, or killing the right man.' },
+    buried: { tagline: 'A frontier town, buried where no town belongs.', summary: 'Buried hides the last Victis tower under a false western street. Ghosts guard the mansion, chalk marks rebuild the arsenal, and Arthur changes the map with every locked door he opens.' },
+    origins: { tagline: 'The war dug too deep.', summary: 'Origins begins before the story has a clean name for itself. Excavation Site 64 turns mud, trenches, robots, and 115 into the Primis starting point. The staffs are not trophies here. They are the first tools anyone has that feel old enough to matter.' },
+    shadows: { tagline: 'Morg City confesses in neon.', summary: 'Shadows of Evil is a punishment dressed as noir. Four guilty strangers are pulled through rituals, districts, and Apothicon geometry until the city stops pretending it was ever a city at all.' },
+    thegiant: { tagline: 'Der Riese, after the shot.', summary: 'The Giant revisits the factory at the exact moment the cycle fractures. Same bones, same teleporters, different mission: Primis arrives to correct the past and immediately proves how expensive correction is.' },
+    eisendrache: { tagline: 'The keep points its guns at the sky.', summary: 'Der Eisendrache is a castle file with launch codes underneath. The bows, the clockwork, the dragons, and the lunar test hardware all serve one purpose: pull another soul out of the machine before the machine notices.' },
+    zetsubou: { tagline: 'Division 9 grew a graveyard.', summary: 'Zetsubou No Shima feels wet, sick, and deliberately cultivated. Plants, spores, spiders, and 115 have turned the island into evidence. Takeo\'s file is waiting at the center of it.' },
+    gorod: { tagline: 'Stalingrad burns under dragon wings.', summary: 'Gorod Krovi is the loudest Primis file: broken Soviet streets, dragon fire, manglers, drones, and a Nikolai who has had too long to survive the wrong war. Nothing here is subtle. Nothing here is clean.' },
+    revelations: { tagline: 'The House at the end of the loop.', summary: 'Revelations is not one place. It is the archive after someone shook the shelves: pieces of old maps, old weapons, old enemies, and one last attempt to make the cycle close on command.' },
+    ix: { tagline: 'The crowd wants blood. The gods want more.', summary: 'IX throws the Chaos crew into an arena built to make violence look ceremonial. Each tower has a patron, each trial has a price, and the whole place understands spectacle better than mercy.' },
+    voyage: { tagline: 'The Titanic carried more than passengers.', summary: 'Voyage of Despair turns a known disaster into a sealed ritual site. The artifact wakes up under polished decks and flooding corridors, leaving the Chaos crew to fight through history while history is already sinking.' },
+    blood: { tagline: 'Alcatraz remembers every version of the crew.', summary: 'Blood of the Dead is Mob\'s prison repurposed for Primis. The map knows their plan, knows their pattern, and keeps pushing Richtofen toward the part of the cycle he never wanted to pay for.' },
+    dotn: { tagline: 'The party ends before the guests understand why.', summary: 'Dead of the Night is candlelight, locked doors, and aristocratic panic. Vampires, werewolves, and occult machinery make the Rhodes estate feel less haunted than curated.' },
+    ancientevil: { tagline: 'Delphi was never only a ruin.', summary: 'Ancient Evil takes the Chaos trail under Delphi and lets mythology stop being metaphor. Statues move, gods answer, and the gauntlets feel like keys to a door the crew should not have found.' },
+    tag: { tagline: 'The last signal comes from the cold.', summary: 'Tag der Toten returns to the Siberian coast for the Aether story\'s closing file. Victis carries the work, the lighthouse keeps calling, and the ending arrives quieter than the damage that made it necessary.' },
+    diemaschine: { tagline: 'Endstation reopened before anyone admitted it.', summary: 'Die Maschine is the Dark Aether era finding the old foundation still warm. Requiem and Omega arrive at a buried Group 935 site and learn that sealing history is not the same thing as burying it.' },
+    firebase: { tagline: 'Omega built around the wound.', summary: 'Firebase Z is a forward operating base with a rift for a heart. Mimics patrol the edges, Peck lies through his teeth, and every generator brought online makes the place feel less secure.' },
+    mauer: { tagline: 'Berlin splits open at street level.', summary: 'Mauer der Toten keeps the Dark Aether grounded in concrete: rooftops, safehouses, train tunnels, and Klaus moving through the city like the only useful thing anyone built on purpose.' },
+    forsaken: { tagline: 'The arcade lights are part of the trap.', summary: 'Forsaken hides an Elder behind a theme-park facade and an Omega shell game. By the end, Requiem survives the mission and loses control of what comes next.' },
+    terminus: { tagline: 'The prison was built to keep questions quiet.', summary: 'Terminus brings the BO6 crew to a black-site island where the official story is already rotting. Maya comes looking for family. The file she opens is much older than the prison.' },
+    liberty: { tagline: 'Small town. Large containment failure.', summary: 'Liberty Falls turns a normal street grid into a public breach. The danger is not that the outbreak spreads. It is that someone already planned for the town to be expendable.' },
+    citadelle: { tagline: 'Stone walls, old oaths, four blades.', summary: 'Citadelle des Morts puts the BO6 crew inside a castle file the Order never finished burying. The swords feel ceremonial until the map starts treating ceremony as machinery.' },
+    tomb: { tagline: 'The way down was left unlocked.', summary: 'The Tomb follows the Order underground and finds a site built around older instructions. The Staff of Ice returns, but the more important discovery is what the BO6 arc has been pointing toward.' },
+    shatteredveil: { tagline: 'The manor file is sealed for a reason.', summary: 'Shattered Veil moves the outbreak into private rooms and controlled language. The mansion looks preserved, but the breach has already rewritten the floor plan.' },
+    reckoning: { tagline: 'Containment stops pretending.', summary: 'The Reckoning is the BO6 facility file after all the redactions fail. Prototype horrors, sealed labs, and Janus architecture make the map feel like a confession written in alarms.' },
+    ashes: { tagline: 'A city of ash, built on the wrong side.', summary: 'Ashes of the Damned opens the BO7 relic file inside a Dark Aether city that looks unfinished because it may still be under construction. The relics are not collectibles. They are load-bearing pieces.' },
+    astro: { tagline: 'The sky chart is part of the lock.', summary: 'Astro Malorum keeps the relic hunt quiet and high above the ground. Six fragments, an observatory, and a sky pattern suggest the map is less a location than an alignment problem.' },
+    paradox: { tagline: 'Every platform leads back to the question.', summary: 'Paradox Junction is a transit hub with broken rules. The clock disagrees with itself, the exits fold back, and the relics feel like anchors keeping the station from becoming something worse.' },
+    totenreich: { tagline: 'The dead are still building.', summary: 'Totenreich reads like a construction report from the other side. Six relics hold the shape together, and the architecture suggests somebody is learning how to make a kingdom out of remains.' },
+  };
+  Object.entries(mapCopy).forEach(([id, copy]) => {
+    const m = maps.find((x) => x.id === id);
+    if (m) Object.assign(m, copy);
+  });
+
+  const gameCopy = {
+    waw: 'The WaW files are small because the outbreak still had the decency to look simple. Nacht, Verruckt, Shi No Numa, and Der Riese document the jump from survival incident to Group 935 infrastructure. By the factory, the machines are already named.',
+    bo1: 'Black Ops is where the Aether story learns to leave fingerprints. The crew moves from theatre to Pentagon, cosmodrome, temple, coast, and Moon while Samantha\'s reach turns every site into a test chamber.',
+    bo2: 'Black Ops II splits the signal. Victis walks the ruined Earth under competing voices while Mob and Origins show the cycle from stranger angles: one prison that will not end, one battlefield where Primis begins.',
+    bo3: 'Black Ops III is the soul hunt. Primis moves through cities, castles, islands, war zones, and the House, cutting pieces out of the old timeline until the cycle has nowhere left to hide.',
+    bo4: 'Black Ops 4 is two files arguing in the same drawer. Aether folds toward Blood and Tag while Chaos follows artifacts, gods, and old orders through a mythology that does not need Group 935 to be dangerous.',
+    cw: 'Cold War opens the Dark Aether file with old Group 935 ground under new agencies. Requiem and Omega call it research, but every mission reads like containment after the fact.',
+    bo6: 'Black Ops 6 is the new breach with cleaner paperwork. Richtofen briefs, Maya investigates, the Order moves early, and every site feels like someone prepared the cover story before the doors opened.',
+    bo7: 'Black Ops 7 belongs to the relics. The maps read like structures being held together by fragments: cities, observatories, stations, and dead realms built around pieces that should never have been load-bearing.',
+  };
+  Object.entries(gameCopy).forEach(([id, description]) => {
+    const g = games.find((x) => x.id === id);
+    if (g) g.description = description;
+  });
+
+  const characterCopy = {
+    dempsey: { quote: null, summary: 'Dempsey is the blunt instrument Group 935 failed to break. Across Ultimis and Primis, he is still the soldier who pushes forward first and asks about the plan only after the room is clear.' },
+    nikolai: { quote: null, summary: 'Nikolai wears the joke until the joke stops working. Under the drinking, the bluster, and the old war stories is the one member of the crew most willing to carry the ending when it finally arrives.' },
+    takeo: { quote: null, summary: 'Takeo is the crew member who keeps trying to turn survival back into duty. Division 9 used him, history punished him, and he still measures every order against honor.' },
+    richtofen: { quote: 'I do what I do only to secure a better tomorrow.', summary: 'Richtofen is the architect and the liability. Ultimis opens doors no one should touch. Primis spends the cycle trying to close them without admitting how much blood the correction will cost.' },
+    samantha: { quote: null, summary: 'Samantha begins as a child trapped inside the machinery everyone else built. The Aether gives her a voice too large for a human life, and the Dark Aether later gives that voice back with scars still on it.' },
+    maxis: { quote: null, summary: 'Maxis is a father, a scientist, and a signal that refuses to die. He spends most of the archive as a voice in speakers and radios, guiding the crew while hiding how much of the path he helped create.' },
+    marlton: { quote: null, summary: 'Marlton survives by understanding systems faster than they can kill him. He is brittle, brilliant, and exactly the sort of person Victis needs when the world is mostly ruined machinery.' },
+    misty: { quote: null, summary: 'Misty is the practical center of Victis. She has already lost enough to know panic wastes time, and she keeps moving even when the voices on the tower lines start sounding less human.' },
+    russman: { quote: null, summary: 'Russman knows more than he says and forgets more than he wants to. Broken Arrow left marks on him, and the Victis journey keeps putting those marks back under the light.' },
+    stuhlinger: { quote: null, summary: 'Stuhlinger is the weak point the Aether learned to use. He hears what the others cannot, obeys what he should not, and becomes the crew\'s unwilling receiver for a dead man with plans.' },
+    maya: { quote: null, summary: 'Maya enters the BO6 file looking for her brother and finds a system built to lie cleanly. She is not the loudest member of the team; she is the one who keeps pulling the thread.' },
+    weaver: { quote: null, summary: 'Weaver runs Requiem like a man who has read every buried report and trusted none of them. He is useful because he expects betrayal before the paperwork arrives.' },
+    grey: { quote: null, summary: 'Grey brings field discipline to problems that refuse to stay scientific. She reads the room, reads the readings, and treats both as evidence.' },
+    carver: { quote: null, summary: 'Carver is the hard edge of the Requiem file: direct, controlled, and usually already moving before anyone finishes describing the threat.' },
+    bruno: { quote: null, summary: 'Bruno understands misdirection well enough to hate being caught in it. The Chaos artifacts pull him into a larger trick, and he spends the file looking for the hand palming the coin.' },
+    diego: { quote: null, summary: 'Diego treats the supernatural like another arena until the arena starts changing rules. His confidence is part mask, part weapon, and not always enough.' },
+    scarlet: { quote: null, summary: 'Scarlett follows her father\'s trail into the parts of history rich people were meant to lock away. She is stubborn enough to keep going after the artifacts start answering back.' },
+    shaw: { quote: null, summary: 'Shaw is the Chaos file\'s investigator by habit and survivor by necessity. He keeps asking the grounded questions while standing in places that make grounded answers impossible.' },
+    monty: { quote: null, summary: 'Monty presents himself as host, keeper, and caretaker. The archive reads him less generously: a being with manners, power, and a very personal interest in keeping the wheel turning.' },
+    shadowman: { quote: null, summary: 'The Shadowman speaks like a guide because traps work better when they sound helpful. Morg City is his stage, and every favor he offers has teeth behind it.' },
+    director_richtofen: { quote: null, summary: 'The Director carries the Richtofen name into a cleaner office and a colder era. He briefs Requiem like a handler, but the file keeps finding old ambitions under new ink.' },
+    peck: { quote: null, summary: 'Peck is the kind of scientist who survives because accountability keeps arriving late. Every era seems to find a use for him, which is not the same as trusting him.' },
+    strauss: { quote: null, summary: 'Strauss belongs to the measurement side of Requiem: counters, samples, projections, and the dawning realization that none of them make the breach safer.' },
+    raptor_one: { quote: null, summary: 'Raptor One is the extraction voice at the edge of the fire. The file rarely shows him, but every team knows what it means when his channel opens.' },
+    ravenov: { quote: null, summary: 'Ravenov moves between enemies, allies, and unfinished debts. His usefulness comes from experience; the danger is that he rarely explains where that experience came from.' },
+    sam_ai: { quote: null, summary: 'Samantha\'s reconstructed voice turns briefing software into something less comfortable than software. Whether it is memory, echo, or warning, Requiem is right to listen carefully.' },
+  };
+  Object.entries(characterCopy).forEach(([id, copy]) => {
+    const c = characters.find((x) => x.id === id);
+    if (c) Object.assign(c, copy);
+  });
+
+  const weaponCopy = {
+    raygun: 'The baseline miracle weapon: compact, unstable, and somehow present in almost every era. Every later prototype is measured against the sound this thing makes when the room goes green.',
+    thundergun: 'A blunt-force answer to a crowded room. The Thundergun does not burn or cut; it removes the argument from the hallway.',
+    wunderwaffe: 'Group 935 lightning in a portable frame. The DG-2 chains through targets like the factory itself is choosing who gets erased next.',
+    staves: 'Four ancient tools dragged out of mud and machinery. In Origins, the staffs feel less invented than recovered.',
+    bows: 'The Wrath of the Ancients split four ways: storm, wolf, fire, and void. Der Eisendrache turns each upgrade into a confession from the castle.',
+    rai: 'A Dark Aether rifle built like somebody tried to make the Ray Gun behave. It does not behave; it just gives Requiem better paperwork.',
+  };
+  wonderWeapons.forEach((w) => { if (weaponCopy[w.id]) w.summary = weaponCopy[w.id]; });
+
+  const perkCopy = {
+    jugg: { tagline: 'The first purchase for a reason.', summary: 'Juggernog is not glamorous. It is the difference between a mistake and a game over screen, which makes it the most honest machine in the room.' },
+    qr: { tagline: 'Second chances, bottled.', summary: 'Quick Revive buys time when the run starts falling apart: faster revives in co-op, self-rescue in solo, and one more chance to pretend the plan still works.' },
+    sc: { tagline: 'Reload before the hallway fills.', summary: 'Speed Cola is boring until it is absent. The reload cut is the kind of advantage players only notice when the horde is already close.' },
+    ddc: { tagline: 'More rounds out, fewer bodies standing.', summary: 'Double Tap turns ordinary guns meaner. The second version is the one everyone remembers: faster fire, extra damage, less forgiveness for anything in front of you.' },
+    sf: { tagline: 'Move like the map is losing patience.', summary: 'Stamin-Up turns distance into a resource. It makes long rotations possible and bad corners survivable.' },
+    mule: { tagline: 'A third weapon, and a third thing to lose.', summary: 'Mule Kick is a luxury until the loadout demands it. Buy it late, protect it carefully, and expect the map to punish you for getting comfortable.' },
+    phd: { tagline: 'Dive first. Explain never.', summary: 'PhD Flopper is explosive immunity with a sense of humor. It makes bad ideas viable, which is why players still miss it.' },
+    tomb: { tagline: 'Leave yourself something to find.', summary: 'Tombstone is insurance for messy rounds: a grave marker, a second attempt, and the faint hope your gear is still where you left it.' },
+  };
+  perks.forEach((p) => { if (perkCopy[p.id]) Object.assign(p, perkCopy[p.id]); });
+
   const weaponOrigin = {
     raygun:     { mapId: 'derriese', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'] }, // universal
     thundergun: { mapId: 'kino',     gameIds: ['bo1'] },
@@ -671,6 +791,97 @@ window.ZD = (function () {
       .pap-stencil { font-family: ${T.display}; font-weight: 700; letter-spacing: -0.5px; line-height: 0.92; text-transform: uppercase; }
       .pap-num { font-family: ${T.mono}; font-variant-numeric: tabular-nums; }
       .pap-stamp { display: inline-block; padding: 4px 10px 3px; border: 2px solid currentColor; font-family: ${T.display}; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transform: rotate(-2deg); }
+      .pap-shell, .term-shell { overflow-x: hidden; }
+      .pap-card, .term-card, .pap-row, .term-row { min-width: 0; }
+      .pap-main-nav { scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
+      .pap-main-nav::-webkit-scrollbar { height: 4px; }
+      .pap-main-nav::-webkit-scrollbar-thumb { background: ${T.lineHi}; }
+      @media (max-width: 1100px) {
+        .pap-header-inner { flex-wrap: wrap !important; gap: 16px !important; }
+        .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
+        .pap-main-nav > button { flex: 0 0 auto; }
+        .pap-search { margin-left: auto; }
+        #root [style*="grid-template-columns: repeat(4, 1fr)"],
+        #root [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        #root [style*="grid-template-columns: 1.3fr 1fr"],
+        #root [style*="grid-template-columns: 1.4fr 1fr"],
+        #root [style*="grid-template-columns: 1.5fr 1fr"],
+        #root [style*="grid-template-columns: 380px 1fr"],
+        #root [style*="grid-template-columns: 340px 1fr"] { grid-template-columns: minmax(0, 1fr) !important; }
+      }
+      @media (max-width: 760px) {
+        html, body, #root { width: 100%; max-width: 100%; overflow-x: hidden; }
+        #root * { min-width: 0; }
+        .pap-topbar { display: none !important; }
+        .pap-header-inner, .term-header, .term-menu { padding: 14px !important; align-items: stretch !important; flex-direction: column !important; gap: 12px !important; }
+        .pap-brand { width: 100%; align-items: flex-start !important; }
+        .pap-header-spacer { display: none !important; }
+        .pap-main-nav { order: 2; width: 100%; margin: 0 !important; gap: 6px !important; overflow-x: auto; flex-wrap: nowrap !important; }
+        .pap-main-nav > button, .term-btn { min-height: 40px; white-space: nowrap; }
+        .pap-search, .term-search { width: 100% !important; min-width: 0 !important; margin: 0 !important; }
+        #root .pap-search { order: 1; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; min-height: 44px !important; padding: 0 12px !important; gap: 9px !important; }
+        #root .pap-search svg { flex: 0 0 13px !important; }
+        #root .pap-search input { flex: 1 1 auto !important; width: auto !important; min-width: 0 !important; height: 42px !important; line-height: 42px !important; }
+        #root .pap-search span { display: none !important; }
+        .pap-main, .term-main { padding: 22px 14px 44px !important; }
+        .pap-footer-grid, .pap-footer-bottom { padding-left: 14px !important; padding-right: 14px !important; }
+        .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
+        .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
+        h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
+        .pap-num { font-size: 32px !important; }
+        .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+        .pap-chip { min-height: 34px; }
+        .pap-card, .term-card { overflow-wrap: anywhere; }
+        #root [style*="display: flex"] { flex-wrap: wrap !important; }
+        #root [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+        #root [style*="position: sticky"] { position: static !important; top: auto !important; }
+        #root [style*="width: 160px"],
+        #root [style*="width: 180px"],
+        #root [style*="width: 200px"],
+        #root [style*="width: 220px"],
+        #root [style*="width: 240px"],
+        #root [style*="width: 320px"],
+        #root [style*="width: 340px"],
+        #root [style*="width: 380px"] { width: 100% !important; }
+        #root [style*="height: 480px"] { height: 360px !important; }
+        #root [style*="height: 420px"],
+        #root [style*="height: 400px"] { height: 300px !important; min-height: 300px !important; }
+        #root [style*="height: 300px"],
+        #root [style*="height: 280px"] { height: 240px !important; }
+        #root [style*="height: 220px"],
+        #root [style*="height: 180px"],
+        #root [style*="height: 170px"],
+        #root [style*="height: 150px"],
+        #root [style*="height: 120px"] { height: 170px !important; }
+        #root [style*="min-height: 480px"],
+        #root [style*="min-height: 420px"] { min-height: 300px !important; }
+        #root [style*="padding: 36px"],
+        #root [style*="padding: 32px"] { padding: 20px !important; }
+        #root [style*="padding: 28px"],
+        #root [style*="padding: 24px"] { padding: 18px !important; }
+        #root [style*="padding: 22px"],
+        #root [style*="padding: 20px"] { padding: 16px !important; }
+        #root [style*="gap: 48px"],
+        #root [style*="gap: 36px"],
+        #root [style*="gap: 32px"],
+        #root [style*="gap: 28px"],
+        #root [style*="gap: 26px"],
+        #root [style*="gap: 24px"],
+        #root [style*="gap: 22px"] { gap: 18px !important; }
+        .term-shell { font-size: 13.5px !important; }
+        .term-shell h1 { font-size: clamp(34px, 14vw, 44px) !important; }
+        .term-shell [style*="font-size: 36px"],
+        .term-shell [style*="font-size: 32px"],
+        .term-shell [style*="font-size: 30px"] { font-size: 28px !important; }
+      }
+      @media (max-width: 430px) {
+        .pap-main, .term-main { padding-left: 12px !important; padding-right: 12px !important; }
+        .pap-stencil { font-size: clamp(17px, 8.5vw, 32px) !important; }
+        h1.pap-stencil { font-size: clamp(32px, 17vw, 48px) !important; }
+        #root [style*="height: 480px"] { height: 320px !important; }
+        #root [style*="height: 420px"],
+        #root [style*="height: 400px"] { height: 260px !important; min-height: 260px !important; }
+      }
     `;
     document.head.appendChild(s);
   }
@@ -798,7 +1009,7 @@ window.ZD = (function () {
     </div>
   );
 
-  function Shell({ route, nav, query, setQuery, mode, setMode, children }) {
+  function Shell({ route, nav, query, setQuery, children }) {
     const navItems = [
       { id: 'home',       label: 'Archive' },
       { id: 'games',      label: 'Sagas' },
@@ -812,9 +1023,9 @@ window.ZD = (function () {
     ];
     const now = useNow();
     return (
-      <div style={{ background: T.bg0, color: T.bone, fontFamily: T.sans, minHeight: '100%', position: 'relative' }}>
+      <div className="pap-shell" style={{ background: T.bg0, color: T.bone, fontFamily: T.sans, minHeight: '100%', position: 'relative' }}>
         <div style={{ background: T.bg1, borderBottom: `1px solid ${T.line}`, position: 'sticky', top: 0, zIndex: 30 }}>
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
+          <div className="pap-topbar" style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div style={{ display: 'flex', gap: 18, alignItems: 'center', minWidth: 0, overflow: 'hidden' }}>
               <span style={{ color: T.blood, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: 3, background: T.blood, animation: 'pap-blink 1.4s steps(2) infinite' }} />
@@ -831,8 +1042,8 @@ window.ZD = (function () {
         </div>
         <HazardStripe height={4} />
         <header style={{ borderBottom: `1px solid ${T.line}`, background: `linear-gradient(180deg, ${T.bg1} 0%, ${T.bg0} 100%)` }}>
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 28 }}>
-            <button onClick={() => nav({ name: 'home' })} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
+          <div className="pap-header-inner" style={{ maxWidth: 1440, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 28 }}>
+            <button className="pap-brand" onClick={() => nav({ name: 'home' })} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
               <Monogram />
               <div style={{ textAlign: 'left' }}>
                 <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, letterSpacing: 1.2 }}>
@@ -843,7 +1054,7 @@ window.ZD = (function () {
                 </div>
               </div>
             </button>
-            <nav style={{ display: 'flex', gap: 2, marginLeft: 14, flexWrap: 'wrap' }}>
+            <nav className="pap-main-nav" style={{ display: 'flex', gap: 2, marginLeft: 14, flexWrap: 'wrap' }}>
               {navItems.map((n) => {
                 const active = route.name === n.id
                   || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
@@ -866,8 +1077,8 @@ window.ZD = (function () {
                 );
               })}
             </nav>
-            <div style={{ flex: 1 }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, border: `1px solid ${T.line}`, padding: '4px 10px 4px 12px', background: T.bg1, minWidth: 230 }}>
+            <div className="pap-header-spacer" style={{ flex: 1 }} />
+            <div className="pap-search" style={{ display: 'flex', alignItems: 'center', gap: 8, border: `1px solid ${T.line}`, padding: '4px 10px 4px 12px', background: T.bg1, minWidth: 230 }}>
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke={T.mute} strokeWidth="1.4"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l3 3"/></svg>
               <input
                 value={query}
@@ -877,15 +1088,14 @@ window.ZD = (function () {
                 style={{ background: 'transparent', border: 0, outline: 'none', color: T.bone, fontFamily: T.mono, fontSize: 11.5, width: '100%' }} />
               <span style={{ fontFamily: T.mono, fontSize: 9, color: T.faint, border: `1px solid ${T.line}`, padding: '1px 5px' }}>/</span>
             </div>
-            <ModeToggle mode={mode} setMode={setMode} />
           </div>
         </header>
-        <main style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 56px', position: 'relative', zIndex: 1 }}>
+        <main className="pap-main" style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 56px', position: 'relative', zIndex: 1 }}>
           {children}
         </main>
         <footer style={{ borderTop: `1px solid ${T.line}`, marginTop: 32, background: T.bg1 }}>
           <HazardStripe height={6} style={{ opacity: 0.85 }} />
-          <div style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 40px', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 32 }}>
+          <div className="pap-footer-grid" style={{ maxWidth: 1440, margin: '0 auto', padding: '32px 32px 40px', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 32 }}>
             <div>
               <div className="pap-stencil" style={{ fontSize: 22, color: T.bone }}>{'Group 935 '}<span style={{ color: T.e115 }}>//</span>{' Archive'}</div>
               <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 10, maxWidth: 380 }}>
@@ -899,7 +1109,7 @@ window.ZD = (function () {
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
             <FooterCol title="Reading" links={[['Chronicle','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
           </div>
-          <div style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
+          <div className="pap-footer-bottom" style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div>Fan project. Not affiliated with Activision or Treyarch. All trademarks belong to their owners.</div>
             <div>{'Compiled 2025 — Annot. Requiem'}</div>
           </div>
@@ -924,30 +1134,9 @@ window.ZD = (function () {
 
   function Monogram() {
     return (
-      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden>
-        <rect x="2" y="2" width="44" height="44" fill={T.bg0} stroke={T.e115} strokeWidth="2"/>
-        <text x="24" y="20" textAnchor="middle" fontFamily="Oswald, sans-serif" fontSize="11" fontWeight="700" fill={T.e115} letterSpacing="1">{'G·935'}</text>
-        <line x1="6" y1="26" x2="42" y2="26" stroke={T.line} strokeWidth="1"/>
-        <text x="24" y="38" textAnchor="middle" fontFamily="IBM Plex Mono, monospace" fontSize="6.5" fill={T.mute} letterSpacing="1.5">ELEMENT 115</text>
-      </svg>
-    );
-  }
-
-  function ModeToggle({ mode, setMode }) {
-    if (!setMode) return null;
-    return (
-      <div style={{ display: 'flex', border: `1px solid ${T.line}`, background: T.bg1 }}>
-        {['field','terminal'].map((m) => (
-          <button key={m} onClick={() => setMode(m)}
-            style={{
-              background: mode === m ? T.e115 : 'transparent',
-              color: mode === m ? T.bg0 : T.mute,
-              border: 0, padding: '8px 12px',
-              fontFamily: T.display, fontWeight: 700, fontSize: 11, letterSpacing: 2, textTransform: 'uppercase',
-              cursor: 'pointer',
-            }}>{m === 'field' ? 'Field' : 'TTY'}</button>
-        ))}
-      </div>
+      <span className="pap-monogram" aria-hidden style={{ width: 54, height: 54, flex: '0 0 54px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+        <img src={IMG_BASE + '/Icons/Group935icon.png'} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain' }} />
+      </span>
     );
   }
 
@@ -987,7 +1176,7 @@ window.ZD = (function () {
               <span style={{ color: T.bone }}>field manual.</span>
             </h1>
             <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, lineHeight: 1.55, maxWidth: 560, marginTop: 22 }}>
-              {'Every Treyarch Zombies map — World at War through Black Ops 7 '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{' — catalogued with full Easter egg walkthroughs, wonder weapon notes, relic locations, perk references, and a chronological reading of the lore.'}
+              {'A field archive for Treyarch Zombies: maps, crews, weapons, songs, relics, and the story thread running from '}<strong style={{ color: T.bone, fontWeight: 600 }}>Nacht der Untoten</strong>{' to '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{'. Built like a dossier, written for players who want the evidence in one place.'}
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 26 }}>
               <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'maps' })}>{'Enter the Maps →'}</button>
@@ -1570,7 +1759,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
           kicker={ZD.maps.length + ' catalogued sites'}
           title="All Maps"
-          sub="Every Treyarch Zombies map in canon order. Filter by saga, sort by canon, name, or difficulty."
+          sub="Every filed site in canon order. Filter by saga, then open the dossier for imagery and notes."
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -1974,10 +2163,12 @@ window.ZD = (function () {
             </div>
           </div>
           <div>
-            <div style={{ borderLeft: `3px solid ${T.e115}`, paddingLeft: 22, marginBottom: 28 }}>
-              <Mono color={T.e115}>On record</Mono>
-              <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 8, lineHeight: 1.1 }}>{'"' + c.quote + '"'}</div>
-            </div>
+            {c.quote && (
+              <div style={{ borderLeft: `3px solid ${T.e115}`, paddingLeft: 22, marginBottom: 28 }}>
+                <Mono color={T.e115}>On record</Mono>
+                <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 8, lineHeight: 1.1 }}>{'"' + c.quote + '"'}</div>
+              </div>
+            )}
             <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7 }}>{c.summary}</p>
             <div style={{ marginTop: 36 }}>
               <SectionHead kicker="Cross-Reference" title="Sites visited" />
@@ -2088,7 +2279,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Songs'}]}
           kicker={allSongs.length + ' catalogued track' + (allSongs.length === 1 ? '' : 's')}
           title="Hidden Songs"
-          sub="The custom soundtrack you have to earn. Activation triggers — teddy bears, meteors, gramophones, skulls — listed per track. Maps with empty lists are awaiting transcription."
+          sub="The tracks hidden behind bears, meteors, gramophones, skulls, and worse. Activation notes stay terse until each file gets a full pass."
           nav={nav}
         />
         <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 36 }}>
@@ -2119,12 +2310,12 @@ window.ZD = (function () {
 
   function Lore({ nav }) {
     const articles = [
-      ['origin-cycle','On the Origin Cycle','Why Maxis keeps starting over.','Reading the loop, its breakers, and the cost of breaking it.'],
-      ['sentinel','The Sentinel Artifact','A piece of the Forsaken in a CIA briefcase.','How one object connects three eras.'],
-      ['order','The Order of the Templar','Element 115 in 1294.','The dig at Alsace and the relics they buried.'],
-      ['mpd','Samantha and the MPD','How a girl became the keeper of the Aether.','And why she let her father out.'],
-      ['115','On Element 115','The cosmic metal at the centre of everything.','Properties, sources, and the people it has made dangerous.'],
-      ['groups','Group 935 vs. Division 9','Two halves of the same compromise.','Maxis in Germany, Kawasaki in the Pacific.'],
+      ['origin-cycle','On the Origin Cycle','The loop did not break cleanly.','Primis, Maxis, and the cost of retiring the wheel.'],
+      ['sentinel','The Sentinel Artifact','A sealed object with a bad habit of moving.','From Forsaken to the Order files.'],
+      ['order','The Order of the Templar','Older than Group 935. Less careless.','Alsace, relics, and the first sealed dig.'],
+      ['mpd','Samantha and the MPD','A child in a machine built by adults.','How the Aether found its voice.'],
+      ['115','On Element 115','The metal under every bad decision.','Sources, effects, and the people who thought they could use it safely.'],
+      ['groups','Group 935 vs. Division 9','Same compromise, different uniforms.','Germany, the Pacific, and the science no one should have funded.'],
     ];
     return (
       <div>
@@ -2132,7 +2323,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Lore'}]}
           kicker="Long-form readings"
           title="Lore"
-          sub="Annotated essays that follow a single thread across multiple maps and decades."
+          sub="Case notes for the larger story: what repeats, what changes, and who keeps paying the bill."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
@@ -2157,12 +2348,12 @@ window.ZD = (function () {
     const articles = {
       'origin-cycle': {
         title: 'On the Origin Cycle',
-        kicker: 'Reading the loop',
-        pull: 'No matter how many times we run this, the ending is always the same. The difference is what gets dragged into it.',
+        kicker: 'Cycle analysis',
+        pull: 'The loop did not end because everyone understood it. It ended because somebody finally paid the price.',
         sections: [
-          ['The First Turn', 'The cycle begins at Generation Station 64, a German dig that breached an Element 115 deposit during the closing months of the Great War. Four soldiers — the men we will come to call Primis — are killed, brought back, and given a fragment of memory that does not belong to them. What they remember is the previous turn of the wheel: a moon shattered, a daughter trapped in a machine, a friend with a syringe. They do not have the words for any of it.'],
-          ['The Conductor', 'Dr. Maxis is the closest thing the loop has to a narrator, and even he does not control the rotation. He is only the one who keeps the lights on between turns. By Revelations he is exhausted, a voice in the static of a transmitter that should not still be on the air.'],
-          ['The Cost of Breaking It', 'By the time of Revelations, every variable that can be moved has been moved. The cycle does not end — it is retired. The new cycle, the Dark Aether era, begins on the same battlefield with none of the same actors and one new word for the same thing. That word is Forsaken, and it remembers everything.'],
+          ['The First Turn', 'Generation Station 64 is the cleanest place to start and still not the beginning. The dig finds 115 in the mud, the war gives everyone cover, and four soldiers are pulled into a story already older than their orders. Primis is born with memories that do not belong to one life.'],
+          ['The Conductor', 'Maxis is not in control of the wheel, but he knows where to stand when it turns. Across radios, drones, and impossible transmissions, he becomes the voice that makes the next terrible step sound necessary.'],
+          ['The Cost of Breaking It', 'By Revelations, the cycle has been measured from every angle. Breaking it is less triumph than surgery. Something has to be cut away, and the Dark Aether era begins in the space left behind.'],
         ],
       },
     };
@@ -2281,17 +2472,17 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'About'}]}
           kicker="Field Manual"
           title="About the Archive"
-          sub="What this site is, what it is not, and how to read it."
+          sub="What is filed here, what is still redacted, and how to read the archive."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 36, marginTop: 32 }}>
           <article style={{ fontFamily: T.sans, fontSize: 16.5, lineHeight: 1.7, color: T.bone }}>
             <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 0, marginBottom: 12 }}>What this is</h3>
-            <p>{'group935.net is a fan-built database for the Treyarch Zombies canon — every map from '}<strong style={{ color: T.bone, fontWeight: 600 }}>Nacht der Untoten</strong>{' (2008) to '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{' (2025), with full Easter egg walkthroughs, wonder weapon notes, perk references, relic counts, character bios, and a chronological reading of the lore.'}</p>
-            <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>The two modes</h3>
-            <p><strong style={{ color: T.e115, fontWeight: 600 }}>FIELD</strong>{' is the default — the Group 935 Archive interface you’re reading now. '}<strong style={{ color: T.e115, fontWeight: 600 }}>TTY</strong>{' is a brutalist CRT terminal view of the same content, for the players who want to grep the lore instead of browsing it. Switch any time via the toggle top right, or hit the backtick (`) key.'}</p>
+            <p>{'group935.net is a fan-built field archive for Treyarch Zombies: map dossiers, image galleries, crew files, weapons, perks, songs, relic notes, and the larger story tying it all together.'}</p>
+            <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>Archive format</h3>
+            <p>{'The site now uses the Field dossier view everywhere: readable map files, crew records, galleries, lore notes, and reference pages without a second display mode to manage.'}</p>
             <h3 className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 36, marginBottom: 12 }}>What this is not</h3>
-            <p>Not affiliated with Activision, Treyarch, or any other party that owns trademarks in the Call of Duty franchise. No copy is lifted from official sources. Every writeup here is original.</p>
+            <p>Not affiliated with Activision, Treyarch, or any other rights holder. The analysis and dossier copy are original fan writing. Character quote callouts are only shown when the line is verified.</p>
           </article>
           <aside>
             <div style={{ padding: 22, background: T.bg1, border: `1px solid ${T.line}`, position: 'sticky', top: 70 }}>
@@ -2352,7 +2543,7 @@ window.ZD = (function () {
   window.__papParseHash = parseHash;
   window.__papBuildHash = buildHash;
 
-  function PackAPunch({ mode, setMode }) {
+  function PackAPunch() {
     const [route, setRouteState] = useState(() => parseHash(window.location.hash));
     const [query, setQuery] = useState('');
     useEffect(() => {
@@ -2387,7 +2578,7 @@ window.ZD = (function () {
       default:           page = <NotFound nav={nav} />;
     }
     return (
-      <Shell route={route} nav={nav} query={query} setQuery={setQuery} mode={mode} setMode={setMode}>
+      <Shell route={route} nav={nav} query={query} setQuery={setQuery}>
         {page}
       </Shell>
     );
@@ -2499,29 +2690,23 @@ window.ZD = (function () {
     <button className="term-link" onClick={onClick} style={style}>{children}</button>
   );
 
-  function Shell({ route, setRoute, query, setQuery, mode, setMode, children }) {
+  function Shell({ route, setRoute, query, setQuery, children }) {
     const nav = [
       ['home','home'], ['games','games'], ['maps','sites'],
       ['characters','subjects'], ['lore','memos'], ['timeline','chronology'], ['relics','relics'],
     ];
     return (
-      <div style={{ background: C.bg, color: C.ink, fontFamily: C.mono, minHeight: '100%', fontSize: 14, lineHeight: 1.55 }}>
-        <div style={{ borderBottom: `1px solid ${C.line}`, padding: '14px 28px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
+      <div className="term-shell" style={{ background: C.bg, color: C.ink, fontFamily: C.mono, minHeight: '100%', fontSize: 14, lineHeight: 1.55 }}>
+        <div className="term-header" style={{ borderBottom: `1px solid ${C.line}`, padding: '14px 28px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}>
           <div onClick={() => setRoute({ name: 'home' })} style={{ cursor: 'pointer', display: 'flex', alignItems: 'baseline', gap: 14 }}>
             <span style={{ fontFamily: C.pixel, fontSize: 32, color: C.bright, lineHeight: 1, letterSpacing: 1 }}>group935.tty</span>
             <span style={{ color: C.dim, fontSize: 11 }}>{'rev 17.4 · tty04 · sess 0xAE3F'}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, color: C.dim, fontSize: 11 }}>
             <span>agent 03741</span><span>UMBRA</span><span style={{ color: C.ink }}>14 SEP 91  14:22 UTC</span>
-            {setMode && (
-              <div style={{ display: 'flex', border: `1px solid ${C.line}`, marginLeft: 8 }}>
-                <button onClick={() => setMode('field')} style={{ background: mode === 'field' ? C.ink : 'transparent', color: mode === 'field' ? C.bg : C.dim, border: 0, padding: '5px 10px', font: 'inherit', fontSize: 11, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: 1.5 }}>field</button>
-                <button onClick={() => setMode('terminal')} style={{ background: mode === 'terminal' ? C.ink : 'transparent', color: mode === 'terminal' ? C.bg : C.dim, border: 0, padding: '5px 10px', font: 'inherit', fontSize: 11, cursor: 'pointer', textTransform: 'uppercase', letterSpacing: 1.5 }}>tty</button>
-              </div>
-            )}
           </div>
         </div>
-        <div style={{ borderBottom: `1px solid ${C.line}`, padding: '10px 28px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <div className="term-menu" style={{ borderBottom: `1px solid ${C.line}`, padding: '10px 28px', display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <span style={{ color: C.dim, fontSize: 12, marginRight: 6 }}>menu</span>
           {nav.map(([id, label], i) => {
             const active = route.name === id || (id === 'maps' && route.name === 'map') || (id === 'games' && route.name === 'game') || (id === 'characters' && route.name === 'character');
@@ -2532,7 +2717,7 @@ window.ZD = (function () {
             );
           })}
           <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', alignItems: 'center', border: `1px solid ${C.line}`, padding: '3px 8px', gap: 6 }}>
+          <div className="term-search" style={{ display: 'flex', alignItems: 'center', border: `1px solid ${C.line}`, padding: '3px 8px', gap: 6 }}>
             <span style={{ color: C.dim, fontSize: 12 }}>find</span>
             <input value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && setRoute({ name: 'search' })}
               placeholder="type then enter"
@@ -2546,7 +2731,7 @@ window.ZD = (function () {
           {route.name !== 'home' && <span>{' / '}<Link onClick={() => setRoute({ name: route.name })} style={{ color: C.dim }}>{route.name}</Link></span>}
           {route.id && <span>{' / '}<span style={{ color: C.ink }}>{route.id}</span></span>}
         </div>
-        <main style={{ padding: '20px 28px 60px' }}>{children}</main>
+        <main className="term-main" style={{ padding: '20px 28px 60px' }}>{children}</main>
       </div>
     );
   }
@@ -2845,7 +3030,7 @@ window.ZD = (function () {
                 <div style={{ color: C.dim, fontSize: 11, letterSpacing: 1.5 }}>{'s.' + String(i + 1).padStart(2, '0')}</div>
                 <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, lineHeight: 1, marginTop: 2 }}>{c.name}</div>
                 <div style={{ color: C.dim, fontSize: 12, marginTop: 4 }}>{c.role}</div>
-                <div style={{ color: C.ink, fontSize: 12.5, marginTop: 8 }}>{'"' + c.quote + '"'}</div>
+                {c.quote && <div style={{ color: C.ink, fontSize: 12.5, marginTop: 8 }}>{'"' + c.quote + '"'}</div>}
               </div>
             </button>
           ))}
@@ -2872,10 +3057,12 @@ window.ZD = (function () {
             </div>
           </div>
           <div>
-            <div className="term-card" style={{ padding: 22 }}>
-              <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>RECORDED STATEMENT</div>
-              <div style={{ fontFamily: C.pixel, fontSize: 28, color: C.bright, marginTop: 8, lineHeight: 1.3 }}>{'"' + c.quote + '"'}</div>
-            </div>
+            {c.quote && (
+              <div className="term-card" style={{ padding: 22 }}>
+                <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>RECORDED STATEMENT</div>
+                <div style={{ fontFamily: C.pixel, fontSize: 28, color: C.bright, marginTop: 8, lineHeight: 1.3 }}>{'"' + c.quote + '"'}</div>
+              </div>
+            )}
             <Prompt cmd="cat ./biography.txt" />
             <p style={{ margin: '0 0 22px', maxWidth: 760, lineHeight: 1.7, fontSize: 14.5 }}>{c.summary}</p>
           </div>
@@ -2984,7 +3171,7 @@ window.ZD = (function () {
     );
   }
 
-  function Terminal({ mode, setMode }) {
+  function Terminal() {
     const [route, setRouteRaw] = useState(() => parseHash(window.location.hash));
     const [query, setQuery] = useState('');
     useEffect(() => {
@@ -3014,7 +3201,7 @@ window.ZD = (function () {
       default:           page = <Home setRoute={setRoute} />;
     }
     return (
-      <Shell route={route} setRoute={setRoute} query={query} setQuery={setQuery} mode={mode} setMode={setMode}>
+      <Shell route={route} setRoute={setRoute} query={query} setQuery={setQuery}>
         {page}
       </Shell>
     );
@@ -3025,13 +3212,10 @@ window.ZD = (function () {
 </script>
 
 <!-- ════════════════════════════════════════════════════════════════════
-     APP BOOT — mode toggle, mount React
+     APP BOOT — mount React
      ════════════════════════════════════════════════════════════════════ -->
 <script type="text/babel" data-presets="react">
 (function () {
-  const { useState, useEffect } = React;
-  const MODE_KEY = 'g935.mode';
-
   class ErrorBoundary extends React.Component {
     constructor(p) { super(p); this.state = { err: null }; }
     static getDerivedStateFromError(err) { return { err }; }
@@ -3047,25 +3231,7 @@ window.ZD = (function () {
   }
 
   function App() {
-    const [mode, setModeRaw] = useState(() => {
-      try { return localStorage.getItem(MODE_KEY) || 'field'; }
-      catch (e) { return 'field'; }
-    });
-    const setMode = (m) => {
-      setModeRaw(m);
-      try { localStorage.setItem(MODE_KEY, m); } catch (e) {}
-    };
-    useEffect(() => {
-      const onKey = (e) => {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        if (e.key === '`') { e.preventDefault(); setMode(mode === 'field' ? 'terminal' : 'field'); }
-      };
-      window.addEventListener('keydown', onKey);
-      return () => window.removeEventListener('keydown', onKey);
-    }, [mode]);
-
-    if (mode === 'terminal' && window.Terminal) return <window.Terminal mode={mode} setMode={setMode} />;
-    if (window.PackAPunch) return <window.PackAPunch mode={mode} setMode={setMode} />;
+    if (window.PackAPunch) return <window.PackAPunch />;
     return React.createElement('div', null, 'Loading…');
   }
 
@@ -3073,7 +3239,6 @@ window.ZD = (function () {
     const missing = [];
     if (!window.ZD)         missing.push('ZD');
     if (!window.PackAPunch) missing.push('PackAPunch');
-    if (!window.Terminal)   missing.push('Terminal');
     if (missing.length) {
       __bootShow('still waiting on', missing.join(', '));
       setTimeout(mount, 200);
