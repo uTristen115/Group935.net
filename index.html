@@ -229,45 +229,55 @@ window.ZD = (function () {
     g.mapCount = Math.max(g.mapCount, maps.filter((m) => m.game === g.id).length);
   });
 
-  // Songs: hidden tracks per map. { name, artist, activation, link? }
-  // Confident entries are seeded; uncertain maps have empty arrays you can fill.
+  // Songs: hidden tracks per map. { name, artist, activation }
   const mapSongs = {
-    nacht:       [],
-    verruckt:    [{ name: 'Lullaby for a Dead Man', artist: 'Kevin Sherwood', activation: 'Three meteor rocks hidden around the asylum.' }],
-    shino:       [{ name: 'Beauty of Annihilation', artist: 'Elena Siegman', activation: 'Three meteor rocks in the swamp.' }],
-    derriese:    [{ name: 'The One',                artist: 'Elena Siegman', activation: 'Hold the action button on three teddy bears around the factory.' }],
-    kino:        [{ name: '115',                    artist: 'Elena Siegman', activation: 'Three meteor rocks: spawn, dressing room, theater.' }],
+    nacht:       [{ name: 'WTF', artist: 'Kevin Sherwood', activation: 'Activate the radio on the second floor.' }],
+    verruckt:    [{ name: 'Lullaby of a Dead Man', artist: 'Kevin Sherwood', activation: 'Three meteor rocks hidden around the asylum.' }],
+    shino:       [{ name: 'The One', artist: 'Elena Siegman', activation: 'Three meteor rocks in the swamp.' }],
+    derriese:    [{ name: 'Beauty of Annihilation', artist: 'Elena Siegman', activation: 'Hold the action button on three teddy bears around the factory.' }],
+    kino:        [{ name: '115', artist: 'Elena Siegman', activation: 'Three meteor rocks: spawn, dressing room, theater.' }],
     five:        [],
-    ascension:   [{ name: 'Abracadavre',            artist: 'Elena Siegman', activation: 'Three teddy bears across the cosmodrome.' }],
-    callofthedead: [],
-    shangri:     [],
-    moon:        [{ name: 'Coming Home',            artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
+    ascension:   [{ name: 'Abracadavre', artist: 'Elena Siegman', activation: 'Three teddy bears across the cosmodrome.' }],
+    callofthedead: [{ name: 'Not Ready to Die', artist: 'Avenged Sevenfold', activation: 'Three meteor rocks around the map.' }],
+    shangri:     [{ name: 'Pareidolia', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three meteor rocks around the temple.' }],
+    moon:        [{ name: 'Coming Home', artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
     tranzit:     [],
     dierise:     [],
-    buried:      [],
-    origins:     [{ name: 'Archangel',              artist: 'Malukah & Elena Siegman', activation: 'Three gramophones found across the dig site.' }],
-    shadows:     [{ name: 'Snakeskin Boots',        artist: 'Kevin Sherwood', activation: 'Three rituals at the snake-head altars.' }],
+    mob:         [{ name: 'Where Are We Going?', artist: 'Kevin Sherwood feat. Malukah', activation: 'Three skulls hidden in the prison.' }],
+    buried:      [{ name: 'Always Running', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three teddy bears around the underground town.' }],
+    origins:     [{ name: 'Archangel', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three gramophones found across the dig site.' }],
+    shadows:     [{ name: 'Snakeskin Boots', artist: 'Kevin Sherwood', activation: 'Three ritual altars around Morg City.' }],
     thegiant:    [],
-    eisendrache: [{ name: 'Dead Flowers',           artist: 'Avenged Sevenfold', activation: 'Three teddy bears around the keep.' }],
-    zetsubou:    [],
-    gorod:       [],
-    mob:         [
-      { name: 'Where Are We Going',  artist: 'Kevin Sherwood feat. Malukah', activation: 'Three skulls in the prison (warden’s office, cafeteria, infirmary).' },
-      { name: 'Rusty Cage (cover)',  artist: 'Brand-X (Soundgarden cover)',  activation: 'Plays at random on the Citadel record player.' },
+    eisendrache: [{ name: 'Dead Again', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three teddy bears around the castle.' }],
+    zetsubou:    [{ name: 'Dead Flowers', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three items around the island.' }],
+    gorod:       [
+      { name: 'Dead Ended', artist: 'Kevin Sherwood', activation: 'Three items around the map.' },
+      { name: 'Ace of Spades', artist: 'Motörhead', activation: 'Bonus song activation.' },
     ],
-    revelations: [{ name: 'Cold Hard Cash',         artist: 'Elena Siegman', activation: 'Three teddy bears in the patchwork.' }],
-    diemaschine: [{ name: 'Alone',                  artist: 'Kevin Sherwood feat. Clémentine Delauney', activation: 'Three teddy bears around Projekt Endstation.' }],
-    firebase:    [{ name: 'Lost in Time',           artist: 'Kevin Sherwood', activation: 'Three teddy bears around the firebase.' }],
-    mauer:       [{ name: 'Faded',                  artist: 'Kevin Sherwood', activation: 'Three meteor rocks on each side of the Wall.' }],
-    forsaken:    [{ name: 'Forsaken (theme)',       artist: 'Kevin Sherwood', activation: 'Three teddy bears in the amusement park.' }],
-    terminus:    [],
-    liberty:     [],
-    citadelle:   [],
+    revelations: [{ name: 'The Gift', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three items across the patchwork map.' }],
+    ix:          [{ name: 'Mad Hatter', artist: 'Avenged Sevenfold', activation: 'Three items around the arena.' }],
+    voyage:      [{ name: 'Drowning', artist: 'Kevin Sherwood', activation: 'Three items around the Titanic.' }],
+    blood:       [{ name: 'Where Are We Going? (2018)', artist: 'Kevin Sherwood feat. Malukah', activation: 'Three items in the prison.' }],
+    dotn:        [{ name: 'Mystery', artist: 'Kevin Sherwood', activation: 'Three items around the manor.' }],
+    ancientevil: [{ name: 'Stormbound', artist: 'Kevin Sherwood', activation: 'Three items around Delphi.' }],
+    tag:         [],
+    diemaschine: [{ name: 'Alone', artist: 'Kevin Sherwood', activation: 'Three teddy bears around Projekt Endstation.' }],
+    firebase:    [{ name: 'Lost', artist: 'Kevin Sherwood', activation: 'Three teddy bears around the firebase.' }],
+    mauer:       [],
+    forsaken:    [],
+    terminus:    [{ name: 'Can You Hear Me? (Come In)', artist: 'Kevin Sherwood', activation: 'Three items around the prison island.' }],
+    liberty:     [{ name: 'Destroy Something Beautiful', artist: 'Kevin Sherwood', activation: 'Three items around town.' }],
+    citadelle:   [{ name: 'Slave', artist: 'Kevin Sherwood', activation: 'Three items around the castle.' }],
+    shatteredveil: [{ name: 'Falling to Pieces', artist: 'Kevin Sherwood', activation: 'Three items around the manor.' }],
+    reckoning:   [{ name: 'Remember Us', artist: 'Kevin Sherwood', activation: 'Three items around the facility.' }],
     tomb:        [],
-    ashes:       [],
-    astro:       [],
-    paradox:     [],
-    totenreich:  [],
+    ashes:       [{ name: 'Turn to Ashes', artist: 'Kevin Sherwood', activation: 'Three items around the ruins.' }],
+    astro:       [
+      { name: 'Pareidolia (Remastered 2025)', artist: 'Kevin Sherwood', activation: 'Three items around the observatory.' },
+      { name: 'Magic', artist: 'Avenged Sevenfold', activation: 'Bonus song activation.' },
+    ],
+    paradox:     [{ name: 'Come Back Down', artist: 'Kevin Sherwood', activation: 'Three items around the station.' }],
+    totenreich:  [{ name: 'No One There', artist: 'Kevin Sherwood', activation: 'Three items around the realm.' }],
   };
   Object.entries(mapSongs).forEach(([id, songs]) => {
     const m = maps.find((x) => x.id === id);
@@ -282,16 +292,16 @@ window.ZD = (function () {
     shino:       { dir: 'World at War/Maps/Shi No Numa', hero: 'ShiNo_LoadingSCreen.png', thumb: 'ShiNo_Thumbnail.png', gallery: ['ShiNo1.png','ShiNo2.png','ShiNo3.png','ShiNo4.png','ShiNo_Promo.png'] },
     derriese:    { dir: 'World at War/Maps/Der Riese', hero: 'DerRiese_Promo.png', thumb: 'DerRiese_Thumbnail.png', gallery: ['DerRiese1.png','DerRiese2.png','DerRiese3.png','DerRiese4.png','DerRiese5.png','DerRieseMap.png'] },
     kino:        { dir: 'Black Ops/Maps/Kino Der Toten', hero: 'Kino_Loading_Screen.png', thumb: 'Kino_1.png', gallery: ['Kino_1.png','Kino_2.png','Kino_3.png'] },
-    five:        { dir: 'Black Ops/Maps/Five', hero: 'Five_LoadingScreen.png', thumb: 'Five.png', gallery: ['Five_1.png','Five_3.png'] },
+    five:        { dir: 'Black Ops/Maps/Five', hero: 'Five_1.png', thumb: 'Five_1.png', gallery: ['Five_1.png','Five_3.png'] },
     ascension:   { dir: 'Black Ops/Maps/Ascension', hero: 'Ascension_LoadingScreen.png', thumb: 'Ascension_Thumbnail.png', gallery: ['Ascension_1.png','Ascension_2.png','Ascension_3.png'] },
     callofthedead: { dir: 'Black Ops/Maps/Call of the Dead', hero: 'CotD_Poster.png', thumb: 'CotD_Thumbnail.png', gallery: ['CotD_LoadingScreen.png','CotD_1.png','CotD_2.png','CotD_3.png','CotD_4.png'] },
     shangri:     { dir: 'Black Ops/Maps/Shangri-La', hero: 'Shangri_La_LoadingScreen.png', thumb: 'Shangri_La_1.png', gallery: ['Shangri_La_1.png','Shangri_La_2.png','Shangri_La_3.png','Shangri_La_4.png'] },
     moon:        { dir: 'Black Ops/Maps/Moon', hero: 'Moon_LoadingScreen.png', thumb: 'Moon_Thumbnail.png', gallery: ['Moon_1.png','Moon_2.png','Moon_3.png','Moon_4.png'] },
-    tranzit:     { dir: 'Black Ops 2/Maps/TranZit', hero: 'TranZit_Thumbnail.png', thumb: 'TranZit_Thumbnail.png', gallery: ['TranZit_1.png','TranZit_2.png','TranZit_3.png','TranZit_4.png','TranZit_5.png'] },
-    dierise:     { dir: 'Black Ops 2/Maps/Die Rise', hero: 'Die_Rise_Thumbnail.png', thumb: 'Die_Rise_Thumbnail.png', gallery: ['Die_Rise1.png','Die_Rise2.png','Die_Rise3.png','Die_Rise4.png','Die_Rise5.png'] },
-    mob:         { dir: 'Black Ops 2/Maps/Mob of the Dead', hero: 'MotD_Poster.png', thumb: 'MotD_ThumbNail.png', gallery: ['MotD_LoadingScreen.png','MotD1.png','MotD2.png','MotD3.png','MotD4.png','MotD5.png'] },
-    buried:      { dir: 'Black Ops 2/Maps/Buried', hero: 'Buried_Thumbnail.png', thumb: 'Buried_Thumbnail.png', gallery: ['Buried1.png','Buried2.png','Buried3.png','Buried4.png','Buried5.png'] },
-    origins:     { dir: 'Black Ops 2/Maps/Origins', hero: 'origins_poster.png', thumb: 'Origins_Thumbnail.png', gallery: ['Origins1.png','Origins2.png','Origins3.png','Origins4.png','Origins5.png','Origins_Panzer.png'] },
+    tranzit:     { dir: 'Black Ops 2/Maps/TranZit', hero: 'TranZit_1.png', thumb: 'TranZit_1.png', gallery: ['TranZit_1.png','TranZit_2.png','TranZit_3.png','TranZit_4.png','TranZit_5.png'] },
+    dierise:     { dir: 'Black Ops 2/Maps/Die Rise', hero: 'Die_Rise1.png', thumb: 'Die_Rise1.png', gallery: ['Die_Rise1.png','Die_Rise2.png','Die_Rise3.png','Die_Rise4.png','Die_Rise5.png'] },
+    mob:         { dir: 'Black Ops 2/Maps/Mob of the Dead', hero: 'MotD1.png', thumb: 'MotD1.png', gallery: ['MotD1.png','MotD2.png','MotD3.png','MotD4.png','MotD5.png'] },
+    buried:      { dir: 'Black Ops 2/Maps/Buried', hero: 'Buried1.png', thumb: 'Buried1.png', gallery: ['Buried1.png','Buried2.png','Buried3.png','Buried4.png','Buried5.png'] },
+    origins:     { dir: 'Black Ops 2/Maps/Origins', hero: 'Origins1.png', thumb: 'Origins1.png', gallery: ['Origins1.png','Origins2.png','Origins3.png','Origins4.png','Origins5.png'] },
     shadows:     { dir: 'Black Ops 3/Maps/Shadows of Evil', hero: 'SoE_Poster.png', thumb: 'SoE1.png', gallery: ['SoE1.png','SoE2.png','SoE3.png','SoE4.png','SoE5.png'] },
     thegiant:    { dir: 'Black Ops 3/Maps/The Giant', hero: 'The_Giant_Ultrawide.png', thumb: 'The_Giant_Thumbnail.png', gallery: ['The_Giant1.png','The_Giant2.png','The_Giant3.png','The_Giant4.png'] },
     eisendrache: { dir: 'Black Ops 3/Maps/Der Eisendrache', hero: 'Der_Eisendrache_Poster.png', thumb: 'DE1.png', gallery: ['DE1.png','DE2.png','DE3.png','DE4.png','DE5.png','DE6.png'] },
@@ -299,7 +309,7 @@ window.ZD = (function () {
     gorod:       { dir: 'Black Ops 3/Maps/Gorod Krovi', hero: 'GK_Poster.png', thumb: 'GK1.png', gallery: ['GK1.png','GK2.png','GK3.png','GK4.png','GK5.png','GK6.png'] },
     revelations: { dir: 'Black Ops 3/Maps/Revelations', hero: 'Rev_Poster.png', thumb: 'Rev1.png', gallery: ['Rev1.png','Rev2.png','Rev3.png','Rev4.png','Rev5.png','Rev6.png'] },
     ix:          { dir: 'Black Ops 4/Maps/IX', hero: 'IX_Poster.png', thumb: 'IX1.png', gallery: ['IX1.png','IX2.png','IX3.png','IX4.png','IX5.png','IX6.png'] },
-    voyage:      { dir: 'Black Ops 4/Maps/Voyage of Despair', hero: 'VoD_Poster.png', thumb: 'VoD1.png', gallery: ['VoD1.png','VoD2.png','VoD3.png','VoD4.png','VoD5.png'] },
+    voyage:      { dir: 'Black Ops 4/Maps/Voyage of Despair', hero: 'VoD1.png', thumb: 'VoD1.png', gallery: ['VoD1.png','VoD2.png','VoD3.png','VoD4.png','VoD5.png'] },
     blood:       { dir: 'Black Ops 4/Maps/Blood of the Dead', hero: 'BloodPoster.png', thumb: 'BotD1.png', gallery: ['BotD1.png','BotD2.png','BotD3.png','BotD4.png','BotD5.png'] },
     dotn:        { dir: 'Black Ops 4/Maps/Dead of the Night', hero: 'DotN_Poster.png', thumb: 'DotN1.png', gallery: ['DotN1.png','DotN2.png','DotN3.png','DotN4.png','DotN5.png'] },
     ancientevil: { dir: 'Black Ops 4/Maps/Ancient Evil', hero: 'AE1.png', thumb: 'AE1.png', gallery: ['AE2.png','AE3.png','AE4.png','AE5.png','AE6.png'] },
@@ -463,8 +473,8 @@ window.ZD = (function () {
     samantha: {
       faction: 'aether',
       portraits: {
-        moon:    { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Moon_MPD.png',    label: 'Moon · MPD (1968)' },
-        origins: { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Origins.png',     label: 'Origins (1918)' },
+        moon:    { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Moon_MPD.png',    label: 'Moon · MPD (1968)', objectPosition: 'center top' },
+        origins: { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_Origins.png',     label: 'Origins (1918)', objectPosition: 'center 10%' },
         tag:     { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_TagDerToten.png', label: 'Tag der Toten' },
         cw:      { dir: 'Non-Playable Main Characters/Samantha Maxis', file: 'Samantha_CW.png',          label: 'Cold War · Dark Aether' },
       },
@@ -474,8 +484,8 @@ window.ZD = (function () {
       faction: 'aether',
       portraits: {
         origins:     { dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Origins.png',      label: 'Origins (1918)' },
-        revelations: { dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations.png',  label: 'Revelations' },
-        revelations2:{ dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations2.png', label: 'Revelations (alt.)' },
+        revelations: { dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations.png',  label: 'Revelations', objectPosition: 'center 30%' },
+        revelations2:{ dir: 'Non-Playable Main Characters/Dr. Ludvig Maxis', file: 'L_Maxis_Revelations2.png', label: 'Revelations (alt.)', objectPosition: 'center 30%' },
       },
       defaultPortrait: 'origins',
     },
@@ -542,9 +552,9 @@ window.ZD = (function () {
       summary: 'The voice that runs the wheel. Claims to have made the Aether, perhaps made the cycle, certainly made Primis. Speaks to the crew like an old friend; speaks about them like an exhausted parent.',
       quote: null, hue: 200,
       portraits: {
-        one:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_1.png', label: 'Monty I' },
-        two:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_2.png', label: 'Monty II' },
-        three: { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_3.png', label: 'Monty III' },
+        one:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_1.png', label: 'Monty I', objectPosition: 'center 30%' },
+        two:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_2.png', label: 'Monty II', objectPosition: 'center 30%' },
+        three: { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_3.png', label: 'Monty III', objectPosition: 'center 30%' },
       }, defaultPortrait: 'one' },
     { id: 'shadowman', name: 'The Shadowman', role: 'Apothicon Avatar · BO3 antagonist', origin: 'The Apothicon plane', faction: 'aether',
       summary: 'A Keeper turned traitor, exiled to the Apothicon plane and refashioned as their mouthpiece. Spends most of his screen time pretending to be friendlier than he is.',
@@ -594,47 +604,47 @@ window.ZD = (function () {
   // Copy pass: keep the site voice closer to a classified field archive.
   // Quotes are intentionally sparse. If a line is not verified, it is omitted.
   const mapCopy = {
-    nacht: { tagline: 'One bunker. One radio. No cavalry.', summary: 'The first file is barely a file at all: four rooms, a crashed airfield, boarded windows, and the dead testing every seam in the walls. Nacht has no machines to explain itself and no quest to soften the shape. It is the baseline. Everything after this is escalation.' },
-    verruckt: { tagline: 'Wittenau kept records. Then the records screamed.', summary: 'Verruckt is where the outbreak stops looking accidental. Power comes online. Perk machines hum. The asylum layout splits the squad and makes the building feel like it is sorting survivors for study. Group 935 fingerprints are everywhere, even when the file pretends otherwise.' },
-    shino: { tagline: 'Division 9 left the swamp alive.', summary: 'A Japanese 115 station sinks into mud, rot, and bad science. Shi No Numa brings the full Ultimis crew into view and leaves enough radio traffic behind to make one thing clear: this was never just a weapons program. Someone was already conducting the experiment from inside it.' },
-    derriese: { tagline: 'The factory where the rules were written.', summary: 'Der Riese is the machine room of early Zombies: teleporters, Pack-a-Punch, the Fly Trap, and enough Group 935 infrastructure to explain how far the infection had already spread. It does not feel abandoned. It feels interrupted.' },
-    kino: { tagline: 'A stage, a projector, and an audience that will not stay dead.', summary: 'Kino looks simple until the theatre starts behaving like a memory palace. Film reels, a teleporter pad, and Samantha\'s reach turn an empty East German cinema into a rehearsal space for the Aether story.' },
-    five: { tagline: 'DEFCON rises. The elevator drops.', summary: 'A Pentagon meeting becomes a containment drill with no briefing and no exit plan. Five trades ruins for fluorescent panic: narrow corridors, DEFCON switches, stolen weapons, and the kind of classified disaster nobody in the room can admit exists.' },
-    ascension: { tagline: 'Gersh is in the device. The rocket is not the worst part.', summary: 'Ascension is Soviet ambition bolted to captured 115 research. The cosmodrome has answers, but every answer is wired to a launch system, a black-hole device, or a voice asking to be let out.' },
-    callofthedead: { tagline: 'The lighthouse signal cuts through the storm.', summary: 'Call of the Dead takes the old crew off camera and lets a film set carry the emergency. Fog, steel, ice, and Romero\'s shadow make the map feel like a production that kept shooting after everyone realized the danger was real.' },
-    shangri: { tagline: 'The eclipse is stuck for a reason.', summary: 'Shangri-La is a temple file with half the pages missing. The environment folds in on itself: eclipse stones, pressure plates, mine carts, and two explorers trapped in a loop the crew can only briefly disturb.' },
-    moon: { tagline: 'The last door opens above Earth.', summary: 'Moon is where Ultimis turns the key and the cost finally lands. Griffin Station is sterile, enormous, and already compromised. By the end, Richtofen has the power he wanted and Earth has three new wounds.' },
-    tranzit: { tagline: 'The road keeps moving because stopping is worse.', summary: 'TranZit is post-Moon Earth as a route map: fog, lava, bus stops, broken utilities, and Victis taking orders from voices that do not agree. The tower is the objective. Survival is the argument.' },
-    dierise: { tagline: 'Shanghai is falling in more than one direction.', summary: 'Die Rise makes height the enemy. Elevators, gaps, collapsed floors, and the Sliquifier turn every shortcut into a bet. Victis is still following instructions, but the instructions are starting to sound like a war over their heads.' },
-    mob: { tagline: 'Alcatraz did not need bars for this prison.', summary: 'Mob of the Dead is a loop with blood on the paperwork. Four inmates keep replaying one night on the Rock while the map quietly asks whether escape means leaving, remembering, or killing the right man.' },
-    buried: { tagline: 'A frontier town, buried where no town belongs.', summary: 'Buried hides the last Victis tower under a false western street. Ghosts guard the mansion, chalk marks rebuild the arsenal, and Arthur changes the map with every locked door he opens.' },
-    origins: { tagline: 'The war dug too deep.', summary: 'Origins begins before the story has a clean name for itself. Excavation Site 64 turns mud, trenches, robots, and 115 into the Primis starting point. The staffs are not trophies here. They are the first tools anyone has that feel old enough to matter.' },
-    shadows: { tagline: 'Morg City confesses in neon.', summary: 'Shadows of Evil is a punishment dressed as noir. Four guilty strangers are pulled through rituals, districts, and Apothicon geometry until the city stops pretending it was ever a city at all.' },
-    thegiant: { tagline: 'Der Riese, after the shot.', summary: 'The Giant revisits the factory at the exact moment the cycle fractures. Same bones, same teleporters, different mission: Primis arrives to correct the past and immediately proves how expensive correction is.' },
-    eisendrache: { tagline: 'The keep points its guns at the sky.', summary: 'Der Eisendrache is a castle file with launch codes underneath. The bows, the clockwork, the dragons, and the lunar test hardware all serve one purpose: pull another soul out of the machine before the machine notices.' },
-    zetsubou: { tagline: 'Division 9 grew a graveyard.', summary: 'Zetsubou No Shima feels wet, sick, and deliberately cultivated. Plants, spores, spiders, and 115 have turned the island into evidence. Takeo\'s file is waiting at the center of it.' },
-    gorod: { tagline: 'Stalingrad burns under dragon wings.', summary: 'Gorod Krovi is the loudest Primis file: broken Soviet streets, dragon fire, manglers, drones, and a Nikolai who has had too long to survive the wrong war. Nothing here is subtle. Nothing here is clean.' },
-    revelations: { tagline: 'The House at the end of the loop.', summary: 'Revelations is not one place. It is the archive after someone shook the shelves: pieces of old maps, old weapons, old enemies, and one last attempt to make the cycle close on command.' },
-    ix: { tagline: 'The crowd wants blood. The gods want more.', summary: 'IX throws the Chaos crew into an arena built to make violence look ceremonial. Each tower has a patron, each trial has a price, and the whole place understands spectacle better than mercy.' },
-    voyage: { tagline: 'The Titanic carried more than passengers.', summary: 'Voyage of Despair turns a known disaster into a sealed ritual site. The artifact wakes up under polished decks and flooding corridors, leaving the Chaos crew to fight through history while history is already sinking.' },
-    blood: { tagline: 'Alcatraz remembers every version of the crew.', summary: 'Blood of the Dead is Mob\'s prison repurposed for Primis. The map knows their plan, knows their pattern, and keeps pushing Richtofen toward the part of the cycle he never wanted to pay for.' },
-    dotn: { tagline: 'The party ends before the guests understand why.', summary: 'Dead of the Night is candlelight, locked doors, and aristocratic panic. Vampires, werewolves, and occult machinery make the Rhodes estate feel less haunted than curated.' },
-    ancientevil: { tagline: 'Delphi was never only a ruin.', summary: 'Ancient Evil takes the Chaos trail under Delphi and lets mythology stop being metaphor. Statues move, gods answer, and the gauntlets feel like keys to a door the crew should not have found.' },
-    tag: { tagline: 'The last signal comes from the cold.', summary: 'Tag der Toten returns to the Siberian coast for the Aether story\'s closing file. Victis carries the work, the lighthouse keeps calling, and the ending arrives quieter than the damage that made it necessary.' },
-    diemaschine: { tagline: 'Endstation reopened before anyone admitted it.', summary: 'Die Maschine is the Dark Aether era finding the old foundation still warm. Requiem and Omega arrive at a buried Group 935 site and learn that sealing history is not the same thing as burying it.' },
-    firebase: { tagline: 'Omega built around the wound.', summary: 'Firebase Z is a forward operating base with a rift for a heart. Mimics patrol the edges, Peck lies through his teeth, and every generator brought online makes the place feel less secure.' },
-    mauer: { tagline: 'Berlin splits open at street level.', summary: 'Mauer der Toten keeps the Dark Aether grounded in concrete: rooftops, safehouses, train tunnels, and Klaus moving through the city like the only useful thing anyone built on purpose.' },
-    forsaken: { tagline: 'The arcade lights are part of the trap.', summary: 'Forsaken hides an Elder behind a theme-park facade and an Omega shell game. By the end, Requiem survives the mission and loses control of what comes next.' },
-    terminus: { tagline: 'The prison was built to keep questions quiet.', summary: 'Terminus brings the BO6 crew to a black-site island where the official story is already rotting. Maya comes looking for family. The file she opens is much older than the prison.' },
-    liberty: { tagline: 'Small town. Large containment failure.', summary: 'Liberty Falls turns a normal street grid into a public breach. The danger is not that the outbreak spreads. It is that someone already planned for the town to be expendable.' },
-    citadelle: { tagline: 'Stone walls, old oaths, four blades.', summary: 'Citadelle des Morts puts the BO6 crew inside a castle file the Order never finished burying. The swords feel ceremonial until the map starts treating ceremony as machinery.' },
-    tomb: { tagline: 'The way down was left unlocked.', summary: 'The Tomb follows the Order underground and finds a site built around older instructions. The Staff of Ice returns, but the more important discovery is what the BO6 arc has been pointing toward.' },
-    shatteredveil: { tagline: 'The manor file is sealed for a reason.', summary: 'Shattered Veil moves the outbreak into private rooms and controlled language. The mansion looks preserved, but the breach has already rewritten the floor plan.' },
-    reckoning: { tagline: 'Containment stops pretending.', summary: 'The Reckoning is the BO6 facility file after all the redactions fail. Prototype horrors, sealed labs, and Janus architecture make the map feel like a confession written in alarms.' },
-    ashes: { tagline: 'A city of ash, built on the wrong side.', summary: 'Ashes of the Damned opens the BO7 relic file inside a Dark Aether city that looks unfinished because it may still be under construction. The relics are not collectibles. They are load-bearing pieces.' },
-    astro: { tagline: 'The sky chart is part of the lock.', summary: 'Astro Malorum keeps the relic hunt quiet and high above the ground. Six fragments, an observatory, and a sky pattern suggest the map is less a location than an alignment problem.' },
-    paradox: { tagline: 'Every platform leads back to the question.', summary: 'Paradox Junction is a transit hub with broken rules. The clock disagrees with itself, the exits fold back, and the relics feel like anchors keeping the station from becoming something worse.' },
-    totenreich: { tagline: 'The dead are still building.', summary: 'Totenreich reads like a construction report from the other side. Six relics hold the shape together, and the architecture suggests somebody is learning how to make a kingdom out of remains.' },
+    nacht: { tagline: 'Where it all began.', summary: 'Four rooms, boarded windows, and the Mystery Box. No perks, no Pack-a-Punch, no story — just survival in an abandoned bunker. The map that started Zombies.' },
+    verruckt: { tagline: 'The asylum holds more than patients.', summary: 'An abandoned asylum split into two wings. Players start separated and must restore power to reunite. Introduced perk machines (Juggernog, Speed Cola, Quick Revive, Double Tap) and electro-shock traps.' },
+    shino: { tagline: 'The swamp that swallowed Division 9.', summary: 'A Japanese Imperial research facility overrun by the undead and Hellhounds. The first map to feature the full Ultimis crew — Dempsey, Nikolai, Takeo, and Richtofen — and random perk locations.' },
+    derriese: { tagline: 'The Giant. The teleporters. The Pack-a-Punch.', summary: 'Group 935\'s main research facility in Breslau. Introduced teleporters, Pack-a-Punch, and the Fly Trap Easter egg. Three teleporters must be linked to the mainframe to access the Pack-a-Punch machine.' },
+    kino: { tagline: 'The theater of the dead.', summary: 'An abandoned theater in East Germany. The crew arrives via teleporter after the events of Der Riese. Features the teleporter to the projector room, crawler Nova 6 zombies, and a straightforward layout that made it a fan favorite.' },
+    five: { tagline: 'The Pentagon is under attack.', summary: 'An outbreak beneath the Pentagon during a meeting between Kennedy, Nixon, McNamara, and Castro. Features DEFCON switches, elevators between floors, and the Pentagon Thief who steals your weapons.' },
+    ascension: { tagline: 'The cosmodrome has gone dark.', summary: 'A Soviet launch facility where Gersh has been trapped inside a Casimir mechanism. Features space monkeys that steal perks, the Gersch Device black hole grenade, PhD Flopper, and the first major co-op Easter egg to free Gersh.' },
+    callofthedead: { tagline: 'A film crew fights for survival.', summary: 'A frozen Siberian coast where director George Romero and a celebrity cast (Sarah Michelle Gellar, Robert Englund, Danny Trejo, Michael Rooker) fight zombies while Ultimis is trapped behind a locked door. Romero stalks the map as a boss zombie.' },
+    shangri: { tagline: 'A temple lost in time.', summary: 'A dense jungle temple with a stuck eclipse and time-travel mechanics. Features spike traps, napalm and shrieker zombies, the 31-79 JGb215 shrink ray, and an Easter egg to free Brock and Gary from a time loop.' },
+    moon: { tagline: 'The battle moves to Griffin Station.', summary: 'The crew teleports to the Moon and fights through Griffin Station. Features low-gravity areas, astronaut zombie, the Hacker device, Excavators that breach areas, and the Richtofen Grand Scheme Easter egg that ends with the destruction of Earth.' },
+    tranzit: { tagline: 'Ride the bus. Survive the fog.', summary: 'A post-apocalyptic bus route through Hanford County after the Moon missiles hit. Features the automated bus that travels between five locations, Denizens in the fog, lava on the ground, and buildable items including the Jet Gun and the Navcard table.' },
+    dierise: { tagline: 'The skyscrapers of the dead.', summary: 'Two collapsed skyscrapers in post-apocalyptic Shanghai connected by debris and elevators. Features vertical gameplay, the Sliquifier wonder weapon, Who\'s Who perk, and jumping between buildings.' },
+    mob: { tagline: 'No one escapes alive.', summary: 'Four mobsters — Al "Weasel" Arlington, Billy Handsome, Salvatore DeLuca, and Michael "Finn" O\'Leary — trapped in a purgatory loop on Alcatraz Island. Features Afterlife mode, the Hell\'s Retriever tomahawk, the Acid Gat, and building the Icarus plane to escape to the Golden Gate Bridge.' },
+    buried: { tagline: 'A ghost town beneath the earth.', summary: 'An underground Old West mining town in Angola. Features the friendly giant Arthur who breaks barriers, ghosts in the haunted mansion, Vulture Aid perk, the Paralyzer wonder weapon, and chalk weapon outlines. The last Victis map with the final Maxis vs. Richtofen tower.' },
+    origins: { tagline: 'Before the story began.', summary: 'Excavation Site 64 in World War I France where young versions of the crew first meet. Features the four Elemental Staffs (Ice, Fire, Lightning, Wind), Giant Robots that walk across the map, Panzer Soldat boss, and the introduction of Primis.' },
+    shadows: { tagline: 'Morg City has a dark secret.', summary: 'A 1940s noir city where four strangers — Nero the magician, Jessica the femme fatale, Floyd the boxer, and Jack the cop — must perform rituals to survive. Introduced Beast Mode transformation, Gobblegums, the Apothicon Sword, and the Margwa boss.' },
+    thegiant: { tagline: 'The factory, revisited.', summary: 'A reimagined Der Riese where Primis arrives and Richtofen kills his Ultimis self, fracturing the timeline. Same layout with updated visuals, weapons, and the BO3 perk and Gobblegum systems.' },
+    eisendrache: { tagline: 'A castle in the Austrian Alps.', summary: 'A medieval castle repurposed as a Group 935 rocket facility. Features four upgradeable bows (Wolf, Fire, Void, Storm), anti-gravity, the Ragnarok DG-4 gravity spikes, and a Panzer Soldat boss. Players work to collect Dempsey\'s soul.' },
+    zetsubou: { tagline: 'The island is alive.', summary: 'A Division 9 research island in the Pacific overrun by 115-mutated plant life and giant spiders. Features the KT-4 plant-based wonder weapon, spider boss fights, underwater areas, growable plant pods, and Takeo confronting his Ultimis self.' },
+    gorod: { tagline: 'Dragons over a burning city.', summary: 'A war-torn alternate Stalingrad under siege by dragons, giant mechs, and Manglers. Features the GKZ-45 Mk3 wonder weapon, dragon strikes, Sophia the AI, and Nikolai\'s soul being the final piece Primis needs.' },
+    revelations: { tagline: 'Every map. One final battle.', summary: 'A patchwork of iconic locations from Nacht, Shangri-La, Mob, Origins, Verrückt, and Der Eisendrache stitched together in the Aether. Features the Summoning Key, the Keeper Protector, Arnies, the Thundergun, and the final confrontation with the Shadowman.' },
+    ix: { tagline: 'Trial by combat.', summary: 'A Roman-style gladiator arena in the Chaos storyline. Four towers surround a central arena, each with its own champion and challenges. Features the Death of Orion wonder weapon, special weapon upgrades, and crowd affinity that changes the gameplay.' },
+    voyage: { tagline: 'The Titanic meets the undead.', summary: 'The Chaos crew fights through the RMS Titanic as a Sentinel artifact unleashes the dead. Features flooded decks, the Kraken wonder weapon with four elemental upgrades, Pack-a-Punch accessed via portals, and stokers as mini-bosses.' },
+    blood: { tagline: 'Primis returns to the Rock.', summary: 'A reimagined Alcatraz where Primis arrives and discovers the cycle is breaking down. Features the Spectral Shield, the Magmagat, new Afterlife mechanics via the Warden\'s key, and Richtofen\'s sacrifice that changes the Aether story.' },
+    dotn: { tagline: 'A manor party gone wrong.', summary: 'A gothic estate in England where an occult gathering has unleashed vampires, werewolves, and the undead. Features the Alistair\'s Annihilator wonder weapon, silver bullets, Stake Knife, and classic horror enemy types.' },
+    ancientevil: { tagline: 'The gods of Delphi awaken.', summary: 'An underground city beneath Delphi where ancient Greek mythology comes to life. Features four Hand of God gauntlets with elemental powers, Pegasus-like transport, animated statues as enemies, and the finale of the Chaos story.' },
+    tag: { tagline: 'The end of the Aether story.', summary: 'The Victis crew returns to the Siberian coast from Call of the Dead for the final chapter of the Aether storyline. Features the Wunderwaffe DG-Scharfschütze sniper wonder weapon, the Tundragun, and the closing cutscene of the original Zombies saga.' },
+    diemaschine: { tagline: 'The Dark Aether bleeds through.', summary: 'A Requiem strike team investigates Projekt Endstation, a sealed World War II-era particle accelerator in Poland where the Dark Aether dimension was first breached. Features the D.I.E. Shockwave wonder weapon with four upgrades, the Dark Aether portal mechanic, and the Megaton boss.' },
+    firebase: { tagline: 'A jungle outpost on the rift.', summary: 'Requiem deploys to Outpost 25 in Vietnam where Omega Group has been studying a dimensional rift. Features the RAI K-84 wonder weapon, Mimics that disguise as loot, three defense towers to activate, and Dr. Peck as the primary contact.' },
+    mauer: { tagline: 'The Wall of the Dead.', summary: 'East Berlin in 1984, split by the Wall and overrun by zombies. Features Klaus, a buildable allied robot companion, the CRBR-S wonder weapon with multiple upgrade kits, rooftop traversal, ziplines, and the Krasny Soldat boss.' },
+    forsaken: { tagline: 'The finale of the Dark Aether story.', summary: 'A Soviet test site in the Ural Mountains disguised as an American-themed amusement park. Features the Chrysalax wonder weapon, the Abomination boss, arcade machines, and the final confrontation with the Forsaken elder god. Concludes the Cold War Zombies storyline.' },
+    terminus: { tagline: 'A black-site island prison.', summary: 'A remote island prison facility in the Atlantic where Maya Aguinaldo searches for her missing brother. Features underwater sections, the Beamsmasher wonder weapon, the Amalgam boss, and the reintroduction of the Sentinel Artifact from Cold War.' },
+    liberty: { tagline: 'Small-town America under siege.', summary: 'A small West Virginia town experiencing a zombie outbreak. Features an open street layout, the Jet Gun wonder weapon, LTG (Laser Targeting Gun), Mangler enemies, and the revelation that a new Edward Richtofen is behind the operation.' },
+    citadelle: { tagline: 'A French castle and four swords.', summary: 'A medieval castle in the Alsace region tied to the Templar Order. Features four elemental swords to forge and upgrade, a knight ally, the Bastard Sword wonder weapon, and heavy ritual-based gameplay building toward the BO6 finale.' },
+    tomb: { tagline: 'Beneath the cathedral.', summary: 'An underground Order stronghold beneath a cathedral in Eastern Europe. Features the Staff of Ice in a modified form, Templar architecture, and serves as the conclusion of the BO6 Zombies storyline.' },
+    shatteredveil: { tagline: 'The mansion hides a breach.', summary: 'A research mansion on the perimeter of Liberty Falls where a controlled Dark Aether breach has gone wrong. Features indoor/outdoor combat, new enemy types from the breach, and deeper connections to the Order\'s plans.' },
+    reckoning: { tagline: 'The final BO6 facility.', summary: 'The Janus research facility where the BO6 Zombies story reaches its climax. Features prototype Dark Aether weapons, containment rooms, the Uber Klaus and Gorgofex bosses, and the final revelations about the Order\'s endgame.' },
+    ashes: { tagline: 'A scorched city in the Dark Aether.', summary: 'The first BO7 map set inside a Dark Aether reflection of a destroyed city. Features nine relics to find and collect, the Zursa boss, and introduces the relic mechanic that defines the BO7 season.' },
+    astro: { tagline: 'An observatory above the rift.', summary: 'A mountaintop observatory and research station. Features six relics, constellation-based puzzle mechanics, the Oscar boss, and no main quest yet — focused on relic collection and survival.' },
+    paradox: { tagline: 'A train station that loops on itself.', summary: 'A liminal train station where time runs differently on each platform. Features three relics, four platforms, time-based mechanics, and serves as the most accessible introduction to the BO7 relic system.' },
+    totenreich: { tagline: 'A realm of the dead.', summary: 'A Dark Aether realm that appears to be under active construction. Features six relics, the most foreboding atmosphere of the BO7 maps, and hints at a larger structure being assembled from the collected relic fragments.' },
   };
   Object.entries(mapCopy).forEach(([id, copy]) => {
     const m = maps.find((x) => x.id === id);
@@ -642,14 +652,14 @@ window.ZD = (function () {
   });
 
   const gameCopy = {
-    waw: 'The WaW files are small because the outbreak still had the decency to look simple. Nacht, Verruckt, Shi No Numa, and Der Riese document the jump from survival incident to Group 935 infrastructure. By the factory, the machines are already named.',
-    bo1: 'Black Ops is where the Aether story learns to leave fingerprints. The crew moves from theatre to Pentagon, cosmodrome, temple, coast, and Moon while Samantha\'s reach turns every site into a test chamber.',
-    bo2: 'Black Ops II splits the signal. Victis walks the ruined Earth under competing voices while Mob and Origins show the cycle from stranger angles: one prison that will not end, one battlefield where Primis begins.',
-    bo3: 'Black Ops III is the soul hunt. Primis moves through cities, castles, islands, war zones, and the House, cutting pieces out of the old timeline until the cycle has nowhere left to hide.',
-    bo4: 'Black Ops 4 is two files arguing in the same drawer. Aether folds toward Blood and Tag while Chaos follows artifacts, gods, and old orders through a mythology that does not need Group 935 to be dangerous.',
-    cw: 'Cold War opens the Dark Aether file with old Group 935 ground under new agencies. Requiem and Omega call it research, but every mission reads like containment after the fact.',
-    bo6: 'Black Ops 6 is the new breach with cleaner paperwork. Richtofen briefs, Maya investigates, the Order moves early, and every site feels like someone prepared the cover story before the doors opened.',
-    bo7: 'Black Ops 7 belongs to the relics. The maps read like structures being held together by fragments: cities, observatories, stations, and dead realms built around pieces that should never have been load-bearing.',
+    waw: 'The game that started it all. World at War introduced Zombies as a bonus mode with four maps: Nacht der Untoten, Verrückt, Shi No Numa, and Der Riese. Each map added core mechanics — perk machines, the full crew, Hellhounds, teleporters, and Pack-a-Punch.',
+    bo1: 'Black Ops expanded Zombies into a full mode with seven maps spanning the globe and beyond. The Aether storyline took shape as the crew traveled from Kino to the Pentagon, through the cosmodrome and Shangri-La, and ultimately to Moon where Richtofen enacted his grand scheme.',
+    bo2: 'Black Ops II introduced the Victis crew navigating a post-apocalyptic Earth after the Moon rockets, while Mob of the Dead and Origins told standalone stories. Featured buildable items, the bus in TranZit, and the Maxis vs. Richtofen endgame across three tower locations.',
+    bo3: 'Black Ops III followed Primis across the multiverse to collect the souls of their Ultimis counterparts. Featured Gobblegums, Widow\'s Wine, the Apothicon storyline in Shadows of Evil, four elemental bows in Der Eisendrache, and the conclusion of the cycle in Revelations.',
+    bo4: 'Black Ops 4 ran two storylines in parallel: the Aether story concluded with Blood of the Dead and Tag der Toten, while the Chaos story introduced a new crew chasing Sentinel artifacts through IX, Voyage of Despair, Dead of the Night, and Ancient Evil. Featured Elixirs and specialist weapons.',
+    cw: 'Cold War rebooted Zombies with a new Dark Aether storyline. Requiem and Omega Group investigated dimensional breaches across four round-based maps. Introduced weapon rarity, armor, field upgrades, and an open progression system shared with multiplayer.',
+    bo6: 'Black Ops 6 continued the Dark Aether storyline with Maya Aguinaldo and the Requiem team investigating the Order across six maps from Terminus to The Reckoning. Featured Augments for perks, new Ammo Mods, and the return of round-based Zombies mechanics.',
+    bo7: 'Black Ops 7 centers on the relic mechanic — collectible fragments scattered across each map that serve as both objectives and progression. Four maps set in Dark Aether locations, with Ashes of the Damned, Astro Malorum, Paradox Junction, and Totenreich.',
   };
   Object.entries(gameCopy).forEach(([id, description]) => {
     const g = games.find((x) => x.id === id);
@@ -928,7 +938,7 @@ window.ZD = (function () {
     return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
   }
 
-  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true }) {
+  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition }) {
     const [failed, setFailed] = useState(false);
     const src = !failed ? mapImg(map, file || mapPrimaryFile(map)) : null;
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
@@ -941,7 +951,7 @@ window.ZD = (function () {
         ...style,
       }}>
         <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: (map.media && map.media.objectPosition) || 'center center' }} />
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit, objectPosition: objectPosition || (map.media && map.media.objectPosition) || 'center center' }} />
         {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />}
         {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
         {showOverlay && (
@@ -1014,18 +1024,73 @@ window.ZD = (function () {
     </div>
   );
 
+  function NavDropdown({ label, items, route, nav }) {
+    const [open, setOpen] = useState(false);
+    const closeTimer = React.useRef(null);
+    const isActive = items.some((n) =>
+      route.name === n.id
+      || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
+      || (n.id === 'characters' && route.name === 'character')
+      || (n.id === 'games' && route.name === 'game')
+    );
+    const onEnter = () => { clearTimeout(closeTimer.current); setOpen(true); };
+    const onLeave = () => { closeTimer.current = setTimeout(() => setOpen(false), 120); };
+    return (
+      <div style={{ position: 'relative' }} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+        <button
+          style={{
+            background: isActive ? T.e115bg : 'transparent',
+            border: 0,
+            borderBottom: isActive ? `2px solid ${T.e115}` : '2px solid transparent',
+            color: isActive ? T.e115 : T.mute,
+            padding: '8px 12px',
+            fontFamily: T.display, fontWeight: 700, fontSize: 13, letterSpacing: 2, textTransform: 'uppercase',
+            cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 5,
+          }}
+          onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = T.bone; }}
+          onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = isActive ? T.e115 : T.mute; }}
+          onClick={() => setOpen(!open)}
+        >
+          {label}
+          <svg width="8" height="5" viewBox="0 0 8 5" fill="none" style={{ opacity: 0.6 }}>
+            <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        {open && (
+          <div style={{
+            position: 'absolute', top: '100%', left: 0, marginTop: 4,
+            background: T.bg1, border: `1px solid ${T.lineHi}`, minWidth: 180,
+            padding: '6px 0', zIndex: 50, boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+          }}>
+            {items.map((n) => {
+              const active = route.name === n.id
+                || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
+                || (n.id === 'characters' && route.name === 'character')
+                || (n.id === 'games' && route.name === 'game');
+              return (
+                <button key={n.id} onClick={() => { nav({ name: n.id }); setOpen(false); }}
+                  style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    background: active ? T.e115bg : 'transparent',
+                    border: 0, padding: '10px 18px',
+                    fontFamily: T.display, fontWeight: 600, fontSize: 12.5, letterSpacing: 1.8, textTransform: 'uppercase',
+                    color: active ? T.e115 : T.bone, cursor: 'pointer',
+                  }}
+                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = T.bg3; }}
+                  onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  {n.label}
+                  {n.sub && <span style={{ display: 'block', fontFamily: T.mono, fontSize: 9, letterSpacing: 1.5, color: T.faint, marginTop: 2, fontWeight: 400 }}>{n.sub}</span>}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   function Shell({ route, nav, query, setQuery, children }) {
-    const navItems = [
-      { id: 'home',       label: 'Archive' },
-      { id: 'games',      label: 'Sagas' },
-      { id: 'maps',       label: 'Maps' },
-      { id: 'characters', label: 'Crew' },
-      { id: 'weapons',    label: 'Wonders' },
-      { id: 'perks',      label: 'Perks' },
-      { id: 'songs',      label: 'Songs' },
-      { id: 'timeline',   label: 'Chronicle' },
-      { id: 'lore',       label: 'Lore' },
-    ];
     const now = useNow();
     return (
       <div className="pap-shell" style={{ background: T.bg0, color: T.bone, fontFamily: T.sans, minHeight: '100%', position: 'relative' }}>
@@ -1059,28 +1124,34 @@ window.ZD = (function () {
                 </div>
               </div>
             </button>
-            <nav className="pap-main-nav" style={{ display: 'flex', gap: 2, marginLeft: 14, flexWrap: 'wrap' }}>
-              {navItems.map((n) => {
-                const active = route.name === n.id
-                  || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
-                  || (n.id === 'characters' && route.name === 'character')
-                  || (n.id === 'games' && route.name === 'game');
-                return (
-                  <button key={n.id} onClick={() => nav({ name: n.id })}
-                    style={{
-                      background: active ? T.e115bg : 'transparent',
-                      border: 0,
-                      borderBottom: active ? `2px solid ${T.e115}` : '2px solid transparent',
-                      color: active ? T.e115 : T.mute,
-                      padding: '8px 12px',
-                      fontFamily: T.display, fontWeight: 700, fontSize: 13, letterSpacing: 2, textTransform: 'uppercase',
-                      cursor: 'pointer',
-                    }}
-                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = T.bone; }}
-                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = T.mute; }}
-                  >{n.label}</button>
-                );
-              })}
+            <nav className="pap-main-nav" style={{ display: 'flex', gap: 4, marginLeft: 14, alignItems: 'center' }}>
+              <button onClick={() => nav({ name: 'home' })}
+                style={{
+                  background: route.name === 'home' ? T.e115bg : 'transparent',
+                  border: 0,
+                  borderBottom: route.name === 'home' ? `2px solid ${T.e115}` : '2px solid transparent',
+                  color: route.name === 'home' ? T.e115 : T.mute,
+                  padding: '8px 12px',
+                  fontFamily: T.display, fontWeight: 700, fontSize: 13, letterSpacing: 2, textTransform: 'uppercase',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => { if (route.name !== 'home') e.currentTarget.style.color = T.bone; }}
+                onMouseLeave={(e) => { if (route.name !== 'home') e.currentTarget.style.color = T.mute; }}
+              >Archive</button>
+              <NavDropdown label="Database" route={route} nav={nav} items={[
+                { id: 'games', label: 'Sagas', sub: 'WaW through BO7' },
+                { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
+                { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
+              ]} />
+              <NavDropdown label="Armory" route={route} nav={nav} items={[
+                { id: 'weapons', label: 'Wonder Weapons', sub: 'Aetheric ordinance' },
+                { id: 'perks', label: 'Perks', sub: 'Vending machines' },
+                { id: 'songs', label: 'Hidden Songs', sub: 'Easter egg tracks' },
+              ]} />
+              <NavDropdown label="Story" route={route} nav={nav} items={[
+                { id: 'timeline', label: 'Chronicle', sub: 'Timeline of events' },
+                { id: 'lore', label: 'Lore', sub: 'Deep readings' },
+              ]} />
             </nav>
             <div className="pap-header-spacer" style={{ flex: 1 }} />
             <div className="pap-search" style={{ display: 'flex', alignItems: 'center', gap: 8, border: `1px solid ${T.line}`, padding: '4px 10px 4px 12px', background: T.bg1, minWidth: 230 }}>
@@ -1163,10 +1234,18 @@ window.ZD = (function () {
   }
 
   // ─── HOME ──────────────────────────────────────────────────────────────
+  const HOME_HERO_MAP_IDS = new Set([
+    'verruckt', 'shino', 'kino', 'five', 'ascension', 'shangri', 'moon',
+    'tranzit', 'dierise', 'buried', 'origins', 'thegiant', 'ix', 'voyage',
+    'blood', 'ancientevil', 'tag', 'diemaschine', 'firebase', 'mauer',
+    'forsaken', 'terminus', 'liberty', 'citadelle', 'tomb', 'shatteredveil',
+    'reckoning', 'ashes', 'astro', 'paradox', 'totenreich',
+  ]);
+
   function Home({ nav }) {
-    const featuredPool = useMemo(() => ZD.maps.filter((m) => m.media), []);
+    const featuredPool = useMemo(() => ZD.maps.filter((m) => m.media && HOME_HERO_MAP_IDS.has(m.id)), []);
     const [featuredIndex, setFeaturedIndex] = useState(() => {
-      const count = ZD.maps.filter((m) => m.media).length || ZD.maps.length || 1;
+      const count = ZD.maps.filter((m) => m.media && HOME_HERO_MAP_IDS.has(m.id)).length || ZD.maps.length || 1;
       return Math.floor(Math.random() * count);
     });
     useEffect(() => {
@@ -1182,8 +1261,7 @@ window.ZD = (function () {
     }, [featuredPool.length]);
     const featured = featuredPool[featuredIndex % featuredPool.length] || ZD.maps.find((m) => m.id === 'citadelle') || ZD.maps[0];
     const featuredGame = ZD.games.find((g) => g.id === featured.game);
-    const totalSongs = ZD.maps.reduce((a, m) => a + ((m.songs && m.songs.length) || 0), 0);
-    const totalEE = ZD.maps.reduce((a, m) => a + (m.eeCount || 0), 0);
+    const archive115Color = '#009EDC';
     return (
       <div>
         <section style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 36, marginBottom: 56, alignItems: 'stretch' }}>
@@ -1193,7 +1271,7 @@ window.ZD = (function () {
               <Mono color={T.mute}>{'Vol. VII · 2008–2025'}</Mono>
             </div>
             <h1 className="pap-stencil" style={{ fontSize: 112, color: T.bone, margin: 0 }}>
-              {'Element '}<span style={{ color: T.e115 }}>115</span><br />
+              {'Element '}<span style={{ color: archive115Color }}>115</span><br />
               <span style={{ color: T.bone }}>field manual.</span>
             </h1>
             <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, lineHeight: 1.55, maxWidth: 560, marginTop: 22 }}>
@@ -1204,22 +1282,17 @@ window.ZD = (function () {
               <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'timeline' })}>Read the Chronicle</button>
             </div>
             <div style={{ flex: 1 }} />
-            <div className="pap-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
-              <BigStat value={ZD.games.length} label="Sagas" tone="green" />
-              <BigStat value={ZD.maps.length} label="Maps" tone="green" />
-              <BigStat value={totalEE} label="Main EEs" tone="yellow" />
-              <BigStat value={totalSongs} label="Songs" tone="green" />
-            </div>
           </div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: -8, right: -8, width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', border: `1px solid ${T.e115dim}`, pointerEvents: 'none' }} />
-            <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="green" loading="eager" style={{ minHeight: 480, borderColor: T.e115dim }} />
-            <div style={{ position: 'absolute', bottom: 18, left: 18, right: 18, background: T.bg0, padding: 18, border: `1px solid ${T.lineHi}` }}>
-              <Mono color={T.e115}>{'★ Featured Intel · ' + featuredGame.code + ' ' + featuredGame.year}</Mono>
-              <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{featured.name}</div>
-              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{featured.tagline}</div>
-              <button className="pap-btn pap-btn-ghost" style={{ marginTop: 14, padding: '10px 16px', fontSize: 11.5 }} onClick={() => nav({ name: 'map', id: featured.id })}>
-                {'Open dossier →'}
+            <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="green" loading="eager" showOverlay={false} objectFit="cover" style={{ minHeight: 380, borderColor: T.e115dim }} />
+            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(10,9,8,0.9) 100%)', padding: '32px 16px 14px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
+              <div style={{ minWidth: 0 }}>
+                <Mono color={T.e115}>{'★ ' + featuredGame.code + ' · ' + featuredGame.year}</Mono>
+                <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4, lineHeight: 1 }}>{featured.name}</div>
+              </div>
+              <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }} onClick={() => nav({ name: 'map', id: featured.id })}>
+                {'Open →'}
               </button>
             </div>
           </div>
@@ -1290,7 +1363,7 @@ window.ZD = (function () {
             <Mono color={T.faint}>{mapsIn.length + '/' + game.mapCount}</Mono>
           </div>
           <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 8, lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>{game.title}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 6 }}>{game.era}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 6 }}>{mapsIn.length + ' maps'}</div>
         </div>
       </button>
     );
@@ -1356,8 +1429,8 @@ window.ZD = (function () {
       <div>
         <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Sagas'}]}
           kicker="The Eight Sagas"
-          title="Twenty years, three timelines, one wheel."
-          sub={'From Nacht der Untoten to Totenreich — all eight Treyarch entries arranged in canon order. Each opens to its maps.'} nav={nav} />
+          title="All Games"
+          sub={'Every Treyarch Zombies title from World at War (2008) through Black Ops 7 (2025). Select a game to see its maps.'} nav={nav} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginTop: 32 }}>
           {ZD.games.map((g) => <GameRow key={g.id} game={g} nav={nav} />)}
         </div>
@@ -1404,7 +1477,7 @@ window.ZD = (function () {
         <div style={{ padding: 22, display: 'flex', flexDirection: 'column' }}>
           <Mono color={T.e115} letter={2}>{game.code + ' · ' + game.year}</Mono>
           <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 6 }}>{game.title}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 4 }}>{game.era}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 4 }}>{mapsIn.length + ' maps catalogued'}</div>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
             {mapsIn.map((m) => (
@@ -1434,7 +1507,7 @@ window.ZD = (function () {
         {/* ABOUT */}
         {g.description && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker={'About ' + g.code} title={g.era} />
+            <SectionHead kicker={'About ' + g.code} title={g.title} />
             <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.75, maxWidth: 820 }}>{g.description}</p>
           </section>
         )}
@@ -1736,7 +1809,7 @@ window.ZD = (function () {
       const last = character.name.split(' ').slice(-1)[0];
       return <Slot label={last} kind={kind} tone="green" style={style} />;
     }
-    const objectPosition = p.objectPosition || 'center top';
+    const objectPosition = p.objectPosition || 'center 20%';
     return (
       <div style={{ position: 'relative', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, ...style }}>
         <img src={src} alt={character.name} loading="lazy"
@@ -1853,7 +1926,7 @@ window.ZD = (function () {
       <div>
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name}]}
-          kicker={g.code + ' · ' + g.year + ' · ' + g.era}
+          kicker={g.code + ' · ' + g.year}
           title={m.name}
           sub={m.tagline}
           nav={nav}
@@ -2117,13 +2190,13 @@ window.ZD = (function () {
 
   function Characters({ nav }) {
     const factions = [
-      { id: 'primis',  title: 'Aether Crew',     kicker: 'Ultimis / Primis / Tempus — the original four' },
-      { id: 'aether',  title: 'Aether Keepers',  kicker: 'Voices in the static · MPD constructs' },
-      { id: 'victis',  title: 'Victis',          kicker: 'BO2 survivors · TranZit · Die Rise · Buried' },
-      { id: 'chaos',   title: 'Chaos Crew',      kicker: 'BO4 divergence · Voyage · IX · Ancient Evil' },
-      { id: 'requiem', title: 'Requiem',         kicker: 'CW & BO6 · Dark Aether operations' },
-      { id: 'order',   title: 'The Order',       kicker: 'BO6 antagonists · The new cycle' },
-      { id: 'support', title: 'Support Cast',    kicker: 'Auxiliaries, defectors, and the voices on the radio' },
+      { id: 'primis',  title: 'Aether Crew',     kicker: 'Ultimis / Primis / Tempus — WaW through BO4' },
+      { id: 'aether',  title: 'Aether Figures',  kicker: 'Maxis, Samantha, Monty, Shadowman' },
+      { id: 'victis',  title: 'Victis',          kicker: 'BO2 crew — TranZit, Die Rise, Buried, Tag der Toten' },
+      { id: 'chaos',   title: 'Chaos Crew',      kicker: 'BO4 — IX, Voyage of Despair, Dead of the Night, Ancient Evil' },
+      { id: 'requiem', title: 'Requiem',         kicker: 'Cold War & BO6 operatives' },
+      { id: 'order',   title: 'The Order',       kicker: 'BO6 antagonists' },
+      { id: 'support', title: 'Support Cast',    kicker: 'Side characters — Peck, Strauss, Ravenov, Raptor One' },
     ];
     return (
       <div>
@@ -2238,7 +2311,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Perks'}]}
           kicker="Vending Anomalies"
           title="Perk-a-Cola"
-          sub="The cans that keep you upright. Buy Juggernog first. Buy Mule Kick last. Never skip Quick Revive in solo."
+          sub="All Perk-a-Cola machines across the Zombies franchise."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18, marginTop: 32 }}>
@@ -2264,7 +2337,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Chronicle'}]}
           kicker="Canonical Sequence"
           title="The Chronicle"
-          sub={'From the Templar dig of 1294 to the new Richtofen briefing of 1991 — the order of events as compiled from cross-referenced field intel.'}
+          sub={'Major events in the Zombies storyline from 1294 to 1991, in chronological order.'}
           nav={nav}
         />
         <div style={{ position: 'relative', marginTop: 48, paddingLeft: 40 }}>
@@ -2300,7 +2373,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Songs'}]}
           kicker={allSongs.length + ' catalogued track' + (allSongs.length === 1 ? '' : 's')}
           title="Hidden Songs"
-          sub="The tracks hidden behind bears, meteors, gramophones, skulls, and worse. Activation notes stay terse until each file gets a full pass."
+          sub="Every hidden Easter egg song across all Zombies maps, with activation methods."
           nav={nav}
         />
         <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 36 }}>
@@ -2331,12 +2404,12 @@ window.ZD = (function () {
 
   function Lore({ nav }) {
     const articles = [
-      ['origin-cycle','On the Origin Cycle','The loop did not break cleanly.','Primis, Maxis, and the cost of retiring the wheel.'],
-      ['sentinel','The Sentinel Artifact','A sealed object with a bad habit of moving.','From Forsaken to the Order files.'],
-      ['order','The Order of the Templar','Older than Group 935. Less careless.','Alsace, relics, and the first sealed dig.'],
-      ['mpd','Samantha and the MPD','A child in a machine built by adults.','How the Aether found its voice.'],
-      ['115','On Element 115','The metal under every bad decision.','Sources, effects, and the people who thought they could use it safely.'],
-      ['groups','Group 935 vs. Division 9','Same compromise, different uniforms.','Germany, the Pacific, and the science no one should have funded.'],
+      ['origin-cycle','The Origin Cycle','The Primis time loop and how it ended.','From Origins through Revelations and Tag der Toten.'],
+      ['sentinel','The Sentinel Artifact','The artifact that connects Cold War to BO6.','Its journey from Forsaken through Terminus.'],
+      ['order','The Order','The ancient faction behind the BO6 storyline.','Their connection to Element 115 and the Templar relics.'],
+      ['mpd','Samantha and the MPD','Samantha Maxis and the Moon Pyramid Device.','How she became the controller of the zombie hordes.'],
+      ['115','Element 115','The element that powers everything in Zombies.','Meteor origins, Wonder Weapons, and dimensional breaches.'],
+      ['groups','Group 935 & Division 9','The research organizations behind the outbreak.','Their experiments, facilities, and key personnel.'],
     ];
     return (
       <div>
@@ -2344,7 +2417,7 @@ window.ZD = (function () {
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Lore'}]}
           kicker="Long-form readings"
           title="Lore"
-          sub="Case notes for the larger story: what repeats, what changes, and who keeps paying the bill."
+          sub="Deep dives into the major storylines, factions, and artifacts of the Zombies universe."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
@@ -2370,11 +2443,11 @@ window.ZD = (function () {
       'origin-cycle': {
         title: 'On the Origin Cycle',
         kicker: 'Cycle analysis',
-        pull: 'The loop did not end because everyone understood it. It ended because somebody finally paid the price.',
+        pull: 'The Primis crew relived the same events across multiple timelines until the cycle was finally broken in Tag der Toten.',
         sections: [
-          ['The First Turn', 'Generation Station 64 is the cleanest place to start and still not the beginning. The dig finds 115 in the mud, the war gives everyone cover, and four soldiers are pulled into a story already older than their orders. Primis is born with memories that do not belong to one life.'],
-          ['The Conductor', 'Maxis is not in control of the wheel, but he knows where to stand when it turns. Across radios, drones, and impossible transmissions, he becomes the voice that makes the next terrible step sound necessary.'],
-          ['The Cost of Breaking It', 'By Revelations, the cycle has been measured from every angle. Breaking it is less triumph than surgery. Something has to be cut away, and the Dark Aether era begins in the space left behind.'],
+          ['Origins — Where It Started', 'In 1918, four soldiers at Excavation Site 64 encounter Element 115 and Dr. Maxis. They forge the Elemental Staffs and are pulled into a time loop. These are the original versions of Dempsey, Nikolai, Takeo, and Richtofen that become known as Primis.'],
+          ['The Multiverse and the Souls', 'Across Black Ops III, Primis travels to Der Eisendrache, Zetsubou No Shima, Gorod Krovi, and Revelations to collect the souls of their Ultimis counterparts and deliver them to the House. Dr. Monty oversees the process from the Aether.'],
+          ['Breaking the Cycle', 'In Tag der Toten, Nikolai realizes the only way to end the cycle is to use the Agarthan Device to erase the Aether entirely. Primis and Ultimis fade from existence, and the Dark Aether storyline begins in the timeline left behind.'],
         ],
       },
     };
@@ -2428,8 +2501,8 @@ window.ZD = (function () {
           out.push({ kind: 'map', id: m.id, title: m.name, sub: m.tagline });
       });
       ZD.games.forEach((g) => {
-        if (g.title.toLowerCase().includes(q) || g.era.toLowerCase().includes(q))
-          out.push({ kind: 'game', id: g.id, title: g.title, sub: g.era });
+        if (g.title.toLowerCase().includes(q) || g.code.toLowerCase().includes(q))
+          out.push({ kind: 'game', id: g.id, title: g.title, sub: g.code + ' · ' + g.year });
       });
       ZD.characters.forEach((c) => {
         if (c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q) || c.role.toLowerCase().includes(q))
@@ -2862,7 +2935,7 @@ window.ZD = (function () {
     const gameMaps = ZD.maps.filter((m) => m.game === id);
     return (
       <div>
-        <PageHead cmd={'cd /aether/operations/' + g.id + ' && ls'} title={g.title} sub={g.era + '  ·  ' + g.year + '  ·  ' + gameMaps.length + ' of ' + g.mapCount + ' sites mounted.'} />
+        <PageHead cmd={'cd /aether/operations/' + g.id + ' && ls'} title={g.title} sub={g.code + '  ·  ' + g.year + '  ·  ' + gameMaps.length + ' of ' + g.mapCount + ' maps.'} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
           {gameMaps.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
         </div>

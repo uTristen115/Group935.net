@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/Tristen/Documents/ZombiesEESite/group935.net log --oneline)",
+      "Bash(node -e ' *)",
+      "Bash(where node *)"
+    ]
+  }
+}
