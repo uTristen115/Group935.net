@@ -2107,7 +2107,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function readStoredFavoriteMapVote() {
     try {
       const raw = window.localStorage && window.localStorage.getItem(FAVORITE_MAP_VOTE_KEY);
-      return raw ? JSON.parse(raw) : null;
+      const record = raw ? JSON.parse(raw) : null;
+      if (record && FAVORITE_MAP_VOTE_ENDPOINT && record.endpoint !== FAVORITE_MAP_VOTE_ENDPOINT) {
+        window.localStorage.removeItem(FAVORITE_MAP_VOTE_KEY);
+        return null;
+      }
+      return record;
     } catch (e) {
       return null;
     }
@@ -3313,13 +3318,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const statusText = savingMapId
       ? 'Recording vote'
       : selectedMap
-        ? 'Vote locked on this browser'
+        ? 'Current vote on this browser'
         : FAVORITE_MAP_VOTE_ENDPOINT
           ? (status === 'loading' ? 'Loading vote service' : status === 'offline' ? 'Vote service offline' : 'Live vote ready')
           : 'Local vote lock ready';
 
     const castVote = async (map) => {
-      if (storedVote || savingMapId) return;
+      if (savingMapId || (storedVote && storedVote.mapId === map.id)) return;
       const voterId = getFavoriteMapVoterId();
       const record = { mapId: map.id, voterId, votedAt: new Date().toISOString() };
       setSavingMapId(map.id);
@@ -3328,7 +3333,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       try {
         const data = await favoriteMapVoteRequest('POST', { mapId: map.id, voterId });
         const serverMapId = data && (data.mapId || data.existingMapId);
-        const finalRecord = { ...record, mapId: serverMapId || map.id };
+        const finalRecord = {
+          ...record,
+          mapId: serverMapId || map.id,
+          endpoint: FAVORITE_MAP_VOTE_ENDPOINT || 'local',
+          serverSynced: !!FAVORITE_MAP_VOTE_ENDPOINT,
+        };
         storeFavoriteMapVote(finalRecord);
         setStoredVote(finalRecord);
         hydrateVoteTotals(data);
@@ -3347,7 +3357,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Favorite Map'}]}
           kicker="Community vote"
           title="Favorite Map of All Time"
-          sub="Pick one map. The page keeps voting anonymous and saves a browser token so each device gets one vote."
+          sub="Pick one map. You can change your vote later; only your current pick counts."
           nav={nav}
         />
 
@@ -3356,7 +3366,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <Mono color={T.e115}>Vote Rules</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 7 }}>One Vote, No Login</div>
             <p style={{ fontFamily: T.sans, fontSize: 14, lineHeight: 1.6, color: T.mute, margin: '10px 0 0' }}>
-              {'This uses a saved anonymous browser token and local vote lock. It is the strongest option available inside the static site by itself; a server endpoint can later add IP/rate checks and shared public totals.'}
+              {'This uses a saved anonymous browser token so each browser has one active vote. Changing your pick updates that same anonymous vote instead of adding a second one.'}
             </p>
           </div>
 
@@ -3469,11 +3479,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                     <button
                       type="button"
                       className={isSelected ? 'pap-btn pap-btn-primary' : 'pap-btn pap-btn-ghost'}
-                      disabled={locked || !!savingMapId}
+                      disabled={isSelected || !!savingMapId}
                       onClick={() => castVote(m)}
                       style={{ flex: '1 1 auto', padding: '11px 14px', fontSize: 12 }}
                     >
-                      {savingMapId === m.id ? 'Recording' : isSelected ? 'Your Vote' : locked ? 'Vote Locked' : 'Vote'}
+                      {savingMapId === m.id ? 'Recording' : isSelected ? 'Current Vote' : locked ? 'Change Vote' : 'Vote'}
                     </button>
                     <button type="button" onClick={() => nav({ name: 'map', id: m.id })} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
                       Dossier
