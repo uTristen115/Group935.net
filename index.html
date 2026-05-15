@@ -242,7 +242,7 @@ window.ZD = (function () {
     callofthedead: [{ name: 'Not Ready to Die', artist: 'Avenged Sevenfold', activation: 'Three meteor rocks around the map.' }],
     shangri:     [{ name: 'Pareidolia', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three meteor rocks around the temple.' }],
     moon:        [{ name: 'Coming Home', artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
-    tranzit:     [],
+    tranzit:     [{ name: 'Carrion', artist: 'Kevin Sherwood feat. Clark S. Nova', activation: 'Three teddy bears hidden along the bus route.' }],
     dierise:     [],
     mob:         [{ name: 'Where Are We Going?', artist: 'Kevin Sherwood feat. Malukah', activation: 'Three skulls hidden in the prison.' }],
     buried:      [{ name: 'Always Running', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three teddy bears around the underground town.' }],
@@ -289,7 +289,12 @@ window.ZD = (function () {
     'verruckt:Lullaby of a Dead Man': 'https://www.youtube.com/watch?v=MNIoDGrWx3c&list=PLUXGoRjA8fBwn0GGq2Y6fmNfUui6cmT0D&index=4',
     'shino:The One': 'https://www.youtube.com/watch?v=MAGYDBcJke8&list=RDMAGYDBcJke8&start_radio=1',
     'derriese:Beauty of Annihilation': 'https://www.youtube.com/watch?v=LAUOpUsR7ME&list=RDLAUOpUsR7ME&start_radio=1',
-    'kino:115': 'https://www.youtube.com/watch?v=5fmXjVuyVKo&list=RD5fmXjVuyVKo&start_radio=1',
+    'kino:115': 'https://www.youtube.com/watch?v=bOcXB_Kj0BE&list=RDbOcXB_Kj0BE&start_radio=1',
+    'ascension:Abracadavre': 'https://www.youtube.com/watch?v=Bevws2UDtpw&list=RDBevws2UDtpw&start_radio=1',
+    'callofthedead:Not Ready to Die': 'https://www.youtube.com/watch?v=4Gj6V59abDA&list=RD4Gj6V59abDA&start_radio=1',
+    'shangri:Pareidolia': 'https://www.youtube.com/watch?v=O7YAHQQQkcQ&list=RDO7YAHQQQkcQ&start_radio=1',
+    'moon:Coming Home': 'https://www.youtube.com/watch?v=8CbpYqBJ9T8&list=RD8CbpYqBJ9T8&start_radio=1',
+    'tranzit:Carrion': 'https://www.youtube.com/watch?v=dhPHMdYOSwQ&list=RDdhPHMdYOSwQ&start_radio=1',
   };
   maps.forEach((m) => {
     (m.songs || []).forEach((song) => {
@@ -811,6 +816,14 @@ window.ZD = (function () {
       .pap-chip.is-active { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
       .pap-row { transition: background .08s; }
       .pap-row:hover { background: ${T.bg2}; }
+      .pap-song-row { display: grid; grid-template-columns: 52px minmax(180px, 1.35fr) minmax(130px, .85fr) minmax(220px, 1.6fr) 24px; gap: 18px; align-items: center; background: transparent; border: 0; padding: 14px 20px; cursor: pointer; color: ${T.bone}; text-align: left; width: 100%; }
+      .pap-song-main, .pap-song-map, .pap-song-activation { min-width: 0; }
+      .pap-song-index { grid-column: 1; }
+      .pap-song-main { grid-column: 2; }
+      .pap-song-map { grid-column: 3; }
+      .pap-song-activation { grid-column: 4; font-family: ${T.sans}; font-size: 13px; color: ${T.mute}; line-height: 1.5; }
+      .pap-song-arrow { grid-column: 5; justify-self: end; }
+      .pap-song-title { font-size: 18px; color: ${T.bone}; overflow-wrap: anywhere; }
       @keyframes pap-blink { 50% { opacity: 0; } }
       .pap-stencil { font-family: ${T.display}; font-weight: 700; letter-spacing: -0.5px; line-height: 0.92; text-transform: uppercase; }
       .pap-num { font-family: ${T.mono}; font-variant-numeric: tabular-nums; }
@@ -825,6 +838,12 @@ window.ZD = (function () {
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
         .pap-main-nav > button { flex: 0 0 auto; }
         .pap-search { margin-left: auto; }
+        .pap-song-row { grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 8px 14px; align-items: start; padding: 16px 18px; }
+        .pap-song-index { grid-column: 1; grid-row: 1; padding-top: 2px; }
+        .pap-song-main { grid-column: 2; grid-row: 1; }
+        .pap-song-arrow { grid-column: 3; grid-row: 1; padding-top: 2px; }
+        .pap-song-map { grid-column: 2 / 4; grid-row: 2; }
+        .pap-song-activation { grid-column: 2 / 4; grid-row: 3; max-width: 64ch; }
         #root [style*="grid-template-columns: repeat(4, 1fr)"],
         #root [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         #root [style*="grid-template-columns: 1.3fr 1fr"],
@@ -851,6 +870,8 @@ window.ZD = (function () {
         .pap-footer-grid, .pap-footer-bottom { padding-left: 14px !important; padding-right: 14px !important; }
         .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
         .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
+        #root .pap-song-title { font-size: 19px !important; line-height: 1.05 !important; }
+        .pap-song-row { padding: 15px 16px; }
         h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
         .pap-num { font-size: 32px !important; }
         .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
@@ -904,6 +925,12 @@ window.ZD = (function () {
       @media (max-width: 430px) {
         .pap-main, .term-main { padding-left: 12px !important; padding-right: 12px !important; }
         .pap-stencil { font-size: clamp(17px, 8.5vw, 32px) !important; }
+        .pap-song-row { grid-template-columns: minmax(0, 1fr) 22px; gap: 8px 12px; }
+        .pap-song-index { display: none; }
+        .pap-song-main { grid-column: 1; grid-row: 1; }
+        .pap-song-arrow { grid-column: 2; grid-row: 1; }
+        .pap-song-map { grid-column: 1 / 3; grid-row: 2; }
+        .pap-song-activation { grid-column: 1 / 3; grid-row: 3; }
         h1.pap-stencil { font-size: clamp(32px, 17vw, 48px) !important; }
         #root [style*="height: 480px"] { height: 320px !important; }
         #root [style*="height: 420px"],
@@ -1726,18 +1753,16 @@ window.ZD = (function () {
       <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
         {songs.map((s, i) => (
           <button key={s.id || i} onClick={() => nav({ name: 'song', id: s.id || songRouteId(s.mapId, s.name) })}
-            className="pap-row"
-            style={{ display: 'grid', gridTemplateColumns: '52px 1.4fr 1fr 1.6fr auto', gap: 18, alignItems: 'center',
-              background: 'transparent', border: 0, borderTop: i ? `1px solid ${T.line}` : 0,
-              padding: '14px 20px', cursor: 'pointer', color: T.bone, textAlign: 'left', width: '100%' }}>
-            <Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono>
-            <div>
-              <div className="pap-stencil" style={{ fontSize: 18, color: T.bone }}>{s.name}</div>
+            className="pap-row pap-song-row"
+            style={{ borderTop: i ? `1px solid ${T.line}` : 0 }}>
+            <div className="pap-song-index"><Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono></div>
+            <div className="pap-song-main">
+              <div className="pap-stencil pap-song-title">{s.name}</div>
               <Mono color={T.faint}>{s.artist}</Mono>
             </div>
-            <Mono color={T.mute}>{s.mapName}</Mono>
-            <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.5 }}>{s.activation}</div>
-            <Mono color={T.e115}>{'›'}</Mono>
+            <div className="pap-song-map"><Mono color={T.mute}>{s.mapName}</Mono></div>
+            <div className="pap-song-activation">{s.activation}</div>
+            <div className="pap-song-arrow"><Mono color={T.e115}>{'›'}</Mono></div>
           </button>
         ))}
       </div>
