@@ -3502,7 +3502,17 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <Mono color={T.e115}>All-time leaderboard</Mono>
               <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 7 }}>{config.leaderboardTitle}</div>
             </div>
-            <Mono color={T.faint}>{totalVotes + ' lifetime votes'}</Mono>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <Mono color={T.faint}>{totalVotes + ' total votes'}</Mono>
+              <button
+                type="button"
+                onClick={() => nav({ name: 'vote-ranking', id: config.pollId })}
+                className="pap-btn pap-btn-ghost"
+                style={{ padding: '8px 12px', fontSize: 11 }}
+              >
+                Full Ranking
+              </button>
+            </div>
           </div>
           {message && (
             <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.5, color: status === 'offline' ? T.bloodH : T.mute, margin: '12px 0 0' }}>
@@ -3610,6 +3620,106 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
   function FavoriteMapVote({ nav }) {
     return <VotePage nav={nav} pollId="maps" />;
+  }
+
+  function VoteRankingPage({ nav, pollId }) {
+    const config = votePollConfig(pollId);
+    const [counts, setCounts] = useState({});
+    const [totalVotes, setTotalVotes] = useState(0);
+    const [status, setStatus] = useState(FAVORITE_MAP_VOTE_ENDPOINT ? 'loading' : 'local');
+    const [message, setMessage] = useState('');
+
+    const hydrateVoteTotals = useCallback((data) => {
+      if (!data) return;
+      const pollData = data.polls && data.polls[config.pollId];
+      const nextCounts = (pollData && pollData.counts) || data.counts || data.results || data.mapVotes;
+      if (!nextCounts) return;
+      setCounts(nextCounts);
+      const nextTotal = Number((pollData && (pollData.totalVotes || pollData.total)) || data.totalVotes || data.total || Object.values(nextCounts).reduce((sum, n) => sum + Number(n || 0), 0));
+      setTotalVotes(Number.isFinite(nextTotal) ? nextTotal : 0);
+    }, [config.pollId]);
+
+    useEffect(() => {
+      let cancelled = false;
+      if (!FAVORITE_MAP_VOTE_ENDPOINT) return undefined;
+      voteRequest(config.pollId, 'GET')
+        .then((data) => {
+          if (cancelled) return;
+          hydrateVoteTotals(data);
+          setStatus('ready');
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setStatus('offline');
+          setMessage('Ranking totals are unavailable right now.');
+        });
+      return () => { cancelled = true; };
+    }, [config.pollId, hydrateVoteTotals]);
+
+    const rankedItems = useMemo(() => {
+      return config.items
+        .map((item) => ({ item, count: Number(counts[item.id] || 0) }))
+        .sort((a, b) => b.count - a.count || a.item.name.localeCompare(b.item.name));
+    }, [config, counts]);
+
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting',to:{name:config.routeName}},{label:'Full Ranking'}]}
+          kicker={totalVotes + ' total votes'}
+          title={config.leaderboardTitle + ' Ranking'}
+          sub={'Every ' + config.itemPlural + ' option ranked from first to last by current vote total.'}
+          nav={nav}
+        />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginTop: 24 }}>
+          <button type="button" onClick={() => nav({ name: config.routeName })} className="pap-btn pap-btn-ghost" style={{ padding: '9px 14px', fontSize: 11 }}>
+            Back to Vote
+          </button>
+          <Mono color={T.faint}>{rankedItems.length + ' ranked entries'}</Mono>
+        </div>
+
+        {message && (
+          <p style={{ fontFamily: T.sans, fontSize: 13, lineHeight: 1.55, color: status === 'offline' ? T.bloodH : T.mute, margin: '16px 0 0' }}>
+            {message}
+          </p>
+        )}
+
+        <div className="pap-card" style={{ padding: 0, marginTop: 18, overflow: 'hidden' }}>
+          {rankedItems.map((entry, i) => {
+            const item = entry.item;
+            const percent = totalVotes > 0 ? Math.round((entry.count / totalVotes) * 100) : 0;
+            return (
+              <div key={item.id} style={{
+                display: 'grid',
+                gridTemplateColumns: '54px 96px minmax(0, 1fr) auto',
+                gap: 14,
+                alignItems: 'center',
+                padding: '11px 16px',
+                borderTop: i ? `1px solid ${T.line}` : 0,
+                background: i === 0 ? T.e115bg : 'transparent',
+              }}>
+                <div className="pap-stencil pap-num" style={{ fontSize: 24, color: i === 0 ? T.e115 : T.mute, textAlign: 'center' }}>{String(i + 1).padStart(2, '0')}</div>
+                {config.renderImage(item, 64, true)}
+                <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
+                  <div className="pap-stencil" style={{ fontSize: 21, color: T.bone }}>{item.name}</div>
+                  <Mono color={T.faint}>{config.getMeta(item)}</Mono>
+                </button>
+                <div style={{ textAlign: 'right' }}>
+                  <Mono color={entry.count ? T.e115 : T.faint}>{entry.count + ' votes'}</Mono>
+                  <div style={{ marginTop: 3 }}><Mono color={T.faint}>{percent + '%'}</Mono></div>
+                </div>
+              </div>
+            );
+          })}
+          {!rankedItems.length && (
+            <div style={{ padding: 22 }}>
+              <Mono color={T.faint}>{status === 'loading' ? 'Loading ranking.' : 'No ranking data available.'}</Mono>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 
   function Maps({ nav }) {
@@ -4730,6 +4840,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       case 'vote-weapons': page = <VotePage key="weapons" nav={nav} pollId="weapons" />; break;
       case 'vote-perks': page = <VotePage key="perks" nav={nav} pollId="perks" />; break;
       case 'vote-characters': page = <VotePage key="characters" nav={nav} pollId="characters" />; break;
+      case 'vote-ranking': page = <VoteRankingPage key={'ranking-' + (route.id || 'maps')} nav={nav} pollId={route.id || 'maps'} />; break;
       case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
       case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
       case 'characters': page = <Characters nav={nav} />; break;
