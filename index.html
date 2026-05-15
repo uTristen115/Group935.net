@@ -1845,6 +1845,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-vote-card.is-muted { opacity: 0.76; }
       .pap-vote-actions { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid ${T.line}; }
       .pap-vote-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .pap-vote-leaderboard { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; margin-top: 14px; }
+      .pap-vote-leader-row { display: grid; grid-template-columns: 34px 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: ${T.bg1}; border: 1px solid ${T.line}; }
+      .pap-vote-leader-row.is-first { background: ${T.e115bg}; border-color: ${T.e115dim}; }
+      .pap-vote-rank { font-size: 21px; text-align: center; }
       .pap-btn:disabled { opacity: 0.48; cursor: default; }
       .pap-btn-primary:disabled:hover { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-ghost:disabled:hover { background: transparent; color: ${T.bone}; border-color: ${T.lineHi}; }
@@ -1993,6 +1997,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
         .pap-vote-grid { grid-template-columns: minmax(0, 1fr); }
         .pap-vote-actions { align-items: stretch; }
+        .pap-vote-leader-row { grid-template-columns: 30px 74px minmax(0, 1fr) auto !important; gap: 8px !important; padding: 8px !important; }
+        .pap-vote-rank { font-size: 19px !important; }
+        .pap-vote-leader-row .pap-stencil { font-size: 18px !important; }
         .pap-chip { min-height: 34px; }
         .pap-card, .term-card { overflow-wrap: anywhere; }
         #root [style*="display: flex"] { flex-wrap: wrap !important; }
@@ -3496,13 +3503,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           nav={nav}
         />
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, .98fr) 320px', gap: 18, alignItems: 'start', marginTop: 24 }}>
-          <div className="pap-card" style={{ padding: 18 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 14, flexWrap: 'wrap' }}>
-              <div>
-                <Mono color={T.e115}>All-time leaderboard</Mono>
-                <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{config.leaderboardTitle}</div>
-              </div>
+        <div className="pap-card" style={{ padding: 18, marginTop: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 14, flexWrap: 'wrap' }}>
+            <div>
+              <Mono color={T.e115}>All-time leaderboard</Mono>
+              <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{config.leaderboardTitle}</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <Mono color={T.faint}>{totalVotes + ' total votes'}</Mono>
               <button
                 type="button"
                 onClick={() => nav({ name: 'vote-ranking', id: config.pollId })}
@@ -3512,71 +3520,38 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 Full Ranking
               </button>
             </div>
-            {message && (
-              <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.5, color: status === 'offline' ? T.bloodH : T.mute, margin: '12px 0 0' }}>
-                {message}
-              </p>
-            )}
-            {topItems.length > 0 ? (
-              <div style={{ display: 'grid', gap: 7, marginTop: 14 }}>
-                {topItems.map((entry, i) => {
-                  const item = entry.item;
-                  const percent = totalVotes > 0 ? Math.round((entry.count / totalVotes) * 100) : 0;
-                  return (
-                    <div key={item.id} style={{
-                      display: 'grid',
-                      gridTemplateColumns: '34px 86px minmax(0, 1fr) auto',
-                      gap: 10,
-                      alignItems: 'center',
-                      padding: '8px 10px',
-                      background: i === 0 ? T.e115bg : T.bg1,
-                      border: `1px solid ${i === 0 ? T.e115dim : T.line}`,
-                    }}>
-                      <div className="pap-stencil pap-num" style={{ fontSize: 21, color: i === 0 ? T.e115 : T.mute, textAlign: 'center' }}>{String(i + 1).padStart(2, '0')}</div>
-                      {config.renderImage(item, 58, true)}
-                      <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
-                        <div className="pap-stencil" style={{ fontSize: 19, color: T.bone }}>{item.name}</div>
-                        <Mono color={T.faint}>{config.getMeta(item)}</Mono>
-                      </button>
-                      <div style={{ textAlign: 'right' }}>
-                        <Mono color={T.e115}>{entry.count + ' votes'}</Mono>
-                        <div style={{ marginTop: 3 }}><Mono color={T.faint}>{percent + '%'}</Mono></div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <p style={{ fontFamily: T.sans, fontSize: 13, lineHeight: 1.55, color: T.mute, margin: '14px 0 0' }}>
-                {status === 'loading' ? 'Loading the all-time vote totals.' : 'The top 5 will appear here as soon as votes are recorded in this category.'}
-              </p>
-            )}
           </div>
-
-          <aside className="pap-card" style={{ padding: 18 }}>
-            <Mono color={storedVote ? T.e115 : T.faint}>Your Vote</Mono>
-            <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 7 }}>
-              {storedVote ? (config.items.find((item) => item.id === storedVote.itemId) || {}).name || 'Recorded' : 'Not Cast'}
+          {message && (
+            <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.5, color: status === 'offline' ? T.bloodH : T.mute, margin: '12px 0 0' }}>
+              {message}
+            </p>
+          )}
+          {topItems.length > 0 ? (
+            <div className="pap-vote-leaderboard">
+              {topItems.map((entry, i) => {
+                const item = entry.item;
+                const percent = totalVotes > 0 ? Math.round((entry.count / totalVotes) * 100) : 0;
+                return (
+                  <div key={item.id} className={'pap-vote-leader-row ' + (i === 0 ? 'is-first' : '')}>
+                    <div className="pap-stencil pap-num pap-vote-rank" style={{ color: i === 0 ? T.e115 : T.mute }}>{String(i + 1).padStart(2, '0')}</div>
+                    {config.renderImage(item, 58, true)}
+                    <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
+                      <div className="pap-stencil" style={{ fontSize: 19, color: T.bone }}>{item.name}</div>
+                      <Mono color={T.faint}>{config.getMeta(item)}</Mono>
+                    </button>
+                    <div style={{ textAlign: 'right' }}>
+                      <Mono color={T.e115}>{entry.count + ' votes'}</Mono>
+                      <div style={{ marginTop: 3 }}><Mono color={T.faint}>{percent + '%'}</Mono></div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 16 }}>
-              <div style={{ border: `1px solid ${T.line}`, padding: 10, background: T.bg1 }}>
-                <Mono color={T.faint}>Total</Mono>
-                <div className="pap-stencil pap-num" style={{ fontSize: 26, color: T.e115, marginTop: 4 }}>{totalVotes}</div>
-              </div>
-              <div style={{ border: `1px solid ${T.line}`, padding: 10, background: T.bg1 }}>
-                <Mono color={T.faint}>Ranked</Mono>
-                <div className="pap-stencil pap-num" style={{ fontSize: 26, color: T.bone, marginTop: 4 }}>{topItems.length}</div>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => nav({ name: 'vote-ranking', id: config.pollId })}
-              className="pap-btn pap-btn-primary"
-              style={{ width: '100%', marginTop: 14, padding: '11px 14px', fontSize: 11 }}
-            >
-              View All Ranks
-            </button>
-          </aside>
+          ) : (
+            <p style={{ fontFamily: T.sans, fontSize: 13, lineHeight: 1.55, color: T.mute, margin: '14px 0 0' }}>
+              {status === 'loading' ? 'Loading the all-time vote totals.' : 'The top 5 will appear here as soon as votes are recorded in this category.'}
+            </p>
+          )}
         </div>
 
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
