@@ -3421,6 +3421,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function Characters({ nav }) {
+    const originalCrewOptions = [
+      { id: 'primis', label: 'Primis' },
+      { id: 'ultimis', label: 'Ultimis' },
+      { id: 'tempus', label: 'Tempus' },
+    ];
+    const [originalCrewVariant, setOriginalCrewVariant] = useState(originalCrewOptions[0].id);
+    const selectedOriginalCrew = originalCrewOptions.find((o) => o.id === originalCrewVariant);
+    const originalCrewLabel = selectedOriginalCrew ? selectedOriginalCrew.label : originalCrewOptions[0].label;
     const factions = [
       { id: 'original-crew', sourceId: 'primis', title: 'Original Crew', kicker: 'Dempsey, Nikolai, Takeo, Richtofen' },
       { id: 'aether',  title: 'Aether Figures',  kicker: 'Maxis, Samantha, Monty, Shadowman' },
@@ -3441,18 +3449,39 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         />
         {factions.map((f) => {
           const inFaction = ZD.characters.filter((c) => c.faction === (f.sourceId || f.id));
+          const isOriginalCrew = f.id === 'original-crew';
           if (inFaction.length === 0) return null;
           return (
             <section key={f.id} style={{ marginTop: 44 }}>
               <SectionHead
                 kicker={f.kicker}
                 title={f.title}
+                action={isOriginalCrew ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                    {originalCrewOptions.map((opt) => (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        className={'pap-chip ' + (originalCrewVariant === opt.id ? 'is-active' : '')}
+                        aria-pressed={originalCrewVariant === opt.id}
+                        onClick={() => setOriginalCrewVariant(opt.id)}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
                 {inFaction.map((c) => (
                   <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
                     style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
-                    <CharacterImage character={c} kind="OPERATIVE" style={{ height: 280 }} />
+                    <CharacterImage
+                      character={c}
+                      variant={isOriginalCrew ? originalCrewVariant : undefined}
+                      kind={isOriginalCrew ? originalCrewLabel.toUpperCase() : 'OPERATIVE'}
+                      style={{ height: 280 }}
+                    />
                     <div style={{ padding: 16 }}>
                       <Mono color={T.e115}>{c.role}</Mono>
                       <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{c.name}</div>
