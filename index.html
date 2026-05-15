@@ -2401,8 +2401,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const databaseItems = [
       { id: 'games', label: 'Sagas', sub: 'WaW through BO7' },
       { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
-      { id: 'vote', label: 'Favorite Map', sub: 'One vote per browser' },
       { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
+    ];
+    const votingItems = [
+      { id: 'vote', label: 'Maps', sub: 'Favorite map of all time' },
+      { id: 'vote-weapons', label: 'Wonder Weapons', sub: 'Favorite arsenal' },
+      { id: 'vote-perks', label: 'Perks', sub: 'Favorite machine' },
+      { id: 'vote-characters', label: 'Characters', sub: 'Favorite operator' },
     ];
     const armoryItems = [
       { id: 'weapons', label: 'Wonder Weapons', sub: 'Aetheric ordinance' },
@@ -2415,6 +2420,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     ];
     const mobileGroups = [
       { label: 'Database', items: databaseItems },
+      { label: 'Voting', items: votingItems },
       { label: 'Armory', items: armoryItems },
       { label: 'Story', items: storyItems },
     ];
@@ -2480,6 +2486,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 onMouseLeave={(e) => { if (route.name !== 'home') e.currentTarget.style.color = T.mute; }}
               >Archive</button>
               <NavDropdown label="Database" route={route} nav={nav} items={databaseItems} />
+              <NavDropdown label="Voting" route={route} nav={nav} items={votingItems} />
               <NavDropdown label="Armory" route={route} nav={nav} items={armoryItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
             </nav>
@@ -3493,6 +3500,38 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               </div>
             );
           })}
+        </div>
+      </div>
+    );
+  }
+
+  function VoteComingSoon({ nav, title, sub, sourceLabel, sourceRoute }) {
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting'},{label:title}]}
+          kicker="Community vote"
+          title={title}
+          sub={sub}
+          nav={nav}
+        />
+        <div style={{ marginTop: 28 }}>
+          <ComingSoon what={title + ' voting'} />
+        </div>
+        <div className="pap-card" style={{ padding: 22, marginTop: 18 }}>
+          <Mono color={T.e115}>Next setup step</Mono>
+          <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 8 }}>One Active Vote</div>
+          <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, lineHeight: 1.6, margin: '10px 0 0' }}>
+            {'This page will use the same anonymous one-vote system as the map poll, with vote changes updating the existing row instead of adding duplicates.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => nav(sourceRoute)}
+            className="pap-btn pap-btn-ghost"
+            style={{ marginTop: 18 }}
+          >
+            {sourceLabel}
+          </button>
         </div>
       </div>
     );
@@ -4613,6 +4652,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       case 'game':       page = <Game id={route.id} nav={nav} />; break;
       case 'maps':       page = <Maps nav={nav} />; break;
       case 'vote':       page = <FavoriteMapVote nav={nav} />; break;
+      case 'vote-weapons': page = <VoteComingSoon nav={nav} title="Wonder Weapon Vote" sub="Choose the greatest wonder weapon across the full Zombies archive." sourceLabel="Browse Wonder Weapons" sourceRoute={{ name: 'weapons' }} />; break;
+      case 'vote-perks': page = <VoteComingSoon nav={nav} title="Perk Vote" sub="Choose the perk machine players would never leave behind." sourceLabel="Browse Perks" sourceRoute={{ name: 'perks' }} />; break;
+      case 'vote-characters': page = <VoteComingSoon nav={nav} title="Character Vote" sub="Choose the Zombies character players remember most." sourceLabel="Browse Crew" sourceRoute={{ name: 'characters' }} />; break;
       case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
       case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
       case 'characters': page = <Characters nav={nav} />; break;
