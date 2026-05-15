@@ -6,6 +6,7 @@
 <title>Group 935 // Archive — Zombies Codex</title>
 <meta name="description" content="A reader's database for every Treyarch Zombies map, Easter egg, relic, and operative — World at War through Black Ops 7 Totenreich." />
 <meta name="theme-color" content="#0a0908" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <link rel="icon" type="image/png" href="./Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="./Images/Icons/Group935icon.png" />
 
@@ -282,6 +283,19 @@ window.ZD = (function () {
   Object.entries(mapSongs).forEach(([id, songs]) => {
     const m = maps.find((x) => x.id === id);
     if (m) m.songs = songs;
+  });
+  const songVideoLinks = {
+    'nacht:WTF': 'https://www.youtube.com/watch?v=IT57qmKyRPk&list=PLUXGoRjA8fBwn0GGq2Y6fmNfUui6cmT0D',
+    'verruckt:Lullaby of a Dead Man': 'https://www.youtube.com/watch?v=MNIoDGrWx3c&list=PLUXGoRjA8fBwn0GGq2Y6fmNfUui6cmT0D&index=4',
+    'shino:The One': 'https://www.youtube.com/watch?v=MAGYDBcJke8&list=RDMAGYDBcJke8&start_radio=1',
+    'derriese:Beauty of Annihilation': 'https://www.youtube.com/watch?v=LAUOpUsR7ME&list=RDLAUOpUsR7ME&start_radio=1',
+    'kino:115': 'https://www.youtube.com/watch?v=5fmXjVuyVKo&list=RD5fmXjVuyVKo&start_radio=1',
+  };
+  maps.forEach((m) => {
+    (m.songs || []).forEach((song) => {
+      const videoUrl = songVideoLinks[m.id + ':' + song.name];
+      if (videoUrl) song.videoUrl = videoUrl;
+    });
   });
 
   // Local image folders mapped to their map pages. `hero` drives the detail
@@ -1493,7 +1507,7 @@ window.ZD = (function () {
     const g = ZD.games.find((x) => x.id === id);
     if (!g) return <NotFound nav={nav} what="Saga" />;
     const mapsIn   = ZD.maps.filter((m) => m.game === id);
-    const songsIn  = mapsIn.flatMap((m) => (m.songs || []).map((s) => ({ ...s, mapId: m.id, mapName: m.name })));
+    const songsIn  = songList().filter((s) => s.gameId === id);
     const wwIn     = ZD.wonderWeapons.filter((w) => (w.gameIds || []).includes(id));
     const crewIn   = (g.crewIds || []).map((cid) => ZD.characters.find((c) => c.id === cid)).filter(Boolean);
     const relicMapsIn = mapsIn.filter((m) => (m.relicCount || 0) > 0);
@@ -1677,11 +1691,41 @@ window.ZD = (function () {
     );
   }
 
+  function songSlug(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function songRouteId(mapId, songName) {
+    return songSlug(mapId) + '-' + songSlug(songName);
+  }
+
+  function songList() {
+    return ZD.maps.flatMap((m) => (m.songs || []).map((s) => ({
+      ...s,
+      id: songRouteId(m.id, s.name),
+      mapId: m.id,
+      mapName: m.name,
+      gameId: m.game,
+    })));
+  }
+
+  function youtubeEmbedUrl(url) {
+    const id = String(url || '').match(/[?&]v=([^&]+)/);
+    if (!id) return null;
+    if (!window.location.origin || !/^https?:/.test(window.location.origin)) return null;
+    const params = new URLSearchParams({ rel: '0' });
+    params.set('origin', window.location.origin);
+    return 'https://www.youtube.com/embed/' + id[1] + '?' + params.toString();
+  }
+
   function SongTable({ songs, nav }) {
     return (
       <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
         {songs.map((s, i) => (
-          <button key={i} onClick={() => nav({ name: 'map', id: s.mapId })}
+          <button key={s.id || i} onClick={() => nav({ name: 'song', id: s.id || songRouteId(s.mapId, s.name) })}
             className="pap-row"
             style={{ display: 'grid', gridTemplateColumns: '52px 1.4fr 1fr 1.6fr auto', gap: 18, alignItems: 'center',
               background: 'transparent', border: 0, borderTop: i ? `1px solid ${T.line}` : 0,
@@ -2002,9 +2046,12 @@ window.ZD = (function () {
             <SectionHead kicker={m.songs.length + ' track' + (m.songs.length === 1 ? '' : 's')} title="Hidden Songs" />
             <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
               {m.songs.map((s, i) => (
-                <div key={i} style={{
+                <button key={i} onClick={() => nav({ name: 'song', id: songRouteId(m.id, s.name) })}
+                  className="pap-row"
+                  style={{
                   display: 'grid', gridTemplateColumns: '52px 1fr 1.4fr', gap: 18, alignItems: 'center',
-                  padding: '16px 22px', borderTop: i ? `1px solid ${T.line}` : 0, color: T.bone,
+                  padding: '16px 22px', border: 0, borderTop: i ? `1px solid ${T.line}` : 0, color: T.bone,
+                  background: 'transparent', cursor: 'pointer', textAlign: 'left', width: '100%',
                 }}>
                   <Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono>
                   <div>
@@ -2012,7 +2059,7 @@ window.ZD = (function () {
                     <Mono color={T.faint}>{s.artist}</Mono>
                   </div>
                   <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55 }}>{s.activation}</div>
-                </div>
+                </button>
               ))}
             </div>
           </section>
@@ -2363,7 +2410,7 @@ window.ZD = (function () {
 
   function Songs({ nav }) {
     // Build a flat list of every song across every map, grouped by saga.
-    const allSongs = ZD.maps.flatMap((m) => (m.songs || []).map((s) => ({ ...s, mapId: m.id, mapName: m.name, gameId: m.game })));
+    const allSongs = songList();
     const byGame = ZD.games
       .map((g) => ({ game: g, songs: allSongs.filter((s) => s.gameId === g.id) }))
       .filter((row) => row.songs.length > 0);
@@ -2391,6 +2438,81 @@ window.ZD = (function () {
             </section>
           ))}
         </div>
+      </div>
+    );
+  }
+
+  function SongDetail({ id, nav }) {
+    const song = songList().find((s) => s.id === id);
+    if (!song) return <NotFound nav={nav} what="Song" />;
+    const map = ZD.maps.find((m) => m.id === song.mapId);
+    const game = ZD.games.find((g) => g.id === song.gameId);
+    const embedUrl = youtubeEmbedUrl(song.videoUrl);
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Songs',to:{name:'songs'}},{label:song.name}]}
+          kicker={(game ? game.code + ' · ' + game.year : 'Song file') + ' · ' + song.mapName}
+          title={song.name}
+          sub={song.artist}
+          nav={nav}
+        />
+
+        <section style={{ marginTop: 32 }}>
+          <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
+            {embedUrl ? (
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: T.bg0 }}>
+                <iframe
+                  title={song.name + ' lyric video'}
+                  src={embedUrl}
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div style={{ padding: 28 }}>
+                <Mono color={T.e115}>{song.videoUrl ? 'YouTube embed unavailable in this context' : 'Official video link pending'}</Mono>
+                <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.6, margin: '12px 0 0' }}>
+                  {song.videoUrl
+                    ? 'Embedded playback needs the site to be served from an HTTP or HTTPS address. Open this page from a local server or the deployed site, or use the YouTube link below.'
+                    : 'No official YouTube link has been attached for this song yet.'}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section style={{ marginTop: 34, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
+          <div className="pap-card" style={{ padding: 22 }}>
+            <Mono color={T.e115}>Activation</Mono>
+            <p style={{ fontFamily: T.sans, fontSize: 15, color: T.bone, lineHeight: 1.6, margin: '12px 0 0' }}>{song.activation}</p>
+          </div>
+          <div className="pap-card" style={{ padding: 22 }}>
+            <Mono color={T.e115}>Lyrics</Mono>
+            <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.6, margin: '12px 0 0' }}>
+              Full lyrics are not reproduced here. Use the official lyric video above or open it on YouTube.
+            </p>
+            {song.videoUrl && (
+              <a className="pap-link" href={song.videoUrl} target="_blank" rel="noreferrer"
+                style={{ display: 'inline-block', marginTop: 14, fontFamily: T.mono, fontSize: 11, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>
+                Open on YouTube
+              </a>
+            )}
+          </div>
+        </section>
+
+        {map && (
+          <section style={{ marginTop: 34 }}>
+            <button className="pap-card pap-card-clickable" onClick={() => nav({ name: 'map', id: map.id })}
+              style={{ width: '100%', padding: 22, textAlign: 'left', background: T.bg1, border: `1px solid ${T.line}`, cursor: 'pointer' }}>
+              <Mono color={T.faint}>Map file</Mono>
+              <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{map.name}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6 }}>{map.tagline}</div>
+            </button>
+          </section>
+        )}
       </div>
     );
   }
@@ -2664,6 +2786,7 @@ window.ZD = (function () {
       case 'perks':      page = <Perks nav={nav} />; break;
       case 'timeline':   page = <Timeline nav={nav} />; break;
       case 'songs':      page = <Songs nav={nav} />; break;
+      case 'song':       page = <SongDetail id={route.id} nav={nav} />; break;
       case 'relics':     page = <RelicsBO7 nav={nav} />; break;
       case 'lore':       page = route.id ? <LoreArticle id={route.id} nav={nav} /> : <Lore nav={nav} />; break;
       case 'search':     page = <Search query={query} nav={nav} />; break;
