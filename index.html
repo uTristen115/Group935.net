@@ -1836,6 +1836,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-song-activation { grid-column: 4; font-family: ${T.sans}; font-size: 13px; color: ${T.mute}; line-height: 1.5; }
       .pap-song-arrow { grid-column: 5; justify-self: end; }
       .pap-song-title { font-size: 18px; color: ${T.bone}; overflow-wrap: anywhere; }
+      .pap-vote-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-top: 24px; }
+      .pap-vote-card { padding: 0; color: ${T.bone}; text-align: left; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+      .pap-vote-card.is-selected { border-color: ${T.e115}; box-shadow: inset 0 0 0 1px ${T.e115dim}; }
+      .pap-vote-card.is-muted { opacity: 0.76; }
+      .pap-vote-actions { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid ${T.line}; }
+      .pap-vote-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .pap-btn:disabled { opacity: 0.48; cursor: default; }
+      .pap-btn-primary:disabled:hover { background: ${T.e115}; color: ${T.bg0}; }
+      .pap-btn-ghost:disabled:hover { background: transparent; color: ${T.bone}; border-color: ${T.lineHi}; }
       @keyframes pap-blink { 50% { opacity: 0; } }
       .pap-stencil { font-family: ${T.display}; font-weight: 700; letter-spacing: -0.5px; line-height: 0.92; text-transform: uppercase; }
       .pap-num { font-family: ${T.mono}; font-variant-numeric: tabular-nums; }
@@ -1844,7 +1853,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-wall-help {
         position: fixed;
         top: auto;
-        right: clamp(10px, 5vw, 96px);
+        right: clamp(-28px, 1vw, 24px);
         bottom: clamp(60px, 12vh, 140px);
         z-index: 0;
         pointer-events: none;
@@ -1875,6 +1884,29 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         transform: rotate(5deg);
         white-space: normal;
       }
+      .pap-wall-image {
+        position: fixed;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        height: auto;
+        opacity: 0.13;
+        mix-blend-mode: screen;
+        filter: saturate(0.95) contrast(1.08) drop-shadow(0 0 16px rgba(214, 40, 40, 0.08));
+      }
+      .pap-wall-trinity {
+        left: clamp(8px, 4vw, 86px);
+        bottom: 25vh;
+        width: clamp(220px, 28vw, 480px);
+        transform: rotate(-5deg);
+      }
+      .pap-wall-aether {
+        right: clamp(22px, 9vw, 150px);
+        top: clamp(168px, 25vh, 310px);
+        width: clamp(120px, 14vw, 250px);
+        transform: rotate(9deg);
+        opacity: 0.11;
+      }
       .pap-card, .term-card, .pap-row, .term-row { min-width: 0; }
       .pap-main-nav { scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
       .pap-main-nav::-webkit-scrollbar { height: 4px; }
@@ -1886,6 +1918,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
         .pap-main-nav > button { flex: 0 0 auto; }
         .pap-search { margin-left: auto; }
+        .pap-vote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pap-song-row { grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 8px 14px; align-items: start; padding: 16px 18px; }
         .pap-song-index { grid-column: 1; grid-row: 1; padding-top: 2px; }
         .pap-song-main { grid-column: 2; grid-row: 1; }
@@ -1906,7 +1939,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-topbar { display: none !important; }
         .pap-wall-help {
           top: auto;
-          right: -18px;
+          right: -28px;
           bottom: 56px;
           font-size: clamp(92px, 34vw, 158px);
           color: rgba(214, 40, 40, 0.13);
@@ -1917,6 +1950,18 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           bottom: auto;
           font-size: clamp(42px, 16vw, 76px);
           color: rgba(214, 40, 40, 0.12);
+        }
+        .pap-wall-trinity {
+          left: -42px;
+          bottom: 25vh;
+          width: clamp(180px, 58vw, 300px);
+          opacity: 0.1;
+        }
+        .pap-wall-aether {
+          right: -18px;
+          top: 230px;
+          width: clamp(100px, 34vw, 170px);
+          opacity: 0.09;
         }
         .term-header, .term-menu { padding: 14px !important; align-items: stretch !important; flex-direction: column !important; gap: 12px !important; }
         .pap-header-inner { padding: 12px 14px !important; align-items: center !important; flex-direction: row !important; gap: 10px !important; }
@@ -1943,6 +1988,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
         .pap-num { font-size: 32px !important; }
         .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+        .pap-vote-grid { grid-template-columns: minmax(0, 1fr); }
+        .pap-vote-actions { align-items: stretch; }
         .pap-chip { min-height: 34px; }
         .pap-card, .term-card { overflow-wrap: anywhere; }
         #root [style*="display: flex"] { flex-wrap: wrap !important; }
@@ -2048,6 +2095,52 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const media = map && map.media;
     if (!media || !media.gallery || !media.gallery.length) return [];
     return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
+  }
+
+  const FAVORITE_MAP_VOTE_KEY = 'g935.favoriteMapVote.v1';
+  const FAVORITE_MAP_VOTER_KEY = 'g935.favoriteMapVoter.v1';
+  const FAVORITE_MAP_VOTE_ENDPOINT = (typeof window !== 'undefined' && window.G935_FAVORITE_MAP_VOTE_ENDPOINT) || '';
+
+  function readStoredFavoriteMapVote() {
+    try {
+      const raw = window.localStorage && window.localStorage.getItem(FAVORITE_MAP_VOTE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function getFavoriteMapVoterId() {
+    try {
+      const existing = window.localStorage && window.localStorage.getItem(FAVORITE_MAP_VOTER_KEY);
+      if (existing) return existing;
+      const id = window.crypto && window.crypto.randomUUID
+        ? window.crypto.randomUUID()
+        : 'anon-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+      window.localStorage && window.localStorage.setItem(FAVORITE_MAP_VOTER_KEY, id);
+      return id;
+    } catch (e) {
+      return 'anon-memory-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+    }
+  }
+
+  function storeFavoriteMapVote(record) {
+    try {
+      window.localStorage && window.localStorage.setItem(FAVORITE_MAP_VOTE_KEY, JSON.stringify(record));
+    } catch (e) {}
+  }
+
+  async function favoriteMapVoteRequest(method, body) {
+    if (!FAVORITE_MAP_VOTE_ENDPOINT) return null;
+    const headers = { Accept: 'application/json' };
+    const options = { method, headers, credentials: 'omit', cache: 'no-store' };
+    if (body) {
+      headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
+    }
+    const response = await fetch(FAVORITE_MAP_VOTE_ENDPOINT, options);
+    if (!response.ok) throw new Error('Vote service returned ' + response.status);
+    return response.json();
   }
 
   function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition }) {
@@ -2300,6 +2393,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const databaseItems = [
       { id: 'games', label: 'Sagas', sub: 'WaW through BO7' },
       { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
+      { id: 'vote', label: 'Favorite Map', sub: 'One vote per browser' },
       { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
     ];
     const armoryItems = [
@@ -2331,6 +2425,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       <div className="pap-shell" style={{ background: T.bg0, color: T.bone, fontFamily: T.sans, minHeight: '100%', position: 'relative' }}>
         <div className="pap-wall-help" aria-hidden="true">HELP</div>
         <div className="pap-wall-lie" aria-hidden="true">Eddie is<br />A LIAR!!</div>
+        <img className="pap-wall-image pap-wall-trinity" src="./Images/Background Images/embracethetrinity.png" alt="" aria-hidden="true" />
+        <img className="pap-wall-image pap-wall-aether" src="./Images/Background Images/returnthroughaether.png" alt="" aria-hidden="true" />
         <div style={{ background: T.bg1, borderBottom: `1px solid ${T.line}`, position: 'sticky', top: 0, zIndex: 30 }}>
           <div className="pap-topbar" style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div style={{ display: 'flex', gap: 18, alignItems: 'center', minWidth: 0, overflow: 'hidden' }}>
@@ -2471,7 +2567,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 {'group935.net · doc ' + dossierNo()}
               </div>
             </div>
-            <FooterCol title="Archive" links={[['Sagas','games'],['Maps','maps'],['Crew','characters']]} nav={nav} />
+            <FooterCol title="Archive" links={[['Sagas','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
             <FooterCol title="Reading" links={[['Kronorium','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
           </div>
@@ -3158,6 +3254,189 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <button key={k} onClick={() => setVariant(k)} className={'pap-chip ' + (active ? 'is-active' : '')}>{label}</button>
           );
         })}
+      </div>
+    );
+  }
+
+  function FavoriteMapVote({ nav }) {
+    const [filter, setFilter] = useState('all');
+    const [storedVote, setStoredVote] = useState(() => readStoredFavoriteMapVote());
+    const [counts, setCounts] = useState({});
+    const [totalVotes, setTotalVotes] = useState(0);
+    const [status, setStatus] = useState(FAVORITE_MAP_VOTE_ENDPOINT ? 'loading' : 'local');
+    const [message, setMessage] = useState('');
+    const [savingMapId, setSavingMapId] = useState(null);
+
+    const selectedMap = storedVote && ZD.maps.find((m) => m.id === storedVote.mapId);
+    const hasLiveTotals = !!FAVORITE_MAP_VOTE_ENDPOINT && Object.keys(counts).length > 0;
+
+    const hydrateVoteTotals = useCallback((data) => {
+      if (!data) return;
+      const nextCounts = data.counts || data.results || data.mapVotes;
+      if (!nextCounts) return;
+      setCounts(nextCounts);
+      const nextTotal = Number(data.totalVotes || data.total || Object.values(nextCounts).reduce((sum, n) => sum + Number(n || 0), 0));
+      setTotalVotes(Number.isFinite(nextTotal) ? nextTotal : 0);
+    }, []);
+
+    useEffect(() => {
+      let cancelled = false;
+      if (!FAVORITE_MAP_VOTE_ENDPOINT) return undefined;
+      favoriteMapVoteRequest('GET')
+        .then((data) => {
+          if (cancelled) return;
+          hydrateVoteTotals(data);
+          setStatus('ready');
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setStatus('offline');
+          setMessage('Live totals are unavailable right now. The browser vote lock will still work.');
+        });
+      return () => { cancelled = true; };
+    }, [hydrateVoteTotals]);
+
+    const list = useMemo(() => {
+      return filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+    }, [filter]);
+
+    const statusText = savingMapId
+      ? 'Recording vote'
+      : selectedMap
+        ? 'Vote locked on this browser'
+        : FAVORITE_MAP_VOTE_ENDPOINT
+          ? (status === 'loading' ? 'Loading vote service' : status === 'offline' ? 'Vote service offline' : 'Live vote ready')
+          : 'Local vote lock ready';
+
+    const castVote = async (map) => {
+      if (storedVote || savingMapId) return;
+      const voterId = getFavoriteMapVoterId();
+      const record = { mapId: map.id, voterId, votedAt: new Date().toISOString() };
+      setSavingMapId(map.id);
+      setMessage('');
+
+      try {
+        const data = await favoriteMapVoteRequest('POST', { mapId: map.id, voterId });
+        const serverMapId = data && (data.mapId || data.existingMapId);
+        const finalRecord = { ...record, mapId: serverMapId || map.id };
+        storeFavoriteMapVote(finalRecord);
+        setStoredVote(finalRecord);
+        hydrateVoteTotals(data);
+        setStatus(FAVORITE_MAP_VOTE_ENDPOINT ? 'ready' : 'local');
+      } catch (e) {
+        setStatus('offline');
+        setMessage((e && e.message) || 'Vote service unavailable. Please try again later.');
+      } finally {
+        setSavingMapId(null);
+      }
+    };
+
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Favorite Map'}]}
+          kicker="Community vote"
+          title="Favorite Map of All Time"
+          sub="Pick one map. The page keeps voting anonymous and saves a browser token so each device gets one vote."
+          nav={nav}
+        />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1.35fr .85fr', gap: 18, marginTop: 24 }}>
+          <div className="pap-card" style={{ padding: 22 }}>
+            <Mono color={T.e115}>Vote Rules</Mono>
+            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 7 }}>One Vote, No Login</div>
+            <p style={{ fontFamily: T.sans, fontSize: 14, lineHeight: 1.6, color: T.mute, margin: '10px 0 0' }}>
+              {'This uses a saved anonymous browser token and local vote lock. It is the strongest option available inside the static site by itself; a server endpoint can later add IP/rate checks and shared public totals.'}
+            </p>
+          </div>
+
+          <div className="pap-card" style={{ padding: 22 }}>
+            <Mono color={selectedMap ? T.e115 : T.faint}>Status</Mono>
+            <div className="pap-stencil" style={{ fontSize: 26, color: selectedMap ? T.e115 : T.bone, marginTop: 7 }}>
+              {selectedMap ? selectedMap.name : 'Awaiting Vote'}
+            </div>
+            <div className="pap-vote-status" style={{ marginTop: 12 }}>
+              <span style={{ width: 8, height: 8, background: status === 'offline' ? T.blood : selectedMap ? T.e115 : T.hazard, display: 'inline-block' }} />
+              <Mono color={status === 'offline' ? T.blood : T.mute}>{statusText}</Mono>
+            </div>
+            {hasLiveTotals && (
+              <div style={{ marginTop: 12 }}>
+                <Mono color={T.faint}>{totalVotes + ' total votes recorded'}</Mono>
+              </div>
+            )}
+            {!FAVORITE_MAP_VOTE_ENDPOINT && (
+              <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.5, color: T.faint, margin: '12px 0 0' }}>
+                {'Public totals are hidden until a vote endpoint is configured.'}
+              </p>
+            )}
+            {message && (
+              <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.5, color: status === 'offline' ? T.bloodH : T.mute, margin: '12px 0 0' }}>
+                {message}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <button className={'pap-chip ' + (filter==='all'?'is-active':'')} onClick={() => setFilter('all')}>All</button>
+            {ZD.games.map((g) => (
+              <button key={g.id} className={'pap-chip ' + (filter===g.id?'is-active':'')} onClick={() => setFilter(g.id)}>{g.code}</button>
+            ))}
+          </div>
+          <div style={{ flex: 1 }} />
+          <Mono color={T.faint}>{list.length + ' maps listed'}</Mono>
+        </div>
+
+        <div className="pap-vote-grid">
+          {list.map((m) => {
+            const g = ZD.games.find((x) => x.id === m.game);
+            const isSelected = storedVote && storedVote.mapId === m.id;
+            const locked = !!storedVote;
+            const liveCount = Number(counts[m.id] || 0);
+            const percent = totalVotes > 0 ? Math.round((liveCount / totalVotes) * 100) : 0;
+            return (
+              <div key={m.id} className={'pap-card pap-vote-card ' + (isSelected ? 'is-selected ' : '') + (locked && !isSelected ? 'is-muted' : '')}>
+                <MapImage map={m} file={mapPrimaryFile(m, 'thumb')} height={156} label={m.name} kind={g.code + ' / ' + g.year} tone="green" />
+                <div style={{ padding: 16, display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+                    <Mono color={T.e115}>{g.code + ' / ' + g.year}</Mono>
+                    {isSelected && <Stamp tone="green" style={{ fontSize: 9 }}>Picked</Stamp>}
+                  </div>
+                  <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, marginTop: 9 }}>{m.name}</div>
+                  <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.45, color: T.mute, margin: '6px 0 0', flex: 1 }}>
+                    {m.tagline}
+                  </p>
+                  {hasLiveTotals && (
+                    <div style={{ marginTop: 13 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, marginBottom: 5 }}>
+                        <Mono color={T.faint}>{liveCount + ' votes'}</Mono>
+                        <Mono color={T.faint}>{percent + '%'}</Mono>
+                      </div>
+                      <div style={{ height: 7, background: T.bg0, border: `1px solid ${T.line}`, overflow: 'hidden' }}>
+                        <div style={{ width: percent + '%', height: '100%', background: isSelected ? T.e115 : T.lineHi }} />
+                      </div>
+                    </div>
+                  )}
+                  <div className="pap-vote-actions">
+                    <button
+                      type="button"
+                      className={isSelected ? 'pap-btn pap-btn-primary' : 'pap-btn pap-btn-ghost'}
+                      disabled={locked || !!savingMapId}
+                      onClick={() => castVote(m)}
+                      style={{ flex: '1 1 auto', padding: '11px 14px', fontSize: 12 }}
+                    >
+                      {savingMapId === m.id ? 'Recording' : isSelected ? 'Your Vote' : locked ? 'Vote Locked' : 'Vote'}
+                    </button>
+                    <button type="button" onClick={() => nav({ name: 'map', id: m.id })} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
+                      Dossier
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -4276,6 +4555,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       case 'games':      page = <Games nav={nav} />; break;
       case 'game':       page = <Game id={route.id} nav={nav} />; break;
       case 'maps':       page = <Maps nav={nav} />; break;
+      case 'vote':       page = <FavoriteMapVote nav={nav} />; break;
       case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
       case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
       case 'characters': page = <Characters nav={nav} />; break;
