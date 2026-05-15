@@ -2100,25 +2100,46 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
   }
 
-  const FAVORITE_MAP_VOTE_KEY = 'g935.favoriteMapVote.v1';
+  const VOTE_STORAGE_PREFIX = 'g935.vote.';
+  const LEGACY_FAVORITE_MAP_VOTE_KEY = 'g935.favoriteMapVote.v1';
   const FAVORITE_MAP_VOTER_KEY = 'g935.favoriteMapVoter.v1';
   const FAVORITE_MAP_VOTE_ENDPOINT = (typeof window !== 'undefined' && window.G935_FAVORITE_MAP_VOTE_ENDPOINT) || '';
 
-  function readStoredFavoriteMapVote() {
+  function voteStorageKey(pollId) {
+    return VOTE_STORAGE_PREFIX + pollId + '.v1';
+  }
+
+  function normalizeStoredVoteRecord(record, pollId) {
+    if (!record) return null;
+    const itemId = record.itemId || record.mapId;
+    if (!itemId) return null;
+    return {
+      ...record,
+      pollId,
+      itemId,
+      endpoint: record.endpoint || 'local',
+    };
+  }
+
+  function readStoredVote(pollId) {
     try {
-      const raw = window.localStorage && window.localStorage.getItem(FAVORITE_MAP_VOTE_KEY);
-      const record = raw ? JSON.parse(raw) : null;
+      const key = voteStorageKey(pollId);
+      let raw = window.localStorage && window.localStorage.getItem(key);
+      if (!raw && pollId === 'maps') raw = window.localStorage && window.localStorage.getItem(LEGACY_FAVORITE_MAP_VOTE_KEY);
+      const record = normalizeStoredVoteRecord(raw ? JSON.parse(raw) : null, pollId);
       if (record && FAVORITE_MAP_VOTE_ENDPOINT && record.endpoint !== FAVORITE_MAP_VOTE_ENDPOINT) {
-        window.localStorage.removeItem(FAVORITE_MAP_VOTE_KEY);
+        window.localStorage.removeItem(key);
+        if (pollId === 'maps') window.localStorage.removeItem(LEGACY_FAVORITE_MAP_VOTE_KEY);
         return null;
       }
+      if (record) window.localStorage.setItem(key, JSON.stringify(record));
       return record;
     } catch (e) {
       return null;
     }
   }
 
-  function getFavoriteMapVoterId() {
+  function getVoteVoterId() {
     try {
       const existing = window.localStorage && window.localStorage.getItem(FAVORITE_MAP_VOTER_KEY);
       if (existing) return existing;
@@ -2132,13 +2153,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     }
   }
 
-  function storeFavoriteMapVote(record) {
+  function storeVote(pollId, record) {
     try {
-      window.localStorage && window.localStorage.setItem(FAVORITE_MAP_VOTE_KEY, JSON.stringify(record));
+      window.localStorage && window.localStorage.setItem(voteStorageKey(pollId), JSON.stringify(record));
+      if (pollId === 'maps') window.localStorage.removeItem(LEGACY_FAVORITE_MAP_VOTE_KEY);
     } catch (e) {}
   }
 
-  async function favoriteMapVoteRequest(method, body) {
+  async function voteRequest(pollId, method, body) {
     if (!FAVORITE_MAP_VOTE_ENDPOINT) return null;
     const headers = { Accept: 'application/json' };
     const options = { method, headers, credentials: 'omit', cache: 'no-store' };
@@ -2146,7 +2168,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       headers['Content-Type'] = 'application/json';
       options.body = JSON.stringify(body);
     }
-    const response = await fetch(FAVORITE_MAP_VOTE_ENDPOINT, options);
+    const suffix = method === 'GET' ? (FAVORITE_MAP_VOTE_ENDPOINT.includes('?') ? '&' : '?') + 'poll=' + encodeURIComponent(pollId) : '';
+    const response = await fetch(FAVORITE_MAP_VOTE_ENDPOINT + suffix, options);
     if (!response.ok) throw new Error('Vote service returned ' + response.status);
     return response.json();
   }
@@ -3273,31 +3296,140 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function FavoriteMapVote({ nav }) {
+  function votePollConfig(pollId) {
+    const gameFilters = [{ id: 'all', label: 'All' }].concat(ZD.games.map((g) => ({ id: g.id, label: g.code })));
+    const factionLabel = (id) => ({
+      primis: 'Primis',
+      victis: 'Victis',
+      chaos: 'Chaos',
+      requiem: 'Requiem',
+      darkaether: 'Dark Aether',
+      celebrity: 'Celebrity',
+    }[id] || String(id || 'Other').replace(/-/g, ' '));
+    const factionFilters = [{ id: 'all', label: 'All' }].concat(
+      Array.from(new Set(ZD.characters.map((c) => c.faction).filter(Boolean)))
+        .map((id) => ({ id, label: factionLabel(id) }))
+    );
+    const gameMeta = (gameId) => {
+      const g = ZD.games.find((x) => x.id === gameId);
+      return g ? (g.code + ' / ' + g.year) : 'Archive';
+    };
+    const itemGamesMatch = (item, filter) =>
+      filter === 'all'
+      || item.game === filter
+      || ((item.gameIds || []).includes(filter));
+
+    const configs = {
+      maps: {
+        pollId: 'maps',
+        routeName: 'vote',
+        title: 'Favorite Map of All Time',
+        sub: 'Pick one map. You can change your vote later; only your current pick counts in this category.',
+        rulesTitle: 'One Map Vote',
+        leaderboardTitle: 'Top 5 Maps',
+        itemPlural: 'maps',
+        currentLabel: 'Current map vote',
+        sourceLabel: 'Browse Maps',
+        sourceRoute: { name: 'maps' },
+        items: ZD.maps,
+        filters: gameFilters,
+        matchesFilter: (item, filter) => filter === 'all' || item.game === filter,
+        getMeta: (item) => gameMeta(item.game),
+        getSub: (item) => item.tagline,
+        getDetailRoute: (item) => ({ name: 'map', id: item.id }),
+        renderImage: (item, height, compact) => {
+          const g = ZD.games.find((x) => x.id === item.game);
+          return <MapImage map={item} file={mapPrimaryFile(item, 'thumb')} height={height} label={item.name} kind={(g && g.code) || 'MAP'} tone="green" showOverlay={!compact} />;
+        },
+      },
+      weapons: {
+        pollId: 'weapons',
+        routeName: 'vote-weapons',
+        title: 'Wonder Weapon Vote',
+        sub: 'Pick one wonder weapon. You can change your vote later; only your current pick counts in this category.',
+        rulesTitle: 'One Wonder Weapon Vote',
+        leaderboardTitle: 'Top 5 Wonder Weapons',
+        itemPlural: 'wonder weapons',
+        currentLabel: 'Current weapon vote',
+        sourceLabel: 'Browse Wonder Weapons',
+        sourceRoute: { name: 'weapons' },
+        items: ZD.wonderWeapons,
+        filters: gameFilters,
+        matchesFilter: itemGamesMatch,
+        getMeta: (item) => item.type || item.map || 'Wonder weapon',
+        getSub: (item) => item.summary,
+        getDetailRoute: (item) => ({ name: 'weapon', id: item.id }),
+        renderImage: (item, height) => <WeaponImage weapon={item} file={weaponPrimaryFile(item, 'thumb')} height={height} label={item.name} showOverlay={false} />,
+      },
+      perks: {
+        pollId: 'perks',
+        routeName: 'vote-perks',
+        title: 'Perk Vote',
+        sub: 'Pick one perk. You can change your vote later; only your current pick counts in this category.',
+        rulesTitle: 'One Perk Vote',
+        leaderboardTitle: 'Top 5 Perks',
+        itemPlural: 'perks',
+        currentLabel: 'Current perk vote',
+        sourceLabel: 'Browse Perks',
+        sourceRoute: { name: 'perks' },
+        items: ZD.perks,
+        filters: gameFilters,
+        matchesFilter: itemGamesMatch,
+        getMeta: (item) => item.introduced || 'Perk-a-Cola',
+        getSub: (item) => item.tagline || item.summary,
+        getDetailRoute: (item) => ({ name: 'perk', id: item.id }),
+        renderImage: (item, height) => <PerkImage perk={item} file={perkPrimaryFile(item, 'thumb')} height={height} label={item.name} showOverlay={false} />,
+      },
+      characters: {
+        pollId: 'characters',
+        routeName: 'vote-characters',
+        title: 'Character Vote',
+        sub: 'Pick one character. You can change your vote later; only your current pick counts in this category.',
+        rulesTitle: 'One Character Vote',
+        leaderboardTitle: 'Top 5 Characters',
+        itemPlural: 'characters',
+        currentLabel: 'Current character vote',
+        sourceLabel: 'Browse Crew',
+        sourceRoute: { name: 'characters' },
+        items: ZD.characters,
+        filters: factionFilters,
+        matchesFilter: (item, filter) => filter === 'all' || item.faction === filter,
+        getMeta: (item) => item.role || factionLabel(item.faction),
+        getSub: (item) => item.summary,
+        getDetailRoute: (item) => ({ name: 'character', id: item.id }),
+        renderImage: (item, height, compact) => <CharacterImage character={item} kind="OPERATIVE" showKind={!compact} style={{ height }} />,
+      },
+    };
+    return configs[pollId] || configs.maps;
+  }
+
+  function VotePage({ nav, pollId }) {
+    const config = votePollConfig(pollId);
     const [filter, setFilter] = useState('all');
-    const [storedVote, setStoredVote] = useState(() => readStoredFavoriteMapVote());
+    const [storedVote, setStoredVote] = useState(() => readStoredVote(config.pollId));
     const [counts, setCounts] = useState({});
     const [totalVotes, setTotalVotes] = useState(0);
     const [status, setStatus] = useState(FAVORITE_MAP_VOTE_ENDPOINT ? 'loading' : 'local');
     const [message, setMessage] = useState('');
-    const [savingMapId, setSavingMapId] = useState(null);
+    const [savingItemId, setSavingItemId] = useState(null);
 
-    const selectedMap = storedVote && ZD.maps.find((m) => m.id === storedVote.mapId);
+    const selectedItem = storedVote && config.items.find((item) => item.id === storedVote.itemId);
     const hasLiveTotals = !!FAVORITE_MAP_VOTE_ENDPOINT && Object.keys(counts).length > 0;
 
     const hydrateVoteTotals = useCallback((data) => {
       if (!data) return;
-      const nextCounts = data.counts || data.results || data.mapVotes;
+      const pollData = data.polls && data.polls[config.pollId];
+      const nextCounts = (pollData && pollData.counts) || data.counts || data.results || data.mapVotes;
       if (!nextCounts) return;
       setCounts(nextCounts);
-      const nextTotal = Number(data.totalVotes || data.total || Object.values(nextCounts).reduce((sum, n) => sum + Number(n || 0), 0));
+      const nextTotal = Number((pollData && (pollData.totalVotes || pollData.total)) || data.totalVotes || data.total || Object.values(nextCounts).reduce((sum, n) => sum + Number(n || 0), 0));
       setTotalVotes(Number.isFinite(nextTotal) ? nextTotal : 0);
-    }, []);
+    }, [config.pollId]);
 
     useEffect(() => {
       let cancelled = false;
       if (!FAVORITE_MAP_VOTE_ENDPOINT) return undefined;
-      favoriteMapVoteRequest('GET')
+      voteRequest(config.pollId, 'GET')
         .then((data) => {
           if (cancelled) return;
           hydrateVoteTotals(data);
@@ -3309,44 +3441,49 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           setMessage('Live totals are unavailable right now. The browser vote lock will still work.');
         });
       return () => { cancelled = true; };
-    }, [hydrateVoteTotals]);
+    }, [config.pollId, hydrateVoteTotals]);
 
     const list = useMemo(() => {
-      return filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
-    }, [filter]);
-    const topMaps = useMemo(() => {
+      return config.items.filter((item) => config.matchesFilter(item, filter));
+    }, [config, filter]);
+    const topItems = useMemo(() => {
       return Object.entries(counts)
-        .map(([mapId, count]) => ({ map: ZD.maps.find((m) => m.id === mapId), count: Number(count || 0) }))
-        .filter((entry) => entry.map && entry.count > 0)
-        .sort((a, b) => b.count - a.count || a.map.name.localeCompare(b.map.name))
+        .map(([itemId, count]) => ({ item: config.items.find((entry) => entry.id === itemId), count: Number(count || 0) }))
+        .filter((entry) => entry.item && entry.count > 0)
+        .sort((a, b) => b.count - a.count || a.item.name.localeCompare(b.item.name))
         .slice(0, 5);
-    }, [counts]);
+    }, [config, counts]);
 
-    const statusText = savingMapId
+    const statusText = savingItemId
       ? 'Recording vote'
-      : selectedMap
-        ? 'Current vote on this browser'
+      : selectedItem
+        ? config.currentLabel
         : FAVORITE_MAP_VOTE_ENDPOINT
           ? (status === 'loading' ? 'Loading vote service' : status === 'offline' ? 'Vote service offline' : 'Live vote ready')
-          : 'Local vote lock ready';
+          : 'Local category vote ready';
 
-    const castVote = async (map) => {
-      if (savingMapId || (storedVote && storedVote.mapId === map.id)) return;
-      const voterId = getFavoriteMapVoterId();
-      const record = { mapId: map.id, voterId, votedAt: new Date().toISOString() };
-      setSavingMapId(map.id);
+    const castVote = async (item) => {
+      if (savingItemId || (storedVote && storedVote.itemId === item.id)) return;
+      const voterId = getVoteVoterId();
+      const record = { pollId: config.pollId, itemId: item.id, voterId, votedAt: new Date().toISOString() };
+      setSavingItemId(item.id);
       setMessage('');
 
       try {
-        const data = await favoriteMapVoteRequest('POST', { mapId: map.id, voterId });
-        const serverMapId = data && (data.mapId || data.existingMapId);
+        const data = await voteRequest(config.pollId, 'POST', {
+          pollId: config.pollId,
+          itemId: item.id,
+          mapId: config.pollId === 'maps' ? item.id : undefined,
+          voterId,
+        });
+        const serverItemId = data && (data.itemId || data.existingItemId || data.mapId || data.existingMapId);
         const finalRecord = {
           ...record,
-          mapId: serverMapId || map.id,
+          itemId: serverItemId || item.id,
           endpoint: FAVORITE_MAP_VOTE_ENDPOINT || 'local',
           serverSynced: !!FAVORITE_MAP_VOTE_ENDPOINT,
         };
-        storeFavoriteMapVote(finalRecord);
+        storeVote(config.pollId, finalRecord);
         setStoredVote(finalRecord);
         hydrateVoteTotals(data);
         setStatus(FAVORITE_MAP_VOTE_ENDPOINT ? 'ready' : 'local');
@@ -3354,36 +3491,36 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         setStatus('offline');
         setMessage((e && e.message) || 'Vote service unavailable. Please try again later.');
       } finally {
-        setSavingMapId(null);
+        setSavingItemId(null);
       }
     };
 
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Favorite Map'}]}
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting'},{label:config.title}]}
           kicker="Community vote"
-          title="Favorite Map of All Time"
-          sub="Pick one map. You can change your vote later; only your current pick counts."
+          title={config.title}
+          sub={config.sub}
           nav={nav}
         />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.35fr .85fr', gap: 18, marginTop: 24 }}>
           <div className="pap-card" style={{ padding: 22 }}>
             <Mono color={T.e115}>Vote Rules</Mono>
-            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 7 }}>One Vote, No Login</div>
+            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 7 }}>{config.rulesTitle}</div>
             <p style={{ fontFamily: T.sans, fontSize: 14, lineHeight: 1.6, color: T.mute, margin: '10px 0 0' }}>
-              {'This uses a saved anonymous browser token so each browser has one active vote. Changing your pick updates that same anonymous vote instead of adding a second one.'}
+              {'Each browser gets one active vote in this category. Changing your pick updates that same anonymous vote instead of adding a duplicate.'}
             </p>
           </div>
 
           <div className="pap-card" style={{ padding: 22 }}>
-            <Mono color={selectedMap ? T.e115 : T.faint}>Status</Mono>
-            <div className="pap-stencil" style={{ fontSize: 26, color: selectedMap ? T.e115 : T.bone, marginTop: 7 }}>
-              {selectedMap ? selectedMap.name : 'Awaiting Vote'}
+            <Mono color={selectedItem ? T.e115 : T.faint}>Status</Mono>
+            <div className="pap-stencil" style={{ fontSize: 26, color: selectedItem ? T.e115 : T.bone, marginTop: 7 }}>
+              {selectedItem ? selectedItem.name : 'Awaiting Vote'}
             </div>
             <div className="pap-vote-status" style={{ marginTop: 12 }}>
-              <span style={{ width: 8, height: 8, background: status === 'offline' ? T.blood : selectedMap ? T.e115 : T.hazard, display: 'inline-block' }} />
+              <span style={{ width: 8, height: 8, background: status === 'offline' ? T.blood : selectedItem ? T.e115 : T.hazard, display: 'inline-block' }} />
               <Mono color={status === 'offline' ? T.blood : T.mute}>{statusText}</Mono>
             </div>
             {hasLiveTotals && (
@@ -3408,23 +3545,22 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 18, flexWrap: 'wrap' }}>
             <div>
               <Mono color={T.e115}>All-time leaderboard</Mono>
-              <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 7 }}>Top 5 Maps</div>
+              <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 7 }}>{config.leaderboardTitle}</div>
             </div>
             <Mono color={T.faint}>{totalVotes + ' lifetime votes'}</Mono>
           </div>
-          {topMaps.length > 0 ? (
+          {topItems.length > 0 ? (
             <div style={{ display: 'grid', gap: 0, marginTop: 16 }}>
-              {topMaps.map((entry, i) => {
-                const map = entry.map;
-                const g = ZD.games.find((x) => x.id === map.game);
+              {topItems.map((entry, i) => {
+                const item = entry.item;
                 const percent = totalVotes > 0 ? Math.round((entry.count / totalVotes) * 100) : 0;
                 return (
-                  <div key={map.id} style={{ display: 'grid', gridTemplateColumns: '44px 86px minmax(0, 1fr) auto', gap: 13, alignItems: 'center', padding: '11px 0', borderTop: i === 0 ? `1px solid ${T.line}` : `1px solid ${T.line}` }}>
+                  <div key={item.id} style={{ display: 'grid', gridTemplateColumns: '44px 86px minmax(0, 1fr) auto', gap: 13, alignItems: 'center', padding: '11px 0', borderTop: `1px solid ${T.line}` }}>
                     <div className="pap-stencil pap-num" style={{ fontSize: 24, color: i === 0 ? T.e115 : T.mute }}>{String(i + 1).padStart(2, '0')}</div>
-                    <MapImage map={map} file={mapPrimaryFile(map, 'thumb')} height={58} label={map.name} kind={g.code} tone="green" showOverlay={false} />
-                    <button type="button" onClick={() => nav({ name: 'map', id: map.id })} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
-                      <div className="pap-stencil" style={{ fontSize: 20, color: T.bone }}>{map.name}</div>
-                      <Mono color={T.faint}>{g.code + ' / ' + g.year}</Mono>
+                    {config.renderImage(item, 58, true)}
+                    <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
+                      <div className="pap-stencil" style={{ fontSize: 20, color: T.bone }}>{item.name}</div>
+                      <Mono color={T.faint}>{config.getMeta(item)}</Mono>
                     </button>
                     <div style={{ textAlign: 'right' }}>
                       <Mono color={T.e115}>{entry.count + ' votes'}</Mono>
@@ -3436,7 +3572,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             </div>
           ) : (
             <p style={{ fontFamily: T.sans, fontSize: 13, lineHeight: 1.55, color: T.mute, margin: '14px 0 0' }}>
-              {status === 'loading' ? 'Loading the all-time vote totals.' : 'The top 5 will appear here as soon as votes are recorded.'}
+              {status === 'loading' ? 'Loading the all-time vote totals.' : 'The top 5 will appear here as soon as votes are recorded in this category.'}
             </p>
           )}
         </div>
@@ -3444,32 +3580,31 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             <button className={'pap-chip ' + (filter==='all'?'is-active':'')} onClick={() => setFilter('all')}>All</button>
-            {ZD.games.map((g) => (
-              <button key={g.id} className={'pap-chip ' + (filter===g.id?'is-active':'')} onClick={() => setFilter(g.id)}>{g.code}</button>
+            {config.filters.filter((f) => f.id !== 'all').map((f) => (
+              <button key={f.id} className={'pap-chip ' + (filter===f.id?'is-active':'')} onClick={() => setFilter(f.id)}>{f.label}</button>
             ))}
           </div>
           <div style={{ flex: 1 }} />
-          <Mono color={T.faint}>{list.length + ' maps listed'}</Mono>
+          <Mono color={T.faint}>{list.length + ' ' + config.itemPlural + ' listed'}</Mono>
         </div>
 
         <div className="pap-vote-grid">
-          {list.map((m) => {
-            const g = ZD.games.find((x) => x.id === m.game);
-            const isSelected = storedVote && storedVote.mapId === m.id;
+          {list.map((item) => {
+            const isSelected = storedVote && storedVote.itemId === item.id;
             const locked = !!storedVote;
-            const liveCount = Number(counts[m.id] || 0);
+            const liveCount = Number(counts[item.id] || 0);
             const percent = totalVotes > 0 ? Math.round((liveCount / totalVotes) * 100) : 0;
             return (
-              <div key={m.id} className={'pap-card pap-vote-card ' + (isSelected ? 'is-selected ' : '') + (locked && !isSelected ? 'is-muted' : '')}>
-                <MapImage map={m} file={mapPrimaryFile(m, 'thumb')} height={156} label={m.name} kind={g.code + ' / ' + g.year} tone="green" />
+              <div key={item.id} className={'pap-card pap-vote-card ' + (isSelected ? 'is-selected ' : '') + (locked && !isSelected ? 'is-muted' : '')}>
+                {config.renderImage(item, 156, false)}
                 <div style={{ padding: 16, display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
-                    <Mono color={T.e115}>{g.code + ' / ' + g.year}</Mono>
+                    <Mono color={T.e115}>{config.getMeta(item)}</Mono>
                     {isSelected && <Stamp tone="green" style={{ fontSize: 9 }}>Picked</Stamp>}
                   </div>
-                  <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, marginTop: 9 }}>{m.name}</div>
+                  <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, marginTop: 9 }}>{item.name}</div>
                   <p style={{ fontFamily: T.sans, fontSize: 12.5, lineHeight: 1.45, color: T.mute, margin: '6px 0 0', flex: 1 }}>
-                    {m.tagline}
+                    {config.getSub(item)}
                   </p>
                   {hasLiveTotals && (
                     <div style={{ marginTop: 13 }}>
@@ -3486,13 +3621,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                     <button
                       type="button"
                       className={isSelected ? 'pap-btn pap-btn-primary' : 'pap-btn pap-btn-ghost'}
-                      disabled={isSelected || !!savingMapId}
-                      onClick={() => castVote(m)}
+                      disabled={isSelected || !!savingItemId}
+                      onClick={() => castVote(item)}
                       style={{ flex: '1 1 auto', padding: '11px 14px', fontSize: 12 }}
                     >
-                      {savingMapId === m.id ? 'Recording' : isSelected ? 'Current Vote' : locked ? 'Change Vote' : 'Vote'}
+                      {savingItemId === item.id ? 'Recording' : isSelected ? 'Current Vote' : locked ? 'Change Vote' : 'Vote'}
                     </button>
-                    <button type="button" onClick={() => nav({ name: 'map', id: m.id })} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
+                    <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
                       Dossier
                     </button>
                   </div>
@@ -3505,36 +3640,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function VoteComingSoon({ nav, title, sub, sourceLabel, sourceRoute }) {
-    return (
-      <div>
-        <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting'},{label:title}]}
-          kicker="Community vote"
-          title={title}
-          sub={sub}
-          nav={nav}
-        />
-        <div style={{ marginTop: 28 }}>
-          <ComingSoon what={title + ' voting'} />
-        </div>
-        <div className="pap-card" style={{ padding: 22, marginTop: 18 }}>
-          <Mono color={T.e115}>Next setup step</Mono>
-          <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 8 }}>One Active Vote</div>
-          <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, lineHeight: 1.6, margin: '10px 0 0' }}>
-            {'This page will use the same anonymous one-vote system as the map poll, with vote changes updating the existing row instead of adding duplicates.'}
-          </p>
-          <button
-            type="button"
-            onClick={() => nav(sourceRoute)}
-            className="pap-btn pap-btn-ghost"
-            style={{ marginTop: 18 }}
-          >
-            {sourceLabel}
-          </button>
-        </div>
-      </div>
-    );
+  function FavoriteMapVote({ nav }) {
+    return <VotePage nav={nav} pollId="maps" />;
   }
 
   function Maps({ nav }) {
@@ -4652,9 +4759,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       case 'game':       page = <Game id={route.id} nav={nav} />; break;
       case 'maps':       page = <Maps nav={nav} />; break;
       case 'vote':       page = <FavoriteMapVote nav={nav} />; break;
-      case 'vote-weapons': page = <VoteComingSoon nav={nav} title="Wonder Weapon Vote" sub="Choose the greatest wonder weapon across the full Zombies archive." sourceLabel="Browse Wonder Weapons" sourceRoute={{ name: 'weapons' }} />; break;
-      case 'vote-perks': page = <VoteComingSoon nav={nav} title="Perk Vote" sub="Choose the perk machine players would never leave behind." sourceLabel="Browse Perks" sourceRoute={{ name: 'perks' }} />; break;
-      case 'vote-characters': page = <VoteComingSoon nav={nav} title="Character Vote" sub="Choose the Zombies character players remember most." sourceLabel="Browse Crew" sourceRoute={{ name: 'characters' }} />; break;
+      case 'vote-weapons': page = <VotePage key="weapons" nav={nav} pollId="weapons" />; break;
+      case 'vote-perks': page = <VotePage key="perks" nav={nav} pollId="perks" />; break;
+      case 'vote-characters': page = <VotePage key="characters" nav={nav} pollId="characters" />; break;
       case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
       case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
       case 'characters': page = <Characters nav={nav} />; break;
