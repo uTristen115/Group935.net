@@ -66,6 +66,69 @@ function normalizePollId(value) {
   return VALID_ITEMS[pollId] ? pollId : null;
 }
 
+async function tableColumns(env, tableName) {
+  const rows = await env.DB.prepare(`PRAGMA table_info(${tableName})`).all();
+  return new Set((rows.results || []).map((row) => row.name));
+}
+
+async function createVotesTable(env) {
+  await env.DB.prepare(
+    `CREATE TABLE IF NOT EXISTS votes (
+      poll_id TEXT NOT NULL,
+      voter_hash TEXT NOT NULL,
+      item_id TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (poll_id, voter_hash)
+    )`
+  ).run();
+
+  await env.DB.prepare(
+    "CREATE INDEX IF NOT EXISTS idx_votes_poll_item ON votes(poll_id, item_id)"
+  ).run();
+}
+
+async function migrateLegacyMapVotes(env, legacyColumns) {
+  const legacyTable = "votes_legacy_maps";
+  const createdAt = legacyColumns.has("created_at") ? "created_at" : "CURRENT_TIMESTAMP";
+
+  await env.DB.prepare(`DROP TABLE IF EXISTS ${legacyTable}`).run();
+  await env.DB.prepare(`ALTER TABLE votes RENAME TO ${legacyTable}`).run();
+  await createVotesTable(env);
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO votes (poll_id, voter_hash, item_id, created_at, updated_at)
+     SELECT 'maps', voter_hash, map_id, ${createdAt}, ${createdAt}
+     FROM ${legacyTable}
+     WHERE voter_hash IS NOT NULL AND map_id IS NOT NULL`
+  ).run();
+  await env.DB.prepare(`DROP TABLE ${legacyTable}`).run();
+}
+
+async function ensureVoteSchema(env) {
+  if (!env.DB) {
+    throw new Error("Missing D1 binding: DB");
+  }
+
+  const columns = await tableColumns(env, "votes");
+
+  if (!columns.size) {
+    await createVotesTable(env);
+    return;
+  }
+
+  if (columns.has("poll_id") && columns.has("item_id") && columns.has("voter_hash")) {
+    await createVotesTable(env);
+    return;
+  }
+
+  if (columns.has("map_id") && columns.has("voter_hash")) {
+    await migrateLegacyMapVotes(env, columns);
+    return;
+  }
+
+  throw new Error("Unexpected votes table schema");
+}
+
 async function voterHash(voterId, secret) {
   const text = `${secret}:${voterId}`;
   const bytes = new TextEncoder().encode(text);
@@ -77,6 +140,7 @@ async function voterHash(voterId, secret) {
 }
 
 async function getTotals(env, pollId) {
+  await ensureVoteSchema(env);
   const rows = await env.DB.prepare(
     "SELECT item_id, COUNT(*) AS count FROM votes WHERE poll_id = ? GROUP BY item_id"
   ).bind(pollId).all();
@@ -94,82 +158,90 @@ async function getTotals(env, pollId) {
 
 export default {
   async fetch(request, env) {
-    if (request.method === "OPTIONS") {
-      return new Response(null, {
-        status: 204,
-        headers: corsHeaders(env),
-      });
-    }
-
-    if (request.method === "GET") {
-      const url = new URL(request.url);
-      const pollId = normalizePollId(url.searchParams.get("poll"));
-      if (!pollId) return json({ error: "Invalid poll" }, env, 400);
-      return json(await getTotals(env, pollId), env);
-    }
-
-    if (request.method !== "POST") {
-      return json({ error: "Method not allowed" }, env, 405);
-    }
-
-    let body;
     try {
-      body = await request.json();
-    } catch {
-      return json({ error: "Invalid JSON" }, env, 400);
-    }
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: corsHeaders(env),
+        });
+      }
 
-    const pollId = normalizePollId(body.pollId || body.poll);
-    const itemId = String(body.itemId || body.mapId || "");
-    const voterId = String(body.voterId || "");
+      if (request.method === "GET") {
+        const url = new URL(request.url);
+        const pollId = normalizePollId(url.searchParams.get("poll"));
+        if (!pollId) return json({ error: "Invalid poll" }, env, 400);
+        return json(await getTotals(env, pollId), env);
+      }
 
-    if (!pollId) {
-      return json({ error: "Invalid poll" }, env, 400);
-    }
+      if (request.method !== "POST") {
+        return json({ error: "Method not allowed" }, env, 405);
+      }
 
-    if (!VALID_ITEMS[pollId].has(itemId)) {
-      return json({ error: "Invalid vote item" }, env, 400);
-    }
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return json({ error: "Invalid JSON" }, env, 400);
+      }
 
-    if (voterId.length < 12 || voterId.length > 160) {
-      return json({ error: "Invalid voter" }, env, 400);
-    }
+      const pollId = normalizePollId(body.pollId || body.poll);
+      const itemId = String(body.itemId || body.mapId || "");
+      const voterId = String(body.voterId || "");
 
-    const hash = await voterHash(voterId, env.VOTE_HASH_SECRET);
+      if (!pollId) {
+        return json({ error: "Invalid poll" }, env, 400);
+      }
 
-    const existing = await env.DB.prepare(
-      "SELECT item_id FROM votes WHERE poll_id = ? AND voter_hash = ?"
-    ).bind(pollId, hash).first();
+      if (!VALID_ITEMS[pollId].has(itemId)) {
+        return json({ error: "Invalid vote item" }, env, 400);
+      }
 
-    if (existing) {
-      if (existing.item_id !== itemId) {
+      if (voterId.length < 12 || voterId.length > 160) {
+        return json({ error: "Invalid voter" }, env, 400);
+      }
+
+      await ensureVoteSchema(env);
+      const hash = await voterHash(voterId, env.VOTE_HASH_SECRET);
+
+      const existing = await env.DB.prepare(
+        "SELECT item_id FROM votes WHERE poll_id = ? AND voter_hash = ?"
+      ).bind(pollId, hash).first();
+
+      if (existing) {
+        if (existing.item_id !== itemId) {
+          await env.DB.prepare(
+            "UPDATE votes SET item_id = ?, updated_at = CURRENT_TIMESTAMP WHERE poll_id = ? AND voter_hash = ?"
+          ).bind(itemId, pollId, hash).run();
+        }
+
+        return json({
+          accepted: true,
+          changed: existing.item_id !== itemId,
+          previousItemId: existing.item_id,
+          itemId,
+          ...(await getTotals(env, pollId)),
+        }, env);
+      }
+
+      try {
         await env.DB.prepare(
-          "UPDATE votes SET item_id = ?, updated_at = CURRENT_TIMESTAMP WHERE poll_id = ? AND voter_hash = ?"
-        ).bind(itemId, pollId, hash).run();
+          "INSERT INTO votes (poll_id, voter_hash, item_id) VALUES (?, ?, ?)"
+        ).bind(pollId, hash, itemId).run();
+      } catch {
+        return json({ error: "Vote could not be saved" }, env, 500);
       }
 
       return json({
         accepted: true,
-        changed: existing.item_id !== itemId,
-        previousItemId: existing.item_id,
+        changed: false,
         itemId,
         ...(await getTotals(env, pollId)),
       }, env);
+    } catch (err) {
+      return json({
+        error: "Worker exception",
+        message: err && err.message ? err.message : String(err),
+      }, env, 500);
     }
-
-    try {
-      await env.DB.prepare(
-        "INSERT INTO votes (poll_id, voter_hash, item_id) VALUES (?, ?, ?)"
-      ).bind(pollId, hash, itemId).run();
-    } catch {
-      return json({ error: "Vote could not be saved" }, env, 500);
-    }
-
-    return json({
-      accepted: true,
-      changed: false,
-      itemId,
-      ...(await getTotals(env, pollId)),
-    }, env);
   },
 };
