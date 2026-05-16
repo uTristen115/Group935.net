@@ -1842,9 +1842,24 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const map = ZD.maps.find((m) => m.id === ee.map);
     return map && map.game === 'bo7' && ee.rewardGif;
   });
-  const HOME_FEATURED_EE = HOME_BO7_EE_POOL.length
-    ? HOME_BO7_EE_POOL[Math.floor(Math.random() * HOME_BO7_EE_POOL.length)]
-    : ZD.sampleEE;
+  const HOME_FEATURED_EE_STORAGE_KEY = 'g935.homeFeaturedEE.lastMap.v1';
+  function pickHomeFeaturedEE(pool) {
+    if (!pool.length) return ZD.sampleEE;
+    let lastMap = null;
+    try {
+      lastMap = window.localStorage && window.localStorage.getItem(HOME_FEATURED_EE_STORAGE_KEY);
+    } catch (err) {}
+    const options = pool.length > 1 && lastMap ? pool.filter((ee) => ee.map !== lastMap) : pool;
+    const selectedPool = options.length ? options : pool;
+    const selected = selectedPool[Math.floor(Math.random() * selectedPool.length)];
+    try {
+      if (selected && selected.map && window.localStorage) {
+        window.localStorage.setItem(HOME_FEATURED_EE_STORAGE_KEY, selected.map);
+      }
+    } catch (err) {}
+    return selected;
+  }
+  const HOME_FEATURED_EE = pickHomeFeaturedEE(HOME_BO7_EE_POOL);
 
   const T = {
     bg0:     '#0a0908',
