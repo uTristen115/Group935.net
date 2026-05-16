@@ -1079,6 +1079,141 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   // Keeps the core arrays above clean while letting us attach richer data
   // per game / per map. Edit the entries below to expand the site.
 
+  const ASCENSION_SCREENSHOT_DIR = 'Black Ops 3/Maps/Zombies Chronicles/Ascension/Screenshots';
+  const ascensionShot = (file, label) => ({ dir: ASCENSION_SCREENSHOT_DIR, file, label });
+
+  const classicEasterEggs = [
+    {
+      id: 'ascension-casimir-mechanism',
+      map: 'ascension',
+      mapName: 'Ascension',
+      title: 'Casimir Mechanism',
+      difficulty: 'Hard',
+      duration: '45-75 min',
+      party: '4 players required',
+      summary: 'Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device.',
+      heroImage: ascensionShot('Terminal_Under_stairs.png', 'Casimir Mechanism terminal'),
+      requirements: [
+        '4 players',
+        '2x Pack-a-Punched Ray Gun or Ray Gun Mark II (BO3)',
+        'Thundergun',
+        'Matryoshka Dolls',
+        'Gersh Devices',
+      ],
+      rewards: [
+        'Death Machines for 90 seconds in Black Ops',
+        'All perks in Zombies Chronicles',
+      ],
+      steps: [
+        {
+          n: 1,
+          title: 'Power, Landers, Rocket',
+          body: 'Open the map and complete the launch sequence before starting the Casimir nodes.',
+          bullets: [
+            'Turn on the power.',
+            'Link Lunar Lander F in the scrapyard near Stamin-Up.',
+            'Link Lunar Lander B near Speed Cola and the Sickle.',
+            "Link Lunar Lander D near PhD Flopper in Black Ops or Widow's Wine in BO3.",
+            'Return to the power switch and launch the rocket.',
+            'Get Gersh Devices from the Mystery Box.',
+            "Throw a Gersh Device at the generator outside the map boundary near PhD Flopper or Widow's Wine.",
+          ],
+          images: [
+            ascensionShot('Lander_Near_Staminup.png', 'Lander F near Stamin-Up'),
+            ascensionShot('Lander_Near_Speed.png', 'Lander B near Speed Cola'),
+            ascensionShot('Lander_Near_PhD.png', "Lander D near PhD Flopper or Widow's Wine"),
+            ascensionShot('EE_Generator_GerschSuck.png', 'Generator outside the map boundary'),
+          ],
+        },
+        {
+          n: 2,
+          title: 'Activate the First Node',
+          body: 'Use the scrapyard terminal to activate the first node.',
+          bullets: [
+            'Go to Stamin-Up and enter the scrapyard near Lander F.',
+            'Look under the metal stairs for the computer monitor showing static.',
+            'Interact with the monitor to reveal the Illuminati pyramid.',
+            'Node 1 completes and the first Casimir Mechanism light turns on.',
+          ],
+          images: [
+            { ...ascensionShot('Terminal_Under_stairs.png', 'Activate the Illuminati Terminal'), layout: 'natural', maxWidth: '50%', showOverlay: true, kind: 'STEP 2' },
+          ],
+        },
+        {
+          n: 3,
+          title: 'Press the Four Buttons',
+          body: 'This step must be completed during a Space Monkey round.',
+          bullets: [
+            'Wait for the Space Monkey round to begin.',
+            'Send one player to the button near Stamin-Up.',
+            'Send one player to the button opposite Juggernog.',
+            "Send one player to the button in the PhD Flopper room in Black Ops or Widow's Wine room in BO3.",
+            'Send one player to the button near Speed Cola.',
+            'Press all four buttons at the same time.',
+            'If done correctly, the buttons sink into the walls and Node 2 completes.',
+          ],
+          images: [
+            ascensionShot('Staminup_Button.png', 'Button near Stamin-Up'),
+            ascensionShot('JuggernogButton.png', 'Button opposite Juggernog'),
+            ascensionShot('PhDButton.png', "Button in the PhD Flopper or Widow's Wine room"),
+            ascensionShot('Speed_Cola_Button.png', 'Button near Speed Cola'),
+          ],
+        },
+        {
+          n: 4,
+          title: 'Hold the Pressure Plate',
+          body: 'Hold the plate outside Pack-a-Punch until the node confirms.',
+          bullets: [
+            'Go to the area just outside the Pack-a-Punch room.',
+            'Find the circular pressure plate near the wall clock.',
+            'All four players must stand on the plate together.',
+            'Hold the plate for 2 minutes.',
+            'When complete, a Nuke power-up activates and Node 3 completes.',
+          ],
+          images: [
+            ascensionShot('PressurePlateStep_Clock.png', 'Pressure plate clock'),
+          ],
+        },
+        {
+          n: 5,
+          title: 'Spell LUNA',
+          body: 'Collect the floating letters by calling the Lunar Lander along the correct route.',
+          bullets: [
+            'Park the lander at Spawn.',
+            'Choose one player to stay on the lander while the others call it between pads.',
+            'Call the lander from Spawn to Lander F near Stamin-Up to collect L.',
+            'Call the lander back to Spawn to collect U.',
+            'Call the lander to Lander B near Speed Cola to collect N.',
+            'Call the lander back to Lander F near Stamin-Up to collect A.',
+            'Once LUNA is complete, Node 4 completes.',
+          ],
+          images: [
+            ascensionShot('Lander_Near_Staminup.png', 'Lander F route for L and A'),
+            ascensionShot('Lander_Near_Speed.png', 'Lander B route for N'),
+            ascensionShot('Lander_Near_PhD.png', 'Third lander reference'),
+          ],
+        },
+        {
+          n: 6,
+          title: 'Free Gersh',
+          body: 'Use the required weapons on the final light to free Gersh.',
+          bullets: [
+            'Complete all four nodes first.',
+            'Look for the fifth white light on the ground in front of the Casimir Mechanism.',
+            'Throw a Gersh Device as close to the white light as possible.',
+            'Shoot the active Gersh Device with one upgraded Thundergun.',
+            'Shoot it with two upgraded Ray Guns.',
+            'Throw one set of Matryoshka Dolls into it.',
+            "If done correctly, Gersh's soul is freed and the Easter Egg is complete.",
+          ],
+          images: [
+            ascensionShot('EE_Generator_GerschSuck.png', 'Gersh Device generator target'),
+          ],
+        },
+      ],
+    },
+  ];
+
   const bo7EasterEggs = [
     {
       id: 'ashes-main-quest',
@@ -1130,6 +1265,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     },
   ];
   bo7EasterEggs.forEach((ee) => {
+    const map = maps.find((m) => m.id === ee.map);
+    if (map) map.eeCount = Math.max(map.eeCount || 0, 1);
+  });
+  classicEasterEggs.forEach((ee) => {
     const map = maps.find((m) => m.id === ee.map);
     if (map) map.eeCount = Math.max(map.eeCount || 0, 1);
   });
@@ -1190,7 +1329,16 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     derriese:    [{ name: 'Beauty of Annihilation', artist: 'Elena Siegman', activation: 'Hold the action button on three teddy bears around the factory.' }],
     kino:        [{ name: '115', artist: 'Elena Siegman', activation: 'Three meteor rocks: spawn, dressing room, theater.' }],
     five:        [],
-    ascension:   [{ name: 'Abracadavre', artist: 'Elena Siegman', activation: 'Three teddy bears across the cosmodrome.' }],
+    ascension:   [{
+      name: 'Abracadavre',
+      artist: 'Elena Siegman',
+      activation: 'Activate three teddy bears: one at Spawn, one near Stamin-Up, and one near Speed Cola.',
+      activationShots: [
+        ascensionShot('MusicEE_Spawn.png', 'Spawn teddy bear'),
+        ascensionShot('MusicEE_NearStaminup.png', 'Teddy bear near Stamin-Up Lander'),
+        ascensionShot('MusicEE_NearSpeedCola.png', 'Teddy bear near Speed Cola Lander'),
+      ],
+    }],
     callofthedead: [{ name: 'Not Ready to Die', artist: 'Avenged Sevenfold', activation: 'Three meteor rocks around the map.' }],
     shangri:     [{ name: 'Pareidolia', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three meteor rocks around the temple.' }],
     moon:        [{ name: 'Coming Home', artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
@@ -1815,7 +1963,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
   wonderWeapons.sort((a, b) => (a.order || 999) - (b.order || 999) || a.name.localeCompare(b.name));
 
-  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE, bo7EasterEggs };
+  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE, classicEasterEggs, bo7EasterEggs };
 })();
 </script>
 
@@ -1834,6 +1982,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
   function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
+  function gameAssetImg(asset, map) {
+    if (!asset) return null;
+    if (typeof asset === 'string') return mapImg(map, asset);
+    if (asset.src) return asset.src;
+    const dir = asset.dir || (map && map.media && map.media.dir);
+    return dir && asset.file ? (IMG_BASE + '/Games/' + dir + '/' + asset.file) : null;
+  }
   function weaponImg(weapon, file) { return weapon && weapon.media && file ? (IMG_BASE + '/Weapons/Wonder Weapons/' + weapon.media.dir + '/' + file) : null; }
   function perkImg(perk, file) { return perk && perk.media && file ? (IMG_BASE + '/Perks/' + perk.media.dir + '/' + file) : null; }
   function callingCardImg(ee) { return ee && ee.rewardGif ? (IMG_BASE + '/CallingCards/EE Rewards/BO7/' + ee.rewardGif) : null; }
@@ -2015,6 +2170,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         #root [style*="grid-template-columns: 1.3fr 1fr"],
         #root [style*="grid-template-columns: 1.4fr 1fr"],
         #root [style*="grid-template-columns: 1.5fr 1fr"],
+        #root [style*="grid-template-columns: 320px 1fr"],
         #root [style*="grid-template-columns: 380px 1fr"],
         #root [style*="grid-template-columns: 340px 1fr"] { grid-template-columns: minmax(0, 1fr) !important; }
       }
@@ -2279,6 +2435,49 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
             <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
             <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition }) {
+    const [failed, setFailed] = useState(false);
+    const src = !failed ? gameAssetImg(image, map) : null;
+    const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
+    const title = label || (image && image.label) || (map && map.name) || 'Reference image';
+    const fit = (image && image.objectFit) || objectFit;
+    const pos = objectPosition || (image && image.objectPosition) || 'center center';
+    if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
+    if (image && image.layout === 'natural') {
+      return (
+        <div style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
+          <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+            style={{ display: 'block', width: '100%', height: 'auto' }} />
+          {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.04) 48%, rgba(10,9,8,0.6) 100%)', pointerEvents: 'none' }} />}
+          {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{image.kind || kind}</div>}
+          {showOverlay && (
+            <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+              <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+            </div>
+          )}
+        </div>
+      );
+    }
+    return (
+      <div style={{
+        width: '100%', height, position: 'relative', overflow: 'hidden',
+        background: T.bg2, border: `1px solid ${T.line}`,
+        ...style,
+      }}>
+        <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: fit, objectPosition: pos }} />
+        {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.05) 45%, rgba(10,9,8,0.64) 100%)', pointerEvents: 'none' }} />}
+        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+        {showOverlay && (
+          <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+            <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.14 : 22, 22), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+            <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // REF</div>
           </div>
         )}
       </div>
@@ -3226,7 +3425,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return 'https://www.youtube.com/embed/' + id[1] + '?' + params.toString();
   }
 
-  function songActivationShots(map) {
+  function songActivationShots(song, map) {
+    if (song && song.activationShots && song.activationShots.length) {
+      return Array.from({ length: 3 }, (_, i) => song.activationShots[i] || null);
+    }
     const files = mapGalleryItems(map).slice(0, 3);
     return Array.from({ length: 3 }, (_, i) => files[i] || null);
   }
@@ -3955,9 +4157,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const m = ZD.maps.find((x) => x.id === id);
     if (!m) return <NotFound nav={nav} what="Map" />;
     const g = ZD.games.find((x) => x.id === m.game);
-    const ee = ZD.sampleEE.map === m.id
-      ? ZD.sampleEE
-      : (ZD.bo7EasterEggs || []).find((item) => item.map === m.id);
+    const ee = [ZD.sampleEE, ...(ZD.classicEasterEggs || []), ...(ZD.bo7EasterEggs || [])]
+      .filter(Boolean)
+      .find((item) => item.map === m.id);
     const hasEE = m.eeCount > 0 || !!ee;
     const gallery = mapGalleryItems(m);
     return (
@@ -4013,7 +4215,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           {hasEE && ee ? (
             <button onClick={() => nav({ name: 'ee', id: ee.id })} className="pap-card pap-card-clickable"
               style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
-              {ee.rewardGif ? <CallingCardReward ee={ee} height={180} /> : <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />}
+              {ee.rewardGif ? (
+                <CallingCardReward ee={ee} height={180} />
+              ) : ee.heroImage ? (
+                <EvidenceImage map={m} image={ee.heroImage} height={180} label={ee.title} kind="MAIN QUEST" tone="red" />
+              ) : (
+                <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />
+              )}
               <div style={{ padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <Stamp tone="red">{ee.difficulty}</Stamp>
@@ -4182,20 +4390,55 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function EEPage({ id, nav }) {
-    const ee = [ZD.sampleEE, ...(ZD.bo7EasterEggs || [])].find((item) => item.id === id) || ZD.sampleEE;
+    const ee = [ZD.sampleEE, ...(ZD.classicEasterEggs || []), ...(ZD.bo7EasterEggs || [])].find((item) => item.id === id) || ZD.sampleEE;
     const m = ZD.maps.find((x) => x.id === ee.map);
     const g = ZD.games.find((x) => x.id === (m && m.game));
     const steps = ee.steps || [];
     const [completed, setCompleted] = useState(() => new Set());
+    const [completedBullets, setCompletedBullets] = useState(() => new Set());
     const [active, setActive] = useState(0);
     if (!steps.length) return <EasterEggUnderConstruction ee={ee} map={m} game={g} nav={nav} />;
-    const toggle = (n) => setCompleted((s) => {
-      const ns = new Set(s);
-      if (ns.has(n)) ns.delete(n); else ns.add(n);
-      return ns;
-    });
+    const bulletKey = (step, index) => step.n + ':' + index;
+    const bulletKeys = (step) => (step.bullets || []).map((_, i) => bulletKey(step, i));
+    const setStepComplete = (step, done) => {
+      setCompleted((s) => {
+        const ns = new Set(s);
+        if (done) ns.add(step.n); else ns.delete(step.n);
+        return ns;
+      });
+      const keys = bulletKeys(step);
+      if (keys.length) {
+        setCompletedBullets((s) => {
+          const ns = new Set(s);
+          keys.forEach((key) => { if (done) ns.add(key); else ns.delete(key); });
+          return ns;
+        });
+      }
+    };
+    const toggle = (n) => {
+      const step = steps.find((item) => item.n === n);
+      if (step) setStepComplete(step, !completed.has(n));
+    };
+    const activeStep = steps[active];
+    const activeImages = activeStep.images || (activeStep.image ? [activeStep.image] : []);
+    const activeStepDone = completed.has(activeStep.n);
+    const toggleBullet = (step, index) => {
+      const key = bulletKey(step, index);
+      setCompletedBullets((s) => {
+        const ns = new Set(s);
+        if (ns.has(key)) ns.delete(key); else ns.add(key);
+        const keys = bulletKeys(step);
+        const allDone = keys.length > 0 && keys.every((item) => ns.has(item));
+        setCompleted((current) => {
+          const next = new Set(current);
+          if (allDone) next.add(step.n); else next.delete(step.n);
+          return next;
+        });
+        return ns;
+      });
+    };
     const advance = () => {
-      toggle(steps[active].n);
+      setStepComplete(activeStep, true);
       if (active < steps.length - 1) setActive(active + 1);
     };
     return (
@@ -4204,13 +4447,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name,to:{name:'map',id:m.id}},{label:ee.title}]}
           kicker={'Main Quest · ' + m.name + ' · ' + g.code}
           title={ee.title}
-          sub={ee.summary}
+          sub={ee.id === 'ascension-casimir-mechanism' ? '' : ee.summary}
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
           <Stamp tone="red">{ee.difficulty}</Stamp>
           <Stamp tone="yellow">{ee.duration}</Stamp>
           <Stamp tone="green">{ee.party}</Stamp>
+          {(ee.requirements || []).map((item) => <Stamp key={item} tone="yellow">{item}</Stamp>)}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
           <div>
@@ -4250,20 +4494,52 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             </div>
           </div>
           <div>
-            <Slot w="100%" h={300} label={'Step ' + steps[active].n + ' — ' + steps[active].title} kind={'STEP ' + steps[active].n} tone="red" />
+            {activeImages.length > 0 ? (
+              <div style={{ display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
+                {activeImages.map((image, i) => (
+                  <EvidenceImage
+                    key={(image.file || 'image') + '-' + i}
+                    map={m}
+                    image={image}
+                    height={image.height || (activeImages.length === 1 ? 300 : 170)}
+                    label={image.label || (activeStep.title + ' reference ' + String(i + 1))}
+                    kind={image.kind || ('STEP ' + activeStep.n)}
+                    tone="red"
+                    showOverlay={image.showOverlay !== false}
+                  />
+                ))}
+              </div>
+            ) : (
+              <Slot w="100%" h={300} label={'Step ' + activeStep.n + ' - ' + activeStep.title} kind={'STEP ' + activeStep.n} tone="red" />
+            )}
             <div style={{ marginTop: 22 }}>
-              <Mono color={T.e115} letter={2.5}>{'Step ' + steps[active].n + ' of ' + steps.length}</Mono>
-              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{steps[active].title}</h2>
-              <p style={{ fontFamily: T.sans, fontSize: 16.5, color: T.bone, lineHeight: 1.7, maxWidth: 660 }}>{steps[active].body}</p>
+              <Mono color={T.e115} letter={2.5}>{'Step ' + activeStep.n + ' of ' + steps.length}</Mono>
+              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{activeStep.title}</h2>
+              {activeStep.body && <p style={{ fontFamily: T.sans, fontSize: 16.5, color: activeStepDone ? T.mute : T.bone, lineHeight: 1.7, maxWidth: 660, margin: '0 0 16px', textDecoration: activeStepDone ? 'line-through' : 'none' }}>{activeStep.body}</p>}
+              {activeStep.bullets && activeStep.bullets.length > 0 && (
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 9, maxWidth: 720 }}>
+                  {activeStep.bullets.map((item, i) => {
+                    const bulletDone = activeStepDone || completedBullets.has(bulletKey(activeStep, i));
+                    return (
+                    <li key={item}>
+                      <button type="button" onClick={() => toggleBullet(activeStep, i)}
+                        style={{ display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr)', gap: 11, alignItems: 'baseline', width: '100%', padding: 0, border: 0, background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: T.sans, fontSize: 16, lineHeight: 1.55, color: bulletDone ? T.mute : T.bone }}>
+                        <span aria-hidden style={{ width: 13, height: 13, border: `1px solid ${bulletDone ? T.e115 : T.lineHi}`, background: bulletDone ? T.e115 : 'transparent', color: T.bg0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 5, fontFamily: T.display, fontSize: 10, fontWeight: 700 }}>{bulletDone ? '✓' : ''}</span>
+                        <span style={{ textDecoration: bulletDone ? 'line-through' : 'none' }}>{item}</span>
+                      </button>
+                    </li>
+                  );})}
+                </ul>
+              )}
             </div>
             <div style={{ display: 'flex', gap: 10, marginTop: 26 }}>
               <button className="pap-btn pap-btn-ghost" disabled={active === 0} onClick={() => setActive(active - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'← Previous'}</button>
-              <button className="pap-btn pap-btn-primary" onClick={advance}>{completed.has(steps[active].n) ? 'Next step →' : 'Mark complete →'}</button>
+              <button className="pap-btn pap-btn-primary" onClick={advance}>{activeStepDone ? 'Next step →' : 'Mark whole step complete →'}</button>
             </div>
             <div style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
               <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-                {ee.rewards.map((r) => <Stamp key={r} tone="yellow">{r}</Stamp>)}
+                {(ee.rewards || []).map((r) => <Stamp key={r} tone="yellow">{r}</Stamp>)}
               </div>
             </div>
           </div>
@@ -4689,7 +4965,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const map = ZD.maps.find((m) => m.id === song.mapId);
     const game = ZD.games.find((g) => g.id === song.gameId);
     const embedUrl = youtubeEmbedUrl(song.videoUrl);
-    const activationShots = songActivationShots(map);
+    const activationShots = songActivationShots(song, map);
     return (
       <div>
         <PageHead
@@ -4745,11 +5021,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               {activationShots.map((shot, i) => (
                 <div key={i}>
                   {shot ? (
-                    <MapImage map={map} file={shot.file} height={170} label={song.name + ' activation ' + String(i + 1)} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} />
+                    <EvidenceImage map={map} image={shot} height={170} label={shot.label || (song.name + ' activation ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} />
                   ) : (
                     <Slot w="100%" h={170} label={'Trigger ' + String(i + 1)} kind="SCREENSHOT NEEDED" tone="yellow" />
                   )}
-                  <Mono color={T.faint} style={{ display: 'block', marginTop: 8 }}>{'Trigger ' + String(i + 1)}</Mono>
+                  <Mono color={T.faint} style={{ display: 'block', marginTop: 8 }}>{shot && shot.label ? shot.label : ('Trigger ' + String(i + 1))}</Mono>
                 </div>
               ))}
             </div>
