@@ -2082,6 +2082,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-vote-leader-row { display: grid; grid-template-columns: 34px 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: ${T.bg1}; border: 1px solid ${T.line}; }
       .pap-vote-leader-row.is-first { background: ${T.e115bg}; border-color: ${T.e115dim}; }
       .pap-vote-rank { font-size: 21px; text-align: center; }
+      .pap-ee-step-list { position: relative; }
+      .pap-ee-step-pill { transition: background .08s, border-color .08s; }
+      .pap-ee-step-pill:hover { background: ${T.bg1}; }
+      .pap-ee-bullet:hover span:last-child { color: ${T.e115}; }
       .pap-btn:disabled { opacity: 0.48; cursor: default; }
       .pap-btn-primary:disabled:hover { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-ghost:disabled:hover { background: transparent; color: ${T.bone}; border-color: ${T.lineHi}; }
@@ -2165,6 +2169,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-song-arrow { grid-column: 3; grid-row: 1; padding-top: 2px; }
         .pap-song-map { grid-column: 2 / 4; grid-row: 2; }
         .pap-song-activation { grid-column: 2 / 4; grid-row: 3; max-width: 64ch; }
+        .pap-ee-layout { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
+        .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+        .pap-ee-step-line { display: none !important; }
+        .pap-ee-step-pill { grid-template-columns: 34px minmax(0, 1fr) !important; padding: 9px !important; border: 1px solid ${T.line} !important; background: ${T.bg1} !important; }
+        .pap-ee-step-pill .pap-stencil { font-size: 14px !important; line-height: 1.05 !important; }
         #root [style*="grid-template-columns: repeat(4, 1fr)"],
         #root [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         #root [style*="grid-template-columns: 1.3fr 1fr"],
@@ -2234,6 +2243,30 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-vote-leader-row { grid-template-columns: 30px 74px minmax(0, 1fr) auto !important; gap: 8px !important; padding: 8px !important; }
         .pap-vote-rank { font-size: 19px !important; }
         .pap-vote-leader-row .pap-stencil { font-size: 18px !important; }
+        .pap-ee-badges { gap: 7px !important; margin-top: 14px !important; }
+        .pap-ee-badges .pap-stamp { transform: none !important; font-size: 9px !important; letter-spacing: 1.2px !important; padding: 4px 7px 3px !important; max-width: 100%; overflow-wrap: anywhere; }
+        .pap-ee-layout { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 24px !important; }
+        .pap-ee-sidebar { order: 1; }
+        .pap-ee-content { order: 2; }
+        .pap-ee-progress { margin-bottom: 14px !important; }
+        .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        .pap-ee-step-line { display: none !important; }
+        .pap-ee-step-pill { grid-template-columns: 30px minmax(0, 1fr) !important; gap: 8px !important; align-items: center !important; padding: 8px !important; border: 1px solid ${T.line} !important; background: ${T.bg1} !important; min-height: 60px; }
+        .pap-ee-step-num { width: 30px !important; height: 30px !important; font-size: 12px !important; }
+        .pap-ee-step-meta { padding-top: 0 !important; }
+        .pap-ee-step-title { font-size: 13px !important; line-height: 1 !important; margin-top: 1px !important; }
+        .pap-ee-images { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
+        .pap-evidence-image { max-width: 100% !important; }
+        .pap-evidence-image[style*="height: 170px"] { height: 138px !important; }
+        .pap-evidence-image[style*="height: 300px"] { height: 210px !important; }
+        .pap-evidence-image .pap-stencil { font-size: clamp(16px, 6vw, 22px) !important; }
+        .pap-ee-step-heading { font-size: clamp(26px, 10vw, 34px) !important; line-height: .95 !important; }
+        .pap-ee-step-body { font-size: 15px !important; line-height: 1.55 !important; }
+        .pap-ee-bullet { grid-template-columns: 18px minmax(0, 1fr) !important; font-size: 14.5px !important; line-height: 1.45 !important; }
+        .pap-ee-actions { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
+        .pap-ee-rewards { margin-top: 24px !important; padding: 14px !important; }
+        .pap-ee-rewards .pap-stamp { transform: none !important; font-size: 9px !important; letter-spacing: 1.2px !important; }
         .pap-chip { min-height: 34px; }
         .pap-card, .term-card { overflow-wrap: anywhere; }
         #root [style*="display: flex"] { flex-wrap: wrap !important; }
@@ -2278,6 +2311,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         #root [style*="gap: 26px"],
         #root [style*="gap: 24px"],
         #root [style*="gap: 22px"] { gap: 18px !important; }
+        #root .pap-ee-layout { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 24px !important; }
+        #root .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        #root .pap-ee-images { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        #root .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
+        #root .pap-evidence-image { max-width: 100% !important; }
+        #root .pap-evidence-image[style*="height: 170px"] { height: 138px !important; }
+        #root .pap-evidence-image[style*="height: 300px"] { height: 210px !important; }
+        #root .pap-ee-actions { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
         .term-shell { font-size: 13.5px !important; }
         .term-shell h1 { font-size: clamp(34px, 14vw, 44px) !important; }
         .term-shell [style*="font-size: 36px"],
@@ -2451,7 +2492,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
     if (image && image.layout === 'natural') {
       return (
-        <div style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
+        <div className="pap-evidence-image" style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
           <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
             style={{ display: 'block', width: '100%', height: 'auto' }} />
           {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.04) 48%, rgba(10,9,8,0.6) 100%)', pointerEvents: 'none' }} />}
@@ -2465,7 +2506,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       );
     }
     return (
-      <div style={{
+      <div className="pap-evidence-image" style={{
         width: '100%', height, position: 'relative', overflow: 'hidden',
         background: T.bg2, border: `1px solid ${T.line}`,
         ...style,
@@ -4450,31 +4491,31 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           sub={ee.id === 'ascension-casimir-mechanism' ? '' : ee.summary}
           nav={nav}
         />
-        <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
+        <div className="pap-ee-badges" style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
           <Stamp tone="red">{ee.difficulty}</Stamp>
           <Stamp tone="yellow">{ee.duration}</Stamp>
           <Stamp tone="green">{ee.party}</Stamp>
           {(ee.requirements || []).map((item) => <Stamp key={item} tone="yellow">{item}</Stamp>)}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
-          <div>
-            <Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + steps.length}</Mono>
+        <div className="pap-ee-layout" style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
+          <div className="pap-ee-sidebar">
+            <div className="pap-ee-progress"><Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + steps.length}</Mono></div>
             <div style={{ height: 4, background: T.line, marginTop: 10, marginBottom: 18, position: 'relative' }}>
               <div style={{ height: '100%', background: T.e115, width: ((completed.size/steps.length)*100) + '%', transition: 'width .2s' }} />
             </div>
-            <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: 16, top: 14, bottom: 14, width: 1, background: T.line }} />
+            <div className="pap-ee-step-list" style={{ position: 'relative' }}>
+              <div className="pap-ee-step-line" style={{ position: 'absolute', left: 16, top: 14, bottom: 14, width: 1, background: T.line }} />
               {steps.map((s, i) => {
                 const done = completed.has(s.n);
                 const isActive = i === active;
                 return (
-                  <button key={s.n} onClick={() => setActive(i)}
+                  <button key={s.n} onClick={() => setActive(i)} className="pap-ee-step-pill"
                     style={{
                       display: 'grid', gridTemplateColumns: '34px 1fr', gap: 12, alignItems: 'flex-start',
                       width: '100%', padding: '10px 0', background: 'transparent', border: 0,
                       cursor: 'pointer', textAlign: 'left', color: T.bone, position: 'relative',
                     }}>
-                    <span onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
+                    <span className="pap-ee-step-num" onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
                       width: 34, height: 34, flexShrink: 0,
                       border: `1.5px solid ${done ? T.e115 : isActive ? T.bone : T.lineHi}`,
                       background: done ? T.e115 : T.bg0,
@@ -4484,18 +4525,18 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                     }}>
                       {done ? '✓' : String(s.n).padStart(2,'0')}
                     </span>
-                    <div style={{ paddingTop: 6 }}>
+                    <div className="pap-ee-step-meta" style={{ paddingTop: 6 }}>
                       <Mono color={isActive ? T.e115 : T.faint}>{'Step ' + s.n}</Mono>
-                      <div className="pap-stencil" style={{ fontSize: 16, color: isActive ? T.bone : T.mute, marginTop: 2, textDecoration: done ? 'line-through' : 'none' }}>{s.title}</div>
+                      <div className="pap-stencil pap-ee-step-title" style={{ fontSize: 16, color: isActive ? T.bone : T.mute, marginTop: 2, textDecoration: done ? 'line-through' : 'none' }}>{s.title}</div>
                     </div>
                   </button>
                 );
               })}
             </div>
           </div>
-          <div>
+          <div className="pap-ee-content">
             {activeImages.length > 0 ? (
-              <div style={{ display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
+              <div className={'pap-ee-images ' + (activeImages.length === 1 ? 'is-single' : 'is-multiple')} style={{ display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
                 {activeImages.map((image, i) => (
                   <EvidenceImage
                     key={(image.file || 'image') + '-' + i}
@@ -4514,15 +4555,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             )}
             <div style={{ marginTop: 22 }}>
               <Mono color={T.e115} letter={2.5}>{'Step ' + activeStep.n + ' of ' + steps.length}</Mono>
-              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{activeStep.title}</h2>
-              {activeStep.body && <p style={{ fontFamily: T.sans, fontSize: 16.5, color: activeStepDone ? T.mute : T.bone, lineHeight: 1.7, maxWidth: 660, margin: '0 0 16px', textDecoration: activeStepDone ? 'line-through' : 'none' }}>{activeStep.body}</p>}
+              <h2 className="pap-stencil pap-ee-step-heading" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{activeStep.title}</h2>
+              {activeStep.body && <p className="pap-ee-step-body" style={{ fontFamily: T.sans, fontSize: 16.5, color: activeStepDone ? T.mute : T.bone, lineHeight: 1.7, maxWidth: 660, margin: '0 0 16px', textDecoration: activeStepDone ? 'line-through' : 'none' }}>{activeStep.body}</p>}
               {activeStep.bullets && activeStep.bullets.length > 0 && (
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 9, maxWidth: 720 }}>
                   {activeStep.bullets.map((item, i) => {
                     const bulletDone = activeStepDone || completedBullets.has(bulletKey(activeStep, i));
                     return (
                     <li key={item}>
-                      <button type="button" onClick={() => toggleBullet(activeStep, i)}
+                      <button type="button" className="pap-ee-bullet" onClick={() => toggleBullet(activeStep, i)}
                         style={{ display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr)', gap: 11, alignItems: 'baseline', width: '100%', padding: 0, border: 0, background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: T.sans, fontSize: 16, lineHeight: 1.55, color: bulletDone ? T.mute : T.bone }}>
                         <span aria-hidden style={{ width: 13, height: 13, border: `1px solid ${bulletDone ? T.e115 : T.lineHi}`, background: bulletDone ? T.e115 : 'transparent', color: T.bg0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 5, fontFamily: T.display, fontSize: 10, fontWeight: 700 }}>{bulletDone ? '✓' : ''}</span>
                         <span style={{ textDecoration: bulletDone ? 'line-through' : 'none' }}>{item}</span>
@@ -4532,11 +4573,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 </ul>
               )}
             </div>
-            <div style={{ display: 'flex', gap: 10, marginTop: 26 }}>
+            <div className="pap-ee-actions" style={{ display: 'flex', gap: 10, marginTop: 26 }}>
               <button className="pap-btn pap-btn-ghost" disabled={active === 0} onClick={() => setActive(active - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'← Previous'}</button>
               <button className="pap-btn pap-btn-primary" onClick={advance}>{activeStepDone ? 'Next step →' : 'Mark whole step complete →'}</button>
             </div>
-            <div style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
+            <div className="pap-ee-rewards" style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
               <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
                 {(ee.rewards || []).map((r) => <Stamp key={r} tone="yellow">{r}</Stamp>)}
