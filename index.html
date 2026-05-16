@@ -1650,14 +1650,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
 
   const gameCopy = {
-    waw: 'The game that started it all. World at War introduced Zombies as a bonus mode with four maps: Nacht der Untoten, Verrückt, Shi No Numa, and Der Riese. Each map added core mechanics — perk machines, the full crew, Hellhounds, teleporters, and Pack-a-Punch.',
-    bo1: 'Black Ops expanded Zombies into a full mode with seven maps spanning the globe and beyond. The Aether storyline took shape as the crew traveled from Kino to the Pentagon, through the cosmodrome and Shangri-La, and ultimately to Moon where Richtofen enacted his grand scheme.',
-    bo2: 'Black Ops II introduced the Victis crew navigating a post-apocalyptic Earth after the Moon rockets, while Mob of the Dead and Origins told standalone stories. Featured buildable items, the bus in TranZit, and the Maxis vs. Richtofen endgame across three tower locations.',
-    bo3: 'Black Ops III followed Primis across the multiverse to collect the souls of their Ultimis counterparts. Featured Gobblegums, Widow\'s Wine, the Apothicon storyline in Shadows of Evil, four elemental bows in Der Eisendrache, and the conclusion of the cycle in Revelations.',
-    bo4: 'Black Ops 4 ran two storylines in parallel: the Aether story concluded with Blood of the Dead and Tag der Toten, while the Chaos story introduced a new crew chasing Sentinel artifacts through IX, Voyage of Despair, Dead of the Night, and Ancient Evil. Featured Elixirs and specialist weapons.',
-    cw: 'Cold War rebooted Zombies with a new Dark Aether storyline. Requiem and Omega Group investigated dimensional breaches across four round-based maps. Introduced weapon rarity, armor, field upgrades, and an open progression system shared with multiplayer.',
-    bo6: 'Black Ops 6 continued the Dark Aether storyline with Maya Aguinaldo and the Requiem team investigating the Order across six maps from Terminus to The Reckoning. Featured Augments for perks, new Ammo Mods, and the return of round-based Zombies mechanics.',
-    bo7: 'Black Ops 7 centers on the relic mechanic — collectible fragments scattered across each map that serve as both objectives and progression. Four maps set in Dark Aether locations, with Ashes of the Damned, Astro Malorum, Paradox Junction, and Totenreich.',
+    waw: 'Call of Duty: World at War. Nacht der Untoten, Verrückt, Shi No Numa, and Der Riese.',
+    bo1: 'Black Ops expanded Zombies into a full mode with seven maps spanning the globe. The Aether storyline took shape as players traveled from Kino to the Pentagon, through the cosmodrome and Shangri-La, and ultimately to Moon where Richtofen enacted his grand scheme.',
+    bo2: 'Black Ops II introduced the Victis crew navigating a post-apocalyptic Earth after the events of the Moon Easter Egg, and featured some of the most iconic maps of all time in Mob of the Dead, and Origins.',
+    bo3: 'Black Ops III followed Primis across the multiverse to collect the souls of their Ultimis counterparts. Featured Gobblegums, Widow\'s Wine, four elemental bows in Der Eisendrache, and the conclusion of the cycle in Revelations.',
+    bo4: 'Black Ops 4 ran two storylines in parallel: the Aether story concluded with Blood of the Dead and Tag der Toten, while the Chaos story introduced a new crew chasing artifacts through IX, Voyage of Despair, Dead of the Night, and Ancient Evil.',
+    cw: 'Cold War began anew with a new Dark Aether storyline. Requiem and Omega Group investigated dimensional breaches across four round-based maps and Outbreak. Introduced weapon rarity, armor, field upgrades, and an open progression system shared with multiplayer.',
+    bo6: 'Black Ops 6 continued the Dark Aether storyline with Maya Aguinaldo and the Requiem team investigating the Order across six maps from Terminus to The Reckoning. It introduced Augments for perks, new Ammo Mods, and the return of round-based Zombies mechanics after MWZ.',
+    bo7: 'Black Ops 7 sucks the characters into the depths of the Dark Aether. As they arrive, Requiem encounters a new version of the original crew. Together they have freed the Shadowsmiths at Ashes of the Damned, Astra Malorum, and Totenreich.',
   };
   Object.entries(gameCopy).forEach(([id, description]) => {
     const g = games.find((x) => x.id === id);
@@ -3013,7 +3013,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return (
       <div>
         {/* HERO with key art background */}
-        <GameHero game={g} nav={nav} mapsIn={mapsIn} />
+        <GameHero game={g} nav={nav} />
 
         {/* ABOUT */}
         {g.description && (
@@ -3149,7 +3149,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function GameHero({ game, nav, mapsIn }) {
+  function GameHero({ game, nav }) {
     const [hover, setHover] = useState(false);
     const [hoverIdx, setHoverIdx] = useState(0);
     const onEnter = () => {
@@ -3174,14 +3174,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <Mono color={T.bone}>{game.year + ' · ' + game.era}</Mono>
             </div>
             <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: 0, textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}>{game.title}</h1>
-            <div style={{ display: 'flex', gap: 22, marginTop: 22, paddingTop: 18, borderTop: `1px solid rgba(232,226,212,0.18)` }}>
-              <BigStat value={mapsIn.length} label="Maps" tone="green" />
-              <BigStat value={mapsIn.reduce((a, m) => a + (m.eeCount || 0), 0)} label="Main EEs" tone="yellow" />
-              <BigStat value={mapsIn.reduce((a, m) => a + ((m.songs && m.songs.length) || 0), 0)} label="Songs" tone="green" />
-              {game.features && game.features.hasRelics && (
-                <BigStat value={mapsIn.reduce((a, m) => a + (m.relicCount || 0), 0)} label="Relics" tone="red" />
-              )}
-            </div>
           </div>
         </div>
         <HazardStripe height={3} style={{ marginTop: 18, opacity: 0.7 }} />
@@ -3851,7 +3843,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <Difficulty value={map.difficulty} />
           </div>
           <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.location}</div>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -4687,7 +4678,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               style={{ width: '100%', padding: 22, textAlign: 'left', background: T.bg1, border: `1px solid ${T.line}`, cursor: 'pointer' }}>
               <Mono color={T.faint}>Map file</Mono>
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{map.name}</div>
-              <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6 }}>{map.location}</div>
             </button>
           </section>
         )}
@@ -5259,7 +5249,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'site/' + map.id}</div>
           <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 2, lineHeight: 1 }}>{map.name}</div>
-          <div style={{ color: C.dim, fontSize: 12.5, marginTop: 4 }}>{map.location}</div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 11, color: C.dim, letterSpacing: 1 }}>
             <span>{'diff ' + map.difficulty + '/5'}</span>
             <span>{'ee ' + map.eeCount}</span>
