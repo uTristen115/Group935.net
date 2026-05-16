@@ -439,7 +439,7 @@
         <div style={{ padding: 14 }}>
           <div style={{ fontFamily: D.mono, fontSize: 9.5, letterSpacing: 1.8, color: D.redInk }}>SITE · {map.location.split(',')[0].toUpperCase()}</div>
           <div style={{ fontFamily: D.type, fontSize: 19, color: D.ink, marginTop: 4, lineHeight: 1.1 }}>{map.name}</div>
-          <div style={{ fontFamily: D.serif, fontSize: 13.5, fontStyle: 'italic', color: D.inkMute, marginTop: 4 }}>“{map.tagline}”</div>
+          <div style={{ fontFamily: D.serif, fontSize: 13.5, fontStyle: 'italic', color: D.inkMute, marginTop: 4 }}>“{map.location}”</div>
           <div style={{ display: 'flex', gap: 8, marginTop: 12, fontFamily: D.mono, fontSize: 9.5, color: D.pencil, letterSpacing: 1.4 }}>
             <span>EE {map.eeCount}</span>
             <span style={{ color: D.inkFaint }}>·</span>
@@ -488,7 +488,7 @@
     const ee = ZD.sampleEE;
     return (
       <div>
-        <PageHead crumbs={['Index', 'Sites', m.name]} title={m.name} sub={m.tagline} />
+        <PageHead crumbs={['Index', 'Sites', m.name]} title={m.name} sub={m.location} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 24, marginBottom: 32 }}>
           <div style={{ position: 'relative' }}>
@@ -899,7 +899,7 @@
       const out = [];
       ZD.maps.forEach((m) => {
         if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'SITE', id: m.id, title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+          out.push({ kind: 'SITE', id: m.id, title: m.name, sub: m.location, route: { name: 'map', id: m.id } });
       });
       ZD.characters.forEach((c) => {
         if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))

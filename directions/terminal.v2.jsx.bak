@@ -222,7 +222,7 @@ Type 'help' or 'man <topic>' to begin.  Use 'logout' to disconnect.`}
               <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
               <span style={{ color: C.dim }}>diff {m.difficulty}/5</span>
               <span style={{ color: C.dim }}>ee {m.eeCount}</span>
-              <span style={{ color: C.dim }}>{m.tagline}</span>
+              <span style={{ color: C.dim }}>{m.location}</span>
             </div>
           ))}
         </div>
@@ -296,7 +296,7 @@ Type 'help' or 'man <topic>' to begin.  Use 'logout' to disconnect.`}
           <span style={{ width: 60, display: 'inline-block' }}>ee</span>
           <span style={{ width: 80, display: 'inline-block' }}>relics</span>
           <span style={{ width: 250, display: 'inline-block' }}>name</span>
-          <span>tagline</span>
+          <span>location</span>
         </div>
         <HRule cols={120} />
         {gameMaps.map((m) => (
@@ -306,7 +306,7 @@ Type 'help' or 'man <topic>' to begin.  Use 'logout' to disconnect.`}
             <span style={{ color: C.dim }}>{m.eeCount}</span>
             <span style={{ color: C.dim }}>{m.relicCount}</span>
             <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
-            <span style={{ color: C.dim }}>{m.tagline}</span>
+            <span style={{ color: C.dim }}>{m.location}</span>
           </div>
         ))}
       </div>
@@ -566,7 +566,7 @@ Type 'help' or 'man <topic>' to begin.  Use 'logout' to disconnect.`}
           {ZD.maps.slice(0, 6).map((m) => (
             <div key={m.id} className="term-row" style={{ gridTemplateColumns: '180px 1fr', padding: '1px 0' }}>
               <Link onClick={() => setRoute({ name: 'map', id: m.id })}>{m.name}</Link>
-              <span style={{ color: C.dim }}>{m.tagline}</span>
+              <span style={{ color: C.dim }}>{m.location}</span>
             </div>
           ))}
         </div>
@@ -717,7 +717,7 @@ re:    why maxis keeps starting over
       const out = [];
       ZD.maps.forEach((m) => {
         if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'site',    title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+          out.push({ kind: 'site',    title: m.name, sub: m.location, route: { name: 'map', id: m.id } });
       });
       ZD.characters.forEach((c) => {
         if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))

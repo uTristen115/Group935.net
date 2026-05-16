@@ -176,7 +176,7 @@
   function Shell({ route, nav, query, setQuery, mode, setMode, children }) {
     const navItems = [
       { id: 'home',       label: 'Archive' },
-      { id: 'games',      label: 'Sagas' },
+      { id: 'games',      label: 'Games' },
       { id: 'maps',       label: 'Maps' },
       { id: 'characters', label: 'Crew' },
       { id: 'weapons',    label: 'Wonders' },
@@ -294,7 +294,7 @@
                 group935.net · doc {dossierNo()}
               </div>
             </div>
-            <FooterCol title="Archive" links={[['Sagas','games'],['Maps','maps'],['Crew','characters']]} nav={nav} />
+            <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Relics','relics']]} nav={nav} />
             <FooterCol title="Reading" links={[['Chronicle','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
           </div>
@@ -404,7 +404,7 @@
             </div>
             <div style={{ flex: 1 }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
-              <BigStat value={ZD.games.length} label="Sagas" tone="green" />
+              <BigStat value={ZD.games.length} label="Games" tone="green" />
               <BigStat value={ZD.maps.length} label="Maps" tone="green" />
               <BigStat value={totalEE} label="Main EEs" tone="yellow" />
               <BigStat value={totalRelics} label="Relics" tone="red" />
@@ -418,7 +418,7 @@
             <div style={{ position: 'absolute', bottom: 18, left: 18, right: 18, background: T.bg0, padding: 18, border: `1px solid ${T.lineHi}` }}>
               <Mono color={T.e115}>★ Featured Intel · {featuredGame.code} {featuredGame.year}</Mono>
               <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{featured.name}</div>
-              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{featured.tagline}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{featured.location}</div>
               <button className="pap-btn pap-btn-ghost" style={{ marginTop: 14, padding: '10px 16px', fontSize: 11.5 }} onClick={() => nav({ name: 'map', id: featured.id })}>
                 Open dossier →
               </button>
@@ -426,13 +426,13 @@
           </div>
         </section>
 
-        {/* Sagas grid */}
+        {/* Games grid */}
         <section style={{ marginBottom: 56 }}>
-          <SectionHead kicker="The Eight Sagas" title="Pick a chapter" action={
-            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>All sagas →</button>
+          <SectionHead kicker="The Games" title="Pick a chapter" action={
+            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>All games →</button>
           } />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {ZD.games.map((g) => <SagaTile key={g.id} game={g} nav={nav} />)}
+            {ZD.games.map((g) => <GameTile key={g.id} game={g} nav={nav} />)}
           </div>
         </section>
 
@@ -453,7 +453,7 @@
     );
   }
 
-  function SagaTile({ game, nav }) {
+  function GameTile({ game, nav }) {
     const mapsIn = ZD.maps.filter((m) => m.game === game.id);
     return (
       <button onClick={() => nav({ name: 'game', id: game.id })} className="pap-card pap-card-clickable"
@@ -533,8 +533,8 @@
   function Games({ nav }) {
     return (
       <div>
-        <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Sagas'}]}
-          kicker="The Eight Sagas"
+        <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Games'}]}
+          kicker="The Games"
           title="Twenty years, three timelines, one wheel."
           sub="From Nacht der Untoten to Totenreich — all eight Treyarch entries arranged in canon order. Each opens to its maps." nav={nav} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginTop: 32 }}>
@@ -543,7 +543,7 @@
             return (
               <button key={g.id} onClick={() => nav({ name: 'game', id: g.id })} className="pap-card pap-card-clickable"
                 style={{ display: 'grid', gridTemplateColumns: '180px 1fr', padding: 0, color: T.bone, textAlign: 'left' }}>
-                <Slot w={180} h={200} label={g.code} kind={'SAGA · ' + g.year} tone="green" style={{ borderRight: `1px solid ${T.line}` }} />
+                <Slot w={180} h={200} label={g.code} kind={'GAME · ' + g.year} tone="green" style={{ borderRight: `1px solid ${T.line}` }} />
                 <div style={{ padding: 22, display: 'flex', flexDirection: 'column' }}>
                   <Mono color={T.e115} letter={2}>{g.code} · {g.year}</Mono>
                   <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 6 }}>{g.title}</div>
@@ -566,15 +566,15 @@
   // ─── GAME DETAIL ──────────────────────────────────────────────────────
   function Game({ id, nav }) {
     const g = ZD.games.find((x) => x.id === id);
-    if (!g) return <NotFound nav={nav} what="Saga" />;
+    if (!g) return <NotFound nav={nav} what="Game" />;
     const mapsIn = ZD.maps.filter((m) => m.game === id);
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Sagas',to:{name:'games'}},{label:g.title}]}
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Games',to:{name:'games'}},{label:g.title}]}
           kicker={g.code + ' · ' + g.year + ' · ' + g.era}
           title={g.title}
-          sub={`${mapsIn.length} of ${g.mapCount} maps catalogued in this saga.`}
+          sub={`${mapsIn.length} of ${g.mapCount} maps catalogued in this game.`}
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
@@ -600,7 +600,7 @@
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
           kicker={`${ZD.maps.length} catalogued sites`}
           title="All Maps"
-          sub="Every Treyarch Zombies map in canon order. Filter by saga, sort by canon, name, or difficulty."
+          sub="Every Treyarch Zombies map in canon order. Filter by game, sort by canon, name, or difficulty."
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -637,7 +637,7 @@
             <Difficulty value={map.difficulty} />
           </div>
           <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.location}</div>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -670,7 +670,7 @@
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name}]}
           kicker={g.code + ' · ' + g.year + ' · ' + g.era}
           title={m.name}
-          sub={m.tagline}
+          sub={m.location}
           nav={nav}
         />
 
@@ -682,7 +682,7 @@
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
 
             <IntelRow label="Designation" value={m.name} />
-            <IntelRow label="Saga" value={g.title + ' · ' + g.code} />
+            <IntelRow label="Game" value={g.title + ' · ' + g.code} />
             <IntelRow label="Location" value={m.location} />
             <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
             <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
@@ -766,9 +766,9 @@
           </div>
         </section>
 
-        {/* other maps in this saga */}
+        {/* other maps in this game */}
         <section style={{ marginTop: 40 }}>
-          <SectionHead kicker="Other sites in this saga" title="Continue" action={
+          <SectionHead kicker="Other sites in this game" title="Continue" action={
             <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }}
               onClick={() => nav({ name: 'game', id: g.id })}>All in {g.code} →</button>
           } />
@@ -982,7 +982,7 @@
       <div>
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Wonder Weapons'}]}
-          kicker="Catalogued Aetheric Ordinance"
+          kicker="Catalogued Weapons"
           title="Wonder Weapons"
           sub="Group 935 prototypes, Soviet derivatives, and Aether-era successors. Each entry pinned to its origin site."
           nav={nav}
@@ -1021,7 +1021,7 @@
                 {p.id.toUpperCase().slice(0, 3)}
               </div>
               <div className="pap-stencil" style={{ fontSize: 18, color: T.bone, marginTop: 16, textAlign: 'center' }}>{p.name}</div>
-              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.e115, marginTop: 6, textAlign: 'center' }}>{p.tagline}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 13, color: T.e115, marginTop: 6, textAlign: 'center' }}>{p.effect}</div>
               <p style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.55, marginTop: 12 }}>{p.summary}</p>
             </div>
           ))}
@@ -1197,7 +1197,7 @@
       const out = [];
       ZD.maps.forEach((m) => {
         if (m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q) || (m.tags || []).some((t) => t.includes(q)))
-          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.tagline });
+          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.location });
       });
       ZD.games.forEach((g) => {
         if (g.title.toLowerCase().includes(q) || g.era.toLowerCase().includes(q))
@@ -1213,7 +1213,7 @@
       });
       ZD.perks.forEach((p) => {
         if (p.name.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q))
-          out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.tagline });
+          out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.effect });
       });
       return out;
     }, [q]);
@@ -1224,7 +1224,7 @@
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Search'}]}
           kicker={`${hits.length} result${hits.length === 1 ? '' : 's'}`}
           title={q ? `"${query}"` : 'Search the archive'}
-          sub={q ? 'Matches across maps, sagas, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
+          sub={q ? 'Matches across maps, games, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
           nav={nav}
         />
         {!q && (

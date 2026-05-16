@@ -97,62 +97,62 @@ window.ZD = (function () {
       imgDir: 'Black Ops 7',        imgBase: 'CoDBO7.png', imgHover: ['CoDBO7Z.png'] },
   ];
   const maps = [
-    { id: 'nacht',     game: 'waw', name: 'Nacht der Untoten', tagline: 'Where it all began.', location: 'Unknown bunker, 1945', difficulty: 1, eeCount: 0, relicCount: 0, summary: 'A four-room shell of a downed bomber crew’s last stand. No perks, no Pack-a-Punch, no story beats — just boarded windows and a wall buy. The map that quietly established every rule the franchise would later break.', tags: ['classic', 'survival', 'origin'] },
-    { id: 'verruckt',  game: 'waw', name: 'Verrückt', tagline: 'The asylum where the first crew were broken.', location: 'Wittenau Sanatorium, Berlin, 1945', difficulty: 2, eeCount: 0, relicCount: 0, summary: 'A test site for Element 115 experimentation on captured soldiers. Introduced perk machines and the screaming runner zombies that would haunt every later map. Hidden radios hint at the four prisoners who became Primis.', tags: ['classic', 'perks', 'lore'] },
-    { id: 'shino',     game: 'waw', name: 'Shi No Numa', tagline: 'The swamp that swallowed Division 9.', location: 'Rising Sun Facility, Imperial Japan', difficulty: 2, eeCount: 0, relicCount: 0, summary: 'A Japanese 115 research outpost overrun by Hellhounds and its own staff. First map with the full crew — Dempsey, Nikolai, Takeo, Richtofen — and the first signs that one of them is conducting the others.', tags: ['classic', 'crew-debut', 'hellhounds'] },
-    { id: 'derriese',  game: 'waw', name: 'Der Riese', tagline: 'The Giant. The teleporters. The Pack-a-Punch.', location: 'Group 935 main facility, Breslau', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Group 935’s flagship factory and the cradle of every staple weapon. The first map with a real Easter egg — Fly Trap — forcing the crew to power three teleporters that will scatter them across time.', tags: ['classic', 'teleporter', 'pack-a-punch'] },
-    { id: 'kino',      game: 'bo1', name: 'Kino der Toten', tagline: 'A theatre in the shadow of the bomb.', location: 'Abandoned cinema, East Germany, 1960s', difficulty: 2, eeCount: 1, relicCount: 0, summary: 'The new home of the rebuilt crew after Group 935’s collapse. Behind the projection booth, a teleporter pad and a film reel of corpses suggest the theatre is also a Samantha-controlled stage.', tags: ['classic', 'teleporter', 'samantha'] },
-    { id: 'ascension', game: 'bo1', name: 'Ascension', tagline: 'A monkey, a rocket, and Gersh.', location: 'Soviet cosmodrome, 1963', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Dr. Gersh is trapped in a containment device and asks the crew to free him so he can fight the Vril‑ya from inside. Introduces the PhD Flopper perk and the Gersch Device — a portable singularity grenade.', tags: ['perks', 'space-monkeys', 'wonder-grenade'] },
-    { id: 'moon',      game: 'bo1', name: 'Moon', tagline: 'The crew breaks the Earth to save it.', location: 'Griffin Station, lunar far side', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'The endgame of the Original timeline. Richtofen completes a four‑rocket ritual that swaps his soul into the Aether, leaving the rest of the crew with a fractured planet and three missile craters where home used to be.', tags: ['endgame', 'space', 'great-leap'] },
-    { id: 'origins',   game: 'bo2', name: 'Origins', tagline: 'A Generation Station’s last stand in 1918.', location: 'Excavation Site 64, Northern France', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Before the timeline was bent into Aether, four soldiers digging into a 115‑seeded battlefield are visited by Dr. Maxis and pulled into the cycle that will become the Aether Story. The four Elemental Staves are forged here.', tags: ['primis', 'elemental-staves', 'time-loop'] },
-    { id: 'shadows',   game: 'bo3', name: 'Shadows of Evil', tagline: 'A city remade for the Apothicons.', location: 'Morg City, 1940s', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Four strangers — a magician, a femme fatale, a boxer, and a cop — are pulled into a pocket dimension as a beacon for an invasion. The first map to introduce Gobblegums and the squid‑tendrilled Apothicon design language.', tags: ['noir', 'apothicons', 'gobblegums'] },
-    { id: 'eisendrache', game: 'bo3', name: 'Der Eisendrache', tagline: 'The Iron Dragon.', location: 'Austrian mountain castle, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'A medieval fortress retrofitted by Group 935 as a launch site. Primis chase a soul down via the Bows of Light, Void, Fire, and Wolf — each forged in a separate ritual across the keep.', tags: ['castle', 'bows', 'primis'] },
-    { id: 'mob',       game: 'bo3', name: 'Mob of the Dead', tagline: 'A purgatory loop on the Rock.', location: 'Alcatraz Island, 1933', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Four gangsters wake up in their own execution night and replay it endlessly until they break the cycle. The Golden Spork and the Acid Gat Kit live here, and the bridge can be built — but should it be?', tags: ['purgatory', 'acidgat', 'noir'] },
-    { id: 'revelations', game: 'bo3', name: 'Revelations', tagline: 'The House.', location: 'The Aether', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A patchwork of every prior map stitched into a single battlefield as the Shadowman makes his last play and the Summoning Key changes hands one final time. The end of the Aether Story — and the birth of the cycle.', tags: ['endgame', 'patchwork', 'cycle'] },
-    { id: 'diemaschine', game: 'cw', name: 'Die Maschine', tagline: 'The Dark Aether bleeds through.', location: 'Projekt Endstation, Morasko, 1984', difficulty: 2, eeCount: 1, relicCount: 6, summary: 'A CIA Requiem team and a Soviet Omega squad both arrive at a buried Group 935 site to find a tear in reality already wide open. First map in the Dark Aether continuity — a fresh start in the same haunted soil.', tags: ['dark-aether', 'requiem', 'reboot'] },
-    { id: 'firebase',  game: 'cw',  name: 'Firebase Z', tagline: 'A jungle base built around the wound.', location: 'Outpost 25, Vietnam, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'Omega has been mining the rift for months. Mimics walk the perimeter. Peck — a name that will matter — is interrogated, sliced, and dropped back through.', tags: ['dark-aether', 'mimics', 'peck'] },
-    { id: 'mauer',     game: 'cw',  name: 'Mauer der Toten', tagline: 'The Wall of the Dead.', location: 'East Berlin, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'A divided city, a Klaus, and a defector who has been three things at once. The cleanest map in the Dark Aether era — dense, vertical, and built around a single allied robot you have to assemble.', tags: ['dark-aether', 'klaus', 'urban'] },
-    { id: 'forsaken',  game: 'cw',  name: 'Forsaken', tagline: 'A theme park hiding an Elder.', location: 'Ural Mountains, 1984', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'Built on top of an Omega facility built on top of a rift. The closing chapter of Requiem ends with Maxis on the other side, the Forsaken sealed, and the Sentinel Artifact on a plane headed somewhere very specific.', tags: ['dark-aether', 'finale', 'elder'] },
-    { id: 'terminus',  game: 'bo6', name: 'Terminus', tagline: 'A black‑site island that should not exist.', location: 'Atlantic prison facility, 1991', difficulty: 3, eeCount: 1, relicCount: 6, summary: 'Maya Aguinaldo is pulled into a CIA detention site to find her brother and ends up cracking open the seal on something the Sentinel Artifact has been keeping quiet for seven years.', tags: ['bo6', 'terminus', 'maya'] },
-    { id: 'liberty',   game: 'bo6', name: 'Liberty Falls', tagline: 'A small town with a very big problem.', location: 'West Virginia, 1991', difficulty: 2, eeCount: 1, relicCount: 6, summary: 'A controlled outbreak in an unimportant town becomes uncontrolled when Edward Richtofen — the new one — turns out to be running the operation he’s briefing the team about.', tags: ['bo6', 'small-town', 'richtofen'] },
-    { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', tagline: 'A French castle and four swords.', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'Templar relics, an elemental sword for each member of the team, and a knight who has been waiting a very long time to swing one. The most ritual‑heavy map of the BO6 cycle.', tags: ['bo6', 'castle', 'elemental-swords'] },
-    { id: 'tomb',      game: 'bo6', name: 'The Tomb', tagline: 'Beneath the cathedral.', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: 'A buried Order site. The Staff of Ice returns in modified form. The map closes the BO6 arc and opens the door for the Relics that BO7 is built around.', tags: ['bo6', 'underground', 'staff'] },
-    { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', tagline: 'A scorched city of the in‑between.', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: 'The first BO7 map drops the team inside a Dark Aether reflection of a city that never finished being built. Nine relics are hidden across the ruins, and one of them is not where the map says it is.', tags: ['bo7', 'dark-aether', 'relics'] },
-    { id: 'astro',     game: 'bo7', name: 'Astro Malorum', tagline: 'An observatory at the edge of the rift.', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: 'A relic‑first map: no full main quest yet, six relics, and a sky that quietly shows the constellation pattern needed to align them.', tags: ['bo7', 'relics', 'observatory'] },
-    { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', tagline: 'A train station that exits into itself.', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: 'Three relics, four platforms, and a clock that runs differently on each. The lightest BO7 map and the easiest to learn the relic mechanic on.', tags: ['bo7', 'relics', 'liminal'] },
-    { id: 'totenreich',game: 'bo7', name: 'Totenreich', tagline: 'A realm of the dead, mid‑construction.', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: 'Six relics and a clear sign that someone on the other side is using them as load‑bearing pieces of architecture. The most ominous BO7 map currently catalogued.', tags: ['bo7', 'relics', 'finale-hint'] },
+    { id: 'nacht',     game: 'waw', name: 'Nacht der Untoten', location: 'Unknown bunker, 1945', difficulty: 1, eeCount: 0, relicCount: 0, summary: '', tags: ['classic', 'survival', 'origin'] },
+    { id: 'verruckt',  game: 'waw', name: 'Verrückt', location: 'Wittenau Sanatorium, Berlin, 1945', difficulty: 2, eeCount: 0, relicCount: 0, summary: '', tags: ['classic', 'perks', 'lore'] },
+    { id: 'shino',     game: 'waw', name: 'Shi No Numa', location: 'Rising Sun Facility, Imperial Japan', difficulty: 2, eeCount: 0, relicCount: 0, summary: '', tags: ['classic', 'crew-debut', 'hellhounds'] },
+    { id: 'derriese',  game: 'waw', name: 'Der Riese', location: 'Group 935 main facility, Breslau', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['classic', 'teleporter', 'pack-a-punch'] },
+    { id: 'kino',      game: 'bo1', name: 'Kino der Toten', location: 'Abandoned cinema, East Germany, 1960s', difficulty: 2, eeCount: 1, relicCount: 0, summary: '', tags: ['classic', 'teleporter', 'samantha'] },
+    { id: 'ascension', game: 'bo1', name: 'Ascension', location: 'Soviet cosmodrome, 1963', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['perks', 'space-monkeys', 'wonder-grenade'] },
+    { id: 'moon',      game: 'bo1', name: 'Moon', location: 'Griffin Station, lunar far side', difficulty: 5, eeCount: 1, relicCount: 0, summary: '', tags: ['endgame', 'space', 'great-leap'] },
+    { id: 'origins',   game: 'bo2', name: 'Origins', location: 'Excavation Site 64, Northern France', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['primis', 'elemental-staves', 'time-loop'] },
+    { id: 'shadows',   game: 'bo3', name: 'Shadows of Evil', location: 'Morg City, 1940s', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['noir', 'apothicons', 'gobblegums'] },
+    { id: 'eisendrache', game: 'bo3', name: 'Der Eisendrache', location: 'Austrian mountain castle, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['castle', 'bows', 'primis'] },
+    { id: 'mob',       game: 'bo3', name: 'Mob of the Dead', location: 'Alcatraz Island, 1933', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['purgatory', 'acidgat', 'noir'] },
+    { id: 'revelations', game: 'bo3', name: 'Revelations', location: 'The Aether', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['endgame', 'patchwork', 'cycle'] },
+    { id: 'diemaschine', game: 'cw', name: 'Die Maschine', location: 'Projekt Endstation, Morasko, 1984', difficulty: 2, eeCount: 1, relicCount: 6, summary: '', tags: ['dark-aether', 'requiem', 'reboot'] },
+    { id: 'firebase',  game: 'cw',  name: 'Firebase Z', location: 'Outpost 25, Vietnam, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: '', tags: ['dark-aether', 'mimics', 'peck'] },
+    { id: 'mauer',     game: 'cw',  name: 'Mauer der Toten', location: 'East Berlin, 1984', difficulty: 3, eeCount: 1, relicCount: 6, summary: '', tags: ['dark-aether', 'klaus', 'urban'] },
+    { id: 'forsaken',  game: 'cw',  name: 'Forsaken', location: 'Ural Mountains, 1984', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['dark-aether', 'finale', 'elder'] },
+    { id: 'terminus',  game: 'bo6', name: 'Terminus', location: 'Atlantic prison facility, 1991', difficulty: 3, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'terminus', 'maya'] },
+    { id: 'liberty',   game: 'bo6', name: 'Liberty Falls', location: 'West Virginia, 1991', difficulty: 2, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'small-town', 'richtofen'] },
+    { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'castle', 'elemental-swords'] },
+    { id: 'tomb',      game: 'bo6', name: 'The Tomb', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'underground', 'staff'] },
+    { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: '', tags: ['bo7', 'dark-aether', 'relics'] },
+    { id: 'astro',     game: 'bo7', name: 'Astro Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
+    { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: '', tags: ['bo7', 'relics', 'liminal'] },
+    { id: 'totenreich',game: 'bo7', name: 'Totenreich', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'finale-hint'] },
   ];
   const characters = [
-    { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: 'Captured by Group 935 during the Pacific campaign and used as Test Subject Alpha. The hammer of the original crew — leads from the front, loud, and the only one of them who genuinely seems to enjoy himself.', quote: null, hue: 16 },
-    { id: 'nikolai',   name: 'Nikolai Belinski',  role: 'Soviet Soldier · Primis',   origin: 'Soviet Union',            summary: 'A bear of a man with five dead wives and a vodka problem on top of an empire problem. Quiet sadness under the bluster — by Tag der Toten he carries the last weight of the crew.', quote: null, hue: 0 },
-    { id: 'takeo',     name: 'Takeo Masaki',      role: 'Imperial Officer · Primis', origin: 'Empire of Japan',         summary: 'Disowned by his Emperor and turned over to Division 9 for experiments. Carries a katana, a code, and the patience to outlast both. The only crew member who consistently asks what the right thing to do is.', quote: null, hue: 40 },
-    { id: 'richtofen', name: 'Edward Richtofen',  role: 'Group 935 · Both Crews',     origin: 'German Empire',           summary: 'Architect of most of it. Primis Richtofen spent the entire saga trying to undo what Ultimis Richtofen had done, and the two of them met exactly long enough for one to shoot the other in the head.', quote: "I do what I do only to secure a better tomorrow.", hue: 280 },
-    { id: 'samantha',  name: 'Samantha Maxis',    role: 'Aether Keeper',                  origin: 'Group 935 facility',      summary: 'A child trapped in an MPD, given near‑omnipotence as a side effect, and made the controller of every zombie horde for most of two timelines. In the Dark Aether continuity she is the team handler — grown, tired, and warning you.', quote: null, hue: 200 },
-    { id: 'maxis',     name: 'Dr. Ludvig Maxis',  role: 'Group 935 · Voice in the Static', origin: 'Germany',           summary: 'A father who tried to save his daughter, lost his head, and spent the next several decades as a disembodied voice issuing orders over loudspeakers, radios, and broken pylons.', quote: null, hue: 220 },
-    { id: 'marlton',   name: 'Marlton Johnson',   role: 'Survivor · Victis Crew',     origin: 'Hanford, USA',            summary: 'An engineer who survived the Nuketown test by hiding in the wrong bunker — and survived everywhere else by being exhausting to be near. Built half the things Victis needed to keep moving, complained about every one of them. Eventually drafted by Richtofen to ring the Aether towers.', quote: null, hue: 60 },
-    { id: 'misty',     name: 'Abigail “Misty” Briarton', role: 'Survivor · Victis Crew', origin: 'Hanford, Washington', summary: 'Daughter of a Hanford farmer who turned in the first wave. Misty pulled the trigger on her own father and kept walking. The most pragmatic member of Victis, and the only one of them who didn’t lose her grip in the years after the missiles hit.', quote: null, hue: 340 },
-    { id: 'russman',   name: 'Russman',           role: 'Survivor · Victis Crew',     origin: 'Broken Arrow facility',   summary: 'Former Broken Arrow employee. Carried a Maxis chip in his head for the better part of a decade before he understood what it was for. Old, slow, hard to surprise, and never quite tells the others what he already knows.', quote: null, hue: 100 },
-    { id: 'stuhlinger',name: 'Samuel J. Stuhlinger', role: 'Survivor · Victis Crew',  origin: 'Camden, NJ',              summary: 'A taxi driver who ate something he shouldn’t have during the early collapse — Richtofen’s signal arrived shortly after. The crew’s reluctant conduit between the dead and the living, and the only one of them with a foot on each side of the line.', quote: null, hue: 280 },
-    { id: 'maya',      name: 'Maya Aguinaldo',    role: 'Operative · BO6 era',        origin: 'Philippines',             summary: 'Joined Requiem looking for her brother and stayed when she realised the people running it were lying about almost everything. The protagonist the Dark Aether arc deserved.', quote: null, hue: 320 },
-    { id: 'weaver',    name: 'Grigori Weaver',    role: 'Requiem Lead',                   origin: 'Eastern Bloc defector',   summary: 'Eye‑patched cold warrior running the CIA’s ghost division. Trusts no one, has reason not to, and is the only person in the entire arc who reads every classified document before signing it.', quote: null, hue: 100 },
+    { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: '', quote: null, hue: 16 },
+    { id: 'nikolai',   name: 'Nikolai Belinski',  role: 'Soviet Soldier · Primis',   origin: 'Soviet Union',            summary: '', quote: null, hue: 0 },
+    { id: 'takeo',     name: 'Takeo Masaki',      role: 'Imperial Officer · Primis', origin: 'Empire of Japan',         summary: '', quote: null, hue: 40 },
+    { id: 'richtofen', name: 'Edward Richtofen',  role: 'Group 935 · Both Crews',     origin: 'German Empire',           summary: '', quote: "I do what I do only to secure a better tomorrow.", hue: 280 },
+    { id: 'samantha',  name: 'Samantha Maxis',    role: 'Aether Keeper',                  origin: 'Group 935 facility',      summary: '', quote: null, hue: 200 },
+    { id: 'maxis',     name: 'Dr. Ludvig Maxis',  role: 'Group 935 · Voice in the Static', origin: 'Germany',           summary: '', quote: null, hue: 220 },
+    { id: 'marlton',   name: 'Marlton Johnson',   role: 'Survivor · Victis Crew',     origin: 'Hanford, USA',            summary: '', quote: null, hue: 60 },
+    { id: 'misty',     name: 'Abigail “Misty” Briarton', role: 'Survivor · Victis Crew', origin: 'Hanford, Washington', summary: '', quote: null, hue: 340 },
+    { id: 'russman',   name: 'Russman',           role: 'Survivor · Victis Crew',     origin: 'Broken Arrow facility',   summary: '', quote: null, hue: 100 },
+    { id: 'stuhlinger',name: 'Samuel J. Stuhlinger', role: 'Survivor · Victis Crew',  origin: 'Camden, NJ',              summary: '', quote: null, hue: 280 },
+    { id: 'maya',      name: 'Maya Aguinaldo',    role: 'Operative · BO6 era',        origin: 'Philippines',             summary: '', quote: null, hue: 320 },
+    { id: 'weaver',    name: 'Grigori Weaver',    role: 'Requiem Lead',                   origin: 'Eastern Bloc defector',   summary: '', quote: null, hue: 100 },
   ];
   const wonderWeapons = [
-    { id: 'raygun',     name: 'Ray Gun',          map: 'Many',             summary: 'The original. A pistol‑sized particle thrower that has appeared on every map since Nacht in some form. Pack‑a‑Punches into the Porter’s X2.' },
-    { id: 'thundergun', name: 'Thundergun',       map: 'Kino der Toten',   summary: 'A two‑barrel concussive wave gun that empties a room in one trigger pull. The crowd‑clearer that defined a generation of late‑round play.' },
-    { id: 'wunderwaffe',name: 'Wunderwaffe DG‑2', map: 'Shi No Numa', summary: 'Group 935’s prototype lightning gun. Chains across nine targets and leaves the crew briefly more electrified than the zombies.' },
-    { id: 'staves',     name: 'Elemental Staves', map: 'Origins',          summary: 'Four staves — Ice, Fire, Lightning, Wind — built from parts scattered across the dig. Each upgrades through a separate ritual.' },
-    { id: 'bows',       name: 'Bows of the Keep', map: 'Der Eisendrache',  summary: 'Four upgraded variants of the wrath‑of‑the‑ancients bow: Wolf, Fire, Void, Storm. The most ritual‑heavy WW chain in the franchise.' },
-    { id: 'rai',        name: 'R.A.I. K‑84', map: 'Die Maschine',     summary: 'A modular Dark Aether‑era replacement for the Ray Gun — three swappable barrels for three damage types.' },
+    { id: 'raygun',     name: 'Ray Gun',          map: 'Many',             summary: '' },
+    { id: 'thundergun', name: 'Thundergun',       map: 'Kino der Toten',   summary: '' },
+    { id: 'wunderwaffe',name: 'Wunderwaffe DG‑2', map: 'Shi No Numa', summary: '' },
+    { id: 'staves',     name: 'Elemental Staves', map: 'Origins',          summary: '' },
+    { id: 'bows',       name: 'Bows of the Keep', map: 'Der Eisendrache',  summary: '' },
+    { id: 'rai',        name: 'R.A.I. K‑84', map: 'Die Maschine',     summary: '' },
   ];
   const perks = [
-    { id: 'jugg', name: 'Juggernog',     tagline: 'Take four hits instead of two.',     summary: 'The single perk you buy first on every map. Doubles your effective health. Cherry‑red can, melodic jingle, and the death of anyone who skips it.' },
-    { id: 'qr',   name: 'Quick Revive',  tagline: 'Get back up faster.',                summary: 'Halves revive times in co‑op; in solo, grants three free self‑revives. The first perk you waste your starting money on in solo.' },
-    { id: 'sc',   name: 'Speed Cola',    tagline: 'Reload twice as fast.',              summary: 'The unglamorous one. You don’t notice it on round 8; you notice its absence on round 32.' },
-    { id: 'ddc',  name: 'Double Tap II', tagline: 'Fire twice. Each shot full damage.', summary: 'Two rounds per trigger pull and they both count. Turns most automatics into one of the best damage perks in the game.' },
-    { id: 'sf',   name: 'Stamin‑Up', tagline: 'Run further, faster.',              summary: 'Increases sprint speed and removes the sprint timer. The perk that lets you train.' },
-    { id: 'mule', name: 'Mule Kick',     tagline: 'Carry a third weapon.',              summary: 'A third primary slot. Buy it last. Lose it first if you go down. Buy it again.' },
-    { id: 'phd',  name: 'PhD Flopper',   tagline: 'Dive to immunity.',                  summary: 'Diving from height creates an explosion. No fall damage, no self‑damage from explosives. The perk people miss the most when it’s gone.' },
-    { id: 'tomb', name: 'Tombstone Soda',tagline: 'Drop a recoverable gravestone.',     summary: 'Down with all your loadout intact and a recoverable grave shows up next round. The reason solo runs feel survivable.' },
+    { id: 'jugg', name: 'Juggernog',     summary: '' },
+    { id: 'qr',   name: 'Quick Revive',                summary: '' },
+    { id: 'sc',   name: 'Speed Cola',              summary: '' },
+    { id: 'ddc',  name: 'Double Tap II', summary: '' },
+    { id: 'sf',   name: 'Stamin‑Up',              summary: '' },
+    { id: 'mule', name: 'Mule Kick',              summary: '' },
+    { id: 'phd',  name: 'PhD Flopper',                  summary: '' },
+    { id: 'tomb', name: 'Tombstone Soda',     summary: '' },
   ];
   const kronoriumText = `IN THE BEGINNING
 There was only the Aether and the Keepers. Among them were two beings who would later be known by many names. One would be known as Doctor Monty, the other as the Shadowman
@@ -1079,29 +1079,84 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   // Keeps the core arrays above clean while letting us attach richer data
   // per game / per map. Edit the entries below to expand the site.
 
+  const bo7EasterEggs = [
+    {
+      id: 'ashes-main-quest',
+      map: 'ashes',
+      mapName: 'Ashes of the Damned',
+      title: 'Ashes of the Damned Main Quest',
+      difficulty: 'Current file',
+      duration: 'BO7',
+      party: 'Reward calling card',
+      summary: 'Defeat Veytharion',
+      rewardLabel: 'Ashes of the Damned calling card',
+      rewardGif: 'AotD.gif',
+    },
+    {
+      id: 'astro-main-quest',
+      map: 'astro',
+      mapName: 'Astra Malorum',
+      title: 'Astra Malorum Main Quest',
+      difficulty: 'Current file',
+      duration: 'BO7',
+      party: 'Reward calling card',
+      summary: 'Defeat Caltheris',
+      rewardLabel: 'Astra Malorum calling card',
+      rewardGif: 'AstraMalorum.gif',
+    },
+    {
+      id: 'paradox-main-quest',
+      map: 'paradox',
+      mapName: 'Paradox Junction',
+      title: 'Paradox Junction Main Quest',
+      difficulty: 'Current file',
+      duration: 'BO7',
+      party: 'Reward calling card',
+      summary: 'Destroy the Black Heart and escape the paradox with the Twins.',
+      rewardLabel: 'Paradox Junction calling card',
+      rewardGif: 'Paradox.gif',
+    },
+    {
+      id: 'totenreich-main-quest',
+      map: 'totenreich',
+      mapName: 'Totenreich',
+      title: 'Totenreich Main Quest',
+      difficulty: 'Current file',
+      duration: 'BO7',
+      party: 'Reward calling card',
+      summary: 'Defeat Dravakar',
+      rewardLabel: 'Totenreich calling card',
+      rewardGif: 'Totenreich.gif',
+    },
+  ];
+  bo7EasterEggs.forEach((ee) => {
+    const map = maps.find((m) => m.id === ee.map);
+    if (map) map.eeCount = Math.max(map.eeCount || 0, 1);
+  });
+
   // Relics are a BO7-only mechanic. Zero out BO6 (was an earlier guess).
   maps.forEach((m) => { if (m.game === 'bo6') m.relicCount = 0; });
 
   // Additional map pages for folders that already have local imagery.
   // These sit here as augmentations so the original seed list stays readable.
   const extraMaps = [
-    { id: 'five', game: 'bo1', name: 'Five', tagline: 'The Pentagon becomes a panic room.', location: 'The Pentagon, Washington D.C., 1963', difficulty: 3, eeCount: 0, relicCount: 0, summary: 'A classified meeting between Kennedy, Nixon, McNamara, and Castro is cut short by the dead. Tight halls, DEFCON switches, and the Pentagon Thief turn a government bunker into one of the strangest survival files in the archive.', tags: ['pentagon', 'classic', 'defcon'] },
-    { id: 'callofthedead', game: 'bo1', name: 'Call of the Dead', tagline: 'A film set at the end of the world.', location: 'Siberian coast, 2011', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Romero production on a frozen coastline gets interrupted by the real thing. The celebrity cast keeps moving through shipwrecks, fog, and lighthouse machinery while Ultimis remains trapped behind a steel door asking for help.', tags: ['celebrity-crew', 'siberia', 'vril'] },
-    { id: 'shangri', game: 'bo1', name: 'Shangri-La', tagline: 'A lost temple that refuses to stay lost.', location: 'Himalayan jungle temple', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Vril temple, a stuck eclipse, and two explorers folded into a time loop. Shangri-La is compact, hostile, and full of moving machinery that turns the map itself into the trap.', tags: ['temple', 'vril', 'time-loop'] },
-    { id: 'tranzit', game: 'bo2', name: 'TranZit', tagline: 'The blasted road between broken towns.', location: 'Hanford, Washington, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Victis wakes up after the missiles and follows a bus route through fog, fire, and half-working infrastructure. It is the first map where the world after Moon feels less like a backdrop and more like the problem.', tags: ['victis', 'bus-route', 'tower'] },
-    { id: 'dierise', game: 'bo2', name: 'Die Rise', tagline: 'The skyline falls upward.', location: 'Shanghai, post-Moon Earth', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A shattered set of skyscrapers leans over the void while Maxis and Richtofen keep pulling Victis in opposite directions. Elevators, buildables, and the Sliquifier turn every route into a risk calculation.', tags: ['victis', 'vertical', 'tower'] },
-    { id: 'buried', game: 'bo2', name: 'Buried', tagline: 'An Old West town under Africa.', location: 'Angolan mine, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'The final Victis tower is hidden in a buried frontier town with ghosts, chalk outlines, and a giant ally who changes the map as much as any weapon does.', tags: ['victis', 'western', 'final-tower'] },
-    { id: 'thegiant', game: 'bo3', name: 'The Giant', tagline: 'Der Riese, altered by one fatal arrival.', location: 'Group 935 facility, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'Primis arrives at the old factory just in time to fracture the familiar timeline. The Giant is Der Riese through the BO3 lens: same teleporters, same factory bones, one gunshot that starts the soul hunt.', tags: ['primis', 'factory', 'teleporter'] },
-    { id: 'zetsubou', game: 'bo3', name: 'Zetsubou No Shima', tagline: 'Division 9 lets the island rot.', location: 'Pohnpei Island, Pacific theater', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Primis follows Takeo to a Division 9 island where plant experiments, spider venom, and 115 have blended into a living swamp. The map is less a facility than an infection with doors.', tags: ['primis', 'division-9', 'swamp'] },
-    { id: 'gorod', game: 'bo3', name: 'Gorod Krovi', tagline: 'Dragons over Stalingrad.', location: 'Stalingrad, 1945', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'Nikolai\'s soul is waiting in a city that never stopped burning. Robots, dragons, manglers, and Group 935 wreckage make Gorod Krovi the loudest, hardest edge of the Primis hunt.', tags: ['primis', 'dragons', 'stalingrad'] },
-    { id: 'ix', game: 'bo4', name: 'IX', tagline: 'The arena wants a sacrifice.', location: 'Roman coliseum, Chaos timeline', difficulty: 3, eeCount: 1, relicCount: 0, summary: 'The Chaos crew enters a ritual arena built for gods, champions, and spectacle. IX turns the map into a circular gauntlet where each tower has its own trial and every chant sounds like a warning.', tags: ['chaos', 'arena', 'trials'], crewIds: ['bruno','diego','scarlet','shaw'] },
-    { id: 'voyage', game: 'bo4', name: 'Voyage of Despair', tagline: 'The Titanic goes down twice.', location: 'RMS Titanic, 1912', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'A Sentinel artifact turns the Titanic into a sealed ritual site. The Chaos crew fights through flooded decks, grand staircases, and a disaster that was already impossible to survive once.', tags: ['chaos', 'titanic', 'sentinel'], crewIds: ['bruno','diego','scarlet','shaw'] },
-    { id: 'blood', game: 'bo4', name: 'Blood of the Dead', tagline: 'Alcatraz remembers the cycle.', location: 'Alcatraz pocket dimension', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'Primis returns to the Rock and finds the old escape plan rotting underneath them. Blood of the Dead reframes Alcatraz as a trap designed for the cycle itself.', tags: ['primis', 'alcatraz', 'cycle'], crewIds: ['dempsey','nikolai','takeo','richtofen'] },
-    { id: 'dotn', game: 'bo4', name: 'Dead of the Night', tagline: 'A manor party with teeth.', location: 'Rhodes estate, England', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'An occult gathering turns into a locked-room outbreak. Vampires, werewolves, and artifact rituals pull the Chaos story into gothic horror.', tags: ['chaos', 'manor', 'occult'], crewIds: ['bruno','diego','scarlet','shaw'] },
-    { id: 'ancientevil', game: 'bo4', name: 'Ancient Evil', tagline: 'Delphi opens beneath the world.', location: 'Delphi, Greece', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The Chaos crew follows the Sentinel trail to Delphi and into a mythic undercity. Ancient Evil pushes the story fully into gods, statues, gauntlets, and a finale that feels carved from stone.', tags: ['chaos', 'delphi', 'gauntlets'], crewIds: ['bruno','diego','scarlet','shaw'] },
-    { id: 'tag', game: 'bo4', name: 'Tag der Toten', tagline: 'The day the old story ends.', location: 'Siberian facility', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The Aether story returns to the frozen coast for its last move. Tag der Toten gathers loose ends, Victis, and the old lighthouse signal into a quiet ending for a very loud cycle.', tags: ['aether', 'siberia', 'finale'], crewIds: ['marlton','misty','russman','stuhlinger'] },
-    { id: 'shatteredveil', game: 'bo6', name: 'Shattered Veil', tagline: 'A manor hides the next breach.', location: 'Liberty Falls perimeter, 1991', difficulty: 4, eeCount: 1, relicCount: 0, summary: 'The BO6 investigation moves from public outbreak to private architecture. Shattered Veil turns a research mansion into a controlled breach where every clean surface is lying.', tags: ['bo6', 'mansion', 'breach'] },
-    { id: 'reckoning', game: 'bo6', name: 'The Reckoning', tagline: 'The facility answers back.', location: 'Janus facility, 1991', difficulty: 5, eeCount: 1, relicCount: 0, summary: 'The Reckoning pushes the BO6 arc into its most hostile facility space: containment rooms, prototype horrors, and the sense that the operation has finally stopped pretending it is under control.', tags: ['bo6', 'facility', 'finale'] },
+    { id: 'five', game: 'bo1', name: 'Five', location: 'The Pentagon, Washington D.C., 1963', difficulty: 3, eeCount: 0, relicCount: 0, summary: '', tags: ['pentagon', 'classic', 'defcon'] },
+    { id: 'callofthedead', game: 'bo1', name: 'Call of the Dead', location: 'Siberian coast, 2011', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['celebrity-crew', 'siberia', 'vril'] },
+    { id: 'shangri', game: 'bo1', name: 'Shangri-La', location: 'Himalayan jungle temple', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['temple', 'vril', 'time-loop'] },
+    { id: 'tranzit', game: 'bo2', name: 'TranZit', location: 'Hanford, Washington, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['victis', 'bus-route', 'tower'] },
+    { id: 'dierise', game: 'bo2', name: 'Die Rise', location: 'Shanghai, post-Moon Earth', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['victis', 'vertical', 'tower'] },
+    { id: 'buried', game: 'bo2', name: 'Buried', location: 'Angolan mine, post-Moon Earth', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['victis', 'western', 'final-tower'] },
+    { id: 'thegiant', game: 'bo3', name: 'The Giant', location: 'Group 935 facility, 1945', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['primis', 'factory', 'teleporter'] },
+    { id: 'zetsubou', game: 'bo3', name: 'Zetsubou No Shima', location: 'Pohnpei Island, Pacific theater', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['primis', 'division-9', 'swamp'] },
+    { id: 'gorod', game: 'bo3', name: 'Gorod Krovi', location: 'Stalingrad, 1945', difficulty: 5, eeCount: 1, relicCount: 0, summary: '', tags: ['primis', 'dragons', 'stalingrad'] },
+    { id: 'ix', game: 'bo4', name: 'IX', location: 'Roman coliseum, Chaos timeline', difficulty: 3, eeCount: 1, relicCount: 0, summary: '', tags: ['chaos', 'arena', 'trials'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'voyage', game: 'bo4', name: 'Voyage of Despair', location: 'RMS Titanic, 1912', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['chaos', 'titanic', 'sentinel'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'blood', game: 'bo4', name: 'Blood of the Dead', location: 'Alcatraz pocket dimension', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['primis', 'alcatraz', 'cycle'], crewIds: ['dempsey','nikolai','takeo','richtofen'] },
+    { id: 'dotn', game: 'bo4', name: 'Dead of the Night', location: 'Rhodes estate, England', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['chaos', 'manor', 'occult'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'ancientevil', game: 'bo4', name: 'Ancient Evil', location: 'Delphi, Greece', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['chaos', 'delphi', 'gauntlets'], crewIds: ['bruno','diego','scarlet','shaw'] },
+    { id: 'tag', game: 'bo4', name: 'Tag der Toten', location: 'Siberian facility', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['aether', 'siberia', 'finale'], crewIds: ['marlton','misty','russman','stuhlinger'] },
+    { id: 'shatteredveil', game: 'bo6', name: 'Shattered Veil', location: 'Liberty Falls perimeter, 1991', difficulty: 4, eeCount: 1, relicCount: 0, summary: '', tags: ['bo6', 'mansion', 'breach'] },
+    { id: 'reckoning', game: 'bo6', name: 'The Reckoning', location: 'Janus facility, 1991', difficulty: 5, eeCount: 1, relicCount: 0, summary: '', tags: ['bo6', 'facility', 'finale'] },
   ];
   extraMaps.forEach((entry) => {
     if (!maps.some((m) => m.id === entry.id)) maps.push(entry);
@@ -1321,7 +1376,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
 
   // Which characters appear in which games (best-effort canon mapping).
-  // Used by the Game detail page's "Crew of this saga" section.
+  // Used by the Game detail page's "Crew of this game" section.
   const appearances = {
     waw: ['dempsey','nikolai','takeo','richtofen'],
     bo1: ['dempsey','nikolai','takeo','richtofen','samantha'],
@@ -1461,13 +1516,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   characters.push(
     // ── Requiem main (BO6/CW) ──
     { id: 'grey',   name: 'Elizabeth Grey',   role: 'Operative · Requiem', origin: 'United Kingdom', faction: 'requiem',
-      summary: 'A Requiem field operative who came up through MI6 before crossing over. Methodical, dry, and the only member of Maya\'s squad with a service record longer than Weaver lets on.',
+      summary: '',
       quote: null, hue: 40,
       portraits: { default: { dir: 'Requiem',             file: 'Requiem_Grey.png',  label: 'Requiem (CW / BO6)' },
                    bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Grey.png',  label: 'Requiem (BO7)' } },
       defaultPortrait: 'default' },
     { id: 'carver', name: 'Mackenzie Carver', role: 'Operative · Requiem', origin: 'United States',  faction: 'requiem',
-      summary: 'A Requiem field operative drawn from Pentagon black ops. Talks less than the others, hits harder. Carver reads the room before anyone else has noticed there is one.',
+      summary: '',
       quote: null, hue: 140,
       portraits: { default: { dir: 'Requiem',             file: 'Requiem_Carver.png',  label: 'Requiem (CW / BO6)' },
                    bo7:     { dir: 'Requiem/Requiem BO7', file: 'Req_BO7_Carver.png',  label: 'Requiem (BO7)' } },
@@ -1475,25 +1530,25 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
     // ── Chaos crew (BO4) ──
     { id: 'bruno',   name: 'Bruno Delacroix',   role: 'Magician · Chaos Crew', origin: 'France', faction: 'chaos',
-      summary: 'A French sleight-of-hand artist and reluctant occultist drawn into the Chaos cycle through a deal he didn\'t read carefully. The closest the crew has to a strategist.',
+      summary: '',
       quote: null, hue: 320,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Bruno.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'diego',   name: 'Diego Necalli',     role: 'Luchador · Chaos Crew', origin: 'Mexico', faction: 'chaos',
-      summary: 'A masked Mexican luchador whose ring persona turned out to be uncomfortably literal once the dead started showing up at his matches.',
+      summary: '',
       quote: null, hue: 20,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Diego.png',   label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'scarlet', name: 'Scarlett Rhodes',   role: 'Adventurer · Chaos Crew', origin: 'United States', faction: 'chaos',
-      summary: 'An American socialite-turned-grave-robber chasing the artefacts her father died for. The first to read the Sentinel inscription out loud.',
+      summary: '',
       quote: null, hue: 0,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Scarlet.png', label: 'Chaos Crew' } }, defaultPortrait: 'default' },
     { id: 'shaw',    name: 'Stanton Shaw',      role: 'Detective · Chaos Crew', origin: 'United States', faction: 'chaos',
-      summary: 'A 1940s American gumshoe who took a missing-persons case in Egypt and ended up partnered with three strangers and a mythology.',
+      summary: '',
       quote: null, hue: 220,
       portraits: { default: { dir: 'Chaos', file: 'Chaos_Shaw.png',    label: 'Chaos Crew' } }, defaultPortrait: 'default' },
 
     // ── Aether story figures (non-playable) ──
     { id: 'monty',     name: 'Dr. Monty',     role: 'Aether Keeper · BO3 finale', origin: 'The Aether', faction: 'aether',
-      summary: 'The voice that runs the wheel. Claims to have made the Aether, perhaps made the cycle, certainly made Primis. Speaks to the crew like an old friend; speaks about them like an exhausted parent.',
+      summary: '',
       quote: null, hue: 200,
       portraits: {
         one:   { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_1.png', label: 'Monty I', objectPosition: 'center 30%' },
@@ -1501,7 +1556,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         three: { dir: 'Non-Playable Main Characters/Dr. Monty', file: 'Dr.Monty_3.png', label: 'Monty III', objectPosition: 'center 30%' },
       }, defaultPortrait: 'one' },
     { id: 'shadowman', name: 'The Shadowman', role: 'Apothicon Avatar · BO3 antagonist', origin: 'The Apothicon plane', faction: 'aether',
-      summary: 'A Keeper turned traitor, exiled to the Apothicon plane and refashioned as their mouthpiece. Spends most of his screen time pretending to be friendlier than he is.',
+      summary: '',
       quote: null, hue: 280,
       portraits: {
         one:   { dir: 'Non-Playable Main Characters/The Shadowman', file: 'Shadowman_1.png', label: 'Shadowman I' },
@@ -1511,26 +1566,26 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
     // ── The Order (BO6 antagonists) ──
     { id: 'director_richtofen', name: 'Edward Richtofen', role: 'Director · The Order', origin: 'Unknown · uses the name', faction: 'order',
-      summary: 'The new Edward. Runs Requiem from a basement office in Langley and briefs Maya on the parts of the Sentinel file he wants her to read. Same surname, same accent, an entirely different problem.',
+      summary: '',
       quote: null, hue: 280,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Director_Richtofen.png', label: 'Director', objectPosition: 'center 25%' } },
       defaultPortrait: 'default' },
 
     // ── Requiem support cast ──
     { id: 'peck',       name: 'Dr. Peck',         role: 'Researcher · Requiem (presumed MIA)', origin: 'Germany', faction: 'support',
-      summary: 'A Requiem researcher whose work was on every desk in the building until the day he wasn\'t. Currently classified as missing, possibly because he is on the wrong side of a rift again.',
+      summary: '',
       quote: null, hue: 60,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Peck.png', label: 'Last on record' } }, defaultPortrait: 'default' },
     { id: 'strauss',    name: 'Dr. Strauss',      role: 'Analyst · Requiem', origin: 'Germany', faction: 'support',
-      summary: 'A Requiem analyst — clipboards, Geiger counters, and an audible sigh whenever Maya brings back an artefact. Survived the cycle this long out of pure stubbornness.',
+      summary: '',
       quote: null, hue: 200,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Strauss.png', label: 'Requiem', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
     { id: 'raptor_one', name: 'Raptor One',       role: 'Callsign · Extraction', origin: 'Classified', faction: 'support',
-      summary: 'Callsign for the Requiem extraction pilot. The voice on the radio when things go wrong. Never seen on a map; always there at the end of one.',
+      summary: '',
       quote: null, hue: 80,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Requiem_Raptor_One.png', label: 'Extraction' } }, defaultPortrait: 'default' },
     { id: 'ravenov',    name: 'Sergei Ravenov',   role: 'Operative · ex-Omega', origin: 'Soviet Union', faction: 'support',
-      summary: 'A former Omega operative who switched sides somewhere between Endstation and the Wall. Has been three things at once, on three different sides, in three different decades.',
+      summary: '',
       quote: null, hue: 0,
       portraits: {
         bocw: { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_BOCW.png', label: 'Cold War (1984)', objectPosition: 'center 25%' },
@@ -1538,57 +1593,56 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         mwz:  { dir: 'Requiem/Side Characters', file: 'Requiem_Ravenov_MWZ.png',  label: 'MWZ',             objectPosition: 'center 25%' },
       }, defaultPortrait: 'bo6' },
     { id: 'sam_ai',     name: 'Samantha (AI)',    role: 'Aether Construct · Requiem briefing', origin: 'Reconstructed', faction: 'aether',
-      summary: 'The Aether keeper\'s voice, retrofitted into a Requiem briefing terminal. Maya hears her on the headset. Grey thinks she\'s a recording. Weaver knows she isn\'t.',
+      summary: '',
       quote: null, hue: 200,
       portraits: { default: { dir: 'Requiem/Side Characters', file: 'Sam_AI.png', label: 'Construct', objectPosition: 'center 25%' } }, defaultPortrait: 'default' },
   );
 
   // Wonder weapons → primary map(s) they originate from. Used to filter
-  // weapons onto their parent saga's page.
-  // Copy pass: keep the site voice closer to a classified field archive.
-  // Quotes are intentionally sparse. If a line is not verified, it is omitted.
+  // weapons onto their parent game's page.
+  // Per-map summary overrides stay blank until owner-written copy is added.
   const mapCopy = {
-    nacht: { tagline: 'Where it all began.', summary: 'Four rooms, boarded windows, and the Mystery Box. No perks, no Pack-a-Punch, no story — just survival in an abandoned bunker. The map that started Zombies.' },
-    verruckt: { tagline: 'The asylum holds more than patients.', summary: 'An abandoned asylum split into two wings. Players start separated and must restore power to reunite. Introduced perk machines (Juggernog, Speed Cola, Quick Revive, Double Tap) and electro-shock traps.' },
-    shino: { tagline: 'The swamp that swallowed Division 9.', summary: 'A Japanese Imperial research facility overrun by the undead and Hellhounds. The first map to feature the full Ultimis crew — Dempsey, Nikolai, Takeo, and Richtofen — and random perk locations.' },
-    derriese: { tagline: 'The Giant. The teleporters. The Pack-a-Punch.', summary: 'Group 935\'s main research facility in Breslau. Introduced teleporters, Pack-a-Punch, and the Fly Trap Easter egg. Three teleporters must be linked to the mainframe to access the Pack-a-Punch machine.' },
-    kino: { tagline: 'The theater of the dead.', summary: 'An abandoned theater in East Germany. The crew arrives via teleporter after the events of Der Riese. Features the teleporter to the projector room, crawler Nova 6 zombies, and a straightforward layout that made it a fan favorite.' },
-    five: { tagline: 'The Pentagon is under attack.', summary: 'An outbreak beneath the Pentagon during a meeting between Kennedy, Nixon, McNamara, and Castro. Features DEFCON switches, elevators between floors, and the Pentagon Thief who steals your weapons.' },
-    ascension: { tagline: 'The cosmodrome has gone dark.', summary: 'A Soviet launch facility where Gersh has been trapped inside a Casimir mechanism. Features space monkeys that steal perks, the Gersch Device black hole grenade, PhD Flopper, and the first major co-op Easter egg to free Gersh.' },
-    callofthedead: { tagline: 'A film crew fights for survival.', summary: 'A frozen Siberian coast where director George Romero and a celebrity cast (Sarah Michelle Gellar, Robert Englund, Danny Trejo, Michael Rooker) fight zombies while Ultimis is trapped behind a locked door. Romero stalks the map as a boss zombie.' },
-    shangri: { tagline: 'A temple lost in time.', summary: 'A dense jungle temple with a stuck eclipse and time-travel mechanics. Features spike traps, napalm and shrieker zombies, the 31-79 JGb215 shrink ray, and an Easter egg to free Brock and Gary from a time loop.' },
-    moon: { tagline: 'The battle moves to Griffin Station.', summary: 'The crew teleports to the Moon and fights through Griffin Station. Features low-gravity areas, astronaut zombie, the Hacker device, Excavators that breach areas, and the Richtofen Grand Scheme Easter egg that ends with the destruction of Earth.' },
-    tranzit: { tagline: 'Ride the bus. Survive the fog.', summary: 'A post-apocalyptic bus route through Hanford County after the Moon missiles hit. Features the automated bus that travels between five locations, Denizens in the fog, lava on the ground, and buildable items including the Jet Gun and the Navcard table.' },
-    dierise: { tagline: 'The skyscrapers of the dead.', summary: 'Two collapsed skyscrapers in post-apocalyptic Shanghai connected by debris and elevators. Features vertical gameplay, the Sliquifier wonder weapon, Who\'s Who perk, and jumping between buildings.' },
-    mob: { tagline: 'No one escapes alive.', summary: 'Four mobsters — Al "Weasel" Arlington, Billy Handsome, Salvatore DeLuca, and Michael "Finn" O\'Leary — trapped in a purgatory loop on Alcatraz Island. Features Afterlife mode, the Hell\'s Retriever tomahawk, the Acid Gat, and building the Icarus plane to escape to the Golden Gate Bridge.' },
-    buried: { tagline: 'A ghost town beneath the earth.', summary: 'An underground Old West mining town in Angola. Features the friendly giant Arthur who breaks barriers, ghosts in the haunted mansion, Vulture Aid perk, the Paralyzer wonder weapon, and chalk weapon outlines. The last Victis map with the final Maxis vs. Richtofen tower.' },
-    origins: { tagline: 'Before the story began.', summary: 'Excavation Site 64 in World War I France where young versions of the crew first meet. Features the four Elemental Staffs (Ice, Fire, Lightning, Wind), Giant Robots that walk across the map, Panzer Soldat boss, and the introduction of Primis.' },
-    shadows: { tagline: 'Morg City has a dark secret.', summary: 'A 1940s noir city where four strangers — Nero the magician, Jessica the femme fatale, Floyd the boxer, and Jack the cop — must perform rituals to survive. Introduced Beast Mode transformation, Gobblegums, the Apothicon Sword, and the Margwa boss.' },
-    thegiant: { tagline: 'The factory, revisited.', summary: 'A reimagined Der Riese where Primis arrives and Richtofen kills his Ultimis self, fracturing the timeline. Same layout with updated visuals, weapons, and the BO3 perk and Gobblegum systems.' },
-    eisendrache: { tagline: 'A castle in the Austrian Alps.', summary: 'A medieval castle repurposed as a Group 935 rocket facility. Features four upgradeable bows (Wolf, Fire, Void, Storm), anti-gravity, the Ragnarok DG-4 gravity spikes, and a Panzer Soldat boss. Players work to collect Dempsey\'s soul.' },
-    zetsubou: { tagline: 'The island is alive.', summary: 'A Division 9 research island in the Pacific overrun by 115-mutated plant life and giant spiders. Features the KT-4 plant-based wonder weapon, spider boss fights, underwater areas, growable plant pods, and Takeo confronting his Ultimis self.' },
-    gorod: { tagline: 'Dragons over a burning city.', summary: 'A war-torn alternate Stalingrad under siege by dragons, giant mechs, and Manglers. Features the GKZ-45 Mk3 wonder weapon, dragon strikes, Sophia the AI, and Nikolai\'s soul being the final piece Primis needs.' },
-    revelations: { tagline: 'Every map. One final battle.', summary: 'A patchwork of iconic locations from Nacht, Shangri-La, Mob, Origins, Verrückt, and Der Eisendrache stitched together in the Aether. Features the Summoning Key, the Keeper Protector, Arnies, the Thundergun, and the final confrontation with the Shadowman.' },
-    ix: { tagline: 'Trial by combat.', summary: 'A Roman-style gladiator arena in the Chaos storyline. Four towers surround a central arena, each with its own champion and challenges. Features the Death of Orion wonder weapon, special weapon upgrades, and crowd affinity that changes the gameplay.' },
-    voyage: { tagline: 'The Titanic meets the undead.', summary: 'The Chaos crew fights through the RMS Titanic as a Sentinel artifact unleashes the dead. Features flooded decks, the Kraken wonder weapon with four elemental upgrades, Pack-a-Punch accessed via portals, and stokers as mini-bosses.' },
-    blood: { tagline: 'Primis returns to the Rock.', summary: 'A reimagined Alcatraz where Primis arrives and discovers the cycle is breaking down. Features the Spectral Shield, the Magmagat, new Afterlife mechanics via the Warden\'s key, and Richtofen\'s sacrifice that changes the Aether story.' },
-    dotn: { tagline: 'A manor party gone wrong.', summary: 'A gothic estate in England where an occult gathering has unleashed vampires, werewolves, and the undead. Features the Alistair\'s Annihilator wonder weapon, silver bullets, Stake Knife, and classic horror enemy types.' },
-    ancientevil: { tagline: 'The gods of Delphi awaken.', summary: 'An underground city beneath Delphi where ancient Greek mythology comes to life. Features four Hand of God gauntlets with elemental powers, Pegasus-like transport, animated statues as enemies, and the finale of the Chaos story.' },
-    tag: { tagline: 'The end of the Aether story.', summary: 'The Victis crew returns to the Siberian coast from Call of the Dead for the final chapter of the Aether storyline. Features the Wunderwaffe DG-Scharfschütze sniper wonder weapon, the Tundragun, and the closing cutscene of the original Zombies saga.' },
-    diemaschine: { tagline: 'The Dark Aether bleeds through.', summary: 'A Requiem strike team investigates Projekt Endstation, a sealed World War II-era particle accelerator in Poland where the Dark Aether dimension was first breached. Features the D.I.E. Shockwave wonder weapon with four upgrades, the Dark Aether portal mechanic, and the Megaton boss.' },
-    firebase: { tagline: 'A jungle outpost on the rift.', summary: 'Requiem deploys to Outpost 25 in Vietnam where Omega Group has been studying a dimensional rift. Features the RAI K-84 wonder weapon, Mimics that disguise as loot, three defense towers to activate, and Dr. Peck as the primary contact.' },
-    mauer: { tagline: 'The Wall of the Dead.', summary: 'East Berlin in 1984, split by the Wall and overrun by zombies. Features Klaus, a buildable allied robot companion, the CRBR-S wonder weapon with multiple upgrade kits, rooftop traversal, ziplines, and the Krasny Soldat boss.' },
-    forsaken: { tagline: 'The finale of the Dark Aether story.', summary: 'A Soviet test site in the Ural Mountains disguised as an American-themed amusement park. Features the Chrysalax wonder weapon, the Abomination boss, arcade machines, and the final confrontation with the Forsaken elder god. Concludes the Cold War Zombies storyline.' },
-    terminus: { tagline: 'A black-site island prison.', summary: 'A remote island prison facility in the Atlantic where Maya Aguinaldo searches for her missing brother. Features underwater sections, the Beamsmasher wonder weapon, the Amalgam boss, and the reintroduction of the Sentinel Artifact from Cold War.' },
-    liberty: { tagline: 'Small-town America under siege.', summary: 'A small West Virginia town experiencing a zombie outbreak. Features an open street layout, the Jet Gun wonder weapon, LTG (Laser Targeting Gun), Mangler enemies, and the revelation that a new Edward Richtofen is behind the operation.' },
-    citadelle: { tagline: 'A French castle and four swords.', summary: 'A medieval castle in the Alsace region tied to the Templar Order. Features four elemental swords to forge and upgrade, a knight ally, the Bastard Sword wonder weapon, and heavy ritual-based gameplay building toward the BO6 finale.' },
-    tomb: { tagline: 'Beneath the cathedral.', summary: 'An underground Order stronghold beneath a cathedral in Eastern Europe. Features the Staff of Ice in a modified form, Templar architecture, and serves as the conclusion of the BO6 Zombies storyline.' },
-    shatteredveil: { tagline: 'The mansion hides a breach.', summary: 'A research mansion on the perimeter of Liberty Falls where a controlled Dark Aether breach has gone wrong. Features indoor/outdoor combat, new enemy types from the breach, and deeper connections to the Order\'s plans.' },
-    reckoning: { tagline: 'The final BO6 facility.', summary: 'The Janus research facility where the BO6 Zombies story reaches its climax. Features prototype Dark Aether weapons, containment rooms, the Uber Klaus and Gorgofex bosses, and the final revelations about the Order\'s endgame.' },
-    ashes: { tagline: 'A scorched city in the Dark Aether.', summary: 'The first BO7 map set inside a Dark Aether reflection of a destroyed city. Features nine relics to find and collect, the Zursa boss, and introduces the relic mechanic that defines the BO7 season.' },
-    astro: { tagline: 'An observatory above the rift.', summary: 'A mountaintop observatory and research station. Features six relics, constellation-based puzzle mechanics, the Oscar boss, and no main quest yet — focused on relic collection and survival.' },
-    paradox: { tagline: 'A train station that loops on itself.', summary: 'A liminal train station where time runs differently on each platform. Features three relics, four platforms, time-based mechanics, and serves as the most accessible introduction to the BO7 relic system.' },
-    totenreich: { tagline: 'A realm of the dead.', summary: 'A Dark Aether realm that appears to be under active construction. Features six relics, the most foreboding atmosphere of the BO7 maps, and hints at a larger structure being assembled from the collected relic fragments.' },
+    nacht: { summary: '' },
+    verruckt: { summary: '' },
+    shino: { summary: '' },
+    derriese: { summary: '' },
+    kino: { summary: '' },
+    five: { summary: '' },
+    ascension: { summary: '' },
+    callofthedead: { summary: '' },
+    shangri: { summary: '' },
+    moon: { summary: '' },
+    tranzit: { summary: '' },
+    dierise: { summary: '' },
+    mob: { summary: '' },
+    buried: { summary: '' },
+    origins: { summary: '' },
+    shadows: { summary: '' },
+    thegiant: { summary: '' },
+    eisendrache: { summary: '' },
+    zetsubou: { summary: '' },
+    gorod: { summary: '' },
+    revelations: { summary: '' },
+    ix: { summary: '' },
+    voyage: { summary: '' },
+    blood: { summary: '' },
+    dotn: { summary: '' },
+    ancientevil: { summary: '' },
+    tag: { summary: '' },
+    diemaschine: { summary: '' },
+    firebase: { summary: '' },
+    mauer: { summary: '' },
+    forsaken: { summary: '' },
+    terminus: { summary: '' },
+    liberty: { summary: '' },
+    citadelle: { summary: '' },
+    tomb: { summary: '' },
+    shatteredveil: { summary: '' },
+    reckoning: { summary: '' },
+    ashes: { summary: '' },
+    astro: { summary: '' },
+    paradox: { summary: '' },
+    totenreich: { summary: '' },
   };
   Object.entries(mapCopy).forEach(([id, copy]) => {
     const m = maps.find((x) => x.id === id);
@@ -1611,32 +1665,32 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
 
   const characterCopy = {
-    dempsey: { quote: null, summary: 'Dempsey is the blunt instrument Group 935 failed to break. Across Ultimis and Primis, he is still the soldier who pushes forward first and asks about the plan only after the room is clear.' },
-    nikolai: { quote: null, summary: 'Nikolai wears the joke until the joke stops working. Under the drinking, the bluster, and the old war stories is the one member of the crew most willing to carry the ending when it finally arrives.' },
-    takeo: { quote: null, summary: 'Takeo is the crew member who keeps trying to turn survival back into duty. Division 9 used him, history punished him, and he still measures every order against honor.' },
-    richtofen: { quote: 'I do what I do only to secure a better tomorrow.', summary: 'Richtofen is the architect and the liability. Ultimis opens doors no one should touch. Primis spends the cycle trying to close them without admitting how much blood the correction will cost.' },
-    samantha: { quote: null, summary: 'Samantha begins as a child trapped inside the machinery everyone else built. The Aether gives her a voice too large for a human life, and the Dark Aether later gives that voice back with scars still on it.' },
-    maxis: { quote: null, summary: 'Maxis is a father, a scientist, and a signal that refuses to die. He spends most of the archive as a voice in speakers and radios, guiding the crew while hiding how much of the path he helped create.' },
-    marlton: { quote: null, summary: 'Marlton survives by understanding systems faster than they can kill him. He is brittle, brilliant, and exactly the sort of person Victis needs when the world is mostly ruined machinery.' },
-    misty: { quote: null, summary: 'Misty is the practical center of Victis. She has already lost enough to know panic wastes time, and she keeps moving even when the voices on the tower lines start sounding less human.' },
-    russman: { quote: null, summary: 'Russman knows more than he says and forgets more than he wants to. Broken Arrow left marks on him, and the Victis journey keeps putting those marks back under the light.' },
-    stuhlinger: { quote: null, summary: 'Stuhlinger is the weak point the Aether learned to use. He hears what the others cannot, obeys what he should not, and becomes the crew\'s unwilling receiver for a dead man with plans.' },
-    maya: { quote: null, summary: 'Maya enters the BO6 file looking for her brother and finds a system built to lie cleanly. She is not the loudest member of the team; she is the one who keeps pulling the thread.' },
-    weaver: { quote: null, summary: 'Weaver runs Requiem like a man who has read every buried report and trusted none of them. He is useful because he expects betrayal before the paperwork arrives.' },
-    grey: { quote: null, summary: 'Grey brings field discipline to problems that refuse to stay scientific. She reads the room, reads the readings, and treats both as evidence.' },
-    carver: { quote: null, summary: 'Carver is the hard edge of the Requiem file: direct, controlled, and usually already moving before anyone finishes describing the threat.' },
-    bruno: { quote: null, summary: 'Bruno understands misdirection well enough to hate being caught in it. The Chaos artifacts pull him into a larger trick, and he spends the file looking for the hand palming the coin.' },
-    diego: { quote: null, summary: 'Diego treats the supernatural like another arena until the arena starts changing rules. His confidence is part mask, part weapon, and not always enough.' },
-    scarlet: { quote: null, summary: 'Scarlett follows her father\'s trail into the parts of history rich people were meant to lock away. She is stubborn enough to keep going after the artifacts start answering back.' },
-    shaw: { quote: null, summary: 'Shaw is the Chaos file\'s investigator by habit and survivor by necessity. He keeps asking the grounded questions while standing in places that make grounded answers impossible.' },
-    monty: { quote: null, summary: 'Monty presents himself as host, keeper, and caretaker. The archive reads him less generously: a being with manners, power, and a very personal interest in keeping the wheel turning.' },
-    shadowman: { quote: null, summary: 'The Shadowman speaks like a guide because traps work better when they sound helpful. Morg City is his stage, and every favor he offers has teeth behind it.' },
-    director_richtofen: { quote: null, summary: 'The Director carries the Richtofen name into a cleaner office and a colder era. He briefs Requiem like a handler, but the file keeps finding old ambitions under new ink.' },
-    peck: { quote: null, summary: 'Peck is the kind of scientist who survives because accountability keeps arriving late. Every era seems to find a use for him, which is not the same as trusting him.' },
-    strauss: { quote: null, summary: 'Strauss belongs to the measurement side of Requiem: counters, samples, projections, and the dawning realization that none of them make the breach safer.' },
-    raptor_one: { quote: null, summary: 'Raptor One is the extraction voice at the edge of the fire. The file rarely shows him, but every team knows what it means when his channel opens.' },
-    ravenov: { quote: null, summary: 'Ravenov moves between enemies, allies, and unfinished debts. His usefulness comes from experience; the danger is that he rarely explains where that experience came from.' },
-    sam_ai: { quote: null, summary: 'Samantha\'s reconstructed voice turns briefing software into something less comfortable than software. Whether it is memory, echo, or warning, Requiem is right to listen carefully.' },
+    dempsey: { quote: null, summary: '' },
+    nikolai: { quote: null, summary: '' },
+    takeo: { quote: null, summary: '' },
+    richtofen: { quote: 'I do what I do only to secure a better tomorrow.', summary: '' },
+    samantha: { quote: null, summary: '' },
+    maxis: { quote: null, summary: '' },
+    marlton: { quote: null, summary: '' },
+    misty: { quote: null, summary: '' },
+    russman: { quote: null, summary: '' },
+    stuhlinger: { quote: null, summary: '' },
+    maya: { quote: null, summary: '' },
+    weaver: { quote: null, summary: '' },
+    grey: { quote: null, summary: '' },
+    carver: { quote: null, summary: '' },
+    bruno: { quote: null, summary: '' },
+    diego: { quote: null, summary: '' },
+    scarlet: { quote: null, summary: '' },
+    shaw: { quote: null, summary: '' },
+    monty: { quote: null, summary: '' },
+    shadowman: { quote: null, summary: '' },
+    director_richtofen: { quote: null, summary: '' },
+    peck: { quote: null, summary: '' },
+    strauss: { quote: null, summary: '' },
+    raptor_one: { quote: null, summary: '' },
+    ravenov: { quote: null, summary: '' },
+    sam_ai: { quote: null, summary: '' },
   };
   Object.entries(characterCopy).forEach(([id, copy]) => {
     const c = characters.find((x) => x.id === id);
@@ -1644,59 +1698,59 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
 
   const weaponCopy = {
-    raygun: 'The baseline miracle weapon: compact, unstable, and somehow present in almost every era. Every later prototype is measured against the sound this thing makes when the room goes green.',
-    thundergun: 'A blunt-force answer to a crowded room. The Thundergun does not burn or cut; it removes the argument from the hallway.',
-    wunderwaffe: 'Group 935 lightning in a portable frame. The DG-2 chains through targets like the factory itself is choosing who gets erased next.',
-    staves: 'Four ancient tools dragged out of mud and machinery. In Origins, the staffs feel less invented than recovered.',
-    bows: 'The Wrath of the Ancients split four ways: storm, wolf, fire, and void. Der Eisendrache turns each upgrade into a confession from the castle.',
-    rai: 'A Dark Aether rifle built like somebody tried to make the Ray Gun behave. It does not behave; it just gives Requiem better paperwork.',
+    raygun: '',
+    thundergun: '',
+    wunderwaffe: '',
+    staves: '',
+    bows: '',
+    rai: '',
   };
   wonderWeapons.forEach((w) => { if (weaponCopy[w.id]) w.summary = weaponCopy[w.id]; });
 
   const perkCopy = {
-    jugg: { tagline: 'The first purchase for a reason.', summary: 'Juggernog is not glamorous. It is the difference between a mistake and a game over screen, which makes it the most honest machine in the room.' },
-    qr: { tagline: 'Second chances, bottled.', summary: 'Quick Revive buys time when the run starts falling apart: faster revives in co-op, self-rescue in solo, and one more chance to pretend the plan still works.' },
-    sc: { tagline: 'Reload before the hallway fills.', summary: 'Speed Cola is boring until it is absent. The reload cut is the kind of advantage players only notice when the horde is already close.' },
-    ddc: { tagline: 'More rounds out, fewer bodies standing.', summary: 'Double Tap turns ordinary guns meaner. The second version is the one everyone remembers: faster fire, extra damage, less forgiveness for anything in front of you.' },
-    sf: { tagline: 'Move like the map is losing patience.', summary: 'Stamin-Up turns distance into a resource. It makes long rotations possible and bad corners survivable.' },
-    mule: { tagline: 'A third weapon, and a third thing to lose.', summary: 'Mule Kick is a luxury until the loadout demands it. Buy it late, protect it carefully, and expect the map to punish you for getting comfortable.' },
-    phd: { tagline: 'Dive first. Explain never.', summary: 'PhD Flopper is explosive immunity with a sense of humor. It makes bad ideas viable, which is why players still miss it.' },
-    tomb: { tagline: 'Leave yourself something to find.', summary: 'Tombstone is insurance for messy rounds: a grave marker, a second attempt, and the faint hope your gear is still where you left it.' },
+    jugg: { summary: '' },
+    qr: { summary: '' },
+    sc: { summary: '' },
+    ddc: { summary: '' },
+    sf: { summary: '' },
+    mule: { summary: '' },
+    phd: { summary: '' },
+    tomb: { summary: '' },
   };
   perks.forEach((p) => { if (perkCopy[p.id]) Object.assign(p, perkCopy[p.id]); });
 
   const perkDetails = [
-    { order: 1, id: 'jugg', name: 'Juggernog', tagline: 'The first purchase for a reason.', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Raises player health and gives mistakes a little more room to breathe.', summary: 'Juggernog is the honest machine: red bottle, blunt promise, and the line between a bad hit and the end of the run.', media: { dir: 'juggernog', hero: 'Juggernog.png', gallery: ['Juggernog_BO7.png','Juggernog_Machine.png'] } },
-    { order: 2, id: 'qr', name: 'Quick Revive', tagline: 'Second chances, bottled.', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Speeds up revives, with solo self-revive behavior in several rule sets.', summary: 'Quick Revive buys time when the run starts falling apart. In co-op it keeps the crew moving; in solo it is the sound of the file staying open.', media: { dir: 'quick-revive', hero: 'QuickRevive.png', gallery: ['QuickRevive_BO7.png','Quick_Revive_WaW_Machine.png','Quick_Revive_BO3_machine.png'] } },
-    { order: 3, id: 'sc', name: 'Speed Cola', tagline: 'Reload before the hallway fills.', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Cuts reload time and keeps pressure weapons from going quiet too long.', summary: 'Speed Cola is boring only when the room is empty. When the reload animation starts and the horde is already close, it becomes one of the loudest perks on the machine line.', media: { dir: 'speed-cola', hero: 'SpeedCola.png', gallery: ['SpeedCola_BO7.png','SpeedCola_Machine.png'] } },
-    { order: 4, id: 'ddc', name: 'Double Tap Root Beer', tagline: 'More rounds out, fewer bodies standing.', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo7'], effect: 'Improves rate of fire in early forms and adds extra projectile output in Double Tap II.', summary: 'Double Tap turns ordinary guns meaner. The second version is the one everyone remembers: faster fire, extra bite, and less forgiveness for anything in front of you.', media: { dir: 'double-tap', hero: 'DoubleTapII.png', gallery: ['DoubleTap.png','DoubleTap_BO7.png','doubletap_Machine.png','DoubleTapII_Machine.png','DoubleTapBO7_Machine.png'] } },
-    { order: 5, id: 'sf', name: 'Stamin-Up', tagline: 'Move like the map is losing patience.', introduced: 'Ascension', mapId: 'ascension', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Raises movement speed and extends sprint stamina.', summary: 'Stamin-Up turns distance into a resource. Long routes become workable, bad corners become survivable, and the map starts feeling less like a cage.', media: { dir: 'stamin-up', hero: 'StaminUp.png', gallery: ['StaminUp_BO7.png','Staminup_BO3_machine.png','Staminup_BO7_machine.png'] } },
-    { order: 6, id: 'phd', name: 'PhD Flopper', tagline: 'Dive first. Explain never.', introduced: 'Ascension', mapId: 'ascension', gameIds: ['bo1','bo2','bo4','cw','bo6','bo7'], effect: 'Protects against explosive and fall damage, with dive-triggered blast behavior in classic rules.', summary: 'PhD Flopper is explosive immunity with a grin. It makes bad ideas viable, which is why players still talk about the machine like it owes them money.', media: { dir: 'phd-flopper', hero: 'PHDFlopper.png', gallery: ['PHDFlopper_BO7.png','PHDFlopper_BO2_Machine.png','PHDFlopper_BO7_Machine.png'] } },
-    { order: 7, id: 'mule', name: 'Mule Kick', tagline: 'A third weapon, and a third thing to lose.', introduced: 'Moon', mapId: 'moon', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Adds a third weapon slot.', summary: 'Mule Kick is luxury until the loadout demands it. Buy it late, protect it carefully, and expect the map to punish you for getting comfortable.', media: { dir: 'mule-kick', hero: 'MuleKick.png', gallery: ['MuleKick_BO7.png','Mule_Kick_BO3_Machine.png','Mule_Kick_BO7_Machine.png'] } },
-    { order: 8, id: 'deadshot-daiquiri', name: 'Deadshot Daiquiri', tagline: 'Aim cleaner. Kill faster.', introduced: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Improves precision and headshot handling, with rule-set-specific aim bonuses.', summary: 'Deadshot Daiquiri is for players who want the archive neat: fewer wasted rounds, cleaner headshots, and less panic in the reticle.', media: { dir: 'deadshot-daiquiri', hero: 'DeadshotDaiquiri.png', gallery: ['DeadshotDaiquiri1.png','DeadshotDaiquiri_BO7.png','DeadshotDaquiri_Machine.png','DeadshotDaquiriBO7_Machine.png'] } },
-    { order: 9, id: 'tomb', name: 'Tombstone Soda', tagline: 'Leave yourself something to find.', introduced: 'TranZit', mapId: 'tranzit', gameIds: ['bo2','cw','bo6','bo7'], effect: 'Creates a recovery path for gear or a second chance after a down, depending on the era.', summary: 'Tombstone is insurance for ugly rounds: a grave marker, a second attempt, and the faint hope your gear is still where you left it.', media: { dir: 'tombstone', hero: 'Tombstone.png', gallery: ['Tombstone_BOCW.png','Tombstone_soda_Machine_BO2.png','Tombstone_soda_Machine_MWZ.png'] } },
-    { order: 10, id: 'whos-who', name: "Who's Who", tagline: 'Revive yourself from the wrong side of the room.', introduced: 'Die Rise', mapId: 'dierise', gameIds: ['bo2'], effect: 'Spawns a temporary duplicate that can revive the downed player.', summary: 'Who\'s Who is Die Rise in a bottle: clever, dangerous, and very willing to turn a rescue into a second emergency.', media: { dir: 'whos-who', hero: 'WhosWho.png', gallery: ['whoswho_Machine_BO2.png'] } },
-    { order: 11, id: 'vulture-aid', name: 'Vulture Aid', tagline: 'See what the dead leave behind.', introduced: 'Buried', mapId: 'buried', gameIds: ['bo2','bo7'], effect: 'Highlights useful objects and causes zombies to drop points, ammo, or concealment clouds.', summary: 'Vulture Aid makes Buried read like a crime scene. The map starts pointing at money, ammo, and the places the dead have not learned to check.', media: { dir: 'vulture-aid', hero: 'VultureAid.png', gallery: ['VultureAid_BO7.png','VultureAid_Machine_BO2.png','VultureAid_Machine_BO7.png'] } },
-    { order: 12, id: 'electric-cherry', name: 'Electric Cherry', tagline: 'Reload with teeth.', introduced: 'Mob of the Dead', mapId: 'mob', gameIds: ['bo2','bo3','bo4'], effect: 'Emits an electric burst while reloading, stronger when the magazine is low.', summary: 'Electric Cherry turns the worst moment in a fight into a trap. Empty magazine, close horde, bright flash, then just enough room to breathe.', media: { dir: 'electric-cherry', hero: 'ElectricCherry.png', gallery: ['electriccherry_Machine.png'] } },
-    { order: 13, id: 'widows-wine', name: "Widow's Wine", tagline: 'Let the hit bite back.', introduced: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], effect: 'Converts grenades into web-like defensive bursts that slow attackers.', summary: 'Widow\'s Wine is defense with a nasty aftertaste. The first zombie to touch you learns the mistake before the rest of the crowd does.', media: { dir: 'widows-wine', hero: 'WidowsWine.png', gallery: ['WidowsWine_Machine_BO3.png'] } },
-    { order: 14, id: 'der-wunderfizz', name: 'Der Wunderfizz', tagline: 'A roulette wheel with a perk logo.', introduced: 'Origins', mapId: 'origins', gameIds: ['bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Dispenses a random or menu-selected perk, depending on the game rules.', summary: 'Der Wunderfizz is not a perk so much as a vending machine with a gambling problem. It belongs anywhere the map wants power without certainty.', media: { dir: 'der-wunderfizz', hero: 'DerWunderfizz.png', gallery: ['DerWunderfizz_MachineBO3.png','DerWunderfizz_MachineBO7.png'] } },
-    { order: 15, id: 'deadshot-dealer', name: 'Deadshot Dealer', tagline: 'A sharper BO4 cut of the headshot perk.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'BO4-era precision perk built around critical hits and accuracy.', summary: 'Deadshot Dealer takes the Daiquiri idea and dresses it for the Chaos-era machines: cleaner aim, colder hands, fewer rounds spent apologizing.', media: { dir: 'deadshot-dealer', hero: 'DeadshotDealer.png', gallery: [] } },
-    { order: 16, id: 'death-perception', name: 'Death Perception', tagline: 'Know where the room is turning bad.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4','cw','bo6','bo7'], effect: 'Improves enemy awareness and highlights threats or resources by era.', summary: 'Death Perception is the uneasy feeling turned useful. It gives shape to danger before the hallway does.', media: { dir: 'death-perception', hero: 'DeathPerception.png', gallery: ['DeathPerception_BO7.png','DeathPerception_Machine.png','DeathPerceptionMachine1_.png'] } },
-    { order: 17, id: 'dying-wish', name: 'Dying Wish', tagline: 'One last second before the file closes.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Prevents a lethal hit and grants a brief survival window before entering cooldown.', summary: 'Dying Wish is not bravery. It is a delayed consequence, and sometimes that delay is all the crew needs.', media: { dir: 'dying-wish', hero: 'DyingWish.png', gallery: [] } },
-    { order: 18, id: 'victorious-tortoise', name: 'Victorious Tortoise', tagline: 'Let the shield do the arguing.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Improves shield protection and triggers a defensive blast when the shield breaks.', summary: 'Victorious Tortoise makes the shield feel official: stand behind it, let the dead waste their momentum, and make the break count.', media: { dir: 'victorious-tortoise', hero: 'VictoriousTortoise.png', gallery: [] } },
-    { order: 19, id: 'stone-cold-stronghold', name: 'Stone Cold Stronghold', tagline: 'Hold ground. Punish the push.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Rewards staying in a marked area with defensive and damage bonuses.', summary: 'Stone Cold Stronghold is for the moments when running stops being the plan. The perk draws a line on the floor and dares the round to cross it.', media: { dir: 'stone-cold-stronghold', hero: 'StoneColdStronghold.png', gallery: [] } },
-    { order: 20, id: 'winters-wail', name: "Winter's Wail", tagline: 'Freeze the mistake before it spreads.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Releases frost bursts that slow or freeze attackers.', summary: 'Winter\'s Wail is damage control in a glass. When the hit lands, the room gets colder and the crew gets a chance to move.', media: { dir: 'winters-wail', hero: 'WintersWail.png', gallery: [] } },
-    { order: 21, id: 'timeslip', name: 'Timeslip', tagline: 'Make the machines hurry up.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Speeds up equipment cooldowns, mystery box use, and several map interactions.', summary: 'Timeslip is impatience with a label. The perk trims the dead time out of the run, which is fitting because the dead keep adding more.', media: { dir: 'timeslip', hero: 'Timeslip.png', gallery: [] } },
-    { order: 22, id: 'ethereal-razor', name: 'Ethereal Razor', tagline: 'Melee range with a meaner edge.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Improves melee damage and range, especially in modifier-style perk setups.', summary: 'Ethereal Razor makes close range feel deliberate instead of desperate. The archive still recommends respecting teeth.', media: { dir: 'ethereal-razor', hero: 'EtherealRazor.png', gallery: [] } },
-    { order: 23, id: 'electric-burst', name: 'Electric Burst', tagline: 'Reload into a discharge.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Creates electric effects tied to reload timing and weapon handling.', summary: 'Electric Burst carries the Electric Cherry idea into a different ruleset: same bad timing for the horde, different bottle.', media: { dir: 'electric-burst', hero: 'ElectricBurst.png', gallery: [] } },
-    { order: 24, id: 'zombshell', name: 'Zombshell', tagline: 'Make the horde worse at being the horde.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Creates debuff zones that slow or weaken nearby enemies.', summary: 'Zombshell is a field hazard wearing a perk label. It turns the floor against the dead and makes crowd control feel chemical.', media: { dir: 'zombshell', hero: 'Zombshell.png', gallery: [] } },
-    { order: 25, id: 'secret-sauce', name: 'Secret Sauce', tagline: 'Spin the perk slot again.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Rolls a random perk into the selected slot.', summary: 'Secret Sauce is a controlled mistake. Sometimes the bottle saves the setup; sometimes it reminds you why menus exist.', media: { dir: 'secret-sauce', hero: 'SecretSauce.png', gallery: [] } },
-    { order: 26, id: 'bandolier-bandit', name: 'Bandolier Bandit', tagline: 'More rounds for longer mistakes.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Increases carried ammunition reserves.', summary: 'Bandolier Bandit is simple in the best way: more ammunition in the pockets, fewer emergency wall buys between rounds.', media: { dir: 'bandolier-bandit', hero: 'BandolierBandit.png', gallery: [] } },
-    { order: 27, id: 'blaze-phase', name: 'Blaze Phase', tagline: 'Charge through the line.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Builds a charge while crouched, then releases a damaging dash.', summary: 'Blaze Phase is not subtle. It asks for a wind-up, gives you a lane, and trusts you to aim the bad decision.', media: { dir: 'blaze-phase', hero: 'Blaze-Phase.png', gallery: [] } },
-    { order: 28, id: 'blood-wolf-bite', name: 'Blood Wolf Bite', tagline: 'A friend with claws, briefly.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Summons Luna to attack nearby enemies after enough kills.', summary: 'Blood Wolf Bite turns momentum into company. When Luna appears, the room learns the perk machine was not speaking figuratively.', media: { dir: 'blood-wolf-bite', hero: 'Blood-Wolf-Bite.png', gallery: [] } },
-    { order: 29, id: 'elemental-pop', name: 'Elemental Pop', tagline: 'Ammo mods, bottled and shuffled.', introduced: 'Die Maschine', mapId: 'diemaschine', gameIds: ['cw','bo6','bo7'], effect: 'Adds random ammo mod effects to weapon fire.', summary: 'Elemental Pop is the Dark Aether era admitting that one damage type was never going to be enough.', media: { dir: 'elemental-pop', hero: 'ElementalPop.png', gallery: ['Elemental_Pop_Machine.png'] } },
-    { order: 30, id: 'phd-slider', name: 'PhD Slider', tagline: 'Slide into the blast radius.', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Turns a charged slide into an explosive impact and protects against self-damage.', summary: 'PhD Slider is Flopper with a BO4 gait. Different movement, same old promise: get reckless and live long enough to laugh about it.', media: { dir: 'phd-slider', hero: 'PhDSlider.png', gallery: [] } },
-    { order: 31, id: 'melee-macchiato', name: 'Melee Macchiato', tagline: 'Put weight behind the punch.', introduced: 'Liberty Falls', mapId: 'liberty', gameIds: ['bo6','bo7'], effect: 'Improves melee power and utility in the Dark Aether ruleset.', summary: 'Melee Macchiato makes close quarters feel less like panic and more like policy. The punch hits harder; the room gets the memo.', media: { dir: 'melee-macchiato', hero: 'MeleeMacchiato_BO7.png', gallery: ['MeleeMacchiato_BO7_Machine.png','MeleeMacchiato_BO7_Machine1.png'] } },
+    { order: 1, id: 'jugg', name: 'Juggernog', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Raises player health and gives mistakes a little more room to breathe.', summary: '', media: { dir: 'juggernog', hero: 'Juggernog.png', gallery: ['Juggernog_BO7.png','Juggernog_Machine.png'] } },
+    { order: 2, id: 'qr', name: 'Quick Revive', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Speeds up revives, with solo self-revive behavior in several rule sets.', summary: '', media: { dir: 'quick-revive', hero: 'QuickRevive.png', gallery: ['QuickRevive_BO7.png','Quick_Revive_WaW_Machine.png','Quick_Revive_BO3_machine.png'] } },
+    { order: 3, id: 'sc', name: 'Speed Cola', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Cuts reload time and keeps pressure weapons from going quiet too long.', summary: '', media: { dir: 'speed-cola', hero: 'SpeedCola.png', gallery: ['SpeedCola_BO7.png','SpeedCola_Machine.png'] } },
+    { order: 4, id: 'ddc', name: 'Double Tap Root Beer', introduced: 'Verruckt', mapId: 'verruckt', gameIds: ['waw','bo1','bo2','bo3','bo7'], effect: 'Improves rate of fire in early forms and adds extra projectile output in Double Tap II.', summary: '', media: { dir: 'double-tap', hero: 'DoubleTapII.png', gallery: ['DoubleTap.png','DoubleTap_BO7.png','doubletap_Machine.png','DoubleTapII_Machine.png','DoubleTapBO7_Machine.png'] } },
+    { order: 5, id: 'sf', name: 'Stamin-Up', introduced: 'Ascension', mapId: 'ascension', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Raises movement speed and extends sprint stamina.', summary: '', media: { dir: 'stamin-up', hero: 'StaminUp.png', gallery: ['StaminUp_BO7.png','Staminup_BO3_machine.png','Staminup_BO7_machine.png'] } },
+    { order: 6, id: 'phd', name: 'PhD Flopper', introduced: 'Ascension', mapId: 'ascension', gameIds: ['bo1','bo2','bo4','cw','bo6','bo7'], effect: 'Protects against explosive and fall damage, with dive-triggered blast behavior in classic rules.', summary: '', media: { dir: 'phd-flopper', hero: 'PHDFlopper.png', gallery: ['PHDFlopper_BO7.png','PHDFlopper_BO2_Machine.png','PHDFlopper_BO7_Machine.png'] } },
+    { order: 7, id: 'mule', name: 'Mule Kick', introduced: 'Moon', mapId: 'moon', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Adds a third weapon slot.', summary: '', media: { dir: 'mule-kick', hero: 'MuleKick.png', gallery: ['MuleKick_BO7.png','Mule_Kick_BO3_Machine.png','Mule_Kick_BO7_Machine.png'] } },
+    { order: 8, id: 'deadshot-daiquiri', name: 'Deadshot Daiquiri', introduced: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1','bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Improves precision and headshot handling, with rule-set-specific aim bonuses.', summary: '', media: { dir: 'deadshot-daiquiri', hero: 'DeadshotDaiquiri.png', gallery: ['DeadshotDaiquiri1.png','DeadshotDaiquiri_BO7.png','DeadshotDaquiri_Machine.png','DeadshotDaquiriBO7_Machine.png'] } },
+    { order: 9, id: 'tomb', name: 'Tombstone Soda', introduced: 'TranZit', mapId: 'tranzit', gameIds: ['bo2','cw','bo6','bo7'], effect: 'Creates a recovery path for gear or a second chance after a down, depending on the era.', summary: '', media: { dir: 'tombstone', hero: 'Tombstone.png', gallery: ['Tombstone_BOCW.png','Tombstone_soda_Machine_BO2.png','Tombstone_soda_Machine_MWZ.png'] } },
+    { order: 10, id: 'whos-who', name: "Who's Who", introduced: 'Die Rise', mapId: 'dierise', gameIds: ['bo2'], effect: 'Spawns a temporary duplicate that can revive the downed player.', summary: '', media: { dir: 'whos-who', hero: 'WhosWho.png', gallery: ['whoswho_Machine_BO2.png'] } },
+    { order: 11, id: 'vulture-aid', name: 'Vulture Aid', introduced: 'Buried', mapId: 'buried', gameIds: ['bo2','bo7'], effect: 'Highlights useful objects and causes zombies to drop points, ammo, or concealment clouds.', summary: '', media: { dir: 'vulture-aid', hero: 'VultureAid.png', gallery: ['VultureAid_BO7.png','VultureAid_Machine_BO2.png','VultureAid_Machine_BO7.png'] } },
+    { order: 12, id: 'electric-cherry', name: 'Electric Cherry', introduced: 'Mob of the Dead', mapId: 'mob', gameIds: ['bo2','bo3','bo4'], effect: 'Emits an electric burst while reloading, stronger when the magazine is low.', summary: '', media: { dir: 'electric-cherry', hero: 'ElectricCherry.png', gallery: ['electriccherry_Machine.png'] } },
+    { order: 13, id: 'widows-wine', name: "Widow's Wine", introduced: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], effect: 'Converts grenades into web-like defensive bursts that slow attackers.', summary: '', media: { dir: 'widows-wine', hero: 'WidowsWine.png', gallery: ['WidowsWine_Machine_BO3.png'] } },
+    { order: 14, id: 'der-wunderfizz', name: 'Der Wunderfizz', introduced: 'Origins', mapId: 'origins', gameIds: ['bo2','bo3','bo4','cw','bo6','bo7'], effect: 'Dispenses a random or menu-selected perk, depending on the game rules.', summary: '', media: { dir: 'der-wunderfizz', hero: 'DerWunderfizz.png', gallery: ['DerWunderfizz_MachineBO3.png','DerWunderfizz_MachineBO7.png'] } },
+    { order: 15, id: 'deadshot-dealer', name: 'Deadshot Dealer', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'BO4-era precision perk built around critical hits and accuracy.', summary: '', media: { dir: 'deadshot-dealer', hero: 'DeadshotDealer.png', gallery: [] } },
+    { order: 16, id: 'death-perception', name: 'Death Perception', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4','cw','bo6','bo7'], effect: 'Improves enemy awareness and highlights threats or resources by era.', summary: '', media: { dir: 'death-perception', hero: 'DeathPerception.png', gallery: ['DeathPerception_BO7.png','DeathPerception_Machine.png','DeathPerceptionMachine1_.png'] } },
+    { order: 17, id: 'dying-wish', name: 'Dying Wish', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Prevents a lethal hit and grants a brief survival window before entering cooldown.', summary: '', media: { dir: 'dying-wish', hero: 'DyingWish.png', gallery: [] } },
+    { order: 18, id: 'victorious-tortoise', name: 'Victorious Tortoise', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Improves shield protection and triggers a defensive blast when the shield breaks.', summary: '', media: { dir: 'victorious-tortoise', hero: 'VictoriousTortoise.png', gallery: [] } },
+    { order: 19, id: 'stone-cold-stronghold', name: 'Stone Cold Stronghold', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Rewards staying in a marked area with defensive and damage bonuses.', summary: '', media: { dir: 'stone-cold-stronghold', hero: 'StoneColdStronghold.png', gallery: [] } },
+    { order: 20, id: 'winters-wail', name: "Winter's Wail", introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Releases frost bursts that slow or freeze attackers.', summary: '', media: { dir: 'winters-wail', hero: 'WintersWail.png', gallery: [] } },
+    { order: 21, id: 'timeslip', name: 'Timeslip', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Speeds up equipment cooldowns, mystery box use, and several map interactions.', summary: '', media: { dir: 'timeslip', hero: 'Timeslip.png', gallery: [] } },
+    { order: 22, id: 'ethereal-razor', name: 'Ethereal Razor', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Improves melee damage and range, especially in modifier-style perk setups.', summary: '', media: { dir: 'ethereal-razor', hero: 'EtherealRazor.png', gallery: [] } },
+    { order: 23, id: 'electric-burst', name: 'Electric Burst', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Creates electric effects tied to reload timing and weapon handling.', summary: '', media: { dir: 'electric-burst', hero: 'ElectricBurst.png', gallery: [] } },
+    { order: 24, id: 'zombshell', name: 'Zombshell', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Creates debuff zones that slow or weaken nearby enemies.', summary: '', media: { dir: 'zombshell', hero: 'Zombshell.png', gallery: [] } },
+    { order: 25, id: 'secret-sauce', name: 'Secret Sauce', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Rolls a random perk into the selected slot.', summary: '', media: { dir: 'secret-sauce', hero: 'SecretSauce.png', gallery: [] } },
+    { order: 26, id: 'bandolier-bandit', name: 'Bandolier Bandit', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Increases carried ammunition reserves.', summary: '', media: { dir: 'bandolier-bandit', hero: 'BandolierBandit.png', gallery: [] } },
+    { order: 27, id: 'blaze-phase', name: 'Blaze Phase', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Builds a charge while crouched, then releases a damaging dash.', summary: '', media: { dir: 'blaze-phase', hero: 'Blaze-Phase.png', gallery: [] } },
+    { order: 28, id: 'blood-wolf-bite', name: 'Blood Wolf Bite', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Summons Luna to attack nearby enemies after enough kills.', summary: '', media: { dir: 'blood-wolf-bite', hero: 'Blood-Wolf-Bite.png', gallery: [] } },
+    { order: 29, id: 'elemental-pop', name: 'Elemental Pop', introduced: 'Die Maschine', mapId: 'diemaschine', gameIds: ['cw','bo6','bo7'], effect: 'Adds random ammo mod effects to weapon fire.', summary: '', media: { dir: 'elemental-pop', hero: 'ElementalPop.png', gallery: ['Elemental_Pop_Machine.png'] } },
+    { order: 30, id: 'phd-slider', name: 'PhD Slider', introduced: 'Black Ops 4', mapId: 'ix', gameIds: ['bo4'], effect: 'Turns a charged slide into an explosive impact and protects against self-damage.', summary: '', media: { dir: 'phd-slider', hero: 'PhDSlider.png', gallery: [] } },
+    { order: 31, id: 'melee-macchiato', name: 'Melee Macchiato', introduced: 'Liberty Falls', mapId: 'liberty', gameIds: ['bo6','bo7'], effect: 'Improves melee power and utility in the Dark Aether ruleset.', summary: '', media: { dir: 'melee-macchiato', hero: 'MeleeMacchiato_BO7.png', gallery: ['MeleeMacchiato_BO7_Machine.png','MeleeMacchiato_BO7_Machine1.png'] } },
   ];
   perkDetails.forEach((entry) => {
     const existing = perks.find((p) => p.id === entry.id);
@@ -1719,40 +1773,40 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
 
   const weaponDetails = [
-    { order: 1, id: 'raygun', name: 'Ray Gun', map: 'Mystery Box staple', mapId: 'nacht', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], type: 'Energy pistol', introduced: 'Nacht der Untoten', summary: 'The archive baseline: compact, loud, unstable, and somehow still in circulation after every program that should have buried it. If a later prototype calls itself a wonder weapon, this is the weapon it has to answer to.', media: { dir: 'ray-gun', hero: 'raygun.png', gallery: [] } },
-    { order: 2, id: 'ray-gun-mk2', name: 'Ray Gun Mark II', map: 'Buried', mapId: 'buried', gameIds: ['bo2','bo3'], type: 'Burst energy rifle', introduced: 'Buried', summary: 'A slimmer, meaner successor to the Ray Gun. The Mark II trades splash panic for hard-line precision, firing a three-round burst that turns a hallway into a clean green stitch.', media: { dir: 'ray-gun-mk2', hero: 'RayGunMkII.png', gallery: [] } },
-    { order: 3, id: 'wunderwaffe', name: 'Wunderwaffe DG-2', map: 'Shi No Numa', mapId: 'shino', gameIds: ['waw','bo1','bo3','bo4'], type: 'Arc lightning cannon', introduced: 'Shi No Numa', summary: 'Group 935 lightning in a portable frame. The DG-2 does not simply kill a target; it makes the surrounding dead part of the same circuit.', media: { dir: 'wunderwaffe-dg2', hero: 'wunderwaffe1.png', gallery: ['wunderwaffe2.png'] } },
-    { order: 4, id: 'wunderwaffe-dg-scharfschutze', name: 'Wunderwaffe DG-Scharfschutze', map: 'Tag der Toten', mapId: 'tag', gameIds: ['bo4'], type: 'Arc sniper variant', introduced: 'Tag der Toten', summary: 'The DG line rebuilt into a long-range instrument for the Siberian file. More controlled than the original, but still carrying the same bad habit of making electricity look hungry.', media: { dir: 'wunderwaffe-dg-scharfschutze', hero: 'Wunderwaffe_DG-scharfschutze.png', gallery: [] } },
-    { order: 5, id: 'thundergun', name: 'Thundergun', map: 'Kino der Toten', mapId: 'kino', gameIds: ['bo1','bo3'], type: 'Concussive wave cannon', introduced: 'Kino der Toten', summary: 'A blunt-force answer to a crowded room. The Thundergun does not burn, cut, or bargain; it removes the argument from the hallway.', media: { dir: 'thundergun', hero: 'thundergun.png', gallery: ['Thundergun1.png'] } },
-    { order: 6, id: 'winters-howl', name: "Winter's Howl", map: 'Five', mapId: 'five', gameIds: ['bo1','bo4'], type: 'Cryogenic sidearm', introduced: 'Five', summary: 'Cold War science with no bedside manner. Winter\'s Howl freezes the dead in place, buying the kind of time that only exists because something worse is already rounding the corner.', media: { dir: 'winters-howl', hero: 'WintersHowl.png', gallery: ['wintershowl1.png'] } },
-    { order: 7, id: 'vr-11', name: 'V-R11', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Vril transformation rifle', introduced: 'Call of the Dead', summary: 'A weapon that treats enemy, human, and decoy as states of matter. The V-R11 is less about raw damage than turning the rules of the horde sideways for a few vital seconds.', media: { dir: 'vr-11', hero: 'VR-11_Player.png', gallery: ['VR-11WW_Side.png'] } },
-    { order: 8, id: 'scavenger', name: 'Scavenger', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Explosive sniper rifle', introduced: 'Call of the Dead', summary: 'A sniper rifle with the manners of artillery. The Scavenger rewards distance, patience, and the clean little pause before the shot turns a crowd into weather.', media: { dir: 'scavenger', hero: 'Scavenger_COTD_WW.png', gallery: ['Scavenger_COTD_WW1.png'] } },
-    { order: 9, id: '31-79-jgb215', name: '31-79 JGb215', map: 'Shangri-La', mapId: 'shangri', gameIds: ['bo1'], type: 'Shrink ray', introduced: 'Shangri-La', summary: 'A temple mechanism disguised as a firearm. The JGb215 compresses the dead into something almost harmless, right up until the crew steps in and finishes the insult.', media: { dir: '31-79-jgb215', hero: '31-79_JGb215_Player.png', gallery: [] } },
-    { order: 10, id: 'wave-gun', name: 'Wave Gun / Zap Guns', map: 'Moon', mapId: 'moon', gameIds: ['bo1'], type: 'Dual-mode energy system', introduced: 'Moon', summary: 'Two pistols when the corridor is personal, one Wave Gun when the whole biodome needs to stop breathing. Griffin Station logged it as equipment. The crew used it like a pressure valve.', media: { dir: 'wave-gun', hero: 'wavegun_player_combined.png', gallery: ['wavegun_side.png','zapgun_player.png'] } },
-    { order: 11, id: 'thrustodyne-m23', name: 'Thrustodyne Aeronautics Model 23', map: 'TranZit / Liberty Falls', mapId: 'tranzit', gameIds: ['bo2','bo6'], type: 'Turbine pressure cannon', introduced: 'TranZit', summary: 'The Jet Gun is half weapon, half workplace accident. When it works, the horde disappears into the intake. When it does not, the archive recommends distance and better judgment.', media: { dir: 'thrustodyne-m23', hero: 'Thrustodyne_Aeronautics_Model_23_Side.png', gallery: [] } },
-    { order: 12, id: 'sliquifier', name: 'Sliquifier', map: 'Die Rise', mapId: 'dierise', gameIds: ['bo2'], type: 'Reactive liquid projector', introduced: 'Die Rise', summary: 'A buildable chemical problem in a map already built out of problems. The Sliquifier turns floor space into a hazard and a weapon at the same time.', media: { dir: 'sliquifier', hero: 'sliquifier_side.png', gallery: [] } },
-    { order: 13, id: 'paralyzer', name: 'Paralyzer', map: 'Buried', mapId: 'buried', gameIds: ['bo2'], type: 'Gravitic paralysis weapon', introduced: 'Buried', summary: 'The Paralyzer slows the dead and lifts the living, which makes Buried feel less like a town and more like a machine waiting for someone to lean into it.', media: { dir: 'paralyzer', hero: 'Paralyzer_Side.png', gallery: [] } },
-    { order: 14, id: 'blundergat', name: 'Blundergat', map: 'Mob of the Dead / Blood of the Dead', mapId: 'mob', gameIds: ['bo3','bo4'], type: 'Alcatraz shotgun relic', introduced: 'Mob of the Dead', summary: 'A shotgun with ritual weight behind it. The Blundergat belongs to Alcatraz: iron, bone, old grudges, and a reload that sounds like the island locking another door.', media: { dir: 'blundergat', hero: 'blundergat_player.png', gallery: ['blundergat_side.png'] } },
-    { order: 15, id: 'staves', name: 'Elemental Staves', map: 'Origins', mapId: 'origins', gameIds: ['bo2','bo3'], type: 'Elemental relic set', introduced: 'Origins', summary: 'Four ancient tools dragged out of mud and machinery: Ice, Fire, Lightning, and Wind. In Origins, the staffs feel less invented than recovered.', media: { dir: 'staves', hero: 'StaffofIce_Side.png', gallery: ['StaffofFire_Side.png','StaffofLightning_Side.png','StaffofWind_Side.png'] } },
-    { order: 16, id: 'apothicon-servant', name: 'Apothicon Servant', map: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], type: 'Apothicon living weapon', introduced: 'Shadows of Evil', summary: 'A weapon that looks less manufactured than summoned. The Apothicon Servant opens a hungry little wound in the room and lets the dead answer it.', media: { dir: 'apothicon-servant', hero: 'Apothicon_Servant_Player.png', gallery: ['Apothicon_Servant_Player_Upgraded.png','Apothicon_Servant_Side.png'] } },
-    { order: 17, id: 'bows', name: 'Wrath of the Ancients Bows', map: 'Der Eisendrache', mapId: 'eisendrache', gameIds: ['bo3'], type: 'Elemental bow set', introduced: 'Der Eisendrache', summary: 'The Wrath of the Ancients split four ways: storm, wolf, fire, and void. Der Eisendrache turns each upgrade into a separate confession from the castle.', media: { dir: 'bows', hero: 'WrathoftheAncients.png', gallery: ["LightningBow_Side_Kreema'ahm la Ahmahm.png",'WolfBow_Side_Kreeholo lu Kreemasaleet.png',"FireBow_Side_Kreeaho'ahm nal Ahmhogaroc.png","VoidBow_Side_Kreegakaleet lu Gosata'ahm.png",'WrathoftheAncientsFire.png'] } },
-    { order: 18, id: 'kt-4', name: 'KT-4', map: 'Zetsubou No Shima', mapId: 'zetsubou', gameIds: ['bo3'], type: 'Division 9 bio-weapon', introduced: 'Zetsubou No Shima', summary: 'A plant, a weapon, and a warning label that Division 9 ignored. The KT-4 makes the island\'s biology portable, then proves the island was already winning.', media: { dir: 'kt-4', hero: 'KT4_player.png', gallery: ['KT4_side.png'] } },
-    { order: 19, id: 'gkz-45-mk3', name: 'GKZ-45 Mk3', map: 'Gorod Krovi', mapId: 'gorod', gameIds: ['bo3'], type: 'Dual-wield rift system', introduced: 'Gorod Krovi', summary: 'Two weapons working as one problem: the right hand tears space open, the left hand keeps the city honest. Gorod Krovi deserved something this loud.', media: { dir: 'gkz-45-mk3', hero: 'GKZ-45_Mk3_BOIII_Player.png', gallery: [] } },
-    { order: 20, id: 'death-of-orion', name: 'Death of Orion', map: 'IX', mapId: 'ix', gameIds: ['bo4'], type: 'Scorpion lightning weapon', introduced: 'IX', summary: 'A gladiator arena weapon with ritual bite. Death of Orion pins enemies in a field of chained electricity, as if the gods wanted the crowd to watch longer.', media: { dir: 'death-of-orion', hero: 'deathoforionIX.png', gallery: [] } },
-    { order: 21, id: 'kraken', name: 'Kraken', map: 'Voyage of Despair', mapId: 'voyage', gameIds: ['bo4'], type: 'Elemental heavy cannon', introduced: 'Voyage of Despair', summary: 'The Titanic file gives the crew a cannon with a sea monster\'s name and four elemental tempers. Subtlety was already at the bottom of the Atlantic.', media: { dir: 'kraken', hero: 'Fire_Kraken_Upgrade.png', gallery: [] } },
-    { order: 22, id: 'alistairs-folly', name: "Alistair's Folly", map: 'Dead of the Night', mapId: 'dotn', gameIds: ['bo4'], type: 'Chaos revolver', introduced: 'Dead of the Night', summary: 'A parlor trick built for a house full of monsters. Alistair\'s Folly carries the Chaos story\'s favorite flavor: elegant design, violent outcome.', media: { dir: 'alistairs-folly', hero: 'Alistairs_Folly_Side.png', gallery: [] } },
-    { order: 23, id: 'savage-impaler', name: 'Savage Impaler', map: 'Dead of the Night', mapId: 'dotn', gameIds: ['bo4'], type: 'Stake launcher', introduced: 'Dead of the Night', summary: 'Dead of the Night understands gothic excess. The Savage Impaler is exactly what the manor asks for: silvered, theatrical, and very direct about vampires.', media: { dir: 'savage-impaler', hero: 'SavageImpaler_Side.png', gallery: [] } },
-    { order: 24, id: 'hands-of-god', name: 'Hands of God', map: 'Ancient Evil', mapId: 'ancientevil', gameIds: ['bo4'], type: 'Gauntlet relic set', introduced: 'Ancient Evil', summary: 'Charon, Gaia, Hemera, and Ouranos turn the Delphi file into a mythic armory. Each hand feels less carried than borrowed from something watching below.', media: { dir: 'hands-of-god', hero: 'HandofCharon.png', gallery: ['HandofGaia.png','HandofHemera.png','HandofOuranos.png'] } },
-    { order: 25, id: 'tundragun', name: 'Tundragun', map: 'Tag der Toten', mapId: 'tag', gameIds: ['bo4'], type: 'Cryogenic launcher', introduced: 'Tag der Toten', summary: 'Tag der Toten answers Siberia with a cold weapon that hits like a collapsed weather system. The Tundragun is heavy, ugly, and perfectly suited to the end of the old file.', media: { dir: 'tundragun', hero: 'tundragun.png', gallery: [] } },
-    { order: 26, id: 'die-shockwave', name: 'D.I.E. Shockwave', map: 'Die Maschine', mapId: 'diemaschine', gameIds: ['cw'], type: 'Dark Aether vacuum weapon', introduced: 'Die Maschine', summary: 'Projekt Endstation built the breach and the D.I.E. learned how to drink from it. Every upgrade is a different way to make the Dark Aether useful before it notices.', media: { dir: 'die-shockwave', hero: 'D.I.E._side.png', gallery: [] } },
-    { order: 27, id: 'rai', name: 'R.A.I. K-84', map: 'Firebase Z', mapId: 'firebase', gameIds: ['cw'], type: 'Dark Aether rifle', introduced: 'Firebase Z', summary: 'A Requiem-era rifle built like someone tried to make the Ray Gun follow orders. It does not follow orders, exactly; it just gives the team better paperwork afterward.', media: { dir: 'rai-k84', hero: 'RAI-k84.png', gallery: [] } },
-    { order: 28, id: 'crbr-s', name: 'CRBR-S', map: 'Mauer der Toten', mapId: 'mauer', gameIds: ['cw'], type: 'Modular AI sidearm', introduced: 'Mauer der Toten', summary: 'A polite little pistol until the kit modules start snapping on. The CRBR-S turns Mauer into a field test for every bad idea Omega could still miniaturize.', media: { dir: 'crbr-s', hero: 'CRBR-S_BOCW.png', gallery: ['CRBR-S_Blazer_upgrade.png','CRBR-S_DiffuserUpgrade.png','CRBR-S_Swarm_Upgrade.png'] } },
-    { order: 29, id: 'chrysalax', name: 'Chrysalax', map: 'Forsaken', mapId: 'forsaken', gameIds: ['cw'], type: 'Dark Aether axe and gun', introduced: 'Forsaken', summary: 'A crystal execution tool from the Forsaken file. The Chrysalax shifts between blade and firearm, because one form of bad news was apparently not enough.', media: { dir: 'chrysalax', hero: 'Chrysalax_WW.png', gallery: [] } },
-    { order: 30, id: 'dr-11-beamsmasher', name: 'DR-11 Beamsmasher', map: 'Terminus', mapId: 'terminus', gameIds: ['bo6'], type: 'Focused beam platform', introduced: 'Terminus', summary: 'Terminus keeps its worst experiments under military lighting. The Beamsmasher fits the island: controlled on paper, deeply unfriendly in practice.', media: { dir: 'dr-11-beamsmasher', hero: 'DR11Beamsmasher.png', gallery: [] } },
-    { order: 31, id: 'jotun-star', name: 'Jotun Star', map: 'The Tomb', mapId: 'tomb', gameIds: ['bo6'], type: 'Order artifact weapon', introduced: 'The Tomb', summary: 'A filed Order weapon from the tomb sequence, bright enough to look ceremonial and dangerous enough to prove ceremony was never the point.', media: { dir: 'jotun-star', hero: 'JotunStar.png', gallery: [] } },
-    { order: 32, id: 'gorgofex', name: 'Gorgofex', map: 'The Reckoning', mapId: 'reckoning', gameIds: ['bo6'], type: 'Dark Aether organic weapon', introduced: 'The Reckoning', summary: 'A Janus facility entry with too much life in the material. The Gorgofex looks grown, not built, which is usually the line where the archive starts circling words in red.', media: { dir: 'gorgofex', hero: 'Gorgofex_WW.png', gallery: [] } },
-    { order: 33, id: 'necrofluid', name: 'Necrofluid', map: 'Ashes of the Damned', mapId: 'ashes', gameIds: ['bo7'], type: 'Dark Aether fluid weapon', introduced: 'Ashes of the Damned', summary: 'Necrofluid is filed less like hardware and more like a containment note. It moves through the BO7 archive with the same energy as every substance nobody should have bottled.', media: { dir: 'necrofluid', hero: 'NecrofluidAotD.png', gallery: [] } },
-    { order: 34, id: 'lgm-1', name: 'LGM-1', map: 'Filed entry pending', mapId: null, gameIds: [], type: 'Experimental weapon', introduced: 'Unconfirmed file', summary: 'A weapon image is in the archive, but its field record still needs a confirmed map and era. The page is ready for expansion as more notes and images are added.', media: { dir: 'lgm-1', hero: 'LGM1_Side.png', gallery: [] } },
+    { order: 1, id: 'raygun', name: 'Ray Gun', map: 'Mystery Box staple', mapId: 'nacht', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], type: 'Energy pistol', introduced: 'Nacht der Untoten', summary: '', media: { dir: 'ray-gun', hero: 'raygun.png', gallery: [] } },
+    { order: 2, id: 'ray-gun-mk2', name: 'Ray Gun Mark II', map: 'Buried', mapId: 'buried', gameIds: ['bo2','bo3'], type: 'Burst energy rifle', introduced: 'Buried', summary: '', media: { dir: 'ray-gun-mk2', hero: 'RayGunMkII.png', gallery: [] } },
+    { order: 3, id: 'wunderwaffe', name: 'Wunderwaffe DG-2', map: 'Shi No Numa', mapId: 'shino', gameIds: ['waw','bo1','bo3','bo4'], type: 'Arc lightning cannon', introduced: 'Shi No Numa', summary: '', media: { dir: 'wunderwaffe-dg2', hero: 'wunderwaffe1.png', gallery: ['wunderwaffe2.png'] } },
+    { order: 4, id: 'wunderwaffe-dg-scharfschutze', name: 'Wunderwaffe DG-Scharfschutze', map: 'Tag der Toten', mapId: 'tag', gameIds: ['bo4'], type: 'Arc sniper variant', introduced: 'Tag der Toten', summary: '', media: { dir: 'wunderwaffe-dg-scharfschutze', hero: 'Wunderwaffe_DG-scharfschutze.png', gallery: [] } },
+    { order: 5, id: 'thundergun', name: 'Thundergun', map: 'Kino der Toten', mapId: 'kino', gameIds: ['bo1','bo3'], type: 'Concussive wave cannon', introduced: 'Kino der Toten', summary: '', media: { dir: 'thundergun', hero: 'thundergun.png', gallery: ['Thundergun1.png'] } },
+    { order: 6, id: 'winters-howl', name: "Winter's Howl", map: 'Five', mapId: 'five', gameIds: ['bo1','bo4'], type: 'Cryogenic sidearm', introduced: 'Five', summary: '', media: { dir: 'winters-howl', hero: 'WintersHowl.png', gallery: ['wintershowl1.png'] } },
+    { order: 7, id: 'vr-11', name: 'V-R11', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Vril transformation rifle', introduced: 'Call of the Dead', summary: '', media: { dir: 'vr-11', hero: 'VR-11_Player.png', gallery: ['VR-11WW_Side.png'] } },
+    { order: 8, id: 'scavenger', name: 'Scavenger', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Explosive sniper rifle', introduced: 'Call of the Dead', summary: '', media: { dir: 'scavenger', hero: 'Scavenger_COTD_WW.png', gallery: ['Scavenger_COTD_WW1.png'] } },
+    { order: 9, id: '31-79-jgb215', name: '31-79 JGb215', map: 'Shangri-La', mapId: 'shangri', gameIds: ['bo1'], type: 'Shrink ray', introduced: 'Shangri-La', summary: '', media: { dir: '31-79-jgb215', hero: '31-79_JGb215_Player.png', gallery: [] } },
+    { order: 10, id: 'wave-gun', name: 'Wave Gun / Zap Guns', map: 'Moon', mapId: 'moon', gameIds: ['bo1'], type: 'Dual-mode energy system', introduced: 'Moon', summary: '', media: { dir: 'wave-gun', hero: 'wavegun_player_combined.png', gallery: ['wavegun_side.png','zapgun_player.png'] } },
+    { order: 11, id: 'thrustodyne-m23', name: 'Thrustodyne Aeronautics Model 23', map: 'TranZit / Liberty Falls', mapId: 'tranzit', gameIds: ['bo2','bo6'], type: 'Turbine pressure cannon', introduced: 'TranZit', summary: '', media: { dir: 'thrustodyne-m23', hero: 'Thrustodyne_Aeronautics_Model_23_Side.png', gallery: [] } },
+    { order: 12, id: 'sliquifier', name: 'Sliquifier', map: 'Die Rise', mapId: 'dierise', gameIds: ['bo2'], type: 'Reactive liquid projector', introduced: 'Die Rise', summary: '', media: { dir: 'sliquifier', hero: 'sliquifier_side.png', gallery: [] } },
+    { order: 13, id: 'paralyzer', name: 'Paralyzer', map: 'Buried', mapId: 'buried', gameIds: ['bo2'], type: 'Gravitic paralysis weapon', introduced: 'Buried', summary: '', media: { dir: 'paralyzer', hero: 'Paralyzer_Side.png', gallery: [] } },
+    { order: 14, id: 'blundergat', name: 'Blundergat', map: 'Mob of the Dead / Blood of the Dead', mapId: 'mob', gameIds: ['bo3','bo4'], type: 'Alcatraz shotgun relic', introduced: 'Mob of the Dead', summary: '', media: { dir: 'blundergat', hero: 'blundergat_player.png', gallery: ['blundergat_side.png'] } },
+    { order: 15, id: 'staves', name: 'Elemental Staves', map: 'Origins', mapId: 'origins', gameIds: ['bo2','bo3'], type: 'Elemental relic set', introduced: 'Origins', summary: '', media: { dir: 'staves', hero: 'StaffofIce_Side.png', gallery: ['StaffofFire_Side.png','StaffofLightning_Side.png','StaffofWind_Side.png'] } },
+    { order: 16, id: 'apothicon-servant', name: 'Apothicon Servant', map: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], type: 'Apothicon living weapon', introduced: 'Shadows of Evil', summary: '', media: { dir: 'apothicon-servant', hero: 'Apothicon_Servant_Player.png', gallery: ['Apothicon_Servant_Player_Upgraded.png','Apothicon_Servant_Side.png'] } },
+    { order: 17, id: 'bows', name: 'Wrath of the Ancients Bows', map: 'Der Eisendrache', mapId: 'eisendrache', gameIds: ['bo3'], type: 'Elemental bow set', introduced: 'Der Eisendrache', summary: '', media: { dir: 'bows', hero: 'WrathoftheAncients.png', gallery: ["LightningBow_Side_Kreema'ahm la Ahmahm.png",'WolfBow_Side_Kreeholo lu Kreemasaleet.png',"FireBow_Side_Kreeaho'ahm nal Ahmhogaroc.png","VoidBow_Side_Kreegakaleet lu Gosata'ahm.png",'WrathoftheAncientsFire.png'] } },
+    { order: 18, id: 'kt-4', name: 'KT-4', map: 'Zetsubou No Shima', mapId: 'zetsubou', gameIds: ['bo3'], type: 'Division 9 bio-weapon', introduced: 'Zetsubou No Shima', summary: '', media: { dir: 'kt-4', hero: 'KT4_player.png', gallery: ['KT4_side.png'] } },
+    { order: 19, id: 'gkz-45-mk3', name: 'GKZ-45 Mk3', map: 'Gorod Krovi', mapId: 'gorod', gameIds: ['bo3'], type: 'Dual-wield rift system', introduced: 'Gorod Krovi', summary: '', media: { dir: 'gkz-45-mk3', hero: 'GKZ-45_Mk3_BOIII_Player.png', gallery: [] } },
+    { order: 20, id: 'death-of-orion', name: 'Death of Orion', map: 'IX', mapId: 'ix', gameIds: ['bo4'], type: 'Scorpion lightning weapon', introduced: 'IX', summary: '', media: { dir: 'death-of-orion', hero: 'deathoforionIX.png', gallery: [] } },
+    { order: 21, id: 'kraken', name: 'Kraken', map: 'Voyage of Despair', mapId: 'voyage', gameIds: ['bo4'], type: 'Elemental heavy cannon', introduced: 'Voyage of Despair', summary: '', media: { dir: 'kraken', hero: 'Fire_Kraken_Upgrade.png', gallery: [] } },
+    { order: 22, id: 'alistairs-folly', name: "Alistair's Folly", map: 'Dead of the Night', mapId: 'dotn', gameIds: ['bo4'], type: 'Chaos revolver', introduced: 'Dead of the Night', summary: '', media: { dir: 'alistairs-folly', hero: 'Alistairs_Folly_Side.png', gallery: [] } },
+    { order: 23, id: 'savage-impaler', name: 'Savage Impaler', map: 'Dead of the Night', mapId: 'dotn', gameIds: ['bo4'], type: 'Stake launcher', introduced: 'Dead of the Night', summary: '', media: { dir: 'savage-impaler', hero: 'SavageImpaler_Side.png', gallery: [] } },
+    { order: 24, id: 'hands-of-god', name: 'Hands of God', map: 'Ancient Evil', mapId: 'ancientevil', gameIds: ['bo4'], type: 'Gauntlet relic set', introduced: 'Ancient Evil', summary: '', media: { dir: 'hands-of-god', hero: 'HandofCharon.png', gallery: ['HandofGaia.png','HandofHemera.png','HandofOuranos.png'] } },
+    { order: 25, id: 'tundragun', name: 'Tundragun', map: 'Tag der Toten', mapId: 'tag', gameIds: ['bo4'], type: 'Cryogenic launcher', introduced: 'Tag der Toten', summary: '', media: { dir: 'tundragun', hero: 'tundragun.png', gallery: [] } },
+    { order: 26, id: 'die-shockwave', name: 'D.I.E. Shockwave', map: 'Die Maschine', mapId: 'diemaschine', gameIds: ['cw'], type: 'Dark Aether vacuum weapon', introduced: 'Die Maschine', summary: '', media: { dir: 'die-shockwave', hero: 'D.I.E._side.png', gallery: [] } },
+    { order: 27, id: 'rai', name: 'R.A.I. K-84', map: 'Firebase Z', mapId: 'firebase', gameIds: ['cw'], type: 'Dark Aether rifle', introduced: 'Firebase Z', summary: '', media: { dir: 'rai-k84', hero: 'RAI-k84.png', gallery: [] } },
+    { order: 28, id: 'crbr-s', name: 'CRBR-S', map: 'Mauer der Toten', mapId: 'mauer', gameIds: ['cw'], type: 'Modular AI sidearm', introduced: 'Mauer der Toten', summary: '', media: { dir: 'crbr-s', hero: 'CRBR-S_BOCW.png', gallery: ['CRBR-S_Blazer_upgrade.png','CRBR-S_DiffuserUpgrade.png','CRBR-S_Swarm_Upgrade.png'] } },
+    { order: 29, id: 'chrysalax', name: 'Chrysalax', map: 'Forsaken', mapId: 'forsaken', gameIds: ['cw'], type: 'Dark Aether axe and gun', introduced: 'Forsaken', summary: '', media: { dir: 'chrysalax', hero: 'Chrysalax_WW.png', gallery: [] } },
+    { order: 30, id: 'dr-11-beamsmasher', name: 'DR-11 Beamsmasher', map: 'Terminus', mapId: 'terminus', gameIds: ['bo6'], type: 'Focused beam platform', introduced: 'Terminus', summary: '', media: { dir: 'dr-11-beamsmasher', hero: 'DR11Beamsmasher.png', gallery: [] } },
+    { order: 31, id: 'jotun-star', name: 'Jotun Star', map: 'The Tomb', mapId: 'tomb', gameIds: ['bo6'], type: 'Order artifact weapon', introduced: 'The Tomb', summary: '', media: { dir: 'jotun-star', hero: 'JotunStar.png', gallery: [] } },
+    { order: 32, id: 'gorgofex', name: 'Gorgofex', map: 'The Reckoning', mapId: 'reckoning', gameIds: ['bo6'], type: 'Dark Aether organic weapon', introduced: 'The Reckoning', summary: '', media: { dir: 'gorgofex', hero: 'Gorgofex_WW.png', gallery: [] } },
+    { order: 33, id: 'necrofluid', name: 'Necrofluid', map: 'Ashes of the Damned', mapId: 'ashes', gameIds: ['bo7'], type: 'Dark Aether fluid weapon', introduced: 'Ashes of the Damned', summary: '', media: { dir: 'necrofluid', hero: 'NecrofluidAotD.png', gallery: [] } },
+    { order: 34, id: 'lgm-1', name: 'LGM-1', map: 'Filed entry pending', mapId: null, gameIds: [], type: 'Experimental weapon', introduced: 'Unconfirmed file', summary: '', media: { dir: 'lgm-1', hero: 'LGM1_Side.png', gallery: [] } },
   ];
   weaponDetails.forEach((entry) => {
     const existing = wonderWeapons.find((w) => w.id === entry.id);
@@ -1761,7 +1815,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
   wonderWeapons.sort((a, b) => (a.order || 999) - (b.order || 999) || a.name.localeCompare(b.name));
 
-  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE };
+  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE, bo7EasterEggs };
 })();
 </script>
 
@@ -1782,6 +1836,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
   function weaponImg(weapon, file) { return weapon && weapon.media && file ? (IMG_BASE + '/Weapons/Wonder Weapons/' + weapon.media.dir + '/' + file) : null; }
   function perkImg(perk, file) { return perk && perk.media && file ? (IMG_BASE + '/Perks/' + perk.media.dir + '/' + file) : null; }
+  function callingCardImg(ee) { return ee && ee.rewardGif ? (IMG_BASE + '/CallingCards/EE Rewards/BO7/' + ee.rewardGif) : null; }
+
+  const HOME_BO7_EE_POOL = (ZD.bo7EasterEggs || []).filter((ee) => {
+    const map = ZD.maps.find((m) => m.id === ee.map);
+    return map && map.game === 'bo7' && ee.rewardGif;
+  });
+  const HOME_FEATURED_EE = HOME_BO7_EE_POOL.length
+    ? HOME_BO7_EE_POOL[Math.floor(Math.random() * HOME_BO7_EE_POOL.length)]
+    : ZD.sampleEE;
 
   const T = {
     bg0:     '#0a0908',
@@ -2207,6 +2270,20 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
+  function CallingCardReward({ ee, height = 220 }) {
+    const [failed, setFailed] = useState(false);
+    const src = !failed ? callingCardImg(ee) : null;
+    const title = (ee && (ee.rewardLabel || ee.title)) || 'Calling card reward';
+    if (!src) return <Slot w="100%" h={height} label={title} kind="CALLING CARD" tone="red" />;
+    return (
+      <div style={{ width: '100%', height, position: 'relative', overflow: 'hidden', background: T.bg0, borderBottom: `1px solid ${T.line}` }}>
+        <img src={src} alt={title} loading="eager" onError={() => setFailed(true)}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center center' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.08) 56%, rgba(10,9,8,0.78) 100%)', pointerEvents: 'none' }} />
+      </div>
+    );
+  }
+
   function weaponPrimaryFile(weapon, slot = 'hero') {
     const media = weapon && weapon.media;
     if (!media) return null;
@@ -2429,7 +2506,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const now = useNow();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const databaseItems = [
-      { id: 'games', label: 'Sagas', sub: 'WaW through BO7' },
+      { id: 'games', label: 'Games', sub: 'WaW through BO7' },
       { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
       { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
     ];
@@ -2440,7 +2517,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       { id: 'vote-characters', label: 'Characters', sub: 'Favorite operator' },
     ];
     const armoryItems = [
-      { id: 'weapons', label: 'Wonder Weapons', sub: 'Aetheric ordinance' },
+      { id: 'weapons', label: 'Wonder Weapons', sub: 'Weapon records' },
       { id: 'perks', label: 'Perks', sub: 'Vending machines' },
       { id: 'songs', label: 'Hidden Songs', sub: 'Easter egg tracks' },
     ];
@@ -2612,7 +2689,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 {'group935.net · doc ' + dossierNo()}
               </div>
             </div>
-            <FooterCol title="Archive" links={[['Sagas','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
+            <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
             <FooterCol title="Reading" links={[['Kronorium','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
           </div>
@@ -2730,11 +2807,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         </section>
 
         <section style={{ marginBottom: 56 }}>
-          <SectionHead kicker="The Eight Sagas" title="Pick a chapter" action={
-            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>{'All sagas →'}</button>
+          <SectionHead kicker="The Games" title="Pick a chapter" action={
+            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>{'All games →'}</button>
           } />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {ZD.games.map((g) => <SagaTile key={g.id} game={g} nav={nav} />)}
+            {ZD.games.map((g) => <GameTile key={g.id} game={g} nav={nav} />)}
           </div>
         </section>
 
@@ -2753,7 +2830,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function SagaTile({ game, nav }) {
+  function GameTile({ game, nav }) {
     const mapsIn = ZD.maps.filter((m) => m.game === game.id);
     const [hover, setHover] = useState(false);
     const [hoverIdx, setHoverIdx] = useState(0);
@@ -2801,21 +2878,24 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function FeaturedEE({ nav }) {
-    const ee = ZD.sampleEE;
+    const ee = HOME_FEATURED_EE;
     const m = ZD.maps.find((x) => x.id === ee.map);
+    const mapName = ee.mapName || (m && m.name) || 'Black Ops 7';
+    const route = { name: 'ee', id: ee.id };
+    const action = ee.steps ? 'Open walkthrough ->' : 'Open tutorial ->';
     return (
       <div className="pap-card" style={{ padding: 0, position: 'relative', overflow: 'hidden' }}>
-        <Slot w="100%" h={220} label={ee.title} kind="EASTER EGG" tone="red" />
+        <CallingCardReward ee={ee} height={220} />
         <div style={{ padding: 22 }}>
           <div style={{ display: 'flex', gap: 10, marginBottom: 12, alignItems: 'center' }}>
             <Stamp tone="red">Main Quest</Stamp>
-            <Mono color={T.mute}>{m.name + ' · ' + ee.difficulty + ' · ' + ee.duration}</Mono>
+            <Mono color={T.mute}>{mapName + ' - ' + ee.difficulty + ' - ' + ee.duration}</Mono>
           </div>
           <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{ee.title}</div>
-          <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, lineHeight: 1.55, marginTop: 10 }}>{ee.summary}</p>
+          {ee.summary && <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute, lineHeight: 1.55, marginTop: 10 }}>{ee.summary}</p>}
           <button className="pap-btn pap-btn-primary" style={{ marginTop: 16, padding: '11px 18px', fontSize: 12 }}
-            onClick={() => nav({ name: 'ee', id: ee.id })}>
-            {'Open walkthrough →'}
+            onClick={() => nav(route)}>
+            {action}
           </button>
         </div>
       </div>
@@ -2858,8 +2938,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function Games({ nav }) {
     return (
       <div>
-        <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Sagas'}]}
-          kicker="The Eight Sagas"
+        <PageHead crumbs={[{label:'Archive',to:{name:'home'}},{label:'Games'}]}
+          kicker="The Games"
           title="All Games"
           sub={'Every Treyarch Zombies title from World at War (2008) through Black Ops 7 (2025). Select a game to see its maps.'} nav={nav} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginTop: 32 }}>
@@ -2922,7 +3002,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
   function Game({ id, nav }) {
     const g = ZD.games.find((x) => x.id === id);
-    if (!g) return <NotFound nav={nav} what="Saga" />;
+    if (!g) return <NotFound nav={nav} what="Game" />;
     const mapsIn   = ZD.maps.filter((m) => m.game === id);
     const songsIn  = songList().filter((s) => s.gameId === id);
     const wwIn     = ZD.wonderWeapons.filter((w) => (w.gameIds || []).includes(id));
@@ -2945,7 +3025,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
         {/* MAPS */}
         <section style={{ marginTop: 48 }}>
-          <SectionHead kicker={mapsIn.length + ' of ' + g.mapCount + ' sites'} title="Maps in this saga" />
+          <SectionHead kicker={mapsIn.length + ' of ' + g.mapCount + ' sites'} title="Maps in this game" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {mapsIn.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
           </div>
@@ -2964,7 +3044,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         {/* WONDER WEAPONS */}
         {wwIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker="Aetheric Ordinance" title="Wonder Weapons" />
+            <SectionHead kicker="Weapons" title="Wonder Weapons" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
               {wwIn.map((w, i) => (
                 <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card pap-card-clickable"
@@ -2973,7 +3053,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                   <div>
                     <Mono color={T.e115}>{w.map || String(i+1).padStart(2,'0')}</Mono>
                     <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4 }}>{w.name}</div>
-                    <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 8 }}>{w.summary}</p>
+                    {w.summary && <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 8 }}>{w.summary}</p>}
                   </div>
                 </button>
               ))}
@@ -3017,7 +3097,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         {/* CREW */}
         {crewIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker="Personnel" title="Crew of this saga"
+            <SectionHead kicker="Personnel" title="Crew of this game"
               action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'characters' })}>All crew →</button>}
             />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
@@ -3060,9 +3140,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
         {/* CONTINUE */}
         <section style={{ marginTop: 48 }}>
-          <SectionHead kicker="Other sagas" title="Continue exploring" />
+          <SectionHead kicker="Other games" title="Continue exploring" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {ZD.games.filter((x) => x.id !== g.id).slice(0, 4).map((other) => <SagaTile key={other.id} game={other} nav={nav} />)}
+            {ZD.games.filter((x) => x.id !== g.id).slice(0, 4).map((other) => <GameTile key={other.id} game={other} nav={nav} />)}
           </div>
         </section>
       </div>
@@ -3082,7 +3162,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
     return (
       <div>
-        <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Sagas',to:{name:'games'}},{label:game.title}]} nav={nav} />
+        <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Games',to:{name:'games'}},{label:game.title}]} nav={nav} />
         <div onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
           style={{ marginTop: 16, position: 'relative', overflow: 'hidden', border: `1px solid ${T.line}`, minHeight: 420, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
           {baseSrc && <img src={baseSrc} alt={game.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: hover && hoverSrc ? 0 : 1, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
@@ -3342,7 +3422,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         filters: gameFilters,
         matchesFilter: (item, filter) => filter === 'all' || item.game === filter,
         getMeta: (item) => gameMeta(item.game),
-        getSub: (item) => item.tagline,
+        getSub: (item) => item.location,
         getDetailRoute: (item) => ({ name: 'map', id: item.id }),
         renderImage: (item, height, compact) => {
           const g = ZD.games.find((x) => x.id === item.game);
@@ -3364,7 +3444,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         filters: gameFilters,
         matchesFilter: itemGamesMatch,
         getMeta: (item) => item.type || item.map || 'Wonder weapon',
-        getSub: (item) => item.summary,
+        getSub: (item) => item.type || item.map || '',
         getDetailRoute: (item) => ({ name: 'weapon', id: item.id }),
         renderImage: (item, height) => <WeaponImage weapon={item} file={weaponPrimaryFile(item, 'thumb')} height={height} label={item.name} showOverlay={false} />,
       },
@@ -3383,7 +3463,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         filters: gameFilters,
         matchesFilter: itemGamesMatch,
         getMeta: (item) => item.introduced || 'Perk-a-Cola',
-        getSub: (item) => item.tagline || item.summary,
+        getSub: (item) => item.effect || item.introduced || '',
         getDetailRoute: (item) => ({ name: 'perk', id: item.id }),
         renderImage: (item, height) => <PerkImage perk={item} file={perkPrimaryFile(item, 'thumb')} height={height} label={item.name} showOverlay={false} />,
       },
@@ -3402,7 +3482,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         filters: factionFilters,
         matchesFilter: (item, filter) => filter === 'all' || item.faction === filter,
         getMeta: (item) => item.role || factionLabel(item.faction),
-        getSub: (item) => item.summary,
+        getSub: (item) => item.role || factionLabel(item.faction),
         getDetailRoute: (item) => ({ name: 'character', id: item.id }),
         renderImage: (item, height, compact) => <CharacterImage character={item} kind="OPERATIVE" showKind={!compact} style={{ height }} />,
       },
@@ -3734,7 +3814,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
           kicker={ZD.maps.length + ' catalogued sites'}
           title="All Maps"
-          sub="Every filed site in canon order. Filter by saga, then open the dossier for imagery and notes."
+          sub="Every filed site in canon order. Filter by game, then open the dossier for imagery and notes."
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -3771,7 +3851,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <Difficulty value={map.difficulty} />
           </div>
           <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{map.location}</div>
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -3800,8 +3880,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const m = ZD.maps.find((x) => x.id === id);
     if (!m) return <NotFound nav={nav} what="Map" />;
     const g = ZD.games.find((x) => x.id === m.game);
-    const hasEE = m.eeCount > 0;
-    const ee = hasEE && ZD.sampleEE.map === m.id ? ZD.sampleEE : null;
+    const ee = ZD.sampleEE.map === m.id
+      ? ZD.sampleEE
+      : (ZD.bo7EasterEggs || []).find((item) => item.map === m.id);
+    const hasEE = m.eeCount > 0 || !!ee;
     const gallery = mapGalleryItems(m);
     return (
       <div>
@@ -3809,7 +3891,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name}]}
           kicker={g.code + ' · ' + g.year}
           title={m.name}
-          sub={m.tagline}
+          sub={m.location}
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
@@ -3818,7 +3900,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <Mono color={T.e115}>Intel Sheet</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
             <IntelRow label="Designation" value={m.name} />
-            <IntelRow label="Saga" value={g.title + ' · ' + g.code} />
+            <IntelRow label="Game" value={g.title + ' · ' + g.code} />
             <IntelRow label="Location" value={m.location} />
             <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
             <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
@@ -3833,10 +3915,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           </div>
         </div>
 
-        <section style={{ marginTop: 40 }}>
-          <SectionHead kicker="Site Brief" title="Operational summary" />
-          <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7, maxWidth: 780 }}>{m.summary}</p>
-        </section>
+        {m.summary && (
+          <section style={{ marginTop: 40 }}>
+            <SectionHead kicker="Site Brief" title="Operational summary" />
+            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7, maxWidth: 780 }}>{m.summary}</p>
+          </section>
+        )}
 
         {gallery.length > 0 && (
           <section style={{ marginTop: 40 }}>
@@ -3854,14 +3938,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           {hasEE && ee ? (
             <button onClick={() => nav({ name: 'ee', id: ee.id })} className="pap-card pap-card-clickable"
               style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
-              <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />
+              {ee.rewardGif ? <CallingCardReward ee={ee} height={180} /> : <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />}
               <div style={{ padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <Stamp tone="red">{ee.difficulty}</Stamp>
                   <Mono color={T.mute}>{ee.duration + ' · ' + ee.party}</Mono>
                 </div>
                 <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 10 }}>{ee.title}</div>
-                <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6, maxWidth: 540 }}>{ee.summary}</div>
+                {ee.summary && <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6, maxWidth: 540 }}>{ee.summary}</div>}
               </div>
               <div style={{ alignSelf: 'center', padding: '0 28px' }}>
                 <Mono color={T.e115} size={13} letter={2.5}>{'Begin →'}</Mono>
@@ -3938,7 +4022,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         </section>
 
         <section style={{ marginTop: 40 }}>
-          <SectionHead kicker="Other sites in this saga" title="Continue" action={
+          <SectionHead kicker="Other sites in this game" title="Continue" action={
             <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }}
               onClick={() => nav({ name: 'game', id: g.id })}>{'All in ' + g.code + ' →'}</button>
           } />
@@ -3953,9 +4037,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function pickCharactersForMap(m) {
-    // Pull from the per-saga roster (`game.crewIds`, set in the data IIFE).
+    // Pull from the per-game roster (`game.crewIds`, set in the data IIFE).
     // For finer-grained per-map casting, add a `crewIds` field directly on
-    // each map object in the data — this falls back to the saga roster.
+    // each map object in the data — this falls back to the game roster.
     if (m.crewIds && m.crewIds.length) {
       return m.crewIds.map((id) => ZD.characters.find((c) => c.id === id)).filter(Boolean);
     }
@@ -3983,20 +4067,61 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
+  function EasterEggUnderConstruction({ ee, map, game, nav }) {
+    const mapName = ee.mapName || (map && map.name) || 'Black Ops 7';
+    return (
+      <div>
+        <PageHead
+          crumbs={[
+            {label:'Archive',to:{name:'home'}},
+            {label:'Maps',to:{name:'maps'}},
+            ...(map ? [{label:mapName,to:{name:'map',id:map.id}}] : []),
+            {label:ee.title},
+          ]}
+          kicker={'Main Quest - ' + mapName + ' - ' + ((game && game.code) || 'BO7')}
+          title={ee.title}
+          sub={ee.summary || 'Tutorial build in progress.'}
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 32 }}>
+          <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <CallingCardReward ee={ee} height={320} />
+          </div>
+          <div className="pap-card" style={{ padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+              <Stamp tone="yellow">Under Construction</Stamp>
+              <Stamp tone="red">Main Quest</Stamp>
+            </div>
+            <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 16 }}>Tutorial Sync Pending</div>
+            <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.65, marginTop: 12 }}>
+              The reward file is live. The full step-by-step Easter egg tutorial is still being assembled.
+            </p>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 22 }}>
+              {map && <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'map', id: map.id })}>Open map file -></button>}
+              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'game', id: 'bo7' })}>Black Ops 7 -></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function EEPage({ id, nav }) {
-    const ee = ZD.sampleEE;
+    const ee = [ZD.sampleEE, ...(ZD.bo7EasterEggs || [])].find((item) => item.id === id) || ZD.sampleEE;
     const m = ZD.maps.find((x) => x.id === ee.map);
-    const g = ZD.games.find((x) => x.id === m.game);
+    const g = ZD.games.find((x) => x.id === (m && m.game));
+    const steps = ee.steps || [];
     const [completed, setCompleted] = useState(() => new Set());
     const [active, setActive] = useState(0);
+    if (!steps.length) return <EasterEggUnderConstruction ee={ee} map={m} game={g} nav={nav} />;
     const toggle = (n) => setCompleted((s) => {
       const ns = new Set(s);
       if (ns.has(n)) ns.delete(n); else ns.add(n);
       return ns;
     });
     const advance = () => {
-      toggle(ee.steps[active].n);
-      if (active < ee.steps.length - 1) setActive(active + 1);
+      toggle(steps[active].n);
+      if (active < steps.length - 1) setActive(active + 1);
     };
     return (
       <div>
@@ -4014,13 +4139,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
           <div>
-            <Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + ee.steps.length}</Mono>
+            <Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + steps.length}</Mono>
             <div style={{ height: 4, background: T.line, marginTop: 10, marginBottom: 18, position: 'relative' }}>
-              <div style={{ height: '100%', background: T.e115, width: ((completed.size/ee.steps.length)*100) + '%', transition: 'width .2s' }} />
+              <div style={{ height: '100%', background: T.e115, width: ((completed.size/steps.length)*100) + '%', transition: 'width .2s' }} />
             </div>
             <div style={{ position: 'relative' }}>
               <div style={{ position: 'absolute', left: 16, top: 14, bottom: 14, width: 1, background: T.line }} />
-              {ee.steps.map((s, i) => {
+              {steps.map((s, i) => {
                 const done = completed.has(s.n);
                 const isActive = i === active;
                 return (
@@ -4050,15 +4175,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             </div>
           </div>
           <div>
-            <Slot w="100%" h={300} label={'Step ' + ee.steps[active].n + ' — ' + ee.steps[active].title} kind={'STEP ' + ee.steps[active].n} tone="red" />
+            <Slot w="100%" h={300} label={'Step ' + steps[active].n + ' — ' + steps[active].title} kind={'STEP ' + steps[active].n} tone="red" />
             <div style={{ marginTop: 22 }}>
-              <Mono color={T.e115} letter={2.5}>{'Step ' + ee.steps[active].n + ' of ' + ee.steps.length}</Mono>
-              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{ee.steps[active].title}</h2>
-              <p style={{ fontFamily: T.sans, fontSize: 16.5, color: T.bone, lineHeight: 1.7, maxWidth: 660 }}>{ee.steps[active].body}</p>
+              <Mono color={T.e115} letter={2.5}>{'Step ' + steps[active].n + ' of ' + steps.length}</Mono>
+              <h2 className="pap-stencil" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{steps[active].title}</h2>
+              <p style={{ fontFamily: T.sans, fontSize: 16.5, color: T.bone, lineHeight: 1.7, maxWidth: 660 }}>{steps[active].body}</p>
             </div>
             <div style={{ display: 'flex', gap: 10, marginTop: 26 }}>
               <button className="pap-btn pap-btn-ghost" disabled={active === 0} onClick={() => setActive(active - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'← Previous'}</button>
-              <button className="pap-btn pap-btn-primary" onClick={advance}>{completed.has(ee.steps[active].n) ? 'Next step →' : 'Mark complete →'}</button>
+              <button className="pap-btn pap-btn-primary" onClick={advance}>{completed.has(steps[active].n) ? 'Next step →' : 'Mark complete →'}</button>
             </div>
             <div style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
               <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
@@ -4096,7 +4221,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Crew'}]}
           kicker={ZD.characters.length + ' personnel on file'}
           title="The Crew"
-          sub="Every named operative across both Zombies storylines — Aether and Dark Aether — grouped by faction."
+          sub={ZD.characters.length + ' named personnel grouped by faction.'}
           nav={nav}
         />
         {factions.map((f) => {
@@ -4179,7 +4304,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 8, lineHeight: 1.1 }}>{'"' + c.quote + '"'}</div>
               </div>
             )}
-            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7 }}>{c.summary}</p>
+            {c.summary && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.7 }}>{c.summary}</p>}
             <div style={{ marginTop: 36 }}>
               <SectionHead kicker="Cross-Reference" title="Sites visited" />
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -4199,9 +4324,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       <div>
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Wonder Weapons'}]}
-          kicker="Catalogued Aetheric Ordinance"
+          kicker="Catalogued Weapons"
           title="Wonder Weapons"
-          sub="Field pages for the prototypes, relics, and Dark Aether hardware that keep showing up wherever the dead do."
+          sub="Weapon records with origin, type, appearances, and image files."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
@@ -4215,7 +4340,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                   <Mono color={T.faint}>{String(i + 1).padStart(2, '0')}</Mono>
                 </div>
                 <div className="pap-stencil" style={{ fontSize: 23, color: T.bone, marginTop: 4 }}>{w.name}</div>
-                <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 9 }}>{w.summary}</p>
+                {w.summary && <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 9 }}>{w.summary}</p>}
                 <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {w.type && <span className="pap-chip" style={{ cursor: 'default' }}>{w.type}</span>}
                   <span className="pap-chip" style={{ cursor: 'default' }}>{weaponGalleryItems(w, true).length + ' img'}</span>
@@ -4260,7 +4385,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Wonder Weapons',to:{name:'weapons'}},{label:w.name}]}
           kicker={(w.type || 'Wonder Weapon') + (originGame ? ' - ' + originGame.code : '')}
           title={w.name}
-          sub={w.summary}
+          sub={w.type || w.map || ''}
           nav={nav}
         />
 
@@ -4324,9 +4449,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       <div>
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Perks'}]}
-          kicker="Vending Anomalies"
+          kicker="Perk Records"
           title="Perk-a-Cola"
-          sub="Bottled advantages, bad ideas, and vending machines that keep the crew alive one purchase at a time."
+          sub="Perk records with introduction map, gameplay effect, appearances, and machine images."
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18, marginTop: 32 }}>
@@ -4337,8 +4462,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <div style={{ padding: 18 }}>
                 <Mono color={T.e115}>{p.introduced || 'Perk-a-Cola'}</Mono>
                 <div className="pap-stencil" style={{ fontSize: 20, color: T.bone, marginTop: 8 }}>{p.name}</div>
-                <div style={{ fontFamily: T.sans, fontSize: 13, color: T.e115, marginTop: 7 }}>{p.tagline}</div>
-                <p style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.55, marginTop: 12 }}>{p.summary}</p>
+                {p.effect && <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.5, marginTop: 7 }}>{p.effect}</div>}
               </div>
             </button>
           ))}
@@ -4361,7 +4485,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Perks',to:{name:'perks'}},{label:p.name}]}
           kicker={'Perk-a-Cola' + (originGame ? ' - ' + originGame.code : '')}
           title={p.name}
-          sub={p.summary}
+          sub={p.effect || p.introduced || ''}
           nav={nav}
         />
 
@@ -4370,10 +4494,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <aside className="pap-card" style={{ padding: 22 }}>
             <Mono color={T.e115} letter={2.5}>Machine File</Mono>
             <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 8 }}>{p.name}</div>
-            <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.e115, marginTop: 10 }}>{p.tagline}</div>
             <div style={{ marginTop: 18 }}>
               <IntelRow label="Introduced" value={p.introduced || 'Unknown'} />
-              <IntelRow label="Effect" value={p.effect || p.summary} />
+              <IntelRow label="Effect" value={p.effect || 'TBD'} />
               <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="green" />
             </div>
             {originMap && (
@@ -4452,7 +4575,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function Songs({ nav }) {
-    // Build a flat list of every song across every map, grouped by saga.
+    // Build a flat list of every song across every map, grouped by game.
     const allSongs = songList();
     const byGame = ZD.games
       .map((g) => ({ game: g, songs: allSongs.filter((s) => s.gameId === g.id) }))
@@ -4475,7 +4598,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                   <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{game.title}</div>
                 </div>
                 <button className="pap-link" onClick={() => nav({ name: 'game', id: game.id })}
-                  style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open saga →'}</button>
+                  style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open game →'}</button>
               </div>
               <SongTable songs={songs} nav={nav} />
             </section>
@@ -4564,7 +4687,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               style={{ width: '100%', padding: 22, textAlign: 'left', background: T.bg1, border: `1px solid ${T.line}`, cursor: 'pointer' }}>
               <Mono color={T.faint}>Map file</Mono>
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{map.name}</div>
-              <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6 }}>{map.tagline}</div>
+              <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6 }}>{map.location}</div>
             </button>
           </section>
         )}
@@ -4573,7 +4696,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function RelicsBO7({ nav }) {
-    // Direct route landing for #/relics — sends users to the BO7 saga page,
+    // Direct route landing for #/relics — sends users to the BO7 game page,
     // since relics are a BO7-only concept now.
     useEffect(() => { nav({ name: 'game', id: 'bo7' }); }, []);
     return <div style={{ padding: 60, textAlign: 'center', color: T.mute }}>Redirecting to BO7…</div>;
@@ -4675,7 +4798,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       const out = [];
       ZD.maps.forEach((m) => {
         if (m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q) || (m.tags || []).some((t) => t.includes(q)))
-          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.tagline });
+          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.location });
       });
       ZD.games.forEach((g) => {
         if (g.title.toLowerCase().includes(q) || g.code.toLowerCase().includes(q))
@@ -4687,11 +4810,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       });
       ZD.wonderWeapons.forEach((w) => {
         if (w.name.toLowerCase().includes(q) || w.summary.toLowerCase().includes(q) || (w.map || '').toLowerCase().includes(q) || (w.type || '').toLowerCase().includes(q))
-          out.push({ kind: 'weapon', id: w.id, title: w.name, sub: w.summary });
+          out.push({ kind: 'weapon', id: w.id, title: w.name, sub: w.type || w.map || '' });
       });
       ZD.perks.forEach((p) => {
-        if (p.name.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || (p.tagline || '').toLowerCase().includes(q) || (p.effect || '').toLowerCase().includes(q))
-          out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.tagline });
+        if (p.name.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || (p.effect || '').toLowerCase().includes(q))
+          out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.effect || p.introduced || '' });
       });
       return out;
     }, [q]);
@@ -4701,7 +4824,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Search'}]}
           kicker={hits.length + ' result' + (hits.length === 1 ? '' : 's')}
           title={q ? ('"' + query + '"') : 'Search the archive'}
-          sub={q ? 'Matches across maps, sagas, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
+          sub={q ? 'Matches across maps, games, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
           nav={nav}
         />
         {!q && (
@@ -5048,7 +5171,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <div className="term-card" style={{ padding: 22 }}>
             <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>FEATURED SITE</div>
             <div style={{ fontFamily: C.pixel, fontSize: 36, color: C.bright, lineHeight: 1, marginTop: 6, letterSpacing: 1 }}>{featured.name}</div>
-            <div style={{ color: C.dim, marginTop: 6 }}>{featured.tagline}</div>
+            <div style={{ color: C.dim, marginTop: 6 }}>{featured.location}</div>
             <div style={{ marginTop: 18, lineHeight: 1.8 }}>
               <Row k="operation"   v={game.title} />
               <Row k="location"    v={featured.location} />
@@ -5056,7 +5179,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <Row k="easter eggs" v={featured.eeCount} />
               <Row k="relics"      v={featured.relicCount} />
             </div>
-            <p style={{ margin: '18px 0 0', maxWidth: 360, color: C.ink, lineHeight: 1.55 }}>{featured.summary}</p>
+            {featured.summary && <p style={{ margin: '18px 0 0', maxWidth: 360, color: C.ink, lineHeight: 1.55 }}>{featured.summary}</p>}
             <div style={{ marginTop: 22, display: 'flex', gap: 10 }}>
               <button className="term-btn" onClick={() => setRoute({ name: 'map', id: featured.id })}
                 style={{ background: C.ink, color: C.bg, borderColor: C.ink, fontWeight: 600 }}>{'open site →'}</button>
@@ -5136,7 +5259,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>{'site/' + map.id}</div>
           <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 2, lineHeight: 1 }}>{map.name}</div>
-          <div style={{ color: C.dim, fontSize: 12.5, marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ color: C.dim, fontSize: 12.5, marginTop: 4 }}>{map.location}</div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 11, color: C.dim, letterSpacing: 1 }}>
             <span>{'diff ' + map.difficulty + '/5'}</span>
             <span>{'ee ' + map.eeCount}</span>
@@ -5176,12 +5299,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const gallery = termMapGalleryItems(m);
     return (
       <div>
-        <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.tagline} />
+        <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.location} />
         <MapImage map={m} h={360} label={m.name.toUpperCase()} kind="recon photograph" style={{ marginBottom: 18 }} />
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 22, marginBottom: 32 }}>
           <div>
             <Prompt cmd={'cat ./brief.txt'} />
-            <p style={{ margin: 0, lineHeight: 1.65, maxWidth: 760, fontSize: 14.5 }}>{m.summary}</p>
+            {m.summary && <p style={{ margin: 0, lineHeight: 1.65, maxWidth: 760, fontSize: 14.5 }}>{m.summary}</p>}
           </div>
           <div className="term-card" style={{ padding: 16 }}>
             <div style={{ color: C.dim, fontSize: 11, letterSpacing: 2 }}>MANIFEST</div>
@@ -5345,7 +5468,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               </div>
             )}
             <Prompt cmd="cat ./biography.txt" />
-            <p style={{ margin: '0 0 22px', maxWidth: 760, lineHeight: 1.7, fontSize: 14.5 }}>{c.summary}</p>
+            {c.summary && <p style={{ margin: '0 0 22px', maxWidth: 760, lineHeight: 1.7, fontSize: 14.5 }}>{c.summary}</p>}
           </div>
         </div>
       </div>
@@ -5422,7 +5545,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       if (!q) return out;
       ZD.maps.forEach((m) => {
         if (m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'site', title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+          out.push({ kind: 'site', title: m.name, sub: m.location, route: { name: 'map', id: m.id } });
       });
       ZD.characters.forEach((c) => {
         if (c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))

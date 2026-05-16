@@ -453,7 +453,7 @@ $ welcome, agent 03741. you have `}
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 10, color: C.amber, letterSpacing: 1.5 }}>SITE/{map.id.toUpperCase()}</div>
           <div style={{ fontSize: 16, color: C.white, marginTop: 4, fontWeight: 600 }}>{map.name}</div>
-          <div style={{ fontSize: 11.5, color: C.greenDim, marginTop: 4, fontStyle: 'italic' }}>// {map.tagline}</div>
+          <div style={{ fontSize: 11.5, color: C.greenDim, marginTop: 4, fontStyle: 'italic' }}>// {map.location}</div>
           <div style={{ display: 'flex', gap: 12, marginTop: 12, fontSize: 11, color: C.greenFaint, letterSpacing: 0.5 }}>
             <span><span style={{ color: C.amber }}>diff</span>={map.difficulty}/5</span>
             <span><span style={{ color: C.amber }}>ee</span>={map.eeCount}</span>
@@ -501,7 +501,7 @@ $ welcome, agent 03741. you have `}
     const ee = ZD.sampleEE;
     return (
       <div>
-        <PageHead cmd={'cat /aether/sites/' + m.id + '/manifest.json'} title={m.name.toLowerCase()} sub={'// ' + m.tagline} />
+        <PageHead cmd={'cat /aether/sites/' + m.id + '/manifest.json'} title={m.name.toLowerCase()} sub={'// ' + m.location} />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 18, marginBottom: 24 }}>
           <Box hue="green" padded={false} status={'site.id // ' + m.id}>
@@ -838,7 +838,7 @@ office of aetheric affairs
       const out = [];
       ZD.maps.forEach((m) => {
         if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'SITE', title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+          out.push({ kind: 'SITE', title: m.name, sub: m.location, route: { name: 'map', id: m.id } });
       });
       ZD.characters.forEach((c) => {
         if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))

@@ -212,7 +212,7 @@
             <div style={{ fontFamily: C.pixel, fontSize: 36, color: C.bright, lineHeight: 1, marginTop: 6, letterSpacing: 1 }}>
               {featured.name}
             </div>
-            <div style={{ color: C.dim, fontStyle: 'italic', marginTop: 6 }}>{featured.tagline}</div>
+            <div style={{ color: C.dim, fontStyle: 'italic', marginTop: 6 }}>{featured.location}</div>
 
             <div style={{ marginTop: 18, lineHeight: 1.8 }}>
               <div><span style={{ color: C.dim, display: 'inline-block', width: 110 }}>operation</span>{ZD.games.find((g) => g.id === featured.game).title}</div>
@@ -375,7 +375,7 @@
         <div style={{ padding: 14 }}>
           <div style={{ fontSize: 11, color: C.dim, letterSpacing: 1.5 }}>site/{map.id}</div>
           <div style={{ fontFamily: C.pixel, fontSize: 22, color: C.bright, marginTop: 2, lineHeight: 1 }}>{map.name}</div>
-          <div style={{ color: C.dim, fontSize: 12.5, fontStyle: 'italic', marginTop: 4 }}>{map.tagline}</div>
+          <div style={{ color: C.dim, fontSize: 12.5, fontStyle: 'italic', marginTop: 4 }}>{map.location}</div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12, fontSize: 11, color: C.dim, letterSpacing: 1 }}>
             <span>diff {map.difficulty}/5</span>
             <span>ee {map.eeCount}</span>
@@ -417,7 +417,7 @@
     const ee = ZD.sampleEE;
     return (
       <div>
-        <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.tagline} />
+        <PageHead cmd={'open /aether/sites/' + m.id} title={m.name} sub={m.location} />
 
         {/* big hero photo */}
         <Slot w="100%" h={360} label={m.name.toUpperCase()} kind="recon photograph" style={{ marginBottom: 18 }} />
@@ -792,7 +792,7 @@
       const out = [];
       ZD.maps.forEach((m) => {
         if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'site',    title: m.name, sub: m.tagline, route: { name: 'map', id: m.id } });
+          out.push({ kind: 'site',    title: m.name, sub: m.location, route: { name: 'map', id: m.id } });
       });
       ZD.characters.forEach((c) => {
         if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))

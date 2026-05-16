@@ -171,7 +171,7 @@
             </h1>
             <p style={{ fontFamily: T.serif, fontSize: 19, lineHeight: 1.55, color: T.inkMute, maxWidth: 540, marginTop: 24 }}>
               A reader’s codex for every Easter egg, relic, and fragment of lore
-              from twenty years of the saga. Annotated, cross‑referenced, and
+              from twenty years of the game. Annotated, cross‑referenced, and
               kept on the safe side of the rift — mostly.
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
@@ -198,7 +198,7 @@
         </section>
 
         <section style={{ marginBottom: 48 }}>
-          <SectionHead title="The Eight Sagas" sub="Two decades, three timelines, one cycle" hue={195} />
+          <SectionHead title="The Games" sub="Two decades, three timelines, one cycle" hue={195} />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
             {ZD.games.map((g, i) => (
               <button key={g.id} onClick={() => setRoute({ name: 'game', id: g.id })}
@@ -321,7 +321,7 @@
               <Tag hue={195}>Difficulty {map.difficulty}/5</Tag>
             </div>
             <h2 style={{ fontFamily: T.serif, fontSize: 44, fontStyle: 'italic', margin: 0, lineHeight: 1, letterSpacing: -0.6 }}>{map.name}</h2>
-            <div style={{ fontFamily: T.serif, fontSize: 17, color: T.inkMute, fontStyle: 'italic', marginTop: 8 }}>“{map.tagline}”</div>
+            <div style={{ fontFamily: T.serif, fontSize: 17, color: T.inkMute, fontStyle: 'italic', marginTop: 8 }}>“{map.location}”</div>
             <p style={{ fontFamily: T.serif, fontSize: 16, color: T.ink, lineHeight: 1.55, marginTop: 20 }}>{map.summary}</p>
           </div>
           <div style={{ display: 'flex', gap: 24, alignItems: 'baseline', marginTop: 24 }}>
@@ -352,7 +352,7 @@
   function Games({ setRoute }) {
     return (
       <div>
-        <PageHead crumbs={['Codex', 'Games']} title="The Eight Sagas"
+        <PageHead crumbs={['Codex', 'Games']} title="The Games"
           sub="From the bunker in 1945 to the relics of the BO7 cycle, all eight titles ordered by their place in the canon — not their release year." />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 28 }}>
           {ZD.games.map((g, i) => {
@@ -399,7 +399,7 @@
     const gameMaps = ZD.maps.filter((m) => m.game === id);
     return (
       <div>
-        <PageHead crumbs={['Codex', 'Games', g.title]} title={g.title} sub={g.era + '. ' + g.mapCount + ' maps catalogued in this saga.'} />
+        <PageHead crumbs={['Codex', 'Games', g.title]} title={g.title} sub={g.era + '. ' + g.mapCount + ' maps catalogued in this game.'} />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
           {gameMaps.map((m) => <MapCard key={m.id} map={m} setRoute={setRoute} />)}
         </div>
@@ -416,7 +416,7 @@
         <Slot w="100%" h={150} label={map.name.toUpperCase()} hue={280 + map.difficulty * 8} dashed={false} style={{ border: 'none', borderBottom: `1px solid ${T.line2}` }} />
         <div style={{ padding: 16 }}>
           <div style={{ fontFamily: T.serif, fontSize: 20, fontStyle: 'italic' }}>{map.name}</div>
-          <div style={{ fontFamily: T.serif, fontSize: 13, color: T.inkMute, fontStyle: 'italic', marginTop: 2 }}>“{map.tagline}”</div>
+          <div style={{ fontFamily: T.serif, fontSize: 13, color: T.inkMute, fontStyle: 'italic', marginTop: 2 }}>“{map.location}”</div>
           <div style={{ display: 'flex', gap: 14, marginTop: 14, fontFamily: T.mono, fontSize: 9.5, letterSpacing: 1.5, color: T.inkFaint, textTransform: 'uppercase' }}>
             <span><Glow hue={295}>{map.eeCount}</Glow> EE</span>
             <span><Glow hue={195}>{map.relicCount}</Glow> RELICS</span>
@@ -433,7 +433,7 @@
     const list = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
     return (
       <div>
-        <PageHead crumbs={['Codex', 'Maps']} title="All Catalogued Maps" sub="Sorted by canonical sequence. Filter by saga to narrow the cycle." />
+        <PageHead crumbs={['Codex', 'Maps']} title="All Catalogued Maps" sub="Sorted by canonical sequence. Filter by game to narrow the cycle." />
         <div style={{ display: 'flex', gap: 6, marginTop: 24, flexWrap: 'wrap' }}>
           <FilterChip active={filter === 'all'} onClick={() => setFilter('all')}>All maps</FilterChip>
           {ZD.games.map((g) => <FilterChip key={g.id} active={filter === g.id} onClick={() => setFilter(g.id)}>{g.code}</FilterChip>)}
@@ -465,7 +465,7 @@
     const ee = ZD.sampleEE;
     return (
       <div>
-        <PageHead crumbs={['Codex', 'Maps', m.name]} title={m.name} sub={m.tagline} />
+        <PageHead crumbs={['Codex', 'Maps', m.name]} title={m.name} sub={m.location} />
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 28, marginTop: 28 }}>
           <Slot w="100%" h={360} label={m.name.toUpperCase()} hue={280 + m.difficulty * 8} dashed={false} />
           <div>
@@ -786,7 +786,7 @@
     return (
       <div>
         <PageHead crumbs={['Codex', 'Relics']} title="Relics of the Cycle"
-          sub="Hidden Aetheric fragments scattered across every BO6 and BO7 map. Each catalogued with its discovery site and the saga it belongs to." />
+          sub="Hidden Aetheric fragments scattered across every BO6 and BO7 map. Each catalogued with its discovery site and the game it belongs to." />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginTop: 32 }}>
           {Array.from({ length: 12 }).map((_, i) => {
             const map = ZD.maps.filter((m) => m.relicCount > 0)[i % 7];
@@ -811,7 +811,7 @@
       const out = [];
       ZD.maps.forEach((m) => {
         if (!q || m.name.toLowerCase().includes(q) || m.summary.toLowerCase().includes(q))
-          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.tagline });
+          out.push({ kind: 'map', id: m.id, title: m.name, sub: m.location });
       });
       ZD.characters.forEach((c) => {
         if (!q || c.name.toLowerCase().includes(q) || c.summary.toLowerCase().includes(q))
