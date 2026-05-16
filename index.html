@@ -3390,18 +3390,87 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
+  const CREW_VARIANT_VOTE_IDS = ['dempsey', 'nikolai', 'takeo', 'richtofen'];
+  const WEAPON_SET_VOTE_IDS = new Set(['staves', 'bows', 'hands-of-god']);
+
+  function characterVoteItems() {
+    return ZD.characters.flatMap((character) => {
+      if (!CREW_VARIANT_VOTE_IDS.includes(character.id)) return [character];
+      const variants = ['primis', 'ultimis', 'tempus'];
+      return variants.map((variant) => {
+        const portrait = character.portraits && character.portraits[variant];
+        const label = (portrait && portrait.label) || variant;
+        return {
+          ...character,
+          id: variant === 'primis' ? character.id : character.id + '-' + variant,
+          voteBaseId: character.id,
+          voteVariant: variant,
+          voteLabel: label,
+          name: character.name + ' (' + label + ')',
+          role: label + ' crew',
+          faction: variant,
+          defaultPortrait: variant,
+        };
+      });
+    });
+  }
+
+  function weaponVoteItems() {
+    const variantWeapons = {
+      staves: [
+        { id: 'staff-fire', name: 'Staff of Fire', hero: 'StaffofFire_Side.png', type: 'Elemental staff' },
+        { id: 'staff-ice', name: 'Staff of Ice', hero: 'StaffofIce_Side.png', type: 'Elemental staff' },
+        { id: 'staff-lightning', name: 'Staff of Lightning', hero: 'StaffofLightning_Side.png', type: 'Elemental staff' },
+        { id: 'staff-wind', name: 'Staff of Wind', hero: 'StaffofWind_Side.png', type: 'Elemental staff' },
+      ],
+      bows: [
+        { id: 'bow-lightning', name: 'Lightning Bow', hero: "LightningBow_Side_Kreema'ahm la Ahmahm.png", type: 'Elemental bow' },
+        { id: 'bow-wolf', name: 'Wolf Bow', hero: 'WolfBow_Side_Kreeholo lu Kreemasaleet.png', type: 'Elemental bow' },
+        { id: 'bow-fire', name: 'Fire Bow', hero: "FireBow_Side_Kreeaho'ahm nal Ahmhogaroc.png", type: 'Elemental bow' },
+        { id: 'bow-void', name: 'Void Bow', hero: "VoidBow_Side_Kreegakaleet lu Gosata'ahm.png", type: 'Elemental bow' },
+      ],
+      'hands-of-god': [
+        { id: 'hand-charon', name: 'Hand of Charon', hero: 'HandofCharon.png', type: 'God hand' },
+        { id: 'hand-gaia', name: 'Hand of Gaia', hero: 'HandofGaia.png', type: 'God hand' },
+        { id: 'hand-hemera', name: 'Hand of Hemera', hero: 'HandofHemera.png', type: 'God hand' },
+        { id: 'hand-ouranos', name: 'Hand of Ouranos', hero: 'HandofOuranos.png', type: 'God hand' },
+      ],
+    };
+
+    return ZD.wonderWeapons.flatMap((weapon) => {
+      if (!WEAPON_SET_VOTE_IDS.has(weapon.id)) return [weapon];
+      return (variantWeapons[weapon.id] || []).map((variant) => ({
+        ...weapon,
+        ...variant,
+        voteBaseId: weapon.id,
+        map: weapon.map,
+        mapId: weapon.mapId,
+        gameIds: weapon.gameIds,
+        introduced: weapon.introduced,
+        media: { dir: weapon.media.dir, hero: variant.hero, gallery: [] },
+      }));
+    });
+  }
+
   function votePollConfig(pollId) {
     const gameFilters = [{ id: 'all', label: 'All' }].concat(ZD.games.map((g) => ({ id: g.id, label: g.code })));
+    const weaponItems = weaponVoteItems();
+    const characterItems = characterVoteItems();
     const factionLabel = (id) => ({
       primis: 'Primis',
+      ultimis: 'Ultimis',
+      tempus: 'Tempus',
       victis: 'Victis',
       chaos: 'Chaos',
       requiem: 'Requiem',
+      aether: 'Aether',
+      order: 'The Order',
+      support: 'Support',
       darkaether: 'Dark Aether',
       celebrity: 'Celebrity',
     }[id] || String(id || 'Other').replace(/-/g, ' '));
     const factionFilters = [{ id: 'all', label: 'All' }].concat(
-      Array.from(new Set(ZD.characters.map((c) => c.faction).filter(Boolean)))
+      Array.from(new Set(characterItems.map((c) => c.faction).filter(Boolean)))
         .map((id) => ({ id, label: factionLabel(id) }))
     );
     const gameMeta = (gameId) => {
@@ -3447,12 +3516,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         currentLabel: 'Current weapon vote',
         sourceLabel: 'Browse Wonder Weapons',
         sourceRoute: { name: 'weapons' },
-        items: ZD.wonderWeapons,
+        items: weaponItems,
         filters: gameFilters,
         matchesFilter: itemGamesMatch,
         getMeta: (item) => item.type || item.map || 'Wonder weapon',
         getSub: (item) => item.type || item.map || '',
-        getDetailRoute: (item) => ({ name: 'weapon', id: item.id }),
+        getDetailRoute: (item) => ({ name: 'weapon', id: item.voteBaseId || item.id }),
         renderImage: (item, height) => <WeaponImage weapon={item} file={weaponPrimaryFile(item, 'thumb')} height={height} label={item.name} showOverlay={false} />,
       },
       perks: {
@@ -3485,13 +3554,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         currentLabel: 'Current character vote',
         sourceLabel: 'Browse Crew',
         sourceRoute: { name: 'characters' },
-        items: ZD.characters,
+        items: characterItems,
         filters: factionFilters,
         matchesFilter: (item, filter) => filter === 'all' || item.faction === filter,
-        getMeta: (item) => item.role || factionLabel(item.faction),
-        getSub: (item) => item.role || factionLabel(item.faction),
-        getDetailRoute: (item) => ({ name: 'character', id: item.id }),
-        renderImage: (item, height, compact) => <CharacterImage character={item} kind="OPERATIVE" showKind={!compact} style={{ height }} />,
+        getMeta: (item) => item.voteLabel || item.role || factionLabel(item.faction),
+        getSub: (item) => item.voteLabel || item.role || factionLabel(item.faction),
+        getDetailRoute: (item) => ({ name: 'character', id: item.voteBaseId || item.id }),
+        renderImage: (item, height, compact) => <CharacterImage character={item} variant={item.voteVariant} kind="OPERATIVE" showKind={!compact} style={{ height }} />,
       },
     };
     return configs[pollId] || configs.maps;

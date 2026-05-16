@@ -12,9 +12,12 @@ const VALID_ITEMS = {
     "raygun", "ray-gun-mk2", "wunderwaffe", "wunderwaffe-dg-scharfschutze",
     "thundergun", "winters-howl", "vr-11", "scavenger", "31-79-jgb215",
     "wave-gun", "thrustodyne-m23", "sliquifier", "paralyzer", "blundergat",
-    "staves", "apothicon-servant", "bows", "kt-4", "gkz-45-mk3",
+    "staves", "staff-fire", "staff-ice", "staff-lightning", "staff-wind",
+    "apothicon-servant", "bows", "bow-lightning", "bow-wolf", "bow-fire",
+    "bow-void", "kt-4", "gkz-45-mk3",
     "death-of-orion", "kraken", "alistairs-folly", "savage-impaler",
-    "hands-of-god", "tundragun", "die-shockwave", "rai", "crbr-s",
+    "hands-of-god", "hand-charon", "hand-gaia", "hand-hemera", "hand-ouranos",
+    "tundragun", "die-shockwave", "rai", "crbr-s",
     "chrysalax", "dr-11-beamsmasher", "jotun-star", "gorgofex", "necrofluid",
     "lgm-1"
   ]),
@@ -28,7 +31,11 @@ const VALID_ITEMS = {
     "phd-slider", "melee-macchiato"
   ]),
   characters: new Set([
-    "dempsey", "nikolai", "takeo", "richtofen", "samantha", "maxis",
+    "dempsey", "dempsey-ultimis", "dempsey-tempus",
+    "nikolai", "nikolai-ultimis", "nikolai-tempus",
+    "takeo", "takeo-ultimis", "takeo-tempus",
+    "richtofen", "richtofen-ultimis", "richtofen-tempus",
+    "samantha", "maxis",
     "marlton", "misty", "russman", "stuhlinger", "maya", "weaver", "grey",
     "carver", "bruno", "diego", "scarlet", "shaw", "monty", "shadowman",
     "director_richtofen", "peck", "strauss", "raptor_one", "ravenov", "sam_ai"
