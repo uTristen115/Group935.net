@@ -1083,6 +1083,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const ascensionShot = (file, label) => ({ dir: ASCENSION_SCREENSHOT_DIR, file, label });
   const COTD_IMAGE_DIR = 'Black Ops/Maps/Call of the Dead';
   const cotdShot = (file, label, options = {}) => ({ dir: COTD_IMAGE_DIR, file, label, ...options });
+  const FIREBASE_Z_IMAGE_DIR = 'Black Ops Cold War/Maps/Firebase Z';
+  const firebaseZShot = (file, label, options = {}) => ({ dir: FIREBASE_Z_IMAGE_DIR, file, label, ...options });
 
   const classicEasterEggs = [
     {
@@ -1580,7 +1582,16 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     ancientevil: [{ name: 'Stormbound', artist: 'Kevin Sherwood', activation: 'Three items around Delphi.' }],
     tag:         [{ name: 'A Light from the Shore', artist: 'Kevin Sherwood', activation: 'Three hidden items around the Siberian outpost.' }],
     diemaschine: [{ name: 'Alone', artist: 'Kevin Sherwood', activation: 'Three teddy bears around Projekt Endstation.' }],
-    firebase:    [{ name: 'Lost', artist: 'Kevin Sherwood', activation: 'Three teddy bears around the firebase.' }],
+    firebase:    [{
+      name: 'Lost',
+      artist: 'Kevin Sherwood',
+      activation: 'Collect three cassette tapes: one in the Motor Pool, one in Equipment Storage, and one in the Scientists Quarters.',
+      activationShots: [
+        firebaseZShot('MotorPoolMusicTape.png', 'Music tape in the Motor Pool', { objectFit: 'contain' }),
+        firebaseZShot('Equipment_Storage_-Tape_2.png', 'Music tape in Equipment Storage', { objectFit: 'contain' }),
+        firebaseZShot('ScientistsQuartersMusicTape.png', 'Music tape in Scientists Quarters', { objectFit: 'contain' }),
+      ],
+    }],
     mauer:       [],
     forsaken:    [],
     terminus:    [{ name: 'Can You Hear Me? (Come In)', artist: 'Kevin Sherwood', activation: 'Three items around the prison island.' }],
