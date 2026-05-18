@@ -2196,6 +2196,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   // Path from index.html to the Images folder. Lives inside the project
   // directory, so ready to upload to group935.net as-is.
   const IMG_BASE = './Images';
+  const PAPER_BADGE_SMALLS = [
+    IMG_BASE + '/Icons/PaperBadgesmall1.png',
+    IMG_BASE + '/Icons/PaperBadgesmall2.png',
+    IMG_BASE + '/Icons/PaperBadgesmall3.png',
+    IMG_BASE + '/Icons/PaperBadgesmall4.png',
+  ];
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
   function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
@@ -2215,6 +2221,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return map && map.game === 'bo7' && ee.rewardGif;
   });
   const HOME_FEATURED_EE_STORAGE_KEY = 'g935.homeFeaturedEE.lastMap.v1';
+  const HOME_DAILY_SONG_STORAGE_KEY = 'g935.homeDailySong.v1';
   function pickHomeFeaturedEE(pool) {
     if (!pool.length) return ZD.sampleEE;
     let lastMap = null;
@@ -2232,6 +2239,75 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return selected;
   }
   const HOME_FEATURED_EE = pickHomeFeaturedEE(HOME_BO7_EE_POOL);
+
+  function homeDailySongDateKey(date = new Date()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + d;
+  }
+
+  function homeDailySongDayStamp(dateKey) {
+    const parts = String(dateKey || '').split('-').map((part) => Number(part));
+    if (parts.length !== 3 || parts.some((part) => !Number.isFinite(part))) return null;
+    return new Date(parts[0], parts[1] - 1, parts[2]).getTime();
+  }
+
+  function homeDailySongRecentHistory(record, todayKey, validIds) {
+    const todayStamp = homeDailySongDayStamp(todayKey);
+    const raw = [];
+    if (record && Array.isArray(record.history)) raw.push(...record.history);
+    if (record && record.date && record.songId) raw.push({ date: record.date, songId: record.songId });
+    const seen = new Set();
+    return raw
+      .map((item) => ({ date: String((item && item.date) || ''), songId: String((item && item.songId) || '') }))
+      .filter((item) => item.date && validIds.has(item.songId))
+      .filter((item) => {
+        const stamp = homeDailySongDayStamp(item.date);
+        if (stamp === null || todayStamp === null) return false;
+        const age = Math.floor((todayStamp - stamp) / 86400000);
+        return age >= 0 && age < 7;
+      })
+      .filter((item) => {
+        const key = item.date + '\u0001' + item.songId;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+  }
+
+  function pickHomeDailySong(pool) {
+    if (!pool.length) return null;
+    const todayKey = homeDailySongDateKey();
+    const validIds = new Set(pool.map((song) => song.id));
+    let record = null;
+    try {
+      const raw = window.localStorage && window.localStorage.getItem(HOME_DAILY_SONG_STORAGE_KEY);
+      record = raw ? JSON.parse(raw) : null;
+    } catch (err) {}
+    if (record && record.date === todayKey && validIds.has(record.songId)) {
+      return pool.find((song) => song.id === record.songId) || pool[0];
+    }
+    const recentHistory = homeDailySongRecentHistory(record, todayKey, validIds);
+    const recentSongIds = new Set(recentHistory.map((item) => item.songId));
+    const options = pool.filter((song) => !recentSongIds.has(song.id));
+    const selectedPool = options.length ? options : pool;
+    const selected = selectedPool[Math.floor(Math.random() * selectedPool.length)];
+    const nextHistory = recentHistory
+      .filter((item) => item.date !== todayKey)
+      .concat({ date: todayKey, songId: selected.id })
+      .slice(-7);
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(HOME_DAILY_SONG_STORAGE_KEY, JSON.stringify({
+          date: todayKey,
+          songId: selected.id,
+          history: nextHistory,
+        }));
+      }
+    } catch (err) {}
+    return selected;
+  }
 
   const T = {
     bg0:     '#0a0908',
@@ -2265,12 +2341,61 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         src: url("./Fonts/Help Scratch Writing/help-me/HelpMe.ttf") format("truetype");
         font-display: swap;
       }
+      @font-face {
+        font-family: "ShadowedRDF";
+        src: url("./Fonts/BadgeFont/shadowed-rdf/Shadowed RDF Regular.ttf") format("truetype");
+        font-display: swap;
+      }
       .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
       .pap-link:hover { color: ${T.e115}; }
       .pap-card { background: ${T.bg2}; border: 1px solid ${T.line}; transition: border-color .12s, transform .12s, background .12s; }
       .pap-card:hover { border-color: ${T.e115dim}; background: ${T.bg3}; }
       .pap-card-clickable { cursor: pointer; }
       .pap-card-clickable:hover { transform: translateY(-1px); }
+      .pap-paper-badge {
+        position: relative;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        min-width: 116px;
+        max-width: 100%;
+        padding: 9px 17px 10px;
+        color: ${T.bg0};
+        font-family: "ShadowedRDF", ${T.display};
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 1.45px;
+        line-height: 1.05;
+        text-transform: uppercase;
+      }
+      .pap-paper-badge img {
+        position: absolute;
+        inset: -3px -5px;
+        z-index: 0;
+        width: calc(100% + 10px);
+        height: calc(100% + 6px);
+        object-fit: fill;
+        pointer-events: none;
+        filter: drop-shadow(0 5px 8px rgba(0,0,0,0.26));
+      }
+      .pap-paper-badge-label {
+        position: relative;
+        display: inline-block;
+        z-index: 1;
+        overflow-wrap: anywhere;
+        text-align: center;
+        transform: translateY(2px);
+        -webkit-text-stroke: 0.35px currentColor;
+        paint-order: stroke fill;
+        text-shadow:
+          0 1px 0 rgba(232,226,212,0.28),
+          0.55px 0 0 currentColor,
+          -0.55px 0 0 currentColor,
+          0 0.55px 0 currentColor,
+          0 -0.55px 0 currentColor;
+      }
       .pap-image-link { display: block; color: inherit; text-decoration: none; cursor: zoom-in; }
       .pap-image-link:hover { border-color: ${T.e115dim} !important; }
       .pap-image-link:focus-visible { outline: 2px solid ${T.e115}; outline-offset: 3px; }
@@ -2514,7 +2639,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-vote-rank { font-size: 19px !important; }
         .pap-vote-leader-row .pap-stencil { font-size: 18px !important; }
         .pap-ee-badges { gap: 7px !important; margin-top: 14px !important; }
-        .pap-ee-badges .pap-stamp { transform: none !important; font-size: 9px !important; letter-spacing: 1.2px !important; padding: 4px 7px 3px !important; max-width: 100%; overflow-wrap: anywhere; }
+        .pap-ee-badges .pap-paper-badge { min-height: 34px !important; min-width: 98px !important; padding: 8px 13px 9px !important; font-size: 15px !important; letter-spacing: 1.1px !important; }
         .pap-ee-layout { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 24px !important; }
         .pap-ee-sidebar { order: 1; }
         .pap-ee-content { order: 2; }
@@ -2536,7 +2661,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-ee-bullet { grid-template-columns: 18px minmax(0, 1fr) !important; font-size: 14.5px !important; line-height: 1.45 !important; }
         .pap-ee-actions { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
         .pap-ee-rewards { margin-top: 24px !important; padding: 14px !important; }
-        .pap-ee-rewards .pap-stamp { transform: none !important; font-size: 9px !important; letter-spacing: 1.2px !important; }
+        .pap-ee-rewards .pap-paper-badge { min-height: 32px !important; min-width: 96px !important; padding: 8px 12px 9px !important; font-size: 15px !important; letter-spacing: 1px !important; }
         .pap-chip { min-height: 34px; }
         .pap-card, .term-card { overflow-wrap: anywhere; }
         #root [style*="display: flex"] { flex-wrap: wrap !important; }
@@ -2978,6 +3103,63 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return <span className="pap-stamp" style={{ color: c, ...style }}>{children}</span>;
   };
 
+  function shufflePaperBadges(count) {
+    const out = [];
+    const shuffledBag = () => {
+      const bag = [...PAPER_BADGE_SMALLS];
+      for (let i = bag.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
+      }
+      if (out.length && bag[0] === out[out.length - 1] && bag.length > 1) {
+        [bag[0], bag[1]] = [bag[1], bag[0]];
+      }
+      return bag;
+    };
+    while (out.length < count) {
+      shuffledBag().forEach((src) => {
+        if (out.length < count) out.push(src);
+      });
+    }
+    return out;
+  }
+
+  const PaperBadge = ({ children, image, style }) => (
+    <span className="pap-paper-badge" style={style}>
+      <img src={image} alt="" aria-hidden="true" />
+      <span className="pap-paper-badge-label">{children}</span>
+    </span>
+  );
+
+  function PaperBadgeGroup({ items, className = 'pap-paper-badge-group', style, badgeStyle }) {
+    const labels = (items || []).filter(Boolean);
+    const images = useMemo(() => shufflePaperBadges(labels.length), [labels.join('\u0001')]);
+    if (!labels.length) return null;
+    return (
+      <div className={className} style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', ...style }}>
+        {labels.map((item, i) => (
+          <PaperBadge key={item + '-' + i} image={images[i]} style={badgeStyle}>{item}</PaperBadge>
+        ))}
+      </div>
+    );
+  }
+
+  function isHiddenEasterEggBadge(value) {
+    const text = String(value || '').trim().toLowerCase();
+    if (!text) return true;
+    if (/\b\d+\s*[-–]\s*\d+\s*(min|mins|minutes|hr|hrs|hours)\b/.test(text)) return true;
+    if (/\b\d+\s*(min|mins|minutes|hr|hrs|hours)\b/.test(text)) return true;
+    if (/\b(power|electricity)\b/.test(text) && /\b(on|turn|turned|restore|restored|required|must)\b/.test(text)) return true;
+    if (/\bpath\b/.test(text) && /\b(open|opened|required|route|access)\b/.test(text)) return true;
+    return false;
+  }
+
+  function easterEggBadgeItems(ee, { includeRequirements = true } = {}) {
+    const items = [ee && ee.difficulty, ee && ee.party];
+    if (includeRequirements && ee && ee.requirements) items.push(...ee.requirements);
+    return items.filter((item) => !isHiddenEasterEggBadge(item));
+  }
+
   const Mono = ({ children, color, size = 10.5, letter = 1.8, style }) => (
     <span style={{ fontFamily: T.mono, fontSize: size, letterSpacing: letter, textTransform: 'uppercase', color: color || T.mute, ...style }}>{children}</span>
   );
@@ -3101,7 +3283,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const databaseItems = [
       { id: 'games', label: 'Games', sub: 'WaW through BO7' },
       { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
-      { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
+      { id: 'songs', label: 'Songs', sub: 'Easter egg tracks' },
     ];
     const votingItems = [
       { id: 'vote', label: 'Maps', sub: 'Favorite map of all time' },
@@ -3112,11 +3294,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const armoryItems = [
       { id: 'weapons', label: 'Wonder Weapons', sub: 'Weapon records' },
       { id: 'perks', label: 'Perks', sub: 'Vending machines' },
-      { id: 'songs', label: 'Hidden Songs', sub: 'Easter egg tracks' },
     ];
     const storyItems = [
       { id: 'timeline', label: 'Kronorium', sub: 'Book of events' },
       { id: 'lore', label: 'Lore', sub: 'Deep readings' },
+      { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
     ];
     const mobileGroups = [
       { label: 'Database', items: databaseItems },
@@ -3172,19 +3354,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               </div>
             </button>
             <nav className="pap-main-nav" style={{ display: 'flex', gap: 4, marginLeft: 14, alignItems: 'center' }}>
-              <button onClick={() => nav({ name: 'home' })}
-                style={{
-                  background: route.name === 'home' ? T.e115bg : 'transparent',
-                  border: 0,
-                  borderBottom: route.name === 'home' ? `2px solid ${T.e115}` : '2px solid transparent',
-                  color: route.name === 'home' ? T.e115 : T.mute,
-                  padding: '8px 12px',
-                  fontFamily: T.display, fontWeight: 700, fontSize: 13, letterSpacing: 2, textTransform: 'uppercase',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={(e) => { if (route.name !== 'home') e.currentTarget.style.color = T.bone; }}
-                onMouseLeave={(e) => { if (route.name !== 'home') e.currentTarget.style.color = T.mute; }}
-              >Archive</button>
               <NavDropdown label="Database" route={route} nav={nav} items={databaseItems} />
               <NavDropdown label="Armory" route={route} nav={nav} items={armoryItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
@@ -3218,22 +3387,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           {mobileMenuOpen && (
             <div className="pap-mobile-menu">
               <div style={{ maxWidth: 1440, margin: '0 auto', padding: '14px' }}>
-                <button
-                  onClick={() => mobileNav({ name: 'home' })}
-                  style={{
-                    width: '100%', textAlign: 'left',
-                    background: route.name === 'home' ? T.e115bg : T.bg2,
-                    border: `1px solid ${route.name === 'home' ? T.e115dim : T.line}`,
-                    color: route.name === 'home' ? T.e115 : T.bone,
-                    padding: '13px 14px',
-                    fontFamily: T.display, fontWeight: 700, fontSize: 15, letterSpacing: 2.4, textTransform: 'uppercase',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Archive
-                </button>
-                {mobileGroups.map((group) => (
-                  <div key={group.label} style={{ marginTop: 14 }}>
+                {mobileGroups.map((group, groupIndex) => (
+                  <div key={group.label} style={{ marginTop: groupIndex ? 14 : 0 }}>
                     <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.2, textTransform: 'uppercase', color: T.e115, marginBottom: 7 }}>
                       {group.label}
                     </div>
@@ -3410,7 +3565,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
         <section style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 28, marginBottom: 56 }}>
           <FeaturedEE nav={nav} />
-          <CrewPreview nav={nav} />
+          <FeaturedDailySong nav={nav} />
         </section>
 
         <section style={{ marginBottom: 24 }}>
@@ -3495,34 +3650,70 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function CrewPreview({ nav }) {
-    return (
-      <div className="pap-card" style={{ padding: 22 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-          <div>
-            <Mono color={T.e115} letter={2.5}>Personnel</Mono>
-            <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6 }}>The Crew</div>
-          </div>
-          <button className="pap-link" onClick={() => nav({ name: 'characters' })}
-            style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'All →'}</button>
+  function FeaturedDailySong({ nav }) {
+    const song = useMemo(() => pickHomeDailySong(songList().filter((item) => item.videoUrl)), []);
+    if (!song) {
+      return (
+        <div className="pap-card" style={{ padding: 22 }}>
+          <Mono color={T.e115} letter={2.5}>Daily Song</Mono>
+          <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6 }}>Song file pending</div>
         </div>
-        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column' }}>
-          {ZD.characters.slice(0, 5).map((c) => (
-            <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })}
-              className="pap-row"
-              style={{
-                display: 'grid', gridTemplateColumns: '54px 1fr auto', gap: 14, alignItems: 'center',
-                padding: '10px 6px', background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`,
-                cursor: 'pointer', color: T.bone, textAlign: 'left',
-              }}>
-              <CharacterImage character={c} showKind={false} style={{ width: 54, height: 54 }} />
-              <div>
-                <div className="pap-stencil" style={{ fontSize: 17, color: T.bone, letterSpacing: 0.5 }}>{c.name}</div>
-                <Mono color={T.faint}>{c.role}</Mono>
-              </div>
-              <span style={{ color: T.e115, fontFamily: T.mono, fontSize: 14 }}>{'›'}</span>
+      );
+    }
+    const map = ZD.maps.find((m) => m.id === song.mapId);
+    const game = ZD.games.find((g) => g.id === song.gameId);
+    const embedUrl = youtubeEmbedUrl(song.videoUrl);
+    const activationShots = songActivationShots(song, map);
+    return (
+      <div className="pap-card" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '22px 22px 16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 14, marginBottom: 10 }}>
+            <div style={{ minWidth: 0 }}>
+              <Mono color={T.e115} letter={2.5}>Daily Song</Mono>
+              <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6, lineHeight: 1 }}>{song.name}</div>
+            </div>
+            <button className="pap-link" onClick={() => nav({ name: 'song', id: song.id })}
+              style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase', flexShrink: 0 }}>
+              Open file
             </button>
-          ))}
+          </div>
+          <Mono color={T.mute}>{song.artist + ' - ' + song.mapName + (game ? ' - ' + game.code : '')}</Mono>
+        </div>
+
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: T.bg0, borderTop: `1px solid ${T.line}`, borderBottom: `1px solid ${T.line}` }}>
+          {embedUrl ? (
+            <iframe
+              title={song.name + ' featured daily song'}
+              src={embedUrl}
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <div style={{ padding: 18 }}>
+              <Mono color={T.e115}>YouTube embed unavailable in this context</Mono>
+              <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, margin: '10px 0 0' }}>
+                {'Open the song file for the direct video link.'}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: 16 }}>
+          <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, margin: '0 0 14px' }}>{song.activation}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }}>
+            {activationShots.map((shot, i) => (
+              <div key={i} style={{ minWidth: 0 }}>
+                {shot ? (
+                  <EvidenceImage map={map} image={shot} height={112} label={shot.label || (song.name + ' trigger ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} objectFit="contain" openFullSize />
+                ) : (
+                  <Slot w="100%" h={112} label={'Trigger ' + String(i + 1)} kind="SCREENSHOT NEEDED" tone="yellow" />
+                )}
+                <Mono color={T.faint} style={{ display: 'block', marginTop: 6, lineHeight: 1.35 }}>{shot && shot.label ? shot.label : ('Trigger ' + String(i + 1))}</Mono>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -3798,9 +3989,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function youtubeEmbedUrl(url) {
     const id = String(url || '').match(/[?&]v=([^&]+)/);
     if (!id) return null;
-    if (!window.location.origin || !/^https?:/.test(window.location.origin)) return null;
     const params = new URLSearchParams({ rel: '0' });
-    params.set('origin', window.location.origin);
+    if (window.location.origin && /^https?:/.test(window.location.origin)) {
+      params.set('origin', window.location.origin);
+    }
     return 'https://www.youtube.com/embed/' + id[1] + '?' + params.toString();
   }
 
@@ -4602,10 +4794,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                 <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />
               )}
               <div style={{ padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                  <Stamp tone="red">{ee.difficulty}</Stamp>
-                  <Mono color={T.mute}>{ee.duration + ' · ' + ee.party}</Mono>
-                </div>
+                <PaperBadgeGroup
+                  items={easterEggBadgeItems(ee, { includeRequirements: false })}
+                  className="pap-map-quest-badges"
+                  style={{ gap: 8 }}
+                  badgeStyle={{ minWidth: 104, minHeight: 34, padding: '8px 14px 9px', fontSize: 15, letterSpacing: 1.15 }}
+                />
                 <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 10 }}>{ee.title}</div>
                 {ee.summary && <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6, maxWidth: 540 }}>{ee.summary}</div>}
               </div>
@@ -4617,7 +4811,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <ComingSoon what="Full walkthrough" />
           ) : (
             <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
-              <Stamp tone="mute">Classic Era</Stamp>
+              <PaperBadgeGroup items={['Classic Era']} className="pap-map-quest-badges" style={{ gap: 8 }} />
               <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute }}>No main quest catalogued for this site. This is a pure-survival map.</div>
             </div>
           )}
@@ -4723,7 +4917,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function ComingSoon({ what }) {
     return (
       <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
-        <Stamp tone="yellow">Awaiting Sync</Stamp>
+        <PaperBadgeGroup items={['Awaiting Sync']} className="pap-map-quest-badges" style={{ gap: 8 }} />
         <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute }}>{what + ' arriving with the next archive update.'}</div>
       </div>
     );
@@ -4750,10 +4944,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <CallingCardReward ee={ee} height={320} />
           </div>
           <div className="pap-card" style={{ padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-              <Stamp tone="yellow">Under Construction</Stamp>
-              <Stamp tone="red">Main Quest</Stamp>
-            </div>
+            <PaperBadgeGroup items={['Under Construction', 'Main Quest']} className="pap-map-quest-badges" style={{ gap: 8 }} />
             <div className="pap-stencil" style={{ fontSize: 36, color: T.bone, marginTop: 16 }}>Tutorial Sync Pending</div>
             <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.65, marginTop: 12 }}>
               The reward file is live. The full step-by-step Easter egg tutorial is still being assembled.
@@ -4829,12 +5020,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           sub={ee.id === 'ascension-casimir-mechanism' ? '' : ee.summary}
           nav={nav}
         />
-        <div className="pap-ee-badges" style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
-          <Stamp tone="red">{ee.difficulty}</Stamp>
-          <Stamp tone="yellow">{ee.duration}</Stamp>
-          <Stamp tone="green">{ee.party}</Stamp>
-          {(ee.requirements || []).map((item) => <Stamp key={item} tone="yellow">{item}</Stamp>)}
-        </div>
+        <PaperBadgeGroup className="pap-ee-badges" style={{ marginTop: 18 }} items={easterEggBadgeItems(ee)} />
         <div className="pap-ee-layout" style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
           <div className="pap-ee-sidebar">
             <div className="pap-ee-progress"><Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + steps.length}</Mono></div>
@@ -4918,9 +5104,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             </div>
             <div className="pap-ee-rewards" style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
               <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
-                {(ee.rewards || []).map((r) => <Stamp key={r} tone="yellow">{r}</Stamp>)}
-              </div>
+              <PaperBadgeGroup
+                className="pap-ee-reward-badges"
+                style={{ gap: 8, marginTop: 12 }}
+                items={ee.rewards || []}
+                badgeStyle={{ minWidth: 112, minHeight: 34, padding: '8px 14px 9px', fontSize: 15, letterSpacing: 1.05 }}
+              />
             </div>
           </div>
         </div>
