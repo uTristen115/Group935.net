@@ -1081,6 +1081,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
   const ASCENSION_SCREENSHOT_DIR = 'Black Ops 3/Maps/Zombies Chronicles/Ascension/Screenshots';
   const ascensionShot = (file, label) => ({ dir: ASCENSION_SCREENSHOT_DIR, file, label });
+  const COTD_IMAGE_DIR = 'Black Ops/Maps/Call of the Dead';
+  const cotdShot = (file, label, options = {}) => ({ dir: COTD_IMAGE_DIR, file, label, ...options });
 
   const classicEasterEggs = [
     {
@@ -1212,6 +1214,212 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         },
       ],
     },
+    {
+      id: 'call-of-the-dead-ensemble-cast',
+      map: 'callofthedead',
+      mapName: 'Call of the Dead',
+      title: 'Ensemble Cast',
+      difficulty: 'Medium-Hard',
+      duration: '50-80 min',
+      party: '2-4 players for Ensemble Cast',
+      summary: 'Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal, and sending the Vril Device through the vault tube.',
+      heroImage: cotdShot('CotD_LoadingScreen.png', 'Ultimis locked behind the lighthouse door'),
+      requirements: [
+        'Power turned on',
+        'Path to PhD Flopper open',
+        'Semtex or other explosives',
+        'V-R11 from the Mystery Box',
+      ],
+      rewards: [
+        'Wunderwaffe DG-2 power-up',
+        'Ensemble Cast achievement or trophy',
+        'George Romero drops Wunderwaffe instead of Death Machine',
+      ],
+      steps: [
+        {
+          n: 1,
+          title: 'Power the Ship',
+          body: 'Open the map until you can reach the ship bridge. As usual, the main quest starts by restoring power to the facility.',
+          bullets: [
+            'Move through the ship until you reach the bridge on the top level.',
+            'Flip the power switch in the bridge.',
+            'Open the route back toward the lighthouse and PhD Flopper building.',
+            'Start working on a V-R11 early, since the final sequence cannot be completed without it.',
+          ],
+          images: [
+            cotdShot('Power_Switch.png', 'Power switch on the ship bridge'),
+          ],
+        },
+        {
+          n: 2,
+          title: 'Restore the Vault Circuit',
+          body: 'Drop into the room below PhD Flopper and get the crew talking through the sealed vault. Once the argument settles, Richtofen needs a replacement fuse for the busted panel.',
+          bullets: [
+            'Hit or use the vault door until Ultimis begins the request.',
+            'Sweep the PhD Flopper floor and the adjacent lower room for the loose fuse.',
+            'Look over desk surfaces, cabinet spaces, and small cluttered work areas for the pickup prompt.',
+            'Carry the fuse back downstairs and install it in the wall panel next to the sealed door.',
+            'Trigger the door again so the crew moves on to the next problem.',
+          ],
+          images: [
+            cotdShot('DoorCrewIsBehind.png', 'Door to the trapped Ultimis crew'),
+            cotdShot('Fuse_By_Locker.png', 'Fuse spawn by the locker'),
+            cotdShot('Fuse_Nextto_PhD.png', 'Fuse spawn next to PhD Flopper'),
+            cotdShot('Fuse_Opposite_PhD.png', 'Fuse spawn opposite PhD Flopper'),
+          ],
+        },
+        {
+          n: 3,
+          title: 'Break the Security Grid',
+          body: 'Nikolai trips the MDT security grid, leaving four red-lit units active across the coast. Use explosives and land the blast directly on the glowing machinery.',
+          bullets: [
+            'Semtex is ideal because it sticks, but any reliable explosive can work if the detonation hits the red light.',
+            'One unit sits opposite the vault area, visible from the door side of the room.',
+            'Another is tucked past the ship railing, down by the water near Double Tap.',
+            'A third is lodged among the icy gaps in the central ship section.',
+            'The last one is outside the playable path near a Stamin-Up window.',
+            'When all four stop glowing, report back to the vault.',
+          ],
+          images: [
+            cotdShot('CrewDoorGenerator.png', 'Generator by the crew door'),
+            cotdShot('HeadofBoatGenerator.png', 'Generator at the head of the ship'),
+            cotdShot('MidMapGenerator.png', 'Generator in the central ship section'),
+            cotdShot('StaminupGenerator.png', 'Generator near Stamin-Up'),
+          ],
+        },
+        {
+          n: 4,
+          title: 'Send Nikolai a Drink',
+          body: 'Co-op only. Nikolai asks for vodka next, because of course he does. The bottle hangs in a block of ice above a lower walkway, so this step takes two players in sync.',
+          bullets: [
+            'Put one player at the bottle and one player on the lower path beneath it.',
+            'The top player knifes the ice; the lower player catches the falling bottle.',
+            'Check the ramp that joins the broken ship sections.',
+            'Check the Mystery Box area on the upper PhD Flopper side.',
+            'Check the high ledge near the MPL wall buy.',
+            'Check the stairs that descend from the upper Mystery Box spot toward PhD Flopper.',
+            'Feed the bottle into the left-side tube beside the vault.',
+          ],
+          images: [
+            cotdShot('VodkaSpot1.png', 'Vodka bottle spawn 1'),
+            cotdShot('VodkaSpot2.png', 'Vodka bottle spawn 2'),
+            cotdShot('VodkaSpot3.png', 'Vodka bottle spawn 3'),
+            cotdShot('VodkaSpot4.png', 'Vodka bottle spawn 4'),
+          ],
+        },
+        {
+          n: 5,
+          title: 'Wake the Sky Signal',
+          body: 'Co-op only. Four radios have to be used in sequence. Done correctly, the map answers with a blinking light in the sky.',
+          bullets: [
+            'Start below the power room and use the radio resting on the right-side electrical cabinet.',
+            'Move to Stamin-Up and use the radio perched on the nearby barrel.',
+            'Go to the zipline-exit side of the ship and find the sideways radio inside the shipping container.',
+            'Finish beside the vault with the radio on the cabinet tucked under the stairs.',
+            'Keep the activations close together so the sequence does not drop.',
+            'Watch the sky for the blinking confirmation once the fourth radio registers.',
+          ],
+          images: [
+            cotdShot('Radio1.png', 'Radio below the power room'),
+            cotdShot('Radio2.png', 'Radio near Stamin-Up'),
+            cotdShot('Radio3.png', 'Radio inside the ship container'),
+            cotdShot('Radio4.png', 'Radio beside the vault stairs'),
+          ],
+        },
+        {
+          n: 6,
+          title: 'Solve the Bridge Controls',
+          body: 'Return to the bridge controls opposite the power switch. The wheel and lever positions translate the signal into the submarine setup.',
+          bullets: [
+            'Rotate the wheel until the brown handle sits in the lower-right position.',
+            'Move to the three-lever panel beside the wheel.',
+            'Pull the left lever one time.',
+            'Leave the middle lever alone.',
+            'Pull the right-most lever three times.',
+            'The accepted setup is marked by the ship horn sounding off.',
+          ],
+          images: [
+            cotdShot('ShipSteeringWheel.png', 'Bridge steering wheel setting'),
+            cotdShot('Levers.png', 'Three-lever panel'),
+            cotdShot('WheelandLevers.png', 'Wheel and lever control station'),
+          ],
+        },
+        {
+          n: 7,
+          title: 'Call the Submarine',
+          body: 'Co-op only. The foghorns have their own order. Hit them correctly and the submarine lines its green beam up with the lighthouse.',
+          bullets: [
+            'Start at the shoreline horn on the right side of the AK-74u wall buy.',
+            'Use the horn around the right-hand corner after the slide toward Speed Cola.',
+            'Return to the AK-74u area and use the horn on the left side near the building base.',
+            'Finish with the horn straight ahead from the Speed Cola slide exit.',
+            'The successful sequence pulls a green submarine beam into the lighthouse shaft.',
+          ],
+          images: [
+            cotdShot('Foghorn1_WaterByLighthouse.png', 'Foghorn by the water near the lighthouse'),
+            cotdShot('Foghorn2_LeftofSpeedCola.png', 'Foghorn left of Speed Cola'),
+            cotdShot('FogHorn3_LighthouseBase.png', 'Foghorn at the lighthouse base'),
+            cotdShot('FogHorn4_AheadofSpeed.png', 'Foghorn ahead of Speed Cola'),
+            cotdShot('Submarine.png', 'Submarine beam lined up with the lighthouse'),
+          ],
+        },
+        {
+          n: 8,
+          title: 'Align the Tower Dials',
+          body: 'Co-op only. Each lighthouse floor has a numbered color dial. The solved stack reads 2746 from the top floor down, but every turn can disturb another floor.',
+          bullets: [
+            'Begin with the top yellow dial and put it on 2.',
+            'Use the blue-floor dial to move orange into 7.',
+            'Set the bottom purple dial to 6.',
+            'Use the orange-floor dial to bring blue onto 4.',
+            'Go back to yellow and correct it to 2 if the linked turns moved it.',
+            'Before leaving, verify the order as yellow 2, orange 7, blue 4, purple 6.',
+            'Purple loops back to yellow, so a final pass through all four floors is worth the time.',
+          ],
+          images: [
+            cotdShot('TopFloorButton_Yellow_wide.png', 'Top floor yellow dial'),
+            cotdShot('Floor3Button_Orange_Wide.png', 'Third floor orange dial'),
+            cotdShot('Floor2Button_Blue_Wide.png', 'Second floor blue dial'),
+            cotdShot('Floor1Button_Purple_Wide.png', 'Bottom floor purple dial'),
+          ],
+        },
+        {
+          n: 9,
+          title: 'Feed the Lighthouse Beam',
+          body: 'One player needs the V-R11 from the Mystery Box. With the green beam active, use the weapon at the lighthouse base to create the sacrifice target.',
+          bullets: [
+            'Lead a regular zombie onto the bottom floor of the lighthouse.',
+            'Hit it with the V-R11 so it changes form and sprints for the beam.',
+            'Let the runner enter the green light in the spiral stairwell.',
+            'Once the target begins floating upward, kill it before it disappears at the top.',
+            'The Scavenger, explosives, or concentrated fire can end the float quickly.',
+          ],
+          images: [
+            cotdShot('HumanSacrifice.png', 'V-R11 target floating in the lighthouse beam'),
+            cotdShot('Golden_Rod.png', 'Vril Device drops through the lighthouse'),
+          ],
+        },
+        {
+          n: 10,
+          title: 'Hand Off the Vril Device',
+          body: 'After the portal sequence resolves, the Vril Device descends through the lighthouse. Get it back to Ultimis and close out the escape.',
+          bullets: [
+            'Grab the Vril Device when it reaches the lower lighthouse floor.',
+            'Run it back to the vault room under PhD Flopper.',
+            'Load the device into the left tube that previously accepted Nikolai\'s vodka.',
+            'Wait for Richtofen to finish his dialogue.',
+            'Strike or use the fuse panel on the right side of the vault to send the crew out.',
+            'Pick up the Wunderwaffe DG-2 reward after the crew leaves.',
+            'After the quest, defeating George Romero rewards a Wunderwaffe drop in place of the usual Death Machine.',
+          ],
+          images: [
+            cotdShot('Golden_Rod.png', 'Vril Device ready for the vault tube'),
+            cotdShot('EE_Reward.png', 'Wunderwaffe DG-2 quest reward'),
+            cotdShot('GeorgeRomero.png', 'George Romero reward reference'),
+          ],
+        },
+      ],
+    },
   ];
 
   const bo7EasterEggs = [
@@ -1339,7 +1547,16 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         ascensionShot('MusicEE_NearSpeedCola.png', 'Teddy bear near Speed Cola Lander'),
       ],
     }],
-    callofthedead: [{ name: 'Not Ready to Die', artist: 'Avenged Sevenfold', activation: 'Three meteor rocks around the map.' }],
+    callofthedead: [{
+      name: 'Not Ready to Die',
+      artist: 'Avenged Sevenfold',
+      activation: 'Activate three meteor rocks: one at Spawn, one by PhD Flopper, and one in the ship diner below Power.',
+      activationShots: [
+        cotdShot('Music_Rock1.png', 'Music rock at Spawn', { objectFit: 'contain' }),
+        cotdShot('Music_Rock2.png', 'Music rock by PhD Flopper', { objectFit: 'contain' }),
+        cotdShot('MusicRock3.png', 'Music rock in the ship diner below Power', { objectFit: 'contain' }),
+      ],
+    }],
     shangri:     [{ name: 'Pareidolia', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three meteor rocks around the temple.' }],
     moon:        [{ name: 'Coming Home', artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
     tranzit:     [{ name: 'Carrion', artist: 'Kevin Sherwood feat. Clark S. Nova', activation: 'Three teddy bears hidden along the bus route.' }],
@@ -2054,6 +2271,59 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-card:hover { border-color: ${T.e115dim}; background: ${T.bg3}; }
       .pap-card-clickable { cursor: pointer; }
       .pap-card-clickable:hover { transform: translateY(-1px); }
+      .pap-image-link { display: block; color: inherit; text-decoration: none; cursor: zoom-in; }
+      .pap-image-link:hover { border-color: ${T.e115dim} !important; }
+      .pap-image-link:focus-visible { outline: 2px solid ${T.e115}; outline-offset: 3px; }
+      .pap-image-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: clamp(14px, 3vw, 28px);
+        background: rgba(10, 9, 8, 0.96);
+      }
+      .pap-image-modal-close {
+        justify-self: end;
+        width: 42px;
+        height: 42px;
+        border: 1px solid ${T.lineHi};
+        background: ${T.bg1};
+        color: ${T.bone};
+        cursor: pointer;
+        font-family: ${T.display};
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .pap-image-modal-close:hover,
+      .pap-image-modal-close:focus-visible {
+        color: ${T.e115};
+        border-color: ${T.e115};
+        outline: none;
+      }
+      .pap-image-modal-img {
+        align-self: center;
+        justify-self: center;
+        display: block;
+        max-width: 100%;
+        max-height: calc(100vh - 132px);
+        object-fit: contain;
+        background: ${T.bg0};
+        border: 1px solid ${T.lineHi};
+        box-shadow: 0 22px 70px rgba(0,0,0,0.65);
+      }
+      .pap-image-modal-title {
+        justify-self: center;
+        max-width: min(100%, 900px);
+        color: ${T.mute};
+        font-family: ${T.mono};
+        font-size: 11px;
+        letter-spacing: 1.8px;
+        line-height: 1.4;
+        text-align: center;
+        text-transform: uppercase;
+      }
       .pap-btn { font-family: ${T.display}; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
       .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-primary:hover { background: ${T.bone}; }
@@ -2369,6 +2639,31 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   };
 
+  function FullSizeImageModal({ src, title, onClose }) {
+    useEffect(() => {
+      const oldOverflow = document.body.style.overflow;
+      const handleKey = (event) => {
+        if (event.key === 'Escape') onClose();
+      };
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKey);
+      return () => {
+        document.body.style.overflow = oldOverflow;
+        window.removeEventListener('keydown', handleKey);
+      };
+    }, [onClose]);
+
+    const modal = (
+      <div className="pap-image-modal" role="dialog" aria-modal="true" aria-label={title} onClick={onClose}>
+        <button type="button" className="pap-image-modal-close" aria-label="Close image" onClick={(event) => { event.stopPropagation(); onClose(); }}>X</button>
+        <img className="pap-image-modal-img" src={src} alt={title} onClick={(event) => event.stopPropagation()} />
+        <div className="pap-image-modal-title">{title}</div>
+      </div>
+    );
+
+    return ReactDOM.createPortal(modal, document.body);
+  }
+
   function mapPrimaryFile(map, slot = 'hero') {
     const media = map && map.media;
     if (!media) return null;
@@ -2456,72 +2751,115 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return response.json();
   }
 
-  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition }) {
+  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false }) {
     const [failed, setFailed] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     const src = !failed ? mapImg(map, file || mapPrimaryFile(map)) : null;
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
     const title = label || (map && map.name) || 'Map image';
     if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
+    const openImage = () => { if (openFullSize) setExpanded(true); };
+    const handleImageKey = (event) => {
+      if (!openFullSize) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        setExpanded(true);
+      }
+    };
     return (
-      <div style={{
-        width: '100%', height, position: 'relative', overflow: 'hidden',
-        background: T.bg2, border: `1px solid ${T.line}`,
-        ...style,
-      }}>
-        <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit, objectPosition: objectPosition || (map.media && map.media.objectPosition) || 'center center' }} />
-        {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />}
-        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
-        {showOverlay && (
-          <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-            <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
-          </div>
-        )}
-      </div>
+      <>
+        <div className={'pap-map-image' + (openFullSize ? ' pap-image-link' : '')}
+          role={openFullSize ? 'button' : undefined}
+          tabIndex={openFullSize ? 0 : undefined}
+          aria-label={openFullSize ? 'Open full-size image: ' + title : undefined}
+          title={openFullSize ? 'Open full-size image' : undefined}
+          onClick={openImage}
+          onKeyDown={handleImageKey}
+          style={{
+            width: '100%', height, position: 'relative', overflow: 'hidden',
+            background: T.bg2, border: `1px solid ${T.line}`,
+            ...style,
+          }}>
+          <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit, objectPosition: objectPosition || (map.media && map.media.objectPosition) || 'center center' }} />
+          {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.06) 45%, rgba(10,9,8,0.68) 100%)', pointerEvents: 'none' }} />}
+          {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+          {showOverlay && (
+            <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+              <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+              <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // IMG</div>
+            </div>
+          )}
+        </div>
+        {expanded && <FullSizeImageModal src={src} title={title} onClose={() => setExpanded(false)} />}
+      </>
     );
   }
 
-  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition }) {
+  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false }) {
     const [failed, setFailed] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     const src = !failed ? gameAssetImg(image, map) : null;
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
     const title = label || (image && image.label) || (map && map.name) || 'Reference image';
     const fit = (image && image.objectFit) || objectFit;
     const pos = objectPosition || (image && image.objectPosition) || 'center center';
     if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
+    const frameClass = 'pap-evidence-image' + (openFullSize ? ' pap-image-link' : '');
+    const openImage = () => { if (openFullSize) setExpanded(true); };
+    const handleImageKey = (event) => {
+      if (!openFullSize) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        setExpanded(true);
+      }
+    };
+    const interactiveProps = openFullSize ? {
+      role: 'button',
+      tabIndex: 0,
+      'aria-label': 'Open full-size image: ' + title,
+      title: 'Open full-size image',
+      onClick: openImage,
+      onKeyDown: handleImageKey,
+    } : {};
     if (image && image.layout === 'natural') {
       return (
-        <div className="pap-evidence-image" style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
-          <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
-            style={{ display: 'block', width: '100%', height: 'auto' }} />
-          {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.04) 48%, rgba(10,9,8,0.6) 100%)', pointerEvents: 'none' }} />}
-          {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{image.kind || kind}</div>}
-          {showOverlay && (
-            <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-              <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
-            </div>
-          )}
-        </div>
+        <>
+          <div className={frameClass} {...interactiveProps} style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
+            <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+              style={{ display: 'block', width: '100%', height: 'auto' }} />
+            {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.04) 48%, rgba(10,9,8,0.6) 100%)', pointerEvents: 'none' }} />}
+            {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{image.kind || kind}</div>}
+            {showOverlay && (
+              <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+                <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+              </div>
+            )}
+          </div>
+          {expanded && <FullSizeImageModal src={src} title={title} onClose={() => setExpanded(false)} />}
+        </>
       );
     }
     return (
-      <div className="pap-evidence-image" style={{
-        width: '100%', height, position: 'relative', overflow: 'hidden',
-        background: T.bg2, border: `1px solid ${T.line}`,
-        ...style,
-      }}>
-        <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: fit, objectPosition: pos }} />
-        {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.05) 45%, rgba(10,9,8,0.64) 100%)', pointerEvents: 'none' }} />}
-        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
-        {showOverlay && (
-          <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-            <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.14 : 22, 22), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
-            <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // REF</div>
-          </div>
-        )}
-      </div>
+      <>
+        <div className={frameClass} {...interactiveProps} style={{
+          width: '100%', height, position: 'relative', overflow: 'hidden',
+          background: T.bg2, border: `1px solid ${T.line}`,
+          ...style,
+        }}>
+          <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: fit, objectPosition: pos }} />
+          {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.05) 45%, rgba(10,9,8,0.64) 100%)', pointerEvents: 'none' }} />}
+          {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+          {showOverlay && (
+            <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
+              <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.14 : 22, 22), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+              <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // REF</div>
+            </div>
+          )}
+        </div>
+        {expanded && <FullSizeImageModal src={src} title={title} onClose={() => setExpanded(false)} />}
+      </>
     );
   }
 
@@ -4213,7 +4551,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
-          <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="green" loading="eager" />
+          <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="green" loading="eager" openFullSize />
           <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
             <Mono color={T.e115}>Intel Sheet</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
@@ -4245,7 +4583,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <SectionHead kicker={gallery.length + ' recovered frames'} title="Gallery" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
               {gallery.map((item) => (
-                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} />
+                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} openFullSize />
               ))}
             </div>
           </section>
@@ -4547,6 +4885,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                     kind={image.kind || ('STEP ' + activeStep.n)}
                     tone="red"
                     showOverlay={image.showOverlay !== false}
+                    openFullSize
                   />
                 ))}
               </div>
@@ -5062,7 +5401,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               {activationShots.map((shot, i) => (
                 <div key={i}>
                   {shot ? (
-                    <EvidenceImage map={map} image={shot} height={170} label={shot.label || (song.name + ' activation ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} />
+                    <EvidenceImage map={map} image={shot} height={170} label={shot.label || (song.name + ' activation ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} objectFit="contain" openFullSize />
                   ) : (
                     <Slot w="100%" h={170} label={'Trigger ' + String(i + 1)} kind="SCREENSHOT NEEDED" tone="yellow" />
                   )}
