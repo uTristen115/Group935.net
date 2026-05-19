@@ -31,6 +31,14 @@ function Get-RouteAssetBase {
   return (('../' * $depth) + 'Images')
 }
 
+function Get-RouteFontBase {
+  param([string]$Route)
+
+  $depth = ($Route.Trim('/') -split '/' | Where-Object { $_ }).Count
+  if ($depth -le 0) { return './Fonts' }
+  return (('../' * $depth) + 'Fonts')
+}
+
 function Replace-HeadValue {
   param(
     [string]$Html,
@@ -56,6 +64,7 @@ function Set-StaticSeo {
     [string]$Description,
     [string]$Url,
     [string]$AssetBase = './Images',
+    [string]$FontBase = './Fonts',
     [string]$RoutePath = ''
   )
 
@@ -63,6 +72,7 @@ function Set-StaticSeo {
   $descriptionEsc = Escape-Html $Description
   $urlEsc = Escape-Html $Url
   $assetEsc = Escape-Html $AssetBase
+  $fontEsc = Escape-Html $FontBase
   $routeEsc = Escape-Html $RoutePath
 
   $next = [regex]::Replace($Html, '<title>.*?</title>', '<title>' + $titleEsc + '</title>', 1)
@@ -76,6 +86,7 @@ function Set-StaticSeo {
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="twitter:title" content=")[^"]*(" />)' -Value $titleEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="twitter:description" content=")[^"]*(" />)' -Value $descriptionEsc
   $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_LOCAL_ASSET_BASE\s*=\s*')[^']*(';)" -Value $assetEsc
+  $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_LOCAL_FONT_BASE\s*=\s*')[^']*(';)" -Value $fontEsc
   $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_ROUTE_PATH\s*=\s*')[^']*(';)" -Value $routeEsc
   return $next
 }
@@ -217,6 +228,8 @@ $fallbackSeo = Get-RouteSeo -Route '/' -SiteUrl $SiteUrl
 $fallbackHtml = Set-StaticSeo -Html $index -Title $fallbackSeo.Title -Description $fallbackSeo.Description -Url $fallbackSeo.Url -AssetBase './Images' -RoutePath ''
 $fallbackAssetScript = "window.G935_LOCAL_ASSET_BASE = (function () { var p = window.location.pathname.replace(/\/index\.html$/i, '/'); var depth = p.split('/').filter(Boolean).length; return depth ? '../'.repeat(depth) + 'Images' : './Images'; })();"
 $fallbackHtml = $fallbackHtml.Replace("window.G935_LOCAL_ASSET_BASE = './Images';", $fallbackAssetScript)
+$fallbackFontScript = "window.G935_LOCAL_FONT_BASE = (function () { var p = window.location.pathname.replace(/\/index\.html$/i, '/'); var depth = p.split('/').filter(Boolean).length; return depth ? '../'.repeat(depth) + 'Fonts' : './Fonts'; })();"
+$fallbackHtml = $fallbackHtml.Replace("window.G935_LOCAL_FONT_BASE = './Fonts';", $fallbackFontScript)
 Set-Content -LiteralPath $fallbackPath -Value $fallbackHtml -NoNewline
 
 foreach ($route in $routes) {
@@ -226,7 +239,7 @@ foreach ($route in $routes) {
   $dir = Join-Path $root $relative
   New-Item -ItemType Directory -Force -Path $dir | Out-Null
   $seo = Get-RouteSeo -Route $route -SiteUrl $SiteUrl
-  $routeHtml = Set-StaticSeo -Html $index -Title $seo.Title -Description $seo.Description -Url $seo.Url -AssetBase (Get-RouteAssetBase $route) -RoutePath $route
+  $routeHtml = Set-StaticSeo -Html $index -Title $seo.Title -Description $seo.Description -Url $seo.Url -AssetBase (Get-RouteAssetBase $route) -FontBase (Get-RouteFontBase $route) -RoutePath $route
   Set-Content -LiteralPath (Join-Path $dir 'index.html') -Value $routeHtml -NoNewline
 }
 

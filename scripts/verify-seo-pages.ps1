@@ -21,6 +21,14 @@ function Get-ExpectedAssetBase {
   return (('../' * $depth) + 'Images')
 }
 
+function Get-ExpectedFontBase {
+  param([string]$Route)
+
+  $depth = ($Route.Trim('/') -split '/' | Where-Object { $_ }).Count
+  if ($depth -le 0) { return './Fonts' }
+  return (('../' * $depth) + 'Fonts')
+}
+
 function Get-RouteFile {
   param([string]$Route)
 
@@ -30,13 +38,23 @@ function Get-RouteFile {
 }
 
 $runtimeAssetPattern = "window\.G935_ASSET_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_ASSET_BASE : '/Images';"
+$runtimeFontPattern = "window\.G935_FONT_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_FONT_BASE : '/Fonts';"
 
 $index = Get-Content -Raw -LiteralPath $indexPath
 if ($index -notmatch "window\.G935_LOCAL_ASSET_BASE\s*=\s*'\./Images';") {
   Fail 'Root index.html does not declare the local file asset base.'
 }
+if ($index -notmatch "window\.G935_LOCAL_FONT_BASE\s*=\s*'\./Fonts';") {
+  Fail 'Root index.html does not declare the local file font base.'
+}
 if ($index -notmatch $runtimeAssetPattern) {
   Fail 'Runtime asset base must use /Images on deployed pages and local relative paths for file:// pages.'
+}
+if ($index -notmatch $runtimeFontPattern) {
+  Fail 'Runtime font base must use /Fonts on deployed pages and local relative paths for file:// pages.'
+}
+if ($index -notmatch 'url\("\$\{FONT_BASE\}/Help%20Scratch%20Writing/help-me/HelpMe\.ttf"\)') {
+  Fail 'HelpMe scratch font does not use the route-aware font base.'
 }
 if ($index -notmatch "window\.G935_ROUTE_PATH\s*=\s*'';") {
   Fail 'Root index.html should not force a route path.'
@@ -84,8 +102,17 @@ foreach ($route in $routes) {
     Fail "Generated file for $route has the wrong local asset base. Expected $expectedAssetBase."
   }
 
+  $expectedFontBase = Get-ExpectedFontBase $route
+  $fontPattern = [regex]::Escape("window.G935_LOCAL_FONT_BASE = '$expectedFontBase';")
+  if ($route -ne '/' -and $html -notmatch $fontPattern) {
+    Fail "Generated file for $route has the wrong local font base. Expected $expectedFontBase."
+  }
+
   if ($html -notmatch $runtimeAssetPattern) {
     Fail "Generated file for $route is missing the deployed /Images runtime asset base."
+  }
+  if ($html -notmatch $runtimeFontPattern) {
+    Fail "Generated file for $route is missing the deployed /Fonts runtime font base."
   }
 
   $canonical = $SiteUrl.TrimEnd('/') + $(if ($route -eq '/') { '/' } else { $route })
@@ -108,6 +135,9 @@ foreach ($sample in $sampleFiles) {
   $html = Get-Content -Raw -LiteralPath $file
   if ($html -match 'src="/Images|href="/Images|url\("/Images|const IMG_BASE = ''/Images''') {
     Fail "Sample file $sample contains a root-absolute local image path."
+  }
+  if ($html -match 'url\("\./Fonts/') {
+    Fail "Sample file $sample contains a hardcoded relative font path."
   }
   if ($html -match 'black-ops-7-relic-tutorials') {
     Fail "Sample file $sample still references the removed static relic tutorial page."

@@ -87,6 +87,8 @@
 <script>
   window.G935_LOCAL_ASSET_BASE = '../../Images';
   window.G935_ASSET_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_ASSET_BASE : '/Images';
+  window.G935_LOCAL_FONT_BASE = '../../Fonts';
+  window.G935_FONT_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_FONT_BASE : '/Fonts';
   window.G935_ROUTE_PATH = '/relics/power-switch';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
@@ -2792,6 +2794,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   // Path from index.html to the Images folder. Lives inside the project
   // directory, so ready to upload to group935.net as-is.
   const IMG_BASE = window.G935_ASSET_BASE || './Images';
+  const FONT_BASE = window.G935_FONT_BASE || './Fonts';
   const PAPER_BADGE_SMALLS = [
     IMG_BASE + '/Icons/PaperBadgesmall1.png',
     IMG_BASE + '/Icons/PaperBadgesmall2.png',
@@ -2967,12 +2970,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     s.textContent = `
       @font-face {
         font-family: "HelpMe";
-        src: url("./Fonts/Help Scratch Writing/help-me/HelpMe.ttf") format("truetype");
+        src: url("${FONT_BASE}/Help%20Scratch%20Writing/help-me/HelpMe.ttf") format("truetype");
         font-display: swap;
       }
       @font-face {
         font-family: "ShadowedRDF";
-        src: url("./Fonts/BadgeFont/shadowed-rdf/Shadowed RDF Regular.ttf") format("truetype");
+        src: url("${FONT_BASE}/BadgeFont/shadowed-rdf/Shadowed%20RDF%20Regular.ttf") format("truetype");
         font-display: swap;
       }
       .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
