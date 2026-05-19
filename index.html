@@ -9,7 +9,6 @@
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <link rel="canonical" href="https://group935.net/" />
-<link rel="alternate" type="text/html" href="https://group935.net/black-ops-7-relic-tutorials.html" title="Black Ops 7 Relic Tutorials" />
 <link rel="icon" type="image/png" href="./Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="./Images/Icons/Group935icon.png" />
 <meta property="og:site_name" content="Group 935" />
@@ -64,18 +63,6 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
-  .seo-guide-links {
-    padding: 28px 18px;
-    text-align: center;
-    background: #0a0908;
-    border-top: 1px solid #2a2620;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.4px;
-  }
-  .seo-guide-links a { color: #9aff6e; text-decoration: none; }
-  .seo-guide-links a:hover { color: #e8e2d4; }
 </style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
@@ -107,9 +94,6 @@
   <div class="boot-line" style="color:#605949">awaiting babel compile + module register</div>
 </div>
 <div id="root"></div>
-<nav class="seo-guide-links" aria-label="Static guide links">
-  <a href="/black-ops-7-relic-tutorials.html">Black Ops 7 Relic Tutorials</a>
-</nav>
 
 <!-- ════════════════════════════════════════════════════════════════════
      DATA (inline — no external fetch needed)
@@ -7053,9 +7037,196 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   window.__papParseHash = parseHash;
   window.__papBuildHash = buildHash;
 
+  const SEO_SITE_URL = 'https://group935.net';
+  const SEO_DEFAULT_TITLE = 'Group 935 | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
+  const SEO_DEFAULT_DESCRIPTION = 'Group 935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
+  function seoRouteUrl(route) {
+    return SEO_SITE_URL + '/' + buildHash(route || { name: 'home' });
+  }
+  function seoGameTitle(gameId) {
+    const game = ZD.games.find((g) => g.id === gameId);
+    return game ? game.title : 'Treyarch Zombies';
+  }
+  function seoFindEasterEgg(id) {
+    return (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []).find((ee) => ee.id === id);
+  }
+  function seoDescription(text, fallback) {
+    const clean = String(text || fallback || SEO_DEFAULT_DESCRIPTION).replace(/\s+/g, ' ').trim();
+    return clean.length > 158 ? clean.slice(0, 155).replace(/\s+\S*$/, '') + '...' : clean;
+  }
+  function seoForRoute(route) {
+    const r = route || { name: 'home' };
+    if (r.name === 'relics') {
+      return {
+        title: 'Black Ops 7 Relics | Effects, Trials, Tutorials | Group 935',
+        description: 'Browse Black Ops 7 Zombies relic effects, unlock requirements, portal locations, trials, and prep notes for Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.',
+        url: seoRouteUrl(r),
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Black Ops 7 relic tutorials',
+          url: seoRouteUrl(r),
+          itemListElement: (ZD.relics || []).map((relic, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: relic.name + ' Relic',
+          })),
+        },
+      };
+    }
+    if (r.name === 'game') {
+      const game = ZD.games.find((g) => g.id === r.id);
+      if (game) {
+        return {
+          title: game.title + ' Zombies Maps, Easter Eggs | Group 935',
+          description: seoDescription(game.description, game.title + ' Zombies maps, Easter eggs, relics, wonder weapons, perks, songs, characters, and story files in the Group 935 archive.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'map') {
+      const map = ZD.maps.find((m) => m.id === r.id);
+      if (map) {
+        const gameTitle = seoGameTitle(map.game);
+        return {
+          title: map.name + ' Zombies Easter Egg Guide | Group 935',
+          description: seoDescription(map.summary, map.name + ' guide for ' + gameTitle + ' Zombies, including Easter egg notes, relics, map location, image gallery, songs, and archive details.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'ee') {
+      const ee = seoFindEasterEgg(r.id);
+      if (ee) {
+        return {
+          title: ee.title + ' Easter Egg Walkthrough | Group 935',
+          description: seoDescription(ee.summary, ee.title + ' Zombies Easter egg walkthrough with map steps, setup notes, reward details, and Group 935 archive context.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'characters') {
+      return {
+        title: 'Zombies Characters and Crews | Group 935',
+        description: 'Browse Treyarch Zombies characters, crews, operatives, Group 935 personnel, Requiem files, and story connections.',
+        url: seoRouteUrl(r),
+      };
+    }
+    if (r.name === 'character') {
+      const character = ZD.characters.find((c) => c.id === r.id);
+      if (character) {
+        return {
+          title: character.name + ' Zombies Character File | Group 935',
+          description: seoDescription(character.summary, character.name + ' character file with role, origin, crew details, and Treyarch Zombies lore context.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'weapons') {
+      return {
+        title: 'Zombies Wonder Weapons | Group 935',
+        description: 'Browse Treyarch Zombies wonder weapons, map appearances, upgrades, images, and archive notes.',
+        url: seoRouteUrl(r),
+      };
+    }
+    if (r.name === 'weapon') {
+      const weapon = ZD.wonderWeapons.find((w) => w.id === r.id);
+      if (weapon) {
+        return {
+          title: weapon.name + ' Wonder Weapon | Group 935',
+          description: seoDescription(weapon.summary, weapon.name + ' wonder weapon guide with map appearances, archive notes, and Treyarch Zombies context.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'perks') {
+      return {
+        title: 'Zombies Perks Reference | Group 935',
+        description: 'Browse Treyarch Zombies perks, machines, effects, Black Ops 7 variants, images, and archive notes.',
+        url: seoRouteUrl(r),
+      };
+    }
+    if (r.name === 'perk') {
+      const perk = ZD.perks.find((p) => p.id === r.id);
+      if (perk) {
+        return {
+          title: perk.name + ' Zombies Perk | Group 935',
+          description: seoDescription(perk.summary, perk.name + ' Zombies perk reference with effects, machines, images, and archive notes.'),
+          url: seoRouteUrl(r),
+        };
+      }
+    }
+    if (r.name === 'maps') {
+      return {
+        title: 'Zombies Map Easter Egg Guides | Group 935',
+        description: 'Browse Treyarch Zombies maps with Easter egg counts, relic counts, map locations, image galleries, songs, and archive notes.',
+        url: seoRouteUrl(r),
+      };
+    }
+    if (r.name === 'timeline') {
+      return {
+        title: 'Kronorium Zombies Timeline | Group 935',
+        description: 'Read the Group 935 Zombies timeline and Kronorium archive covering Aether, Dark Aether, crews, maps, and story events.',
+        url: seoRouteUrl(r),
+      };
+    }
+    return {
+      title: SEO_DEFAULT_TITLE,
+      description: SEO_DEFAULT_DESCRIPTION,
+      url: SEO_SITE_URL + '/',
+    };
+  }
+  function seoSetMeta(selector, attrs) {
+    let tag = document.head.querySelector(selector);
+    if (!tag) {
+      tag = document.createElement('meta');
+      document.head.appendChild(tag);
+    }
+    Object.keys(attrs).forEach((key) => tag.setAttribute(key, attrs[key]));
+  }
+  function seoSetCanonical(url) {
+    let link = document.head.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
+  }
+  function seoSetRouteJsonLd(data) {
+    const id = 'pap-route-jsonld';
+    let tag = document.getElementById(id);
+    if (!data) {
+      if (tag) tag.remove();
+      return;
+    }
+    if (!tag) {
+      tag = document.createElement('script');
+      tag.id = id;
+      tag.type = 'application/ld+json';
+      document.head.appendChild(tag);
+    }
+    tag.textContent = JSON.stringify(data);
+  }
+  function seoApplyRoute(route) {
+    const seo = seoForRoute(route);
+    document.title = seo.title;
+    seoSetMeta('meta[name="description"]', { name: 'description', content: seo.description });
+    seoSetMeta('meta[property="og:title"]', { property: 'og:title', content: seo.title });
+    seoSetMeta('meta[property="og:description"]', { property: 'og:description', content: seo.description });
+    seoSetMeta('meta[property="og:url"]', { property: 'og:url', content: seo.url });
+    seoSetMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title });
+    seoSetMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
+    seoSetCanonical(seo.url);
+    seoSetRouteJsonLd(seo.jsonLd);
+  }
+
   function PackAPunch() {
     const [route, setRouteState] = useState(() => parseHash(window.location.hash));
     const [query, setQuery] = useState('');
+    useEffect(() => {
+      seoApplyRoute(route);
+    }, [route.name, route.id]);
     useEffect(() => {
       const onHash = () => setRouteState(parseHash(window.location.hash));
       window.addEventListener('hashchange', onHash);
