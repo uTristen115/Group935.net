@@ -68,6 +68,8 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MXYKB2DHPT"></script>
 
 <script>
   // Visible error surface — both runtime errors and unhandled rejections.
@@ -89,6 +91,14 @@
   window.G935_ASSET_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_ASSET_BASE : '/Images';
   window.G935_LOCAL_FONT_BASE = '../../Fonts';
   window.G935_FONT_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_FONT_BASE : '/Fonts';
+  window.G935_GA_MEASUREMENT_ID = 'G-MXYKB2DHPT';
+  window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|\.)group935\.net$/i.test(window.location.hostname);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  if (window.G935_ANALYTICS_ENABLED) {
+    gtag('js', new Date());
+    gtag('config', window.G935_GA_MEASUREMENT_ID, { send_page_view: false });
+  }
   window.G935_ROUTE_PATH = '/relics/music-box';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
@@ -7321,12 +7331,32 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     seoSetCanonical(seo.url);
     seoSetRouteJsonLd(seo.jsonLd);
   }
+  function analyticsTrackPageView(route) {
+    if (!window.G935_ANALYTICS_ENABLED || typeof window.gtag !== 'function') return;
+    const seo = seoForRoute(route);
+    let path = '/';
+    try {
+      path = new URL(seo.url).pathname;
+    } catch (err) {
+      path = buildRoutePath(route);
+    }
+    window.gtag('event', 'page_view', {
+      page_title: seo.title,
+      page_location: seo.url,
+      page_path: path,
+    });
+  }
+  window.G935_TRACK_EVENT = function (name, params) {
+    if (!window.G935_ANALYTICS_ENABLED || typeof window.gtag !== 'function' || !name) return;
+    window.gtag('event', name, params || {});
+  };
 
   function PackAPunch() {
     const [route, setRouteState] = useState(() => parseCurrentRoute());
     const [query, setQuery] = useState('');
     useEffect(() => {
       seoApplyRoute(route);
+      analyticsTrackPageView(route);
     }, [route.name, route.id]);
     useEffect(() => {
       const onRoute = () => setRouteState(parseCurrentRoute());

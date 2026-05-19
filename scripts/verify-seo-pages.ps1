@@ -39,6 +39,7 @@ function Get-RouteFile {
 
 $runtimeAssetPattern = "window\.G935_ASSET_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_ASSET_BASE : '/Images';"
 $runtimeFontPattern = "window\.G935_FONT_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_FONT_BASE : '/Fonts';"
+$gaMeasurementId = 'G-MXYKB2DHPT'
 $oldAstraSlug = 'ast' + 'ro'
 $oldAstraRoute = '/maps/' + $oldAstraSlug
 $oldAstraPattern = '\b' + $oldAstraSlug + '\b|Ast' + 'ro Malorum|' + [regex]::Escape($oldAstraRoute)
@@ -55,6 +56,21 @@ if ($index -notmatch $runtimeAssetPattern) {
 }
 if ($index -notmatch $runtimeFontPattern) {
   Fail 'Runtime font base must use /Fonts on deployed pages and local relative paths for file:// pages.'
+}
+if ($index -notmatch [regex]::Escape("https://www.googletagmanager.com/gtag/js?id=$gaMeasurementId")) {
+  Fail 'Root index.html is missing the Google Analytics tag.'
+}
+if ($index -notmatch [regex]::Escape("window.G935_GA_MEASUREMENT_ID = '$gaMeasurementId';")) {
+  Fail 'Root index.html is missing the configured GA4 measurement ID.'
+}
+if ($index -notmatch "G935_ANALYTICS_ENABLED\s*=\s*window\.location\.protocol === 'https:'") {
+  Fail 'Analytics must be limited to live HTTPS pages.'
+}
+if ($index -notmatch "send_page_view:\s*false") {
+  Fail 'Analytics config must disable automatic page_view events so app route tracking controls page views.'
+}
+if ($index -notmatch 'analyticsTrackPageView\(route\)') {
+  Fail 'App route changes are not wired to analytics page view tracking.'
 }
 if ($index -notmatch 'url\("\$\{FONT_BASE\}/Help%20Scratch%20Writing/help-me/HelpMe\.ttf"\)') {
   Fail 'HelpMe scratch font does not use the route-aware font base.'
@@ -123,6 +139,12 @@ foreach ($route in $routes) {
   }
   if ($html -notmatch $runtimeFontPattern) {
     Fail "Generated file for $route is missing the deployed /Fonts runtime font base."
+  }
+  if ($html -notmatch [regex]::Escape("window.G935_GA_MEASUREMENT_ID = '$gaMeasurementId';")) {
+    Fail "Generated file for $route is missing the GA4 measurement ID."
+  }
+  if ($html -notmatch 'analyticsTrackPageView\(route\)') {
+    Fail "Generated file for $route is missing app route analytics tracking."
   }
 
   $canonical = $SiteUrl.TrimEnd('/') + $(if ($route -eq '/') { '/' } else { $route })
