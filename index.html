@@ -3437,8 +3437,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-gallery-more { height: 170px; }
         .pap-relic-stage { padding: 18px 12px 22px; }
         .pap-relic-skulls { margin-bottom: 5px; }
-        .pap-relic-effect-body { grid-template-columns: 70px 1fr; padding: 0; }
-        .pap-relic-effect-icon { width: 70px; height: 70px; }
+        .pap-relic-effect-head { padding-bottom: 10px; }
+        .pap-relic-effect-head .pap-stencil { font-size: clamp(24px, 7vw, 30px) !important; line-height: 0.95 !important; }
+        .pap-relic-effect-body { grid-template-columns: clamp(54px, 15vw, 66px) minmax(0, 1fr); gap: 12px; padding: 0; align-items: center; }
+        .pap-relic-effect-icon { width: clamp(54px, 15vw, 66px); height: clamp(54px, 15vw, 66px); }
+        .pap-relic-effect-copy .pap-stencil { font-size: clamp(22px, 7vw, 30px) !important; line-height: 0.95 !important; overflow-wrap: anywhere; }
+        .pap-relic-effect-copy [style*="font-size: 13.5px"] { font-size: 13px !important; line-height: 1.35 !important; }
+        .pap-relic-file-section > div:first-child .pap-stencil { font-size: clamp(28px, 10vw, 42px) !important; line-height: 0.96 !important; }
         .pap-relic-board-wrap { margin-top: -46px; }
         .pap-relic-board { min-width: 720px; }
         .pap-relic-selected-portrait { min-height: 210px; }
@@ -6714,7 +6719,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         </div>
 
         {selected && (
-          <section ref={relicFileRef} style={{ marginTop: 34, scrollMarginTop: 118 }}>
+          <section className="pap-relic-file-section" ref={relicFileRef} style={{ marginTop: 34, scrollMarginTop: 118 }}>
             <SectionHead
               kicker={selected.tier + ' relic file'}
               title={selected.name}
