@@ -865,13 +865,13 @@
       ['Sentinel Fragment', 'Forsaken'],
       ['Echoing Bell', 'Terminus'],
       ['Spine of Ull', 'Liberty Falls'],
-      ['Wreath of Krause', 'Astro Malorum'],
+      ['Wreath of Krause', 'Astra Malorum'],
       ['Vril Pendant', 'Ashes of the Damned'],
       ['Eye of Stachel', 'Paradox Junction'],
       ['Crown of Solais', 'Totenreich'],
       ['Brand Mark', 'Citadelle des Morts'],
       ['Carolingian Quill', 'The Tomb'],
-      ['Bone of the First', 'Astro Malorum'],
+      ['Bone of the First', 'Astra Malorum'],
     ];
     return (
       <div>

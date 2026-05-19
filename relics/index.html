@@ -145,7 +145,7 @@ window.ZD = (function () {
     { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'castle', 'elemental-swords'] },
     { id: 'tomb',      game: 'bo6', name: 'The Tomb', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'underground', 'staff'] },
     { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: '', tags: ['bo7', 'dark-aether', 'relics'] },
-    { id: 'astro',     game: 'bo7', name: 'Astra Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
+    { id: 'astra',     game: 'bo7', name: 'Astra Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
     { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: '', tags: ['bo7', 'relics', 'liminal'] },
     { id: 'totenreich',game: 'bo7', name: 'Totenreich', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'finale-hint'] },
   ];
@@ -1689,8 +1689,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       rewardGif: 'AotD.gif',
     },
     {
-      id: 'astro-main-quest',
-      map: 'astro',
+      id: 'astra-main-quest',
+      map: 'astra',
       mapName: 'Astra Malorum',
       title: 'Astra Malorum Main Quest',
       difficulty: 'Current file',
@@ -1770,7 +1770,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Power Keg can speed up the Mr. Peeks collection if you are using a Field Upgrade route.', 'The Necrofluid Gauntlet keeps the trial cheap.', 'Sawblade traps help stretch essence further.'],
     },
     {
-      id: 'gong', map: 'astro', tier: 'Grim', name: 'Gong', difficulty: 'Easy',
+      id: 'gong', map: 'astra', tier: 'Grim', name: 'Gong', difficulty: 'Easy',
       effect: 'Field Upgrades no longer recharge over time; Full Power becomes the main refill source.',
       unlock: [
         'Reach round 20.',
@@ -1784,7 +1784,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Dead Wire with Light Strike and Haste makes the bulb step more reliable.', 'Tesla Storm with duration or radius augments can cover mistakes during the setup.', 'Ping the rod zombie if you need to track it through a crowd.'],
     },
     {
-      id: 'seed', map: 'astro', tier: 'Grim', name: 'Seed', difficulty: 'Easy',
+      id: 'seed', map: 'astra', tier: 'Grim', name: 'Seed', difficulty: 'Easy',
       effect: 'The Mystery Box is disabled.',
       unlock: [
         'Reach round 20 and pick up the grey pistol.',
@@ -1875,7 +1875,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Watch the bottle sequence immediately after placing them.', 'The second bottle can spawn near the TEDD reward rather than directly on it.', 'A Pack-a-Punch III Necrofluid Gauntlet keeps the no-essence trial simple.'],
     },
     {
-      id: 'spider-fang', map: 'astro', tier: 'Sinister', name: 'Spider Fang', difficulty: 'Hard',
+      id: 'spider-fang', map: 'astra', tier: 'Sinister', name: 'Spider Fang', difficulty: 'Hard',
       effect: 'Perk prices stop falling over time.',
       unlock: [
         'Keep the main quest untouched.',
@@ -1888,7 +1888,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Use Wisp Tea augments that keep the wisp from killing normal zombies and extend its window.', 'Do not advance the main quest before attempting the OSCAR setup.', 'Use a legendary Pack-a-Punch III knife, with Idle Eyes, Insta-Kill, or Time Out ready for the final-hit window.', 'The Apogee Annihilator and War Machines help lower HVT health during the trial.'],
     },
     {
-      id: 'matryoshka-doll', map: 'astro', tier: 'Sinister', name: 'Matryoshka Doll', difficulty: 'Easy',
+      id: 'matryoshka-doll', map: 'astra', tier: 'Sinister', name: 'Matryoshka Doll', difficulty: 'Easy',
       effect: 'Salvage drops are cut down.',
       unlock: [
         'Open the Mars portal before round 40 if possible.',
@@ -1973,7 +1973,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Hold several zombies on rounds 20, 30, 40, 50, and 60 while searching for the ringing phone.', 'Use jump-pad routes to listen across the map, and kill a held zombie periodically if the round is at risk of flipping.', 'Wonder Weapons and War Machines still handle the reduced-damage HVTs well.'],
     },
     {
-      id: 'golden-spork', map: 'astro', tier: 'Wicked', name: 'Golden Spork', difficulty: 'Medium',
+      id: 'golden-spork', map: 'astra', tier: 'Wicked', name: 'Golden Spork', difficulty: 'Medium',
       effect: 'Incoming enemy damage is doubled.',
       unlock: [
         'Open the Mars portal before round 60.',
@@ -1986,7 +1986,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['Carry several decoys for the Mangler Cannon setup.', 'Pack-a-Punch III LGM-1 and Ray Gun hip-fire well.', 'War Machines do not satisfy the hip-fire rule.'],
     },
     {
-      id: 'civil-protector', map: 'astro', tier: 'Wicked', name: 'Civil Protector', difficulty: 'Medium',
+      id: 'civil-protector', map: 'astra', tier: 'Wicked', name: 'Civil Protector', difficulty: 'Medium',
       effect: 'After enough eliminations, one perk is removed.',
       unlock: [
         'Activate Tessie with Energy Mine and pull one zombie near the car.',
@@ -2091,7 +2091,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     'ix','voyage','blood','dotn','ancientevil','tag',
     'diemaschine','firebase','mauer','forsaken',
     'terminus','liberty','citadelle','tomb','shatteredveil','reckoning',
-    'ashes','astro','paradox','totenreich',
+    'ashes','astra','paradox','totenreich',
   ];
   maps.sort((a, b) => {
     const ai = canonOrder.indexOf(a.id);
@@ -2181,7 +2181,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     reckoning:   [{ name: 'Remember Us', artist: 'Kevin Sherwood', activation: 'Three items around the facility.' }],
     tomb:        [{ name: 'Dig', artist: 'Kevin Sherwood', activation: 'Three items around the excavation site.' }],
     ashes:       [{ name: 'Turn to Ashes', artist: 'Kevin Sherwood', activation: 'Three items around the ruins.' }],
-    astro:       [
+    astra:       [
       { name: 'Pareidolia (Remastered 2025)', artist: 'Kevin Sherwood', activation: 'Three items around the observatory.' },
       { name: 'Magic', artist: 'Avenged Sevenfold', activation: 'Bonus song activation.' },
     ],
@@ -2227,8 +2227,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     'shatteredveil:Falling to Pieces': 'https://www.youtube.com/watch?v=BSiyX7D0Vk0&list=RDBSiyX7D0Vk0&start_radio=1',
     'reckoning:Remember Us': 'https://www.youtube.com/watch?v=vtD1qi8hJn8&list=RDvtD1qi8hJn8&start_radio=1',
     'ashes:Turn to Ashes': 'https://www.youtube.com/watch?v=nF1Rh3vdaeQ&list=RDnF1Rh3vdaeQ&start_radio=1',
-    'astro:Pareidolia (Remastered 2025)': 'https://www.youtube.com/watch?v=s_jn6WhMFZs&list=RDs_jn6WhMFZs&start_radio=1',
-    'astro:Magic': 'https://www.youtube.com/watch?v=SB4-aD4EdDc&list=RDSB4-aD4EdDc&start_radio=1',
+    'astra:Pareidolia (Remastered 2025)': 'https://www.youtube.com/watch?v=s_jn6WhMFZs&list=RDs_jn6WhMFZs&start_radio=1',
+    'astra:Magic': 'https://www.youtube.com/watch?v=SB4-aD4EdDc&list=RDSB4-aD4EdDc&start_radio=1',
     'paradox:Come Back Down': 'https://www.youtube.com/watch?v=SVJ4chMiBMw&list=RDSVJ4chMiBMw&start_radio=1',
     'totenreich:No One There': 'https://www.youtube.com/watch?v=g_AlO2pmAjE&list=RDg_AlO2pmAjE&start_radio=1',
   };
@@ -2287,7 +2287,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     shatteredveil: { dir: 'Black Ops 6/Maps/Shattered Veil', hero: 'SV1.png', thumb: 'SV1.png', gallery: ['SV2.png','SV3.png','SV4.png','SV5.png','SV6.png','SV7.png'] },
     reckoning:   { dir: 'Black Ops 6/Maps/The Reckoning', hero: 'Reckoning1.png', thumb: 'Reckoning1.png', gallery: ['Reckoning2.png','Reckoning3.png','Reckoning4.png','Reckoning5.png','Reckoning6.png','Reckoning_Gorgofex.png','Reckoning_UberKlaus.png'] },
     ashes:       { dir: 'Black Ops 7/Ashes of the Damned', hero: 'AotD1.png', thumb: 'AotD1.png', gallery: ['AotD2.png','AotD3.png','AotD4.png','AotD5.png','AotD6.png','AotD7.png','AotD_Zursa.png'] },
-    astro:       { dir: 'Black Ops 7/Astra Malorum', hero: 'Astra1.png', thumb: 'Astra1.png', gallery: ['Astra2.png','Astra3.png','Astra4.png','Astra5.png','Astra6.png','Astra7.png','Astra_Oscar.png'] },
+    astra:       { dir: 'Black Ops 7/Astra Malorum', hero: 'Astra1.png', thumb: 'Astra1.png', gallery: ['Astra2.png','Astra3.png','Astra4.png','Astra5.png','Astra6.png','Astra7.png','Astra_Oscar.png'] },
     paradox:     { dir: 'Black Ops 7/Paradox Junction', hero: 'Paradox1.png', thumb: 'Paradox1.png', gallery: ['Paradox2.png','Paradox3.png','Paradox4.png','Paradox5.png','Paradox6.png'] },
     totenreich:  { dir: 'Black Ops 7/Totenreich', hero: 'Totenreich1.png', thumb: 'Totenreich1.png', gallery: ['Totenreich2.png','Totenreich3.png','Totenreich4.png','Totenreich5.png','Totenreich6.png','Totenreich7.png','Totenreich8.png','Totenreich9.png'] },
   };
@@ -2603,7 +2603,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     shatteredveil: { summary: '' },
     reckoning: { summary: '' },
     ashes: { summary: '' },
-    astro: { summary: '' },
+    astra: { summary: '' },
     paradox: { summary: '' },
     totenreich: { summary: '' },
   };
@@ -4442,7 +4442,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     'tranzit', 'dierise', 'buried', 'origins', 'thegiant', 'ix', 'voyage',
     'blood', 'ancientevil', 'tag', 'diemaschine', 'firebase', 'mauer',
     'forsaken', 'terminus', 'liberty', 'citadelle', 'tomb', 'shatteredveil',
-    'reckoning', 'ashes', 'astro', 'paradox', 'totenreich',
+    'reckoning', 'ashes', 'astra', 'paradox', 'totenreich',
   ]);
 
   function Home({ nav }) {

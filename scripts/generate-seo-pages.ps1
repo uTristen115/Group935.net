@@ -100,7 +100,7 @@ function Get-RouteSeo {
   $url = $SiteUrl.TrimEnd('/') + $(if ($Route -eq '/') { '/' } else { $Route })
   $bo7Maps = @{
     ashes = 'Ashes of the Damned'
-    astro = 'Astra Malorum'
+    astra = 'Astra Malorum'
     paradox = 'Paradox Junction'
     totenreich = 'Totenreich'
   }

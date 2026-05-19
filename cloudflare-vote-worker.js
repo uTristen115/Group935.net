@@ -5,7 +5,7 @@ const VALID_ITEMS = {
     "origins", "shadows", "thegiant", "eisendrache", "zetsubou", "gorod",
     "revelations", "ix", "voyage", "blood", "dotn", "ancientevil", "tag",
     "diemaschine", "firebase", "mauer", "forsaken", "terminus", "liberty",
-    "citadelle", "tomb", "shatteredveil", "reckoning", "ashes", "astro",
+    "citadelle", "tomb", "shatteredveil", "reckoning", "ashes", "astra",
     "paradox", "totenreich"
   ]),
   weapons: new Set([

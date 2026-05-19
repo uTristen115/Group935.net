@@ -162,7 +162,7 @@ window.ZD = (function () {
       tags: ['bo7', 'dark-aether', 'relics'],
     },
     {
-      id: 'astro', game: 'bo7', name: 'Astro Malorum',
+      id: 'astra', game: 'bo7', name: 'Astra Malorum',
       location: 'Mountaintop research site',
       difficulty: 3, eeCount: 0, relicCount: 6,
       summary: '',

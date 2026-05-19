@@ -39,6 +39,9 @@ function Get-RouteFile {
 
 $runtimeAssetPattern = "window\.G935_ASSET_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_ASSET_BASE : '/Images';"
 $runtimeFontPattern = "window\.G935_FONT_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_FONT_BASE : '/Fonts';"
+$oldAstraSlug = 'ast' + 'ro'
+$oldAstraRoute = '/maps/' + $oldAstraSlug
+$oldAstraPattern = '\b' + $oldAstraSlug + '\b|Ast' + 'ro Malorum|' + [regex]::Escape($oldAstraRoute)
 
 $index = Get-Content -Raw -LiteralPath $indexPath
 if ($index -notmatch "window\.G935_LOCAL_ASSET_BASE\s*=\s*'\./Images';") {
@@ -80,7 +83,14 @@ foreach ($url in $xml.urlset.url) {
 
 if (-not ($routes -contains '/relics')) { Fail 'Sitemap is missing /relics.' }
 if (-not ($routes -contains '/relics/teddy-bear')) { Fail 'Sitemap is missing /relics/teddy-bear.' }
+if (-not ($routes -contains '/maps/astra')) { Fail 'Sitemap is missing /maps/astra.' }
 if (-not ($routes -contains '/maps/totenreich')) { Fail 'Sitemap is missing /maps/totenreich.' }
+if ($routes -contains $oldAstraRoute) { Fail 'Sitemap still contains the old Astra route.' }
+
+$oldAstraFile = Join-Path (Join-Path $root ('maps\' + $oldAstraSlug)) 'index.html'
+if (Test-Path -LiteralPath $oldAstraFile) {
+  Fail 'Old generated Astra route file still exists.'
+}
 
 foreach ($route in $routes) {
   $file = Get-RouteFile $route
@@ -119,12 +129,16 @@ foreach ($route in $routes) {
   if ($html -notmatch [regex]::Escape("<link rel=`"canonical`" href=`"$canonical`" />")) {
     Fail "Generated file for $route has the wrong canonical URL."
   }
+  if ($html -match $oldAstraPattern) {
+    Fail "Generated file for $route still references the old Astra map spelling or route."
+  }
 }
 
 $sampleFiles = @(
   'index.html',
   '404.html',
   'relics/teddy-bear/index.html',
+  'maps/astra/index.html',
   'maps/totenreich/index.html',
   'games/bo7/index.html'
 )

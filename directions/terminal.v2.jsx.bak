@@ -673,13 +673,13 @@ re:    why maxis keeps starting over
       ['Sentinel Fragment', 'forsaken'],
       ['Echoing Bell',      'terminus'],
       ['Spine of Ull',      'liberty'],
-      ['Wreath of Krause',  'astro'],
+      ['Wreath of Krause',  'astra'],
       ['Vril Pendant',      'ashes'],
       ['Eye of Stachel',    'paradox'],
       ['Crown of Solais',   'totenreich'],
       ['Brand Mark',        'citadelle'],
       ['Carolingian Quill', 'tomb'],
-      ['Bone of the First', 'astro'],
+      ['Bone of the First', 'astra'],
     ];
     return (
       <div>
