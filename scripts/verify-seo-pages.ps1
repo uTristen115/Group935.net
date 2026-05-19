@@ -39,7 +39,7 @@ function Get-RouteFile {
 
 $runtimeAssetPattern = "window\.G935_ASSET_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_ASSET_BASE : '/Images';"
 $runtimeFontPattern = "window\.G935_FONT_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_FONT_BASE : '/Fonts';"
-$gaMeasurementId = 'G-MXYKB2DHPT'
+$gaMeasurementId = 'G-7Q90XFJQFF'
 $oldAstraSlug = 'ast' + 'ro'
 $oldAstraRoute = '/maps/' + $oldAstraSlug
 $oldAstraPattern = '\b' + $oldAstraSlug + '\b|Ast' + 'ro Malorum|' + [regex]::Escape($oldAstraRoute)
