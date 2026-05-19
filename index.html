@@ -1910,26 +1910,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       { file: 'ShangMoonEclipseOn.png', label: 'Moon symbols during eclipse' },
       { file: 'Shang_StairstoPap_EclipseOff.png', label: 'Pack-a-Punch stairs before eclipse' },
       { file: 'Shang_StairstoPap_EclipseOn.png', label: 'Pack-a-Punch stairs during eclipse' },
-      { file: 'PowerSwitches.png', label: 'Twin power switches' },
-      { file: 'BrockAndGaryButtonStep1.png', label: 'Brock and Gary wall button' },
-      { file: 'WaterSlide.png', label: 'Water slide pressure plate route' },
-      { file: 'WaterSlideKnockDownCrystal.png', label: 'Crystal above the water slide' },
-      { file: 'CrystalKnockedDown.png', label: 'Crystal knocked down' },
-      { file: 'CrystalInGeyser.png', label: 'Crystal in the geyser' },
-      { file: 'CrystalAfterGeyser.png', label: 'Crystal after geyser launch' },
-      { file: 'CrystalForHelpingBrockNGary.png', label: 'Crystal tower confirmation' },
-      { file: 'Valve_For_GasStep.png', label: 'Gas valve' },
-      { file: 'GasLeak1.png', label: 'Gas leak 1' },
-      { file: 'GasLeak2.png', label: 'Gas leak 2' },
-      { file: 'GasLeak3.png', label: 'Gas leak 3' },
-      { file: 'Spikemore.png', label: 'Spikemore setup' },
-      { file: 'SpikeMoreHole1.png', label: 'Spikemore wall hole 1' },
-      { file: 'SpikemoreHole2.png', label: 'Spikemore wall hole 2' },
-      { file: 'SpikemoreHole3.png', label: 'Spikemore wall hole 3' },
-      { file: 'SpikemoreHole4.png', label: 'Spikemore wall hole 4' },
-      { file: 'ShangMusicRock1Spawn.png', label: 'Pareidolia music rock at Spawn' },
-      { file: 'ShangMusicRockbyJugg2.png', label: 'Pareidolia music rock by Juggernog' },
-      { file: 'ShangMusicRockPhD3.png', label: 'Pareidolia music rock by PhD Flopper' },
     ] },
     moon:        { dir: 'Black Ops/Maps/Moon', hero: 'Moon_LoadingScreen.png', thumb: 'Moon_Thumbnail.png', gallery: ['Moon_1.png','Moon_2.png','Moon_3.png','Moon_4.png'] },
     tranzit:     { dir: 'Black Ops 2/Maps/TranZit', hero: 'TranZit_1.png', thumb: 'TranZit_1.png', gallery: ['TranZit_1.png','TranZit_2.png','TranZit_3.png','TranZit_4.png','TranZit_5.png'] },
@@ -2720,6 +2700,53 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         text-align: center;
         text-transform: uppercase;
       }
+      .pap-gallery-modal-panel {
+        min-height: 0;
+        overflow: auto;
+        padding: 2px 4px 18px;
+      }
+      .pap-gallery-modal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+      .pap-gallery-more {
+        width: 100%;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        background: ${T.bg1};
+        border: 1px solid ${T.line};
+        color: ${T.bone};
+        cursor: pointer;
+        text-align: left;
+      }
+      .pap-gallery-more:hover,
+      .pap-gallery-more:focus-visible {
+        border-color: ${T.e115};
+        outline: none;
+      }
+      .pap-gallery-more img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.38;
+        filter: saturate(0.86) contrast(1.08);
+      }
+      .pap-gallery-more-body {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 18px;
+        background: linear-gradient(180deg, rgba(10,9,8,0.18), rgba(10,9,8,0.86));
+      }
       .pap-btn { font-family: ${T.display}; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
       .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-primary:hover { background: ${T.bone}; }
@@ -2828,6 +2855,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
         .pap-main-nav > button { flex: 0 0 auto; }
         .pap-search { margin-left: auto; }
+        .pap-gallery-modal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pap-vote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pap-song-row { grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 8px 14px; align-items: start; padding: 16px 18px; }
         .pap-song-index { grid-column: 1; grid-row: 1; padding-top: 2px; }
@@ -2904,6 +2932,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
         .pap-num { font-size: 32px !important; }
         .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
+        .pap-gallery-modal-grid { grid-template-columns: minmax(0, 1fr); }
+        .pap-gallery-more { height: 170px; }
         .pap-vote-grid { grid-template-columns: minmax(0, 1fr); }
         .pap-vote-actions { align-items: stretch; }
         .pap-vote-leader-row { grid-template-columns: 30px 74px minmax(0, 1fr) auto !important; gap: 8px !important; padding: 8px !important; }
@@ -3076,7 +3106,81 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         ...entry,
         label: entry.label || (((map && map.name) || 'Gallery image') + ' image ' + String(i + 1)),
       };
-    }).filter((item) => item.file);
+    }).filter((item) => item.file && item.gallery !== false);
+  }
+
+  function MapGalleryModal({ map, items, onClose }) {
+    useEffect(() => {
+      const onKey = (event) => { if (event.key === 'Escape') onClose(); };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, [onClose]);
+
+    const title = ((map && map.name) || 'Map') + ' gallery';
+    const modal = (
+      <div className="pap-image-modal" role="dialog" aria-modal="true" aria-label={title} onClick={onClose}>
+        <button type="button" className="pap-image-modal-close" aria-label="Close gallery" onClick={(event) => { event.stopPropagation(); onClose(); }}>X</button>
+        <div className="pap-gallery-modal-panel" onClick={(event) => event.stopPropagation()}>
+          <div className="pap-gallery-modal-grid">
+            {items.map((item, i) => (
+              <MapImage
+                key={item.file + '-' + i}
+                map={map}
+                file={item.file}
+                height={220}
+                label={item.label}
+                kind="GALLERY"
+                tone="green"
+                showOverlay={false}
+                objectFit={item.objectFit || 'cover'}
+                objectPosition={item.objectPosition}
+                openFullSize
+              />
+            ))}
+          </div>
+        </div>
+        <div className="pap-image-modal-title">{title + ' - ' + items.length + ' additional frame' + (items.length === 1 ? '' : 's')}</div>
+      </div>
+    );
+
+    return ReactDOM.createPortal(modal, document.body);
+  }
+
+  function MapGalleryMoreButton({ map, items, onOpen }) {
+    const preview = items[0];
+    const previewSrc = preview ? mapImg(map, preview.file) : null;
+    return (
+      <button type="button" className="pap-gallery-more" onClick={onOpen} aria-label={'Open ' + (((map && map.name) || 'map') + ' gallery')}>
+        {previewSrc && <img src={previewSrc} alt="" loading="lazy" />}
+        <span className="pap-gallery-more-body">
+          <Mono color={T.e115} letter={2.5}>Open Gallery</Mono>
+          <span className="pap-stencil" style={{ fontSize: 28, color: T.bone }}>
+            {'+' + items.length + ' more'}
+          </span>
+          <span style={{ fontFamily: T.sans, fontSize: 13, lineHeight: 1.45, color: T.mute }}>
+            Continue browsing recovered map frames.
+          </span>
+        </span>
+      </button>
+    );
+  }
+
+  function MapGalleryPreview({ map, items }) {
+    const [open, setOpen] = useState(false);
+    const hasOverflow = items.length > 6;
+    const visibleItems = hasOverflow ? items.slice(0, 5) : items.slice(0, 6);
+    const overflowItems = hasOverflow ? items.slice(5) : [];
+    return (
+      <>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          {visibleItems.map((item) => (
+            <MapImage key={item.file} map={map} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} objectFit={item.objectFit || 'cover'} objectPosition={item.objectPosition} openFullSize />
+          ))}
+          {hasOverflow && <MapGalleryMoreButton map={map} items={overflowItems} onOpen={() => setOpen(true)} />}
+        </div>
+        {open && <MapGalleryModal map={map} items={overflowItems} onClose={() => setOpen(false)} />}
+      </>
+    );
   }
 
   const VOTE_STORAGE_PREFIX = 'g935.vote.';
@@ -5059,11 +5163,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         {gallery.length > 0 && (
           <section style={{ marginTop: 40 }}>
             <SectionHead kicker={gallery.length + ' recovered frames'} title="Gallery" />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
-              {gallery.map((item) => (
-                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} objectFit={item.objectFit || 'cover'} objectPosition={item.objectPosition} openFullSize />
-              ))}
-            </div>
+            <MapGalleryPreview map={m} items={gallery} />
           </section>
         )}
 
