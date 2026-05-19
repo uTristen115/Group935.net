@@ -1083,6 +1083,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const ascensionShot = (file, label) => ({ dir: ASCENSION_SCREENSHOT_DIR, file, label });
   const COTD_IMAGE_DIR = 'Black Ops/Maps/Call of the Dead';
   const cotdShot = (file, label, options = {}) => ({ dir: COTD_IMAGE_DIR, file, label, ...options });
+  const SHANGRI_IMAGE_DIR = 'Black Ops/Maps/Shangri-La';
+  const shangriShot = (file, label, options = {}) => ({ dir: SHANGRI_IMAGE_DIR, file, label, objectFit: 'contain', ...options });
   const FIREBASE_Z_IMAGE_DIR = 'Black Ops Cold War/Maps/Firebase Z';
   const firebaseZShot = (file, label, options = {}) => ({ dir: FIREBASE_Z_IMAGE_DIR, file, label, ...options });
 
@@ -1422,6 +1424,228 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         },
       ],
     },
+    {
+      id: 'shangri-time-travel-will-tell',
+      map: 'shangri',
+      mapName: 'Shangri-La',
+      title: 'Time Travel Will Tell',
+      difficulty: 'Hard',
+      duration: '60-90 min',
+      party: '4 players required',
+      summary: 'Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the Pack-a-Punch shrine.',
+      heroImage: shangriShot('ShangMoonEclipseOn.png', 'Shangri-La eclipse mode', { objectFit: 'cover' }),
+      requirements: [
+        '4 players from start to finish',
+        'Power on and all doors open',
+        '31-79 JGb215, upgraded to The Fractalizer for the crystal and meteor steps',
+        'Spikemores in Black Ops or Trip Mines in Zombies Chronicles',
+        'A live Napalm Zombie for the gas step',
+      ],
+      rewards: [
+        'Time Travel Will Tell achievement or trophy',
+        'Focusing Stone',
+        'All perks for the player who picks up the Focusing Stone',
+      ],
+      steps: [
+        {
+          n: 1,
+          title: 'Power and Eclipse Setup',
+          body: 'Open the temple, restore power, and use the four eclipse buttons around Spawn whenever the team is ready to start a timed step.',
+          bullets: [
+            'Turn on both power switches.',
+            'Open the water slide, tunnels, mud room, mine cart, and Pack-a-Punch routes before committing to the quest loop.',
+            'Start chasing the 31-79 JGb215 early, since the later crystal steps need it.',
+            'Have all four players press the eclipse buttons around Spawn at the same time.',
+            'Use the sun and moon symbols to confirm whether the map is in normal time or eclipse time.',
+          ],
+          images: [
+            shangriShot('PowerSwitches.png', 'Twin power switches'),
+            shangriShot('ShangSunEclipseOff.png', 'Sun symbols before eclipse'),
+            shangriShot('ShangMoonEclipseOn.png', 'Moon symbols during eclipse'),
+            shangriShot('Shang_StairstoPap_EclipseOn.png', 'Pack-a-Punch stairs during eclipse'),
+          ],
+        },
+        {
+          n: 2,
+          title: 'Contact Brock and Gary',
+          body: 'In eclipse mode, trigger the wall button near the MPL side to start the Brock and Gary sequence and reveal the matching floor slabs.',
+          bullets: [
+            'Enter eclipse mode.',
+            'Move to the wall near the MPL side of the map.',
+            'Press the round stone button under the statue relief.',
+            'Listen for Brock and Gary, then split players between the matching slab areas.',
+          ],
+          images: [
+            shangriShot('BrockAndGaryButtonStep1.png', 'Brock and Gary wall button'),
+          ],
+        },
+        {
+          n: 3,
+          title: 'Match the Stone Slabs',
+          body: 'Two sides of the map receive matching floor symbols. Pair the symbols correctly before the eclipse timer expires.',
+          bullets: [
+            'Keep one player on each slab side so callouts are fast.',
+            'Have one player read a glowing symbol and the other find its match.',
+            'Step on both matching slabs together to sink the pair.',
+            'Avoid stepping on a wrong match, or the puzzle can reset.',
+            'Finish every pair inside the same eclipse cycle.',
+          ],
+        },
+        {
+          n: 4,
+          title: 'Trigger the Water Slide Plate',
+          body: 'Use the water slide and lower pressure plate to release the next crystal from the temple machinery.',
+          bullets: [
+            'Enter eclipse mode again.',
+            'Send three players to the lower steel grate or pressure plate near the water slide landing.',
+            'Have the fourth player take the water slide while hugging the right side.',
+            'Keep everyone planted on the plate until the step confirms and the eclipse ends.',
+          ],
+          images: [
+            shangriShot('WaterSlide.png', 'Water slide route'),
+          ],
+        },
+        {
+          n: 5,
+          title: 'Move the Crystal to the Geyser',
+          body: 'Knock the crystal loose, shrink it, and move it through the slide route until the geyser launches it back into position.',
+          bullets: [
+            'At the top of the water slide, knock the wall crystal down with an explosive.',
+            'Shrink the fallen crystal with the 31-79 JGb215.',
+            'Knife or push the shrunken crystal down the water slide path.',
+            'Guide it into the geyser at the lower landing.',
+            'Stand on the geyser to launch the crystal onto its tower and complete the step.',
+          ],
+          images: [
+            shangriShot('WaterSlideKnockDownCrystal.png', 'Crystal above the water slide'),
+            shangriShot('CrystalKnockedDown.png', 'Crystal knocked down'),
+            shangriShot('CrystalInGeyser.png', 'Crystal in the geyser'),
+            shangriShot('CrystalAfterGeyser.png', 'Crystal after geyser launch'),
+            shangriShot('CrystalForHelpingBrockNGary.png', 'Crystal tower confirmation'),
+          ],
+        },
+        {
+          n: 6,
+          title: 'Light the Gas Leaks',
+          body: 'Use a live Napalm Zombie to ignite the gas through the tunnel route, then return to the valve station to free the mechanism.',
+          bullets: [
+            'Wait until a Napalm Zombie is active before starting this sequence.',
+            'Enter eclipse mode and move to the gas valve near the MPL tunnel route.',
+            'Turn the valve four times to start the leaks.',
+            'Lead the Napalm Zombie through the tunnel so each gas leak catches fire.',
+            'When the leaks are lit, return to the valve station and pull the lever beside it.',
+          ],
+          images: [
+            shangriShot('Valve_For_GasStep.png', 'Gas valve'),
+            shangriShot('GasLeak1.png', 'Gas leak 1'),
+            shangriShot('GasLeak2.png', 'Gas leak 2'),
+            shangriShot('GasLeak3.png', 'Gas leak 3'),
+          ],
+        },
+        {
+          n: 7,
+          title: 'Plug the Spikemore Holes',
+          body: 'Set Spikemores or Trip Mines against the tunnel holes and use zombies to detonate them into the wall.',
+          bullets: [
+            'Enter eclipse mode.',
+            'Go to the tunnel route that leads toward the waterfall side.',
+            'Place one Spikemore or Trip Mine facing each wall hole.',
+            'Lure zombies through the traps so the mines fire into the holes.',
+            'After all four holes are sealed, press the reservoir button by the waterfall to end the step.',
+          ],
+          images: [
+            shangriShot('Spikemore.png', 'Spikemore setup'),
+            shangriShot('SpikeMoreHole1.png', 'Spikemore wall hole 1'),
+            shangriShot('SpikemoreHole2.png', 'Spikemore wall hole 2'),
+            shangriShot('SpikemoreHole3.png', 'Spikemore wall hole 3'),
+            shangriShot('SpikemoreHole4.png', 'Spikemore wall hole 4'),
+          ],
+        },
+        {
+          n: 8,
+          title: 'Activate the Wall Slabs',
+          body: 'Knife the twelve wall slabs around the temple, then blow open the out-of-bounds frame near the mine cart area.',
+          bullets: [
+            'Enter eclipse mode.',
+            'Knife the wall slabs around Spawn, the mud room, the mine cart area, the Stakeout room, and the power-side path.',
+            'Confirm each slab is activated before moving on.',
+            'At the mine cart side, throw an explosive toward the wooden frame or tent structure outside the playable path.',
+            'Wait for the explosion and dialogue confirmation before leaving the eclipse cycle.',
+          ],
+        },
+        {
+          n: 9,
+          title: 'Set the Mud Room Dials',
+          body: 'Rotate the four mud room dials until each symbol is sitting in the correct top position.',
+          bullets: [
+            'Enter eclipse mode.',
+            'Use the mud room layout from the PM63 side toward Quick Revive.',
+            'Set the first dial to the three-dot symbol.',
+            'Set the second dial to the C-shaped symbol with the line and dot.',
+            'Set the third dial to the four-dot symbol.',
+            'Set the fourth dial to the one-dot symbol.',
+          ],
+        },
+        {
+          n: 10,
+          title: 'Find the Correct Gongs',
+          body: 'Use the crystal reactions to identify the four correct gongs before attempting the dynamite drop.',
+          bullets: [
+            'Enter eclipse mode.',
+            'Knife candidate gongs one at a time.',
+            'If the crystals flash red, that gong is wrong for the current run.',
+            'Keep testing until four correct gongs have been hit.',
+            'When the correct sequence is active, the crystals glow yellow and the dynamite crystal is ready.',
+          ],
+        },
+        {
+          n: 11,
+          title: 'Drop and Catch the Dynamite',
+          body: 'Use the Pack-a-Punched shrink ray on the crystal path and catch the dynamite as it falls.',
+          bullets: [
+            'Upgrade the 31-79 JGb215 into The Fractalizer.',
+            'Position one player under the dynamite near the crystal tower.',
+            'Shoot the correct crystal with The Fractalizer so the beam bounces across the crystal network.',
+            'Catch the dynamite before it hits the ground.',
+            'If the dynamite is missed, repeat the gong and crystal setup.',
+          ],
+          images: [
+            shangriShot('CrystalForHelpingBrockNGary.png', 'Crystal tower reference'),
+          ],
+        },
+        {
+          n: 12,
+          title: 'Shrink the Meteor',
+          body: 'Fire the upgraded shrink ray through the final crystal path, then use the Pack-a-Punch stairs to deliver the dynamite.',
+          bullets: [
+            'Enter eclipse mode if needed and return to the mud room crystal path.',
+            'Shoot the crystal with The Fractalizer so the beam reaches the meteor above the shrine.',
+            'Stand on the four Pack-a-Punch pressure plates to raise the stairs.',
+            'Move up the shrine and place the dynamite in the wall opening.',
+            'Back away before the blast resolves.',
+          ],
+          images: [
+            shangriShot('Shang_StairstoPap_EclipseOff.png', 'Pack-a-Punch stairs before eclipse'),
+            shangriShot('Shang_StairstoPap_EclipseOn.png', 'Pack-a-Punch stairs during eclipse'),
+          ],
+        },
+        {
+          n: 13,
+          title: 'Claim the Focusing Stone',
+          body: 'Return to the shrine after the blast and let one player take the Focusing Stone reward.',
+          bullets: [
+            'Reactivate Pack-a-Punch access if the stairs are down.',
+            'Return to the wall where the dynamite was placed.',
+            'Have the chosen player pick up the Focusing Stone.',
+            'That player receives all perks for the rest of the game.',
+            'Use the radio at the base of the shrine if the team wants to repeat the quest for another player.',
+          ],
+          images: [
+            shangriShot('Shang_StairstoPap_EclipseOn.png', 'Focusing Stone shrine route'),
+          ],
+        },
+      ],
+    },
   ];
 
   const bo7EasterEggs = [
@@ -1559,7 +1783,16 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         cotdShot('MusicRock3.png', 'Music rock in the ship diner below Power', { objectFit: 'contain' }),
       ],
     }],
-    shangri:     [{ name: 'Pareidolia', artist: 'Elena Siegman & Kevin Sherwood', activation: 'Three meteor rocks around the temple.' }],
+    shangri:     [{
+      name: 'Pareidolia',
+      artist: 'Elena Siegman & Kevin Sherwood',
+      activation: 'Activate three meteor rocks: one at Spawn, one near the Juggernog or Speed Cola side of the mud room, and one in the Semtex cave.',
+      activationShots: [
+        shangriShot('ShangMusicRock1Spawn.png', 'Music rock at Spawn'),
+        shangriShot('ShangMusicRockbyJugg2.png', 'Music rock by Juggernog'),
+        shangriShot('ShangMusicRockPhD3.png', 'Music rock by PhD Flopper'),
+      ],
+    }],
     moon:        [{ name: 'Coming Home', artist: 'Elena Siegman', activation: 'Three teddy bears: tunnel, biodome, Area 51.' }],
     tranzit:     [{ name: 'Carrion', artist: 'Kevin Sherwood feat. Clark S. Nova', activation: 'Three teddy bears hidden along the bus route.' }],
     dierise:     [{ name: 'We All Fall Down', artist: 'Kevin Sherwood feat. Clark S. Nova', activation: 'Three teddy bears hidden across the towers.' }],
@@ -1670,7 +1903,34 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     five:        { dir: 'Black Ops/Maps/Five', hero: 'Five_1.png', thumb: 'Five_1.png', gallery: ['Five_1.png','Five_3.png'] },
     ascension:   { dir: 'Black Ops/Maps/Ascension', hero: 'Ascension_LoadingScreen.png', thumb: 'Ascension_Thumbnail.png', gallery: ['Ascension_1.png','Ascension_2.png','Ascension_3.png'] },
     callofthedead: { dir: 'Black Ops/Maps/Call of the Dead', hero: 'CotD_Poster.png', thumb: 'CotD_Thumbnail.png', gallery: ['CotD_LoadingScreen.png','CotD_1.png','CotD_2.png','CotD_3.png','CotD_4.png'] },
-    shangri:     { dir: 'Black Ops/Maps/Shangri-La', hero: 'Shangri_La_LoadingScreen.png', thumb: 'Shangri_La_1.png', gallery: ['Shangri_La_1.png','Shangri_La_2.png','Shangri_La_3.png','Shangri_La_4.png'] },
+    shangri:     { dir: 'Black Ops/Maps/Shangri-La', hero: 'Shangri_La_LoadingScreen.png', thumb: 'Shangri_La_1.png', gallery: [
+      { file: 'Shangri_La_1.png', label: 'Shangri-La temple approach' },
+      { file: 'Shangri_La_3.png', label: 'Shangri-La ruins reference' },
+      { file: 'ShangSunEclipseOff.png', label: 'Sun symbols before eclipse' },
+      { file: 'ShangMoonEclipseOn.png', label: 'Moon symbols during eclipse' },
+      { file: 'Shang_StairstoPap_EclipseOff.png', label: 'Pack-a-Punch stairs before eclipse' },
+      { file: 'Shang_StairstoPap_EclipseOn.png', label: 'Pack-a-Punch stairs during eclipse' },
+      { file: 'PowerSwitches.png', label: 'Twin power switches' },
+      { file: 'BrockAndGaryButtonStep1.png', label: 'Brock and Gary wall button' },
+      { file: 'WaterSlide.png', label: 'Water slide pressure plate route' },
+      { file: 'WaterSlideKnockDownCrystal.png', label: 'Crystal above the water slide' },
+      { file: 'CrystalKnockedDown.png', label: 'Crystal knocked down' },
+      { file: 'CrystalInGeyser.png', label: 'Crystal in the geyser' },
+      { file: 'CrystalAfterGeyser.png', label: 'Crystal after geyser launch' },
+      { file: 'CrystalForHelpingBrockNGary.png', label: 'Crystal tower confirmation' },
+      { file: 'Valve_For_GasStep.png', label: 'Gas valve' },
+      { file: 'GasLeak1.png', label: 'Gas leak 1' },
+      { file: 'GasLeak2.png', label: 'Gas leak 2' },
+      { file: 'GasLeak3.png', label: 'Gas leak 3' },
+      { file: 'Spikemore.png', label: 'Spikemore setup' },
+      { file: 'SpikeMoreHole1.png', label: 'Spikemore wall hole 1' },
+      { file: 'SpikemoreHole2.png', label: 'Spikemore wall hole 2' },
+      { file: 'SpikemoreHole3.png', label: 'Spikemore wall hole 3' },
+      { file: 'SpikemoreHole4.png', label: 'Spikemore wall hole 4' },
+      { file: 'ShangMusicRock1Spawn.png', label: 'Pareidolia music rock at Spawn' },
+      { file: 'ShangMusicRockbyJugg2.png', label: 'Pareidolia music rock by Juggernog' },
+      { file: 'ShangMusicRockPhD3.png', label: 'Pareidolia music rock by PhD Flopper' },
+    ] },
     moon:        { dir: 'Black Ops/Maps/Moon', hero: 'Moon_LoadingScreen.png', thumb: 'Moon_Thumbnail.png', gallery: ['Moon_1.png','Moon_2.png','Moon_3.png','Moon_4.png'] },
     tranzit:     { dir: 'Black Ops 2/Maps/TranZit', hero: 'TranZit_1.png', thumb: 'TranZit_1.png', gallery: ['TranZit_1.png','TranZit_2.png','TranZit_3.png','TranZit_4.png','TranZit_5.png'] },
     dierise:     { dir: 'Black Ops 2/Maps/Die Rise', hero: 'Die_Rise1.png', thumb: 'Die_Rise1.png', gallery: ['Die_Rise1.png','Die_Rise2.png','Die_Rise3.png','Die_Rise4.png','Die_Rise5.png'] },
@@ -2810,7 +3070,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function mapGalleryItems(map) {
     const media = map && map.media;
     if (!media || !media.gallery || !media.gallery.length) return [];
-    return media.gallery.map((file, i) => ({ file, label: ((map && map.name) || 'Gallery image') + ' image ' + String(i + 1) }));
+    return media.gallery.map((item, i) => {
+      const entry = typeof item === 'string' ? { file: item } : item;
+      return {
+        ...entry,
+        label: entry.label || (((map && map.name) || 'Gallery image') + ' image ' + String(i + 1)),
+      };
+    }).filter((item) => item.file);
   }
 
   const VOTE_STORAGE_PREFIX = 'g935.vote.';
@@ -4795,7 +5061,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <SectionHead kicker={gallery.length + ' recovered frames'} title="Gallery" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
               {gallery.map((item) => (
-                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} openFullSize />
+                <MapImage key={item.file} map={m} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} objectFit={item.objectFit || 'cover'} objectPosition={item.objectPosition} openFullSize />
               ))}
             </div>
           </section>
