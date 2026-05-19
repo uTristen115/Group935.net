@@ -75,7 +75,7 @@ function Set-StaticSeo {
   $next = Replace-HeadValue -Html $next -Pattern '(<meta property="og:url" content=")[^"]*(" />)' -Value $urlEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="twitter:title" content=")[^"]*(" />)' -Value $titleEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="twitter:description" content=")[^"]*(" />)' -Value $descriptionEsc
-  $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_ASSET_BASE\s*=\s*')[^']*(';)" -Value $assetEsc
+  $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_LOCAL_ASSET_BASE\s*=\s*')[^']*(';)" -Value $assetEsc
   $next = Replace-HeadValue -Html $next -Pattern "(window\.G935_ROUTE_PATH\s*=\s*')[^']*(';)" -Value $routeEsc
   return $next
 }
@@ -215,8 +215,8 @@ $routes = $routes | Where-Object { $_ } | Select-Object -Unique
 
 $fallbackSeo = Get-RouteSeo -Route '/' -SiteUrl $SiteUrl
 $fallbackHtml = Set-StaticSeo -Html $index -Title $fallbackSeo.Title -Description $fallbackSeo.Description -Url $fallbackSeo.Url -AssetBase './Images' -RoutePath ''
-$fallbackAssetScript = "window.G935_ASSET_BASE = (function () { var p = window.location.pathname.replace(/\/index\.html$/i, '/'); var depth = p.split('/').filter(Boolean).length; return depth ? '../'.repeat(depth) + 'Images' : './Images'; })();"
-$fallbackHtml = $fallbackHtml.Replace("window.G935_ASSET_BASE = './Images';", $fallbackAssetScript)
+$fallbackAssetScript = "window.G935_LOCAL_ASSET_BASE = (function () { var p = window.location.pathname.replace(/\/index\.html$/i, '/'); var depth = p.split('/').filter(Boolean).length; return depth ? '../'.repeat(depth) + 'Images' : './Images'; })();"
+$fallbackHtml = $fallbackHtml.Replace("window.G935_LOCAL_ASSET_BASE = './Images';", $fallbackAssetScript)
 Set-Content -LiteralPath $fallbackPath -Value $fallbackHtml -NoNewline
 
 foreach ($route in $routes) {

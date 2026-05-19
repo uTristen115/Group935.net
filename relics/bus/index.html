@@ -85,7 +85,8 @@
   window.addEventListener('unhandledrejection', (e) => __bootShow('promise rejection', e.reason));
 </script>
 <script>
-  window.G935_ASSET_BASE = '../../Images';
+  window.G935_LOCAL_ASSET_BASE = '../../Images';
+  window.G935_ASSET_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_ASSET_BASE : '/Images';
   window.G935_ROUTE_PATH = '/relics/bus';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
