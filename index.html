@@ -118,7 +118,7 @@ window.ZD = (function () {
     { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'castle', 'elemental-swords'] },
     { id: 'tomb',      game: 'bo6', name: 'The Tomb', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'underground', 'staff'] },
     { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: '', tags: ['bo7', 'dark-aether', 'relics'] },
-    { id: 'astro',     game: 'bo7', name: 'Astro Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
+    { id: 'astro',     game: 'bo7', name: 'Astra Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
     { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: '', tags: ['bo7', 'relics', 'liminal'] },
     { id: 'totenreich',game: 'bo7', name: 'Totenreich', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'finale-hint'] },
   ];
@@ -1698,6 +1698,322 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       rewardGif: 'Totenreich.gif',
     },
   ];
+
+  const relics = [
+    {
+      id: 'lawyers-pen', map: 'ashes', tier: 'Grim', name: "Lawyer's Pen", difficulty: 'Easy',
+      effect: 'Fake drops can appear across the map, and getting close to one can turn it into a Mimic encounter.',
+      unlock: [
+        'Reach round 20.',
+        'Ignite three candles with Napalm Burst, a Molotov, or another reliable fire source.',
+        'Check the farmhouse upstairs nightstand at Vandorn Farm, the ruined fog cabin table in Lost Cabins, and the shelf beside Juggernog in Ashwood.',
+        'Do not save after lighting the candles; finish the recovery in the same session.',
+      ],
+      portal: 'Barnhouse south side, beside the left door.',
+      trial: 'Four shock-Mimic waves: build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4. Doppelghasts may join the HVT waves.',
+      save: 'Unsafe after candle progress begins.',
+      prep: ['Avoid throwing equipment into Mimic shock bursts.', 'Brain Rot is the cleanest ammo mod for the trial.'],
+    },
+    {
+      id: 'dragon-wings', map: 'ashes', tier: 'Grim', name: 'Dragon Wings', difficulty: 'Easy',
+      effect: 'Standard power-up drops stop appearing, including special-round ammo drops.',
+      unlock: [
+        'Reach round 20.',
+        'Ride the jump pad from Vandorn Farm toward Janus Towers.',
+        'While airborne, shoot the three purple targets in one clean pass with a bullet weapon.',
+        'Do not save after the target sequence lands.',
+      ],
+      portal: 'Northwest side of the Farmhouse.',
+      trial: 'Power-ups become hazards; touching them deals damage. Build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4.',
+      save: 'Unsafe after the airborne target sequence.',
+      prep: ['Raise look sensitivity before the jump if the targets feel too tight.', 'Bring a light, fast-handling bullet weapon.', 'Once inside the trial, give every power-up a wide berth.'],
+    },
+    {
+      id: 'teddy-bear', map: 'ashes', tier: 'Grim', name: 'Teddy Bear', difficulty: 'Easy',
+      effect: 'The pause between rounds is heavily shortened.',
+      unlock: [
+        'Reach round 20.',
+        'Shoot ten Mr. Peeks bears around Ashes of the Damned.',
+        'Check Janus Tower Plaza archway, Vandorn Farm silo, the Blackwater Lake Speed Cola bathroom, Ashwood Church rafters, Rabbit Alley, both Zarya Cosmodrome spots, the Grounded Ship barrel, Lost Cabins log shelter, and the Exit 115 gantry from the diner roof.',
+        'Start and finish the bear hunt in one session.',
+      ],
+      portal: 'Vandorn Farm, on the south wall of the Mystery Box building.',
+      trial: 'Every shot spends essence. Build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4.',
+      save: 'Unsafe once the bear hunt starts.',
+      prep: ['Power Keg can speed up the Mr. Peeks collection if you are using a Field Upgrade route.', 'The Necrofluid Gauntlet keeps the trial cheap.', 'Sawblade traps help stretch essence further.'],
+    },
+    {
+      id: 'gong', map: 'astro', tier: 'Grim', name: 'Gong', difficulty: 'Easy',
+      effect: 'Field Upgrades no longer recharge over time; Full Power becomes the main refill source.',
+      unlock: [
+        'Reach round 20.',
+        'Find rod-marked zombies and kill one near each charged bulb.',
+        'Use the bulbs above the Pack-a-Punch doorway toward the portal, the Luminarium doorway near Juggernog, and the Machina Astralis or library doorway by the Mars route.',
+        'Place the rod zombie just in front of the bulb before killing it.',
+      ],
+      portal: 'Outside Pack-a-Punch, left of the Gobblegum machine.',
+      trial: 'Only electric damage counts. Build progress on waves 1 and 3; expect Klaus pressure on wave 2 and an Uber Klaus threat on wave 4.',
+      save: 'Safe, but rod-zombie progress must be repeated after loading back in.',
+      prep: ['Dead Wire with Light Strike and Haste makes the bulb step more reliable.', 'Tesla Storm with duration or radius augments can cover mistakes during the setup.', 'Ping the rod zombie if you need to track it through a crowd.'],
+    },
+    {
+      id: 'seed', map: 'astro', tier: 'Grim', name: 'Seed', difficulty: 'Easy',
+      effect: 'The Mystery Box is disabled.',
+      unlock: [
+        'Reach round 20 and pick up the grey pistol.',
+        'Kill exactly the same number of enemies as the round number when the pistol was collected.',
+        'Potential pistol spots include the Observatory Dome, Luminarium, Machina Astralis bar, and Archives of Orbis bookshelf area.',
+        'Stop using the pistol as soon as the target count is reached, finish the round with another weapon, and wait for the portal.',
+      ],
+      portal: 'Observatory Dome, left side near the Ammo Cache.',
+      trial: 'Fight through four waves with a Pack-a-Punch I pistol. Waves 1 and 3 are progress waves; HVT waves can include Klaus units, a Mimic, and an Uber Klaus.',
+      save: 'Unsafe; the pistol can disappear after a reload.',
+      prep: ['Avoid passive kill sources like Elemental Pop or Wisp Tea while counting.', 'Rarity upgrades and Insta-Kill help, but stop using the pistol the moment the kill count matches the round.', 'Use the weapon stats menu to confirm the pistol kill count.'],
+    },
+    {
+      id: 'rocket', map: 'paradox', tier: 'Grim', name: 'Rocket Relic', difficulty: 'Medium',
+      effect: 'Scorestreaks cannot be used.',
+      unlock: [
+        'Before round 20, pet a turned Rad Hound in past Nuketown.',
+        'On round 20, move to future Nuketown and pet a D.A.W.G. scorestreak.',
+        'Psych Grenades are the most reliable way to create a safe pet window.',
+      ],
+      portal: 'Past Nuketown, upstairs in Green House while facing south.',
+      trial: 'Enemies only take meaningful damage from elemental weaknesses. Progress waves are 1 and 3; HVT waves usually mix Rad Hounds, Doppelghasts, and Mimics.',
+      save: 'Unsafe; pet progress does not persist cleanly.',
+      prep: ['Carry separate ammo mods: Shadow Rift for toxic zombies, Light Mend for Doppelghasts, and Brain Rot for Mimics.', 'Psych Grenades help create a safer Rad Hound pet window.', 'Golden Armor, a self-revive, and Aether Shroud give the trial breathing room.'],
+    },
+    {
+      id: 'power-switch', map: 'totenreich', tier: 'Grim', name: 'Power Switch', difficulty: 'Very Easy',
+      effect: 'Your lethal and tactical equipment loadout changes at the start of each round.',
+      unlock: [
+        'Reach round 20.',
+        'Read the deer-head altars, then strike the matching bear pelts with a Combat Axe in the correct order.',
+        'Use the altars at Eidskallen Landing, Dry Dock, Tyr\'s Foot, and Burial Grounds.',
+        'The closest pelt to each altar represents that altar in the sequence.',
+      ],
+      portal: 'Blodheim Hall, south-wall bear pelt.',
+      trial: 'Trap kills only. Use the map machinery through the short three-wave trial.',
+      save: 'Safe.',
+      prep: ['If the altar read is unclear, the pelt order has only twenty-four possible combinations.'],
+    },
+    {
+      id: 'wrestlers-belt', map: 'totenreich', tier: 'Grim', name: "Wrestler's Belt", difficulty: 'Unknown',
+      status: 'pending',
+      effect: 'Relic behavior is not verified yet.',
+      unlock: ['No reliable recovery path is filed yet. Keep this slot marked pending until the trigger is confirmed.'],
+      portal: 'Unknown.',
+      trial: 'Unknown.',
+      save: 'Unknown.',
+      prep: ['Leave unpublished routes out of the walkthrough until the discovery is reproducible.'],
+    },
+    {
+      id: 'vril-sphere', map: 'ashes', tier: 'Sinister', name: 'Vril Sphere', difficulty: 'Easy',
+      effect: 'The perk limit drops to four unless another reward bypasses the cap.',
+      unlock: [
+        'Reach round 40.',
+        'Damage a Doppelghast without killing it.',
+        'Lead it onto any jump pad and launch with it so the landing finishes the enemy.',
+      ],
+      portal: 'Zarya Cosmodrome, high middle road while looking east.',
+      trial: 'Purchases are disabled during the arena. Waves 1, 3, and 4 build progress; waves 2 and 5 bring Mimic and Doppelghast HVT pressure.',
+      save: 'Safe before round 40.',
+      prep: ['Open doors, buy essentials, and craft equipment before entering.', 'A Pack-a-Punch III Necrofluid Gauntlet can carry most of the trial.'],
+    },
+    {
+      id: 'samanthas-drawing', map: 'ashes', tier: 'Sinister', name: "Samantha's Drawing", difficulty: 'Easy',
+      effect: 'Your weapon is exchanged each round for a comparable rarity and Pack-a-Punch level.',
+      unlock: [
+        'Before round 40, feed Chompy one weapon from each rarity tier from common through legendary.',
+        'On round 40 or later, place a Wonder Weapon into the Chompy bin.',
+        'Start with a grey pistol early so the lowest rarity is out of the way.',
+      ],
+      portal: 'Zarya Cosmodrome, along the path toward Yuri\'s Lab.',
+      trial: 'Ammo Caches and Max Ammo drops are unavailable. Waves 1, 3, and 4 build progress; waves 2 and 5 can lean heavily on Doppelghast HVTs.',
+      save: 'Unsafe once Chompy progress has started.',
+      prep: ['Feed a grey pistol early so the lowest rarity is finished before the round climb.', 'Listen for the Chompy audio cue before committing a weapon.', 'Mule Kick ammo reserves make the trial more forgiving.'],
+    },
+    {
+      id: 'focusing-stone', map: 'ashes', tier: 'Sinister', name: 'Focusing Stone', difficulty: 'Easy',
+      effect: 'Self-revive kits are disabled.',
+      unlock: [
+        'Reach round 40.',
+        'Kill a Zursa with a knife as the final hit and collect the wine bottle.',
+        'Complete a legendary TEDD task and collect the second bottle near the task reward.',
+        'Set both bottles at the Blackwater Lake wine bar, watch the burst order, then shoot the bottles in that order.',
+      ],
+      portal: 'Zarya Cosmodrome, beneath the rocket while facing west.',
+      trial: 'Your essence is removed when the trial begins. Waves 1, 3, and 4 build progress; waves 2 and 5 can bring Doppelghast and Mimic HVTs.',
+      save: 'Safe before round 40.',
+      prep: ['Watch the bottle sequence immediately after placing them.', 'The second bottle can spawn near the TEDD reward rather than directly on it.', 'A Pack-a-Punch III Necrofluid Gauntlet keeps the no-essence trial simple.'],
+    },
+    {
+      id: 'spider-fang', map: 'astro', tier: 'Sinister', name: 'Spider Fang', difficulty: 'Hard',
+      effect: 'Perk prices stop falling over time.',
+      unlock: [
+        'Keep the main quest untouched.',
+        'Use Wisp Tea so a wisp is active on OSCAR.',
+        'Land the final hit on OSCAR with melee while the wisp condition is active.',
+      ],
+      portal: 'Archives of Orbis, opposite Stamin-Up.',
+      trial: 'All perks are stripped when the trial starts. Waves 1, 3, and 4 build progress; wave 2 can bring Uber Klaus, and wave 5 can bring OSCAR.',
+      save: 'Unsafe once OSCAR health setup is underway.',
+      prep: ['Use Wisp Tea augments that keep the wisp from killing normal zombies and extend its window.', 'Do not advance the main quest before attempting the OSCAR setup.', 'Use a legendary Pack-a-Punch III knife, with Idle Eyes, Insta-Kill, or Time Out ready for the final-hit window.', 'The Apogee Annihilator and War Machines help lower HVT health during the trial.'],
+    },
+    {
+      id: 'matryoshka-doll', map: 'astro', tier: 'Sinister', name: 'Matryoshka Doll', difficulty: 'Easy',
+      effect: 'Salvage drops are cut down.',
+      unlock: [
+        'Open the Mars portal before round 40 if possible.',
+        'On Mars, place C4 on the three meat piles around the lower center stage.',
+        'Train a large group onto the stage and detonate the C4 together.',
+      ],
+      portal: 'Machina Astralis, by the Cryopod.',
+      trial: 'Kills only count while a Field Upgrade is active. Waves 1, 3, and 4 build progress; later HVT waves can include Uber Klaus and OSCAR.',
+      save: 'Safe after Mars is open and before round 40.',
+      prep: ['Aether Shroud and Frenzied Guard are the easiest Field Upgrade choices for the trial.'],
+    },
+    {
+      id: 'summoning-key', map: 'paradox', tier: 'Sinister', name: 'Summoning Key', difficulty: 'Medium',
+      effect: 'Enemies explode when killed, and the blast can hurt you.',
+      unlock: [
+        'Throw a grenade into the broken chimney beside the Destroyed Nuketown clock and pick up the key.',
+        'On a dog round, use a grey or green Brain Rot pistol in the Yellow House backyard to turn a dog and recover the ball it digs up.',
+        'On round 40 or later, down yourself in the Green House backyard grave area, then place the collar and ball at the grave.',
+      ],
+      portal: 'Yellow House, southwest outside wall.',
+      trial: 'Each wave has a timer; every enemy must die before time expires. Waves 1, 3, and 4 build progress, while waves 2 and 5 can mix Rad Hounds with Doppelghast HVTs.',
+      save: 'Unsafe after collecting the key.',
+      prep: ['Equivalent Exchange or Aftertaste can protect the intentional down.', 'A low-rarity Brain Rot pistol is less likely to kill the dog before it digs up the ball.', 'Ray Gun, Kazimirs, Free Throw, and War Machine pressure are excellent for timed clears.'],
+    },
+    {
+      id: 'stuffed-elephant', map: 'totenreich', tier: 'Sinister', name: 'Stuffed Elephant', difficulty: 'Medium',
+      effect: 'Health regeneration takes longer to begin.',
+      unlock: [
+        'Reach round 40 without buying perks.',
+        'Perkaholic before the round counter appears may work, but do not rely on it for a clean run.',
+      ],
+      portal: 'Fishery Island, southeast corner behind the eastern building.',
+      trial: 'Find cursed eggs, destroy them, and kill the HVT before the timer ends. Expect the objective to rotate through Necropincer, Doppelghast, Amalgam, and Zursa targets.',
+      save: 'Unsafe; complete the no-perk run in one session.',
+      prep: ['Look for eggs at Dry Dock, Storm Bridge near Tyr\'s Foot, south Skallen Market past Mule Kick, and the south side of the Lighthouse.', 'Toxic Growth and a high-tier Jotunn Star make the no-perk climb safer.', 'Fishery Island and Lighthouse holds are the cleanest no-perk grind spots.'],
+    },
+    {
+      id: 'dancing-arnie', map: 'totenreich', tier: 'Sinister', name: 'Dancing Arnie', difficulty: 'Easy',
+      effect: 'Perk machines become cursed and dispense random perks.',
+      unlock: [
+        'Bring the recipe items to the Blodheim Hall firepit in order.',
+        'Collect the pot under the southwest Skallen Market food stand, ale near the Eidskallen Square to Fishery Island zipline porch, Chilly Chunks from the Storm Bridge truck, a Necropincer claw from a fire-trap kill, and a round-40 fish from the fishing rod.',
+        'After placing the ingredients, earn 100 melee kills near the firepit.',
+      ],
+      portal: 'Fishery Island, northeast corner opposite the Mystery Box spot.',
+      trial: 'Melee kills only. Waves 1, 3, and 4 build progress; HVT waves can bring Necropincers first, then Necropincer and Zursa pressure later.',
+      save: 'Unsafe once the recipe chain begins.',
+      prep: ['Get the Chilly Chunks before the truck can create progression conflicts.', 'Melee Macchiato speed and backpedal augments help the trial flow.', 'Golden Armor and a Pack-a-Punch IV Jotunn Star make the melee-only trial much safer.'],
+    },
+    {
+      id: 'bus', map: 'ashes', tier: 'Wicked', name: 'Bus', difficulty: 'Medium',
+      effect: 'Enemy health regenerates.',
+      unlock: [
+        'Reach round 60.',
+        'Complete a full round without firing, meleeing, using equipment, or triggering PhD damage.',
+        'Trap kills are the safest route, especially on a Ravager round.',
+      ],
+      portal: 'Blackwater Lake, north side of the boathouse.',
+      trial: 'Only Brain-Rotted allies can damage enemies. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.',
+      save: 'Safe before round 60.',
+      prep: ['Use Vandorn Farm and Rabbit Alley sawblade traps for the unlock, especially on a Ravager round.', 'Avoid weapon fire, melee, equipment, and PhD damage during the no-action round.', 'Brain Rot augments that improve area damage and trigger rate speed up the trial.'],
+    },
+    {
+      id: 'dragon', map: 'ashes', tier: 'Wicked', name: 'Dragon', difficulty: 'Hard',
+      effect: 'Ammo crates are disabled.',
+      unlock: ['Reach round 60 or later, then complete the Cursed boss fight.'],
+      portal: 'Blackwater Lake, southeast wall of the south cabin.',
+      trial: 'Explosive damage only. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.',
+      save: 'Safe before round 60.',
+      prep: ['Build perks early and try to make Quick Revive permanent.', 'For the boss, bring Kazimirs or Monkeys so Tessie repairs do not spiral.', 'PhD Flopper protection, Ray Gun, Kazimirs, and War Machines are the trial core.'],
+    },
+    {
+      id: 'blood-vials', map: 'ashes', tier: 'Wicked', name: 'Blood Vials', difficulty: 'Medium',
+      effect: 'All augments are disabled.',
+      unlock: [
+        'On rounds 20, 30, 40, 50, and 60, locate a ringing phone and answer it before ending the round.',
+        'Possible phones include Janus Towers server room, Zarya control room, Blackwater Lake tool shed, Vandorn Farm first floor, Ashwood market, Exit 115 service areas, and Lost Cabins.',
+      ],
+      portal: 'Blackwater Lake, inside the cabin while facing west.',
+      trial: 'Weapon damage is reduced by half. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.',
+      save: 'Unsafe once the phone chain begins.',
+      prep: ['Hold several zombies on rounds 20, 30, 40, 50, and 60 while searching for the ringing phone.', 'Use jump-pad routes to listen across the map, and kill a held zombie periodically if the round is at risk of flipping.', 'Wonder Weapons and War Machines still handle the reduced-damage HVTs well.'],
+    },
+    {
+      id: 'golden-spork', map: 'astro', tier: 'Wicked', name: 'Golden Spork', difficulty: 'Medium',
+      effect: 'Incoming enemy damage is doubled.',
+      unlock: [
+        'Open the Mars portal before round 60.',
+        'After round 60, gather a large Mars horde on the ritual-circle area.',
+        'Fire the Mangler Cannon at the portal and use decoys to keep the horde on the circle as the blast resolves.',
+      ],
+      portal: 'Crash Site, north of Quick Revive on the wall right of the Gobblegum machine.',
+      trial: 'Only hip-fire damage counts. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Klaus, Mimic, Uber Klaus, and OSCAR HVT pressure.',
+      save: 'Safe after Mars is open and before round 60.',
+      prep: ['Carry several decoys for the Mangler Cannon setup.', 'Pack-a-Punch III LGM-1 and Ray Gun hip-fire well.', 'War Machines do not satisfy the hip-fire rule.'],
+    },
+    {
+      id: 'civil-protector', map: 'astro', tier: 'Wicked', name: 'Civil Protector', difficulty: 'Medium',
+      effect: 'After enough eliminations, one perk is removed.',
+      unlock: [
+        'Activate Tessie with Energy Mine and pull one zombie near the car.',
+        'Read the headlight flash code.',
+        'Use PhD Flopper under the matching chandeliers: front-left is above Crafting, front-right above Ammo Cache, back-left above the left Crash Site entrance, and back-right above the right Crash Site entrance by Speed Cola.',
+      ],
+      portal: 'Crash Site, upper level by Quick Revive on the left wall before the left door.',
+      trial: 'Every zombie sprints. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Klaus, Mimic, Uber Klaus, and OSCAR HVT pressure.',
+      save: 'Safe before round 60.',
+      prep: ['Hold four or five zombies to read the Tessie headlight code calmly.', 'Idle Eyes or Time Out can make the chandelier step safer if the lobby is messy.', 'Stamin-Up speed augments and the Apogee Annihilator help keep distance.'],
+    },
+    {
+      id: 'mangler-helmet', map: 'paradox', tier: 'Wicked', name: 'Mangler Helmet', difficulty: 'Very Hard',
+      effect: 'The Arsenal is disabled.',
+      unlock: [
+        'Do not run the Seed relic while setting this up.',
+        'Charge Mr. Peeks, then spin the Mystery Box in both Past and Destroyed Nuketown until the bunny appears.',
+        'Use the Field Upgrade, take each bunny, and place them on the matching Yellow House mailboxes.',
+        'On round 60 or later, recover the ultra knife from a mailbox and kill the HVT Mimic using only that knife.',
+      ],
+      portal: 'Destroyed Nuketown, Green House balcony.',
+      trial: 'Survive six waves with reduced health and no armor. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Rad Hound HVTs.',
+      save: 'Safe before round 60, but the Mystery Box bunny steps must be repeated after a reload.',
+      prep: ['Ray Gun or Sundergat should stay in hand whenever possible.', 'Make Quick Revive with Dying Wish permanent before attempting the trial.', 'Extra health, Free Throw, Mask of Distraction, PhD slide movement, Kazimirs, and War Machines are all high-value safety tools.'],
+    },
+    {
+      id: 'agarthan-device', map: 'totenreich', tier: 'Wicked', name: 'Agarthan Device', difficulty: 'Medium-Hard',
+      effect: 'The map rotates a different zombie variant into each round.',
+      unlock: [
+        'Play as Richtofen.',
+        'Use the RC-XD to open the Group 935 Genetic Lab uranium room and collect the walkie-talkie.',
+        'Use Tyr\'s travel system to recover Mr. Peeks from Ava\'s room and the helmet from the Urzikstan room near Strauss.',
+        'On round 15 or later, buy Melee Macchiato, melee the barrel to begin the Richtofen side sequence, then place the items on the chair once the dialogue opens the prompt.',
+      ],
+      portal: 'Dry Dock, upper west wall opposite the zipline.',
+      trial: 'Enemies only count when killed indoors. Waves 1, 2, 4, and 5 build progress; later HVT waves can include Necropincers, Doppelghasts, and Zursa.',
+      save: 'Unsafe after the Richtofen side-quest setup is completed.',
+      prep: ['The portal can currently be opened early, but the trial still uses round-60 health.', 'Either hold upstairs Lighthouse with Toxic Growth or train patiently and pull HVTs indoors for the kill.', 'Free Throw, Mask of Distraction, PhD slide movement, and War Machines are strong safety tools.'],
+    },
+    {
+      id: 'music-box', map: 'totenreich', tier: 'Wicked', name: 'Music Box', difficulty: 'Hard',
+      effect: 'Enemies only die to critical kills.',
+      unlock: [
+        'Reach round 60.',
+        'Enter Tyr\'s Head and land five headshots within one minute.',
+        'For solo, stack zombies near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering the head.',
+      ],
+      portal: 'Dry Dock, far west by the blocked staircase near Fjord Road.',
+      trial: 'Find the holdout circles and survive as the safe zone shrinks each wave. Early waves build progress; the final two waves are the cramped Necropincer-heavy finish.',
+      save: 'Safe before round 60.',
+      prep: ['For solo headshots, stack a horde near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering Tyr\'s Head.', 'Cache Back, Shields Up, Kill Joy, and Kazimirs smooth the later holdouts.', 'Save War Machine pressure for waves 5 and 6.'],
+    },
+  ];
+
   bo7EasterEggs.forEach((ee) => {
     const map = maps.find((m) => m.id === ee.map);
     if (map) map.eeCount = Math.max(map.eeCount || 0, 1);
@@ -1705,6 +2021,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   classicEasterEggs.forEach((ee) => {
     const map = maps.find((m) => m.id === ee.map);
     if (map) map.eeCount = Math.max(map.eeCount || 0, 1);
+  });
+  relics.forEach((relic) => {
+    const map = maps.find((m) => m.id === relic.map);
+    if (map) map.relicCount = Math.max(map.relicCount || 0, relics.filter((item) => item.map === relic.map).length);
   });
 
   // Relics are a BO7-only mechanic. Zero out BO6 (was an earlier guess).
@@ -2431,7 +2751,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   });
   wonderWeapons.sort((a, b) => (a.order || 999) - (b.order || 999) || a.name.localeCompare(b.name));
 
-  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE, classicEasterEggs, bo7EasterEggs };
+  return { games, maps, characters, wonderWeapons, perks, timeline, sampleEE, classicEasterEggs, bo7EasterEggs, relics };
 })();
 </script>
 
@@ -2466,6 +2786,39 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function weaponImg(weapon, file) { return weapon && weapon.media && file ? (IMG_BASE + '/Weapons/Wonder Weapons/' + weapon.media.dir + '/' + file) : null; }
   function perkImg(perk, file) { return perk && perk.media && file ? (IMG_BASE + '/Perks/' + perk.media.dir + '/' + file) : null; }
   function callingCardImg(ee) { return ee && ee.rewardGif ? (IMG_BASE + '/CallingCards/EE Rewards/BO7/' + ee.rewardGif) : null; }
+  const RELIC_ASSET_BASE = IMG_BASE + '/Games/Black Ops 7/Relics';
+  const RELIC_ICON_FILES = {
+    'lawyers-pen': 'LawyersPenRelic.png',
+    'dragon-wings': 'dragonwingsrelic.png',
+    'teddy-bear': 'TeddyBearRelic.png',
+    gong: 'GongRelic.png',
+    seed: 'seedrelic.png',
+    rocket: 'rocketrelic.png',
+    'power-switch': 'powerswitchrelic.png',
+    'vril-sphere': 'vrilsphererelic.png',
+    'samanthas-drawing': 'Samsdrawingrelic.png',
+    'focusing-stone': 'focusingstonerelic.png',
+    'spider-fang': 'spiderfangrelic.png',
+    'matryoshka-doll': 'Matryoshkadollrelic.png',
+    'summoning-key': 'summoningkeyrelic.png',
+    'stuffed-elephant': 'elephantrelic.png',
+    'dancing-arnie': 'littlearnierelic.png',
+    bus: 'busrelic.png',
+    dragon: 'dragonrelic.png',
+    'blood-vials': 'bloodvialsrelic.png',
+    'golden-spork': 'golensporkrelic.png',
+    'civil-protector': 'civilprotectorheadrelic.png',
+    'mangler-helmet': 'manglerhelmetrelic.png',
+    'agarthan-device': 'agarthandevicerelic.png',
+    'music-box': 'musicboxrelic.png',
+  };
+  function relicIconImg(relic) {
+    const file = relic && RELIC_ICON_FILES[relic.id];
+    return file ? (RELIC_ASSET_BASE + '/RelicIcons/' + file) : null;
+  }
+  function relicPageImg(file) {
+    return RELIC_ASSET_BASE + '/Page Elements/' + file;
+  }
 
   const HOME_BO7_EE_POOL = (ZD.bo7EasterEggs || []).filter((ee) => {
     const map = ZD.maps.find((m) => m.id === ee.map);
@@ -2747,6 +3100,147 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         padding: 18px;
         background: linear-gradient(180deg, rgba(10,9,8,0.18), rgba(10,9,8,0.86));
       }
+      .pap-relic-stage {
+        position: relative;
+        overflow: visible;
+        min-height: 0;
+        padding: 28px clamp(18px, 3vw, 44px) 34px;
+        background: transparent;
+        border: 0;
+      }
+      .pap-relic-stage::before,
+      .pap-relic-stage::after {
+        display: none;
+      }
+      .pap-relic-stage-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        align-items: start;
+      }
+      .pap-relic-skulls {
+        justify-self: center;
+        width: min(76vw, 980px);
+        max-width: 100%;
+        margin-top: -14px;
+        margin-bottom: 5px;
+        opacity: 0.98;
+        filter: drop-shadow(0 28px 46px rgba(0,0,0,0.58));
+        pointer-events: none;
+      }
+      .pap-relic-effect-panel {
+        position: absolute;
+        top: 28px;
+        right: clamp(18px, 3vw, 44px);
+        width: min(31vw, 360px);
+        z-index: 3;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        text-shadow: 0 3px 12px rgba(0,0,0,0.78);
+      }
+      .pap-relic-effect-panel { padding: 0; overflow: visible; }
+      .pap-relic-effect-head {
+        padding: 0 0 14px;
+        text-align: right;
+        background: transparent;
+        border-bottom: 0;
+      }
+      .pap-relic-effect-body {
+        display: grid;
+        grid-template-columns: 86px 1fr;
+        gap: 18px;
+        align-items: center;
+        padding: 0;
+      }
+      .pap-relic-effect-copy {
+        text-align: right;
+        justify-self: end;
+      }
+      .pap-relic-effect-icon {
+        width: 86px;
+        height: 86px;
+        object-fit: contain;
+        filter: drop-shadow(0 12px 18px rgba(0,0,0,0.42));
+      }
+      .pap-relic-board-wrap {
+        width: min(100%, 1180px);
+        margin: -82px auto 0;
+        transform: translateX(-22px);
+        align-self: start;
+      }
+      .pap-relic-board {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1677 / 720;
+        background: url("./Images/Games/Black Ops 7/Relics/Page Elements/relicgrid.png") center top / 100% auto no-repeat;
+      }
+      .pap-relic-board-grid {
+        position: absolute;
+        left: 11.7%;
+        right: 0.9%;
+        top: 16.95%;
+        bottom: 1.4%;
+        display: grid;
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        column-gap: 1.16%;
+        row-gap: 4.2%;
+      }
+      .pap-relic-slot {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        background: transparent;
+        color: ${T.bone};
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .pap-relic-slot:hover,
+      .pap-relic-slot:focus-visible,
+      .pap-relic-slot.is-active {
+        border-color: rgba(109, 176, 255, 0.9);
+        box-shadow: inset 0 0 0 1px rgba(109, 176, 255, 0.45), 0 0 22px rgba(64, 135, 210, 0.26);
+        outline: none;
+      }
+      .pap-relic-slot img {
+        width: 58%;
+        height: 58%;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 13px rgba(0,0,0,0.55));
+      }
+      .pap-relic-slot-placeholder {
+        font-family: ${T.display};
+        font-size: clamp(32px, 4vw, 64px);
+        font-weight: 800;
+        color: ${T.bone};
+        text-shadow: 0 8px 22px rgba(0,0,0,0.58);
+      }
+      .pap-relic-selected-file {
+        display: grid;
+        grid-template-columns: minmax(0, 0.45fr) minmax(0, 1fr);
+        gap: 20px;
+        align-items: start;
+      }
+      .pap-relic-selected-portrait {
+        min-height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: linear-gradient(180deg, ${T.bg2}, ${T.bg1});
+        border: 1px solid ${T.line};
+      }
+      .pap-relic-selected-portrait img {
+        width: min(80%, 220px);
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.42));
+      }
       .pap-btn { font-family: ${T.display}; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
       .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-primary:hover { background: ${T.bone}; }
@@ -2856,6 +3350,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-main-nav > button { flex: 0 0 auto; }
         .pap-search { margin-left: auto; }
         .pap-gallery-modal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .pap-relic-stage { min-height: auto; }
+        .pap-relic-stage-inner { grid-template-columns: minmax(0, 1fr); }
+        .pap-relic-skulls { margin-bottom: 5px; width: min(100%, 860px); }
+        .pap-relic-effect-panel { position: relative; top: auto; right: auto; order: 2; width: 100%; max-width: none; margin: 0 0 22px; }
+        .pap-relic-board-wrap { order: 3; margin-top: -58px; overflow-x: auto; padding-bottom: 8px; }
+        .pap-relic-board { min-width: 860px; }
+        .pap-relic-selected-file { grid-template-columns: minmax(0, 1fr); }
         .pap-vote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pap-song-row { grid-template-columns: 42px minmax(0, 1fr) 24px; gap: 8px 14px; align-items: start; padding: 16px 18px; }
         .pap-song-index { grid-column: 1; grid-row: 1; padding-top: 2px; }
@@ -2934,6 +3435,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-btn { width: 100%; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; text-align: center; }
         .pap-gallery-modal-grid { grid-template-columns: minmax(0, 1fr); }
         .pap-gallery-more { height: 170px; }
+        .pap-relic-stage { padding: 18px 12px 22px; }
+        .pap-relic-skulls { margin-bottom: 5px; }
+        .pap-relic-effect-body { grid-template-columns: 70px 1fr; padding: 0; }
+        .pap-relic-effect-icon { width: 70px; height: 70px; }
+        .pap-relic-board-wrap { margin-top: -46px; }
+        .pap-relic-board { min-width: 720px; }
+        .pap-relic-selected-portrait { min-height: 210px; }
         .pap-vote-grid { grid-template-columns: minmax(0, 1fr); }
         .pap-vote-actions { align-items: stretch; }
         .pap-vote-leader-row { grid-template-columns: 30px 74px minmax(0, 1fr) auto !important; gap: 8px !important; padding: 8px !important; }
@@ -3672,6 +4180,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       { id: 'vote-perks', label: 'Perks', sub: 'Favorite machine' },
       { id: 'vote-characters', label: 'Characters', sub: 'Favorite operator' },
     ];
+    const relicItems = [
+      { id: 'relics', label: 'Relics', sub: 'Cursed Standard' },
+    ];
     const armoryItems = [
       { id: 'weapons', label: 'Wonder Weapons', sub: 'Weapon records' },
       { id: 'perks', label: 'Perks', sub: 'Vending machines' },
@@ -3684,6 +4195,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const mobileGroups = [
       { label: 'Database', items: databaseItems },
       { label: 'Voting', items: votingItems },
+      { label: 'Relics', items: relicItems },
       { label: 'Armory', items: armoryItems },
       { label: 'Story', items: storyItems },
     ];
@@ -3739,6 +4251,27 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <NavDropdown label="Armory" route={route} nav={nav} items={armoryItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
               <NavDropdown label="Voting" route={route} nav={nav} items={votingItems} />
+              <button
+                type="button"
+                onClick={() => nav({ name: 'relics' })}
+                style={{
+                  background: 'transparent',
+                  border: 0,
+                  borderBottom: route.name === 'relics' ? `2px solid ${T.bloodH}` : '2px solid transparent',
+                  color: route.name === 'relics' ? T.bloodH : T.blood,
+                  padding: '8px 12px',
+                  fontFamily: T.display,
+                  fontWeight: 700,
+                  fontSize: 13,
+                  letterSpacing: 2,
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = T.bloodH; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = route.name === 'relics' ? T.bloodH : T.blood; }}
+              >
+                Relics
+              </button>
             </nav>
             <div className="pap-header-spacer" style={{ flex: 1 }} />
             <button
@@ -4181,8 +4714,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const songsIn  = songList().filter((s) => s.gameId === id);
     const wwIn     = ZD.wonderWeapons.filter((w) => (w.gameIds || []).includes(id));
     const crewIn   = (g.crewIds || []).map((cid) => ZD.characters.find((c) => c.id === cid)).filter(Boolean);
-    const relicMapsIn = mapsIn.filter((m) => (m.relicCount || 0) > 0);
-    const totalRelics = relicMapsIn.reduce((a, m) => a + m.relicCount, 0);
+    const relicMapsIn = mapsIn.filter((m) => relicCountForMap(m) > 0);
+    const totalRelics = relicMapsIn.reduce((a, m) => a + relicCountForMap(m), 0);
 
     return (
       <div>
@@ -4292,7 +4825,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         {/* RELICS — gated by feature flag (BO7 only) */}
         {g.features && g.features.hasRelics && relicMapsIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker={'BO7 mechanic · ' + totalRelics + ' relics across ' + relicMapsIn.length + ' sites'} title="Relics" />
+            <SectionHead
+              kicker={'BO7 mechanic · ' + totalRelics + ' relics across ' + relicMapsIn.length + ' sites'}
+              title="Relics"
+              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'relics' })}>Full catalogue →</button>}
+            />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               {relicMapsIn.map((m) => (
                 <button key={m.id} onClick={() => nav({ name: 'map', id: m.id })} className="pap-card pap-card-clickable"
@@ -4303,7 +4840,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                     <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 4 }}>{m.location}</div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div className="pap-stencil pap-num" style={{ fontSize: 44, color: T.hazard, lineHeight: 1 }}>{String(m.relicCount).padStart(2,'0')}</div>
+                    <div className="pap-stencil pap-num" style={{ fontSize: 44, color: T.hazard, lineHeight: 1 }}>{String(relicCountForMap(m)).padStart(2,'0')}</div>
                     <Mono color={T.faint}>Relics</Mono>
                   </div>
                 </button>
@@ -4392,6 +4929,162 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     }
     const files = mapGalleryItems(map).slice(0, 3);
     return Array.from({ length: 3 }, (_, i) => files[i] || null);
+  }
+
+  function relicList(mapId) {
+    return (ZD.relics || []).filter((relic) => relic.map === mapId);
+  }
+
+  function relicCountForMap(map) {
+    if (!map) return 0;
+    return Math.max(map.relicCount || 0, relicList(map.id).length);
+  }
+
+  function relicTierTone(tier) {
+    if (tier === 'Wicked') return T.blood;
+    if (tier === 'Sinister') return T.hazard;
+    return T.e115;
+  }
+
+  const RELIC_TIER_ORDER = ['Grim', 'Sinister', 'Wicked'];
+
+  function orderedRelicBoardItems(relics) {
+    return RELIC_TIER_ORDER.flatMap((tier) => relics.filter((relic) => relic.tier === tier));
+  }
+
+  function RelicBoardSlot({ relic, active, onSelect }) {
+    const iconSrc = relicIconImg(relic);
+    const pending = relic.status === 'pending';
+    return (
+      <button
+        type="button"
+        role="listitem"
+        className={'pap-relic-slot' + (active ? ' is-active' : '')}
+        aria-pressed={active ? 'true' : 'false'}
+        aria-label={relic.name + ', ' + relic.tier + ' relic'}
+        title={relic.name}
+        onClick={() => onSelect(relic.id)}
+      >
+        {iconSrc ? (
+          <img src={iconSrc} alt="" loading="lazy" />
+        ) : (
+          <span className="pap-relic-slot-placeholder" aria-hidden>{pending ? '?' : 'R'}</span>
+        )}
+      </button>
+    );
+  }
+
+  function RelicStage({ relics, selected, setSelectedId }) {
+    const boardItems = orderedRelicBoardItems(relics);
+    const selectedIcon = relicIconImg(selected);
+    const selectedAccent = selected ? relicTierTone(selected.tier) : T.e115;
+    return (
+      <section className="pap-relic-stage" aria-label="Black Ops 7 relic archive">
+        <div className="pap-relic-stage-inner">
+          <img className="pap-relic-skulls" src={relicPageImg('RelicSkulls.png')} alt="" loading="lazy" />
+
+          <div className="pap-relic-board-wrap">
+            <div className="pap-relic-board" role="list" aria-label="Relic slots by tier">
+              <div className="pap-relic-board-grid">
+                {boardItems.map((relic) => (
+                  <RelicBoardSlot
+                    key={relic.id}
+                    relic={relic}
+                    active={selected && selected.id === relic.id}
+                    onSelect={setSelectedId}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="pap-relic-effect-panel">
+            <div className="pap-relic-effect-head">
+              <div className="pap-stencil" style={{ fontSize: 24, color: T.bone }}>Relic & Effect</div>
+            </div>
+            {selected && (
+              <div className="pap-relic-effect-body">
+                {selectedIcon ? (
+                  <img className="pap-relic-effect-icon" src={selectedIcon} alt="" loading="lazy" />
+                ) : (
+                  <div className="pap-relic-effect-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: selectedAccent, fontFamily: T.display, fontSize: 54, fontWeight: 800 }}>?</div>
+                )}
+                <div className="pap-relic-effect-copy">
+                  <Mono color={T.bone} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>{selected.tier + ' / ' + selected.difficulty}</Mono>
+                  <div className="pap-stencil" style={{ fontSize: 25, color: T.bone, marginTop: 8 }}>{selected.name}</div>
+                  <div style={{ fontFamily: T.sans, fontSize: 13.5, lineHeight: 1.5, color: T.mute, marginTop: 9 }}>{selected.effect}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  function RelicInfoRow({ label, value }) {
+    if (!value) return null;
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: '104px 1fr', gap: 12, padding: '8px 0', borderTop: `1px solid ${T.line}` }}>
+        <Mono color={T.faint}>{label}</Mono>
+        <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.bone, lineHeight: 1.55 }}>{value}</div>
+      </div>
+    );
+  }
+
+  function RelicNoteList({ title, items }) {
+    if (!items || !items.length) return null;
+    return (
+      <div style={{ marginTop: 16 }}>
+        <Mono color={T.e115} letter={2}>{title}</Mono>
+        <ul style={{ listStyle: 'none', padding: 0, margin: '9px 0 0', display: 'grid', gap: 7 }}>
+          {items.map((item, i) => (
+            <li key={i} style={{ display: 'grid', gridTemplateColumns: '16px 1fr', gap: 9, fontFamily: T.sans, fontSize: 14, lineHeight: 1.5, color: T.mute }}>
+              <span style={{ color: T.hazard, fontFamily: T.mono }}>{String(i + 1).padStart(2, '0')}</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  function RelicCard({ relic, defaultOpen = false }) {
+    const accent = relicTierTone(relic.tier);
+    const pending = relic.status === 'pending';
+    const iconSrc = relicIconImg(relic);
+    return (
+      <details className="pap-card" open={pending || defaultOpen ? true : undefined} style={{ padding: 0, overflow: 'hidden', borderColor: pending ? T.hazardDim : T.line }}>
+        <summary style={{ listStyle: 'none', cursor: 'pointer', padding: 18, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'start' }}>
+          <div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.6, textTransform: 'uppercase', color: accent, border: `1px solid ${accent}`, padding: '3px 8px', background: 'rgba(0,0,0,0.18)' }}>{relic.tier}</span>
+              <Mono color={pending ? T.hazard : T.faint}>{pending ? 'Pending recovery' : relic.difficulty}</Mono>
+            </div>
+            <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 9 }}>{relic.name}</div>
+            <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.5, marginTop: 7 }}>{relic.effect}</div>
+          </div>
+          <div style={{ width: 52, height: 52, border: `1px solid ${accent}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: accent, fontFamily: T.display, fontSize: 24, fontWeight: 700, background: 'rgba(0,0,0,0.18)' }}>
+            {iconSrc ? <img src={iconSrc} alt="" loading="lazy" style={{ width: '74%', height: '74%', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(0,0,0,0.5))' }} /> : '?'}
+          </div>
+        </summary>
+        <div style={{ padding: '0 18px 18px' }}>
+          <RelicInfoRow label="Portal" value={relic.portal} />
+          <RelicInfoRow label="Trial" value={relic.trial} />
+          <RelicInfoRow label="Save" value={relic.save} />
+          <RelicNoteList title="Recovery" items={relic.unlock} />
+          <RelicNoteList title="Field Notes" items={relic.prep} />
+        </div>
+      </details>
+    );
+  }
+
+  function RelicGrid({ relics }) {
+    return (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 14 }}>
+        {relics.map((relic) => <RelicCard key={relic.id} relic={relic} />)}
+      </div>
+    );
   }
 
   function SongTable({ songs, nav }) {
@@ -5123,6 +5816,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .find((item) => item.map === m.id);
     const hasEE = m.eeCount > 0 || !!ee;
     const gallery = mapGalleryItems(m);
+    const relics = relicList(m.id);
+    const relicCount = relicCountForMap(m);
     return (
       <div>
         <PageHead
@@ -5143,7 +5838,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
             <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
             <IntelRow label="Songs" value={(m.songs && m.songs.length) ? (m.songs.length + ' catalogued') : '—'} tone={(m.songs && m.songs.length) ? 'green' : 'mute'} />
-            {m.relicCount > 0 && <IntelRow label="Relics" value={m.relicCount + ' hidden'} tone="yellow" />}
+            {relicCount > 0 && <IntelRow label="Relics" value={relicCount + ' hidden'} tone="yellow" />}
             <div style={{ flex: 1 }} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
               {(m.tags || []).map((t) => (
@@ -5229,21 +5924,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         )}
 
         {/* RELICS (BO7 only after restructure) */}
-        {m.relicCount > 0 && (
+        {relicCount > 0 && (
           <section style={{ marginTop: 40 }}>
-            <SectionHead kicker={m.relicCount + ' relics on site'} title="Relics" />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(' + Math.min(m.relicCount, 6) + ', 1fr)', gap: 12 }}>
-              {Array.from({ length: m.relicCount }).map((_, i) => (
-                <div key={i} className="pap-card" style={{ padding: 16, textAlign: 'center', position: 'relative' }}>
-                  <Mono color={T.hazard}>{'№ ' + String(i + 1).padStart(2, '0')}</Mono>
-                  <div style={{ margin: '14px auto', width: 44, height: 44, border: `1px solid ${T.lineHi}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: T.hazard, fontFamily: T.display, fontSize: 18, fontWeight: 700 }}>R</div>
-                  <div style={{ fontFamily: T.sans, fontSize: 12, color: T.mute }}>Location TBC</div>
-                </div>
-              ))}
-            </div>
-            <div style={{ fontFamily: T.mono, fontSize: 11, color: T.faint, marginTop: 12, letterSpacing: 1 }}>
-              Individual relic write-ups arriving with the next archive sync.
-            </div>
+            <SectionHead kicker={relicCount + ' relics on site'} title="Relics" />
+            {relics.length > 0 ? <RelicGrid relics={relics} /> : <ComingSoon what="Individual relic write-ups" />}
           </section>
         )}
 
@@ -6001,10 +6685,94 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   function RelicsBO7({ nav }) {
-    // Direct route landing for #/relics — sends users to the BO7 game page,
-    // since relics are a BO7-only concept now.
-    useEffect(() => { nav({ name: 'game', id: 'bo7' }); }, []);
-    return <div style={{ padding: 60, textAlign: 'center', color: T.mute }}>Redirecting to BO7…</div>;
+    const relics = ZD.relics || [];
+    const [selectedId, setSelectedId] = useState((relics[1] && relics[1].id) || (relics[0] && relics[0].id));
+    const selected = relics.find((relic) => relic.id === selectedId) || relics[0];
+    const selectedIcon = relicIconImg(selected);
+    const relicFileRef = React.useRef(null);
+    const selectRelic = useCallback((id) => {
+      setSelectedId(id);
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (relicFileRef.current) {
+            const y = relicFileRef.current.getBoundingClientRect().top + window.scrollY;
+            const previewOffset = Math.min(Math.max(window.innerHeight * 0.48, 280), 560);
+            window.scrollTo({ top: Math.max(0, y - previewOffset), behavior: 'smooth' });
+          }
+        });
+      });
+    }, []);
+    return (
+      <div>
+        <div style={{ marginBottom: 10 }}>
+          <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Relics'}]} nav={nav} />
+          <h1 className="pap-stencil" style={{ fontSize: 48, color: T.bone, margin: '12px 0 0' }}>Relics</h1>
+        </div>
+
+        <div>
+          <RelicStage relics={relics} selected={selected} setSelectedId={selectRelic} />
+        </div>
+
+        {selected && (
+          <section ref={relicFileRef} style={{ marginTop: 34, scrollMarginTop: 118 }}>
+            <SectionHead
+              kicker={selected.tier + ' relic file'}
+              title={selected.name}
+              sub={selected.effect}
+            />
+            <div className="pap-relic-selected-file">
+              <div className="pap-relic-selected-portrait">
+                {selectedIcon ? (
+                  <img src={selectedIcon} alt={selected.name + ' relic icon'} loading="lazy" />
+                ) : (
+                  <span className="pap-relic-slot-placeholder" style={{ color: relicTierTone(selected.tier) }}>?</span>
+                )}
+              </div>
+              <RelicCard relic={selected} defaultOpen />
+            </div>
+          </section>
+        )}
+
+        {false && (
+          <React.Fragment>
+        {bo7 && (
+          <section style={{ marginTop: 34 }}>
+            <button className="pap-card pap-card-clickable" onClick={() => nav({ name: 'game', id: bo7.id })}
+              style={{ width: '100%', padding: 22, display: 'grid', gridTemplateColumns: '1fr auto', gap: 18, alignItems: 'center', color: T.bone, textAlign: 'left' }}>
+              <div>
+                <Mono color={T.e115}>{bo7.code + ' · ' + bo7.year}</Mono>
+                <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{bo7.title}</div>
+              </div>
+              <Mono color={T.e115}>Open game file →</Mono>
+            </button>
+          </section>
+        )}
+
+        <section style={{ marginTop: 44 }}>
+          <SectionHead
+            kicker="Map files"
+            title="Relic Walkthroughs"
+            sub="Routes are grouped by recovery site. Trial wave and HVT notes are player-observed patterns and can vary between runs."
+          />
+        </section>
+
+        {relicMaps.map((map) => {
+          const mapRelics = relicList(map.id);
+          return (
+            <section key={map.id} style={{ marginTop: 30 }}>
+              <SectionHead
+                kicker={mapRelics.length + ' relic' + (mapRelics.length === 1 ? '' : 's') + ' recovered'}
+                title={map.name}
+                action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'map', id: map.id })}>Map file →</button>}
+              />
+              <RelicGrid relics={mapRelics} />
+            </section>
+          );
+        })}
+          </React.Fragment>
+        )}
+      </div>
+    );
   }
 
   function Lore({ nav }) {
