@@ -174,6 +174,15 @@ function Get-RouteSeo {
       Url = $url
     }
   }
+  if ($Route -match '^/easter-eggs/([^/]+)$') {
+    $slug = $Matches[1]
+    $name = if ($script:EasterEggNameById -and $script:EasterEggNameById.ContainsKey($slug)) { $script:EasterEggNameById[$slug] } else { Convert-SlugTitle $slug }
+    return @{
+      Title = $name + ' Easter Egg Walkthrough | Group 935'
+      Description = $name + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.'
+      Url = $url
+    }
+  }
 
   return @{
     Title = 'Group 935 | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
@@ -237,10 +246,39 @@ function Get-PerkNameMap {
   return $names
 }
 
+function Add-EasterEggNamesFromBlock {
+  param(
+    [hashtable]$Names,
+    [string]$Source,
+    [string]$StartPattern,
+    [string]$EndPattern
+  )
+
+  $match = [regex]::Match($Source, $StartPattern + '(?<block>[\s\S]*?)' + $EndPattern)
+  if (-not $match.Success) { return }
+
+  $pattern = "id:\s*'([^']+)'.*?title:\s*([`"'])(.*?)\2"
+  foreach ($item in [regex]::Matches($match.Groups['block'].Value, $pattern)) {
+    $Names[$item.Groups[1].Value] = $item.Groups[3].Value
+  }
+}
+
+function Get-EasterEggNameMap {
+  param([string]$Source)
+
+  $names = @{}
+  Add-EasterEggNamesFromBlock -Names $names -Source $Source -StartPattern 'const classicEasterEggs = \[' -EndPattern '\];\s*const bo7EasterEggs'
+  Add-EasterEggNamesFromBlock -Names $names -Source $Source -StartPattern 'const bo7EasterEggs = \[' -EndPattern '\];\s*const relics'
+  return $names
+}
+
 $script:RelicNameById = Get-RelicNameMap -Source $index
 $script:PerkNameById = Get-PerkNameMap -Source $index
+$script:EasterEggNameById = Get-EasterEggNameMap -Source $index
 $relicIds = Get-BlockIds -Source $index -StartPattern 'const relics = \[' -EndPattern '\];\s*bo7EasterEggs\.forEach'
 $perkIds = Get-BlockIds -Source $index -StartPattern 'const perkDetails = \[' -EndPattern '\];\s*perkDetails\.forEach'
+$classicEasterEggIds = Get-BlockIds -Source $index -StartPattern 'const classicEasterEggs = \[' -EndPattern '\];\s*const bo7EasterEggs'
+$bo7EasterEggIds = Get-BlockIds -Source $index -StartPattern 'const bo7EasterEggs = \[' -EndPattern '\];\s*const relics'
 $bo7MapIds = Get-Bo7MapIds -Source $index
 
 $routes = @(
@@ -255,6 +293,7 @@ $routes = @(
 $routes += $bo7MapIds | ForEach-Object { '/maps/' + $_ }
 $routes += $relicIds | ForEach-Object { '/relics/' + $_ }
 $routes += $perkIds | ForEach-Object { '/perks/' + $_ }
+$routes += ($classicEasterEggIds + $bo7EasterEggIds) | ForEach-Object { '/easter-eggs/' + $_ }
 
 $routes = $routes | Where-Object { $_ } | Select-Object -Unique
 

@@ -101,6 +101,7 @@ if (-not ($routes -contains '/relics')) { Fail 'Sitemap is missing /relics.' }
 if (-not ($routes -contains '/relics/teddy-bear')) { Fail 'Sitemap is missing /relics/teddy-bear.' }
 if (-not ($routes -contains '/perks')) { Fail 'Sitemap is missing /perks.' }
 if (-not ($routes -contains '/perks/wisp-tea')) { Fail 'Sitemap is missing /perks/wisp-tea.' }
+if (-not ($routes -contains '/easter-eggs/totenreich-main-quest')) { Fail 'Sitemap is missing /easter-eggs/totenreich-main-quest.' }
 if (-not ($routes -contains '/maps/astra')) { Fail 'Sitemap is missing /maps/astra.' }
 if (-not ($routes -contains '/maps/totenreich')) { Fail 'Sitemap is missing /maps/totenreich.' }
 if ($routes -contains $oldAstraRoute) { Fail 'Sitemap still contains the old Astra route.' }
@@ -162,6 +163,7 @@ $sampleFiles = @(
   'index.html',
   '404.html',
   'relics/teddy-bear/index.html',
+  'easter-eggs/totenreich-main-quest/index.html',
   'maps/astra/index.html',
   'maps/totenreich/index.html',
   'games/bo7/index.html'
@@ -189,5 +191,11 @@ if ($wispHtml -notmatch 'Wisp Tea') { Fail 'Wisp Tea is missing from the generat
 if ($wispHtml -notmatch "dir:\s*'wisp-tea'" -or $wispHtml -notmatch "hero:\s*'WispTea\.png'") {
   Fail 'Wisp Tea generated page does not reference the WispTea image.'
 }
+
+$totenreichEeFile = Join-Path $root 'easter-eggs\totenreich-main-quest\index.html'
+if (-not (Test-Path -LiteralPath $totenreichEeFile)) { Fail 'Missing generated Totenreich Easter egg route file.' }
+$totenreichEeHtml = Get-Content -Raw -LiteralPath $totenreichEeFile
+if ($totenreichEeHtml -notmatch 'Images Coming Soon') { Fail 'Totenreich Easter egg page is missing the construction tape image placeholder.' }
+if ($totenreichEeHtml -notmatch 'Build the Jotun Star') { Fail 'Totenreich Easter egg page is missing the rewritten step data.' }
 
 Write-Host "SEO/local file checks passed for $($routes.Count) sitemap routes."

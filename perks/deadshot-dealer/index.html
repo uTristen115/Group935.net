@@ -1727,12 +1727,161 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       map: 'totenreich',
       mapName: 'Totenreich',
       title: 'Totenreich Main Quest',
-      difficulty: 'Current file',
-      duration: 'BO7',
-      party: 'Reward calling card',
-      summary: 'Defeat Dravakar',
+      difficulty: 'Hard',
+      duration: '60-90 min',
+      party: 'Solo or squad',
+      summary: 'Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.',
+      requirements: ['Power restored', 'Pack-a-Punch open', 'Jotun Star built'],
       rewardLabel: 'Totenreich calling card',
       rewardGif: 'Totenreich.gif',
+      rewards: ['Totenreich calling card', 'Main quest completion'],
+      imagePlaceholders: true,
+      steps: [
+        {
+          n: 1,
+          title: 'Build the Jotun Star',
+          body: 'Open the map, run the Dry Dock crane sequence, and complete Astrid\'s lantern route to claim the wonder weapon.',
+          bullets: [
+            'Restore power and unlock Pack-a-Punch.',
+            'Activate the green crane control at Dry Dock, then use the lowered wall to reach the ship tip and recover the chain.',
+            'Take the Chili Chunks from the crate behind the truck on the bridge, then place them on the Market Center table.',
+            'After placing the Chili Chunks, wait until the second special round. Kill the Zursa that appears partway through it and take the lantern to Burial Grounds.',
+            'Use the chain on the left side of the Burial Grounds door to open it, revealing the altar. Place the lantern on the altar, then match the constellations in left, right, back, front order.',
+            'Escort Astrid through three frozen zombie stops, climb the Lighthouse route, and take the Jotun Star at the top.',
+          ],
+          images: [
+            { file: 'JotunStar.png', label: 'Jotun Star', kind: 'STEP 1', objectFit: 'contain', showOverlay: false },
+          ],
+        },
+        {
+          n: 2,
+          title: 'Open the Lab',
+          body: 'Open the Core Foundry vent route, then send an RC-XD through to breach the lab near Pack-a-Punch.',
+          bullets: [
+            'Travel to the Core Foundry. Up some metal stairs along the wall, find the covered wall vent and shoot the cover to pop it off.',
+            'Drive an RC-XD through the duct, down the stairs, and over the ramp. No boosting is required to get across. Travel under the garage door on the other side, then detonate the RC-XD next to the explosive barrels in the room to open it. The entry is to the left of Pack-a-Punch.\nTIP: A free RC-XD spawns in Eidskallen Square.',
+          ],
+        },
+        {
+          n: 3,
+          title: 'Recover the Lab Sample',
+          body: 'Read the marked door numbers, match them to lettered jars, create the solution, and open the cell.',
+          bullets: [
+            'From the lab near Pack-a-Punch, look at the numbered doors just outside the playable space. Two of them will have radioactive symbols beside them. Note those numbers.',
+            'Convert the two numbers into letters using the alphabet: 1=A, 2=B, 3=C, 4=D, and so on.',
+            'Identify your letters, then search the room for jars marked with those letters.',
+            'Place the two jars in the device next to the closed jail cell to create the solution.',
+            'Use the solution to melt the body on the bench across the room, revealing the cell key.',
+            'Open the cell and retrieve the uranium sample.',
+          ],
+        },
+        {
+          n: 4,
+          title: 'Secure the Fishing Canister',
+          body: 'Hook the green fish, shoot the Ravager that steals it, then hunt the Radiated Ravager on the next round.',
+          bullets: [
+            'Find a fishing rod at Dry Dock, Storm Bridge, Fishery Island, or Beacon Island.',
+            'Check the fishing spots for a glowing green fish jumping at the surface.',
+            'Fish at that spot until the green fish drops. A Ravager will appear and take it, shoot the Ravager as it leaves.',
+            'On the next round, find the Radiated Ravager in each location it moves to and damage it whenever you catch up to it.',
+            'When the Radiated Ravager dies, collect the uranium canister it drops.',
+          ],
+        },
+        {
+          n: 5,
+          title: 'Recover the Final Canister',
+          body: 'The last canister is tied to a Glocke Drop and the zombies suspended inside its field.',
+          bullets: [
+            'Call a Glocke Drop onto a full zombie group.',
+            'Kill the suspended zombies before the field resolves.',
+            'Collect the third uranium canister.',
+          ],
+          images: [
+            { file: 'glockedrop.png', label: 'Glocke Drop', kind: 'STEP 5', objectFit: 'contain', showOverlay: false },
+          ],
+        },
+        {
+          n: 6,
+          title: 'Fire the Lighthouse Cannon',
+          body: 'Use the War Factory manifest to identify the correct crate, fire the Lighthouse cannon, and recover the Signal Amplifier.',
+          bullets: [
+            'Take the crowbar from the second floor of the Lighthouse.',
+            'In the War Factory Admin Room, find the shipping manifest on a shelf. Look for the ammo icon on the manifest and remember the number associated with it.',
+            'Search the numbered crates around Core Foundry, Dry Dock, War Factory, and Fjord Road. Use the crowbar to open the crate matching the manifest number and collect the artillery shell.',
+            'Load the recovered shell into the artillery cannon next to the Lighthouse, facing the Robot head at spawn.',
+            'Hit the cannon with the Jotun Star to fire it.',
+            'Travel to the Robot head and collect the Signal Amplifier.',
+          ],
+        },
+        {
+          n: 7,
+          title: 'Call the Rocket Barrage',
+          body: 'Install the Signal Amplifier in Tyr\'s head, read both light sequences, calibrate the rockets, and open the Dry Dock building marked 02.',
+          bullets: [
+            'Install the Signal Amplifier in Tyr\'s head.',
+            'Two lights below Tyr\'s catwalk will start flashing. There will be two number sequences, so make note of each one.',
+            'Example: if the left light blinks twice and the right light blinks three times, the first code is 2-3.',
+            'Use the noted sequences to tune the Radio Tower dials. Put the left light number on the left dial and the right light number on the right dial.',
+            'Rockets will fire. If they hit the Radio Tower, the calibration is correct. If they miss, enter the second sequence.',
+            'Once the rockets are calibrated, collect a Rocket Barrage Controller.',
+            'Use the Rocket Barrage Controller on the large building with blocked stairs marked 02 in Dry Dock to open it.',
+          ],
+        },
+        {
+          n: 8,
+          title: 'Charge the Atomkraft Core',
+          body: 'Use the claw machine in the opened Dry Dock room, charge the Atomkraft Core at spawn, then carry it to the bridge.',
+          bullets: [
+            'Enter the newly opened location at Dry Dock.',
+            'Use the claw machine in the opened room to pick up the uranium cores and slot them into the grid on the right.',
+            'Arrange the cores so the meter lands in the green zone, then collect the Atomkraft Core.',
+            'Carry the Atomkraft Core to Quick Revive at spawn and place it on the box just to the right.',
+            'Enter the building behind Quick Revive and interact with the generator to turn it on.',
+            'Defend the core while it charges. When the generator stops, return to it and interact again to resume charging.',
+            'Once finished, take the charged Atomkraft Core to the bridge. You cannot travel by zipline while carrying it.',
+          ],
+          images: [
+            { file: 'UraniumClawMachine.png', label: 'Uranium Claw Machine', kind: 'STEP 8', objectFit: 'contain', showOverlay: false },
+          ],
+        },
+        {
+          n: 9,
+          title: 'Cook the Dravakar Shard',
+          body: 'Use the charged Atomkraft Core on the bridge, collect the Dravakar Shard, heat it at Vulture Aid, and take the Sunstone from the HVT.',
+          bullets: [
+            'Place the Atomkraft Core on top of the barrel with a yellow stripe facing Tyr.',
+            'Tyr will retrieve the canister and fire his laser at Dravakar.',
+            'Collect the Dravakar Shard that drops to the left of the bridge, near Tyr\'s foot.',
+            'Take the shard to the church where Vulture Aid is and place it on the spit over the fire.',
+            'Fire a charged shot from the Jotun Star to start the fire.',
+            'Once the fire is lit, use a Disciple Injection to pick up zombies and throw them at the fire until a lockdown event starts.',
+            'Fight the HVT Necropincer and take the Sunstone it drops.',
+          ],
+        },
+        {
+          n: 10,
+          title: 'Activate the Symbol Dial',
+          body: 'Take the Sunstone to the Eidskallen church, activate the Symbol Dial, and shoot the floating symbols in arrow order.',
+          bullets: [
+            'Take the Sunstone to the church near Eidskallen Square.',
+            'Place it on the altar in the center and melee it with the Jotun Star to activate the Symbol Dial above the church.',
+            'Review the direction of the three arrows in the sky. The arrow with one line near the center of the dial is arrow 1, two lines is arrow 2, and three lines is arrow 3.',
+            'Around the map, find the symbols from the dial floating in the air.',
+            'Hit the symbols with charged shots from the Jotun Star in the order the arrows direct you.',
+            'If done incorrectly, the arrows will provide new symbols and you can try again.',
+          ],
+        },
+        {
+          n: 11,
+          title: 'Start the Boss Fight',
+          body: 'After the correct symbol sequence is entered, enter Tyr\'s head, prepare your loadout, and start the final encounter from his computer.',
+          bullets: [
+            'Enter Tyr\'s head after the correct symbol sequence is entered.',
+            'Make sure you are adequately prepared with perks, Pack-a-Punch III, legendary rarity weapons, and any GobbleGums you want for the fight.',
+            'Interact with Tyr\'s computer to start the boss fight.',
+          ],
+        },
+      ],
     },
   ];
 
@@ -1940,13 +2089,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'Perk machines become cursed and dispense random perks.',
       unlock: [
         'Bring the recipe items to the Blodheim Hall firepit in order.',
-        'Collect the pot under the southwest Skallen Market food stand, ale near the Eidskallen Square to Fishery Island zipline porch, Chilly Chunks from the Storm Bridge truck, a Necropincer claw from a fire-trap kill, and a round-40 fish from the fishing rod.',
+        'Collect the pot under the southwest Skallen Market food stand, ale near the Eidskallen Square to Fishery Island zipline porch, Chili Chunks from the crate behind the truck on the bridge, a Necropincer claw from a fire-trap kill, and a round-40 fish from the fishing rod.',
         'After placing the ingredients, earn 100 melee kills near the firepit.',
       ],
       portal: 'Fishery Island, northeast corner opposite the Mystery Box spot.',
       trial: 'Melee kills only. Waves 1, 3, and 4 build progress; HVT waves can bring Necropincers first, then Necropincer and Zursa pressure later.',
       save: 'Unsafe once the recipe chain begins.',
-      prep: ['Get the Chilly Chunks before the truck can create progression conflicts.', 'Melee Macchiato speed and backpedal augments help the trial flow.', 'Golden Armor and a Pack-a-Punch IV Jotunn Star make the melee-only trial much safer.'],
+      prep: ['Get the Chili Chunks from the bridge crate before the truck can create progression conflicts.', 'Melee Macchiato speed and backpedal augments help the trial flow.', 'Golden Armor and a Pack-a-Punch IV Jotunn Star make the melee-only trial much safer.'],
     },
     {
       id: 'bus', map: 'ashes', tier: 'Wicked', name: 'Bus', difficulty: 'Medium',
@@ -3883,9 +4032,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     if (image && image.layout === 'natural') {
       return (
         <>
-          <div className={frameClass} {...interactiveProps} style={{ width: '100%', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
+          <div className={frameClass} {...interactiveProps} style={{ width: 'fit-content', maxWidth: image.maxWidth || '100%', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, position: 'relative', ...style }}>
             <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
-              style={{ display: 'block', width: '100%', height: 'auto' }} />
+              style={{ display: 'block', width: image.width || 'auto', maxWidth: '100%', height: 'auto', maxHeight: image.maxHeight || height }} />
             {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.04) 48%, rgba(10,9,8,0.6) 100%)', pointerEvents: 'none' }} />}
             {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{image.kind || kind}</div>}
             {showOverlay && (
@@ -4030,6 +4179,25 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       ...style,
     }} aria-hidden />
   );
+
+  function ImageComingSoonTape({ label, height = 300 }) {
+    return (
+      <div style={{
+        width: '100%', minHeight: height, position: 'relative', overflow: 'hidden',
+        border: `1px solid ${T.hazard}`,
+        background: `linear-gradient(135deg, ${T.bg2} 0%, ${T.bg0} 100%)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.18, backgroundImage: `repeating-linear-gradient(45deg, ${T.hazard} 0 18px, transparent 18px 36px)` }} />
+        <HazardStripe height={18} style={{ position: 'absolute', top: 0, left: 0, opacity: 0.92 }} />
+        <HazardStripe height={18} style={{ position: 'absolute', bottom: 0, left: 0, opacity: 0.92 }} />
+        <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: 28 }}>
+          <Mono color={T.hazard} letter={3}>Images Coming Soon</Mono>
+          <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 8 }}>{label || 'Evidence Slot'}</div>
+        </div>
+      </div>
+    );
+  }
 
   const Stamp = ({ children, tone = 'green', style }) => {
     const c = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.e115;
@@ -6105,6 +6273,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     };
     const activeStep = steps[active];
     const activeImages = activeStep.images || (activeStep.image ? [activeStep.image] : []);
+    const stepImageDisplay = (image) => {
+      if (!image || typeof image === 'string' || image.layout || image.objectFit !== 'contain') return image;
+      return { ...image, layout: 'natural' };
+    };
+    const showImagePlaceholder = !activeImages.length && (activeStep.imagePlaceholder || ee.imagePlaceholders);
     const activeStepDone = completed.has(activeStep.n);
     const toggleBullet = (step, index) => {
       const key = bulletKey(step, index);
@@ -6175,20 +6348,25 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <div className="pap-ee-content">
             {activeImages.length > 0 ? (
               <div className={'pap-ee-images ' + (activeImages.length === 1 ? 'is-single' : 'is-multiple')} style={{ display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
-                {activeImages.map((image, i) => (
-                  <EvidenceImage
-                    key={(image.file || 'image') + '-' + i}
-                    map={m}
-                    image={image}
-                    height={image.height || (activeImages.length === 1 ? 300 : 170)}
-                    label={image.label || (activeStep.title + ' reference ' + String(i + 1))}
-                    kind={image.kind || ('STEP ' + activeStep.n)}
-                    tone="red"
-                    showOverlay={image.showOverlay !== false}
-                    openFullSize
-                  />
-                ))}
+                {activeImages.map((rawImage, i) => {
+                  const image = stepImageDisplay(rawImage);
+                  return (
+                    <EvidenceImage
+                      key={((image && image.file) || (typeof image === 'string' ? image : 'image')) + '-' + i}
+                      map={m}
+                      image={image}
+                      height={(image && image.height) || (activeImages.length === 1 ? 300 : 170)}
+                      label={(image && image.label) || (activeStep.title + ' reference ' + String(i + 1))}
+                      kind={(image && image.kind) || ('STEP ' + activeStep.n)}
+                      tone="red"
+                      showOverlay={!image || image.showOverlay !== false}
+                      openFullSize
+                    />
+                  );
+                })}
               </div>
+            ) : showImagePlaceholder ? (
+              <ImageComingSoonTape label={'Step ' + activeStep.n + ' - ' + activeStep.title} height={300} />
             ) : (
               <Slot w="100%" h={300} label={'Step ' + activeStep.n + ' - ' + activeStep.title} kind={'STEP ' + activeStep.n} tone="red" />
             )}
@@ -6205,7 +6383,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                       <button type="button" className="pap-ee-bullet" onClick={() => toggleBullet(activeStep, i)}
                         style={{ display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr)', gap: 11, alignItems: 'baseline', width: '100%', padding: 0, border: 0, background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: T.sans, fontSize: 16, lineHeight: 1.55, color: bulletDone ? T.mute : T.bone }}>
                         <span aria-hidden style={{ width: 13, height: 13, border: `1px solid ${bulletDone ? T.e115 : T.lineHi}`, background: bulletDone ? T.e115 : 'transparent', color: T.bg0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 5, fontFamily: T.display, fontSize: 10, fontWeight: 700 }}>{bulletDone ? '✓' : ''}</span>
-                        <span style={{ textDecoration: bulletDone ? 'line-through' : 'none' }}>{item}</span>
+                        <span style={{ textDecoration: bulletDone ? 'line-through' : 'none', whiteSpace: 'pre-line' }}>{item}</span>
                       </button>
                     </li>
                   );})}
