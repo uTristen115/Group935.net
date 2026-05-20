@@ -3597,6 +3597,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           opacity: 0.09;
         }
         .term-header, .term-menu { padding: 14px !important; align-items: stretch !important; flex-direction: column !important; gap: 12px !important; }
+        .pap-construction-notice { display: none !important; }
         .pap-header-inner { padding: 12px 14px !important; align-items: center !important; flex-direction: row !important; gap: 10px !important; }
         .pap-brand { width: auto; flex: 1 1 auto; align-items: center !important; min-width: 0; }
         #root .pap-brand .pap-stencil { font-size: clamp(19px, 5.7vw, 24px) !important; line-height: 1 !important; white-space: nowrap; }
@@ -4446,7 +4447,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         </div>
         <HazardStripe height={4} />
         <header style={{ borderBottom: `1px solid ${T.line}`, background: `linear-gradient(180deg, ${T.bg1} 0%, ${T.bg0} 100%)` }}>
-          <div className="pap-header-inner" style={{ maxWidth: 1440, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 28 }}>
+          <div className="pap-header-inner" style={{ maxWidth: 1440, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 28, position: 'relative' }}>
+            <span className="pap-construction-notice" style={{ position: 'absolute', left: 32, top: '50%', transform: 'translate(calc(-100% - 14px), -50%)', display: 'inline-flex', alignItems: 'center', minHeight: 22, padding: '3px 7px 2px', border: `1px solid ${T.hazard}`, color: T.hazard, fontFamily: T.mono, fontSize: 8.5, letterSpacing: 1.55, textTransform: 'uppercase', lineHeight: 1.15, whiteSpace: 'nowrap', background: 'rgba(239, 181, 69, 0.08)', pointerEvents: 'none' }}>
+              Site is under construction
+            </span>
             <button className="pap-brand" onClick={() => nav({ name: 'home' })} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
               <Monogram />
               <div style={{ textAlign: 'left' }}>
