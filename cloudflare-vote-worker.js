@@ -28,7 +28,7 @@ const VALID_ITEMS = {
     "victorious-tortoise", "stone-cold-stronghold", "winters-wail", "timeslip",
     "ethereal-razor", "electric-burst", "zombshell", "secret-sauce",
     "bandolier-bandit", "blaze-phase", "blood-wolf-bite", "elemental-pop",
-    "phd-slider", "melee-macchiato"
+    "phd-slider", "melee-macchiato", "wisp-tea"
   ]),
   characters: new Set([
     "dempsey", "dempsey-ultimis", "dempsey-tempus",

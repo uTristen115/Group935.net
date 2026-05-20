@@ -140,6 +140,13 @@ function Get-RouteSeo {
       Url = $url
     }
   }
+  if ($Route -eq '/perks') {
+    return @{
+      Title = 'Zombies Perks and Machines | Group 935'
+      Description = 'Browse Treyarch Zombies perks, machines, effects, Black Ops 7 variants, images, and archive notes.'
+      Url = $url
+    }
+  }
   if ($Route -match '^/maps/([^/]+)$') {
     $slug = $Matches[1]
     $name = if ($bo7Maps.ContainsKey($slug)) { $bo7Maps[$slug] } else { Convert-SlugTitle $slug }
@@ -155,6 +162,15 @@ function Get-RouteSeo {
     return @{
       Title = $name + ' Relic Tutorial | Black Ops 7 Zombies | Group 935'
       Description = $name + ' relic tutorial for Black Ops 7 Zombies, including the effect, unlock requirements, portal, trial, save note, and prep tips.'
+      Url = $url
+    }
+  }
+  if ($Route -match '^/perks/([^/]+)$') {
+    $slug = $Matches[1]
+    $name = if ($script:PerkNameById -and $script:PerkNameById.ContainsKey($slug)) { $script:PerkNameById[$slug] } else { Convert-SlugTitle $slug }
+    return @{
+      Title = $name + ' Zombies Perk | Group 935'
+      Description = $name + ' Zombies perk reference with effects, machines, images, and archive notes.'
       Url = $url
     }
   }
@@ -207,8 +223,24 @@ function Get-RelicNameMap {
   return $names
 }
 
+function Get-PerkNameMap {
+  param([string]$Source)
+
+  $names = @{}
+  $match = [regex]::Match($Source, 'const perkDetails = \[(?<block>[\s\S]*?)\];\s*perkDetails\.forEach')
+  if (-not $match.Success) { return $names }
+
+  $pattern = "id:\s*'([^']+)'.*?name:\s*([`"'])(.*?)\2"
+  foreach ($item in [regex]::Matches($match.Groups['block'].Value, $pattern)) {
+    $names[$item.Groups[1].Value] = $item.Groups[3].Value
+  }
+  return $names
+}
+
 $script:RelicNameById = Get-RelicNameMap -Source $index
+$script:PerkNameById = Get-PerkNameMap -Source $index
 $relicIds = Get-BlockIds -Source $index -StartPattern 'const relics = \[' -EndPattern '\];\s*bo7EasterEggs\.forEach'
+$perkIds = Get-BlockIds -Source $index -StartPattern 'const perkDetails = \[' -EndPattern '\];\s*perkDetails\.forEach'
 $bo7MapIds = Get-Bo7MapIds -Source $index
 
 $routes = @(
@@ -216,11 +248,13 @@ $routes = @(
   '/games',
   '/games/bo7',
   '/maps',
-  '/relics'
+  '/relics',
+  '/perks'
 )
 
 $routes += $bo7MapIds | ForEach-Object { '/maps/' + $_ }
 $routes += $relicIds | ForEach-Object { '/relics/' + $_ }
+$routes += $perkIds | ForEach-Object { '/perks/' + $_ }
 
 $routes = $routes | Where-Object { $_ } | Select-Object -Unique
 

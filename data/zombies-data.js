@@ -261,6 +261,7 @@ window.ZD = (function () {
     { id: 'mule', name: 'Mule Kick', summary: '' },
     { id: 'phd', name: 'PhD Flopper', summary: '' },
     { id: 'tomb', name: 'Tombstone Soda', summary: '' },
+    { id: 'wisp-tea', name: 'Wisp Tea', summary: '' },
   ];
 
   const timeline = [

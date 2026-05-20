@@ -99,6 +99,8 @@ foreach ($url in $xml.urlset.url) {
 
 if (-not ($routes -contains '/relics')) { Fail 'Sitemap is missing /relics.' }
 if (-not ($routes -contains '/relics/teddy-bear')) { Fail 'Sitemap is missing /relics/teddy-bear.' }
+if (-not ($routes -contains '/perks')) { Fail 'Sitemap is missing /perks.' }
+if (-not ($routes -contains '/perks/wisp-tea')) { Fail 'Sitemap is missing /perks/wisp-tea.' }
 if (-not ($routes -contains '/maps/astra')) { Fail 'Sitemap is missing /maps/astra.' }
 if (-not ($routes -contains '/maps/totenreich')) { Fail 'Sitemap is missing /maps/totenreich.' }
 if ($routes -contains $oldAstraRoute) { Fail 'Sitemap still contains the old Astra route.' }
@@ -178,6 +180,14 @@ foreach ($sample in $sampleFiles) {
   if ($html -match 'black-ops-7-relic-tutorials') {
     Fail "Sample file $sample still references the removed static relic tutorial page."
   }
+}
+
+$wispFile = Join-Path $root 'perks\wisp-tea\index.html'
+if (-not (Test-Path -LiteralPath $wispFile)) { Fail 'Missing generated Wisp Tea route file.' }
+$wispHtml = Get-Content -Raw -LiteralPath $wispFile
+if ($wispHtml -notmatch 'Wisp Tea') { Fail 'Wisp Tea is missing from the generated perk page.' }
+if ($wispHtml -notmatch "dir:\s*'wisp-tea'" -or $wispHtml -notmatch "hero:\s*'WispTea\.png'") {
+  Fail 'Wisp Tea generated page does not reference the WispTea image.'
 }
 
 Write-Host "SEO/local file checks passed for $($routes.Count) sitemap routes."
