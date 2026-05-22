@@ -57,6 +57,17 @@ function Replace-HeadValue {
   )
 }
 
+function Get-PublicUrl {
+  param(
+    [string]$Route,
+    [string]$SiteUrl
+  )
+
+  $base = $SiteUrl.TrimEnd('/')
+  if ($Route -eq '/') { return $base + '/' }
+  return $base + $Route.TrimEnd('/') + '/'
+}
+
 function Set-StaticSeo {
   param(
     [string]$Html,
@@ -97,7 +108,7 @@ function Get-RouteSeo {
     [string]$SiteUrl
   )
 
-  $url = $SiteUrl.TrimEnd('/') + $(if ($Route -eq '/') { '/' } else { $Route })
+  $url = Get-PublicUrl -Route $Route -SiteUrl $SiteUrl
   $bo7Maps = @{
     ashes = 'Ashes of the Damned'
     astra = 'Astra Malorum'
@@ -321,7 +332,7 @@ $sitemap = New-Object System.Text.StringBuilder
 [void]$sitemap.AppendLine('<?xml version="1.0" encoding="UTF-8"?>')
 [void]$sitemap.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 foreach ($route in $routes) {
-  $loc = $SiteUrl.TrimEnd('/') + $(if ($route -eq '/') { '/' } else { $route })
+  $loc = Get-PublicUrl -Route $route -SiteUrl $SiteUrl
   [void]$sitemap.AppendLine('  <url>')
   [void]$sitemap.AppendLine('    <loc>' + [System.Security.SecurityElement]::Escape($loc) + '</loc>')
   [void]$sitemap.AppendLine('    <lastmod>' + $today + '</lastmod>')

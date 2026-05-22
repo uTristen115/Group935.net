@@ -37,6 +37,24 @@ function Get-RouteFile {
   return Join-Path (Join-Path $root $relative) 'index.html'
 }
 
+function Normalize-RoutePath {
+  param([string]$Path)
+
+  if ([string]::IsNullOrWhiteSpace($Path) -or $Path -eq '/') { return '/' }
+  return '/' + $Path.Trim('/')
+}
+
+function Get-PublicUrl {
+  param(
+    [string]$Route,
+    [string]$SiteUrl
+  )
+
+  $base = $SiteUrl.TrimEnd('/')
+  if ($Route -eq '/') { return $base + '/' }
+  return $base + $Route.TrimEnd('/') + '/'
+}
+
 $runtimeAssetPattern = "window\.G935_ASSET_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_ASSET_BASE : '/Images';"
 $runtimeFontPattern = "window\.G935_FONT_BASE\s*=\s*window\.location\.protocol === 'file:' \? window\.G935_LOCAL_FONT_BASE : '/Fonts';"
 $gaMeasurementId = 'G-7Q90XFJQFF'
@@ -92,8 +110,11 @@ foreach ($url in $xml.urlset.url) {
   if ($uri.Host -ne ([uri]$SiteUrl).Host) {
     Fail "Unexpected sitemap host: $($url.loc)"
   }
-  $route = $uri.AbsolutePath
-  if ([string]::IsNullOrWhiteSpace($route)) { $route = '/' }
+  $publicPath = $uri.AbsolutePath
+  if ($publicPath -ne '/' -and -not $publicPath.EndsWith('/')) {
+    Fail "Sitemap URL should use the final trailing-slash route: $($url.loc)"
+  }
+  $route = Normalize-RoutePath $publicPath
   $routes += $route
 }
 
@@ -151,7 +172,7 @@ foreach ($route in $routes) {
     Fail "Generated file for $route is missing app route analytics tracking."
   }
 
-  $canonical = $SiteUrl.TrimEnd('/') + $(if ($route -eq '/') { '/' } else { $route })
+  $canonical = Get-PublicUrl -Route $route -SiteUrl $SiteUrl
   if ($html -notmatch [regex]::Escape("<link rel=`"canonical`" href=`"$canonical`" />")) {
     Fail "Generated file for $route has the wrong canonical URL."
   }

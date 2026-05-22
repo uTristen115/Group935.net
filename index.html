@@ -7519,8 +7519,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const SEO_SITE_URL = 'https://group935.net';
   const SEO_DEFAULT_TITLE = 'Group 935 | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
   const SEO_DEFAULT_DESCRIPTION = 'Group 935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
+  function seoPublicRoutePath(route) {
+    const path = buildRoutePath(route || { name: 'home' });
+    return path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
+  }
   function seoRouteUrl(route) {
-    return SEO_SITE_URL + buildRoutePath(route || { name: 'home' });
+    return SEO_SITE_URL + seoPublicRoutePath(route);
   }
   function seoGameTitle(gameId) {
     const game = ZD.games.find((g) => g.id === gameId);
