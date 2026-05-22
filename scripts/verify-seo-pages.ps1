@@ -102,6 +102,7 @@ if (-not ($routes -contains '/relics/teddy-bear')) { Fail 'Sitemap is missing /r
 if (-not ($routes -contains '/perks')) { Fail 'Sitemap is missing /perks.' }
 if (-not ($routes -contains '/perks/wisp-tea')) { Fail 'Sitemap is missing /perks/wisp-tea.' }
 if (-not ($routes -contains '/easter-eggs/totenreich-main-quest')) { Fail 'Sitemap is missing /easter-eggs/totenreich-main-quest.' }
+if (-not ($routes -contains '/easter-eggs/moon-big-bang-theory')) { Fail 'Sitemap is missing /easter-eggs/moon-big-bang-theory.' }
 if (-not ($routes -contains '/maps/astra')) { Fail 'Sitemap is missing /maps/astra.' }
 if (-not ($routes -contains '/maps/totenreich')) { Fail 'Sitemap is missing /maps/totenreich.' }
 if ($routes -contains $oldAstraRoute) { Fail 'Sitemap still contains the old Astra route.' }
@@ -164,6 +165,7 @@ $sampleFiles = @(
   '404.html',
   'relics/teddy-bear/index.html',
   'easter-eggs/totenreich-main-quest/index.html',
+  'easter-eggs/moon-big-bang-theory/index.html',
   'maps/astra/index.html',
   'maps/totenreich/index.html',
   'games/bo7/index.html'
@@ -197,5 +199,13 @@ if (-not (Test-Path -LiteralPath $totenreichEeFile)) { Fail 'Missing generated T
 $totenreichEeHtml = Get-Content -Raw -LiteralPath $totenreichEeFile
 if ($totenreichEeHtml -notmatch 'Images Coming Soon') { Fail 'Totenreich Easter egg page is missing the construction tape image placeholder.' }
 if ($totenreichEeHtml -notmatch 'Build the Jotun Star') { Fail 'Totenreich Easter egg page is missing the rewritten step data.' }
+
+$moonEeFile = Join-Path $root 'easter-eggs\moon-big-bang-theory\index.html'
+if (-not (Test-Path -LiteralPath $moonEeFile)) { Fail 'Missing generated Moon Easter egg route file.' }
+$moonEeHtml = Get-Content -Raw -LiteralPath $moonEeFile
+if ($moonEeHtml -notmatch 'Cryogenic Slumber Party / Big Bang Theory') { Fail 'Moon Easter egg page is missing the starter step data.' }
+if ($moonEeHtml -notmatch 'knockvrilsphereoffsatellite\.gif' -or $moonEeHtml -notmatch 'eeending\.gif') {
+  Fail 'Moon Easter egg page does not reference the new Moon gif assets.'
+}
 
 Write-Host "SEO/local file checks passed for $($routes.Count) sitemap routes."

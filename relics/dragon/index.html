@@ -1122,6 +1122,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const cotdShot = (file, label, options = {}) => ({ dir: COTD_IMAGE_DIR, file, label, ...options });
   const SHANGRI_IMAGE_DIR = 'Black Ops/Maps/Shangri-La';
   const shangriShot = (file, label, options = {}) => ({ dir: SHANGRI_IMAGE_DIR, file, label, objectFit: 'contain', ...options });
+  const MOON_IMAGE_DIR = 'Black Ops/Maps/Moon';
+  const moonShot = (file, label, options = {}) => ({ dir: MOON_IMAGE_DIR, file, label, objectFit: 'contain', ...options });
   const FIREBASE_Z_IMAGE_DIR = 'Black Ops Cold War/Maps/Firebase Z';
   const firebaseZShot = (file, label, options = {}) => ({ dir: FIREBASE_Z_IMAGE_DIR, file, label, ...options });
 
@@ -1879,6 +1881,188 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             'Enter Tyr\'s head after the correct symbol sequence is entered.',
             'Make sure you are adequately prepared with perks, Pack-a-Punch III, legendary rarity weapons, and any GobbleGums you want for the fight.',
             'Interact with Tyr\'s computer to start the boss fight.',
+          ],
+        },
+      ],
+    },
+    {
+      id: 'moon-big-bang-theory',
+      map: 'moon',
+      mapName: 'Moon',
+      title: 'Cryogenic Slumber Party / Big Bang Theory',
+      difficulty: 'Very Hard',
+      duration: '75-120 min',
+      party: 'Solo for Cryogenic Slumber Party; 2+ for original BO1 Big Bang Theory',
+      summary: 'Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap Richtofen and Samantha, then arm the rockets that strike Earth.',
+      heroImage: moonShot('EarthBlownUp_EEEnd.png', 'Moon ending aftermath'),
+      requirements: [
+        'Power on',
+        'Hacker',
+        'Wave Gun',
+        'QED',
+        'Gersh Device',
+        'Excavator Pi must breach Tunnel 6',
+        'Richtofen needs the Golden Rod and Focusing Stone for the full Big Bang Theory path',
+      ],
+      rewards: [
+        'Cryogenic Slumber Party achievement or trophy',
+        'Big Bang Theory achievement or trophy',
+        'Permanent perks after quest completion',
+        'Moon ending sequence',
+      ],
+      steps: [
+        {
+          n: 1,
+          title: 'Power and Samantha Says',
+          body: 'Start by opening Griffin Station, turning on power, and clearing the first Simon Says terminal sequence near the Receiving Bay.',
+          bullets: [
+            'Reach the MPD room and turn on the power.',
+            'Return to the four computer terminals near the entrance to Tunnel 6.',
+            'Watch the colored terminal sequence, then repeat it back by interacting with the matching computers.',
+            'Continue until the terminals flash green and shut down.',
+          ],
+          images: [
+            moonShot('powerswitch.png', 'Moon power switch'),
+            moonShot('samsaysterminalwithvrilspherenearit.png', 'Samantha Says terminal area'),
+          ],
+        },
+        {
+          n: 2,
+          title: 'Hack the Lab Buttons',
+          body: 'Use the Hacker in the labs to open the next control sequence, then hit the wall buttons together once the terminals are handled.',
+          bullets: [
+            'Find the Hacker in the lab area.',
+            'Hack one of the four wall buttons in the server room.',
+            'Hack the green-lit lab terminals before the timer expires.',
+            'After the terminal hacks are complete, activate the four wall buttons at roughly the same time.',
+            'Listen for the confirmation tone before moving on.',
+          ],
+        },
+        {
+          n: 3,
+          title: 'Let Excavator Pi Breach Tunnel 6',
+          body: 'Tunnel 6 has to be breached by Excavator Pi before the Vril Sphere path can continue.',
+          bullets: [
+            'Wait for Excavator Pi to target Tunnel 6.',
+            'Let Pi finish breaching the tunnel before you stop it.',
+            'Return to the Receiving Bay and hack the Excavator terminal to pull Pi back.',
+            'Once the tunnel is accessible again, move into Tunnel 6 to begin the Vril Sphere route.',
+          ],
+          images: [
+            moonShot('tunnel6beforeexcavatorpi.png', 'Tunnel 6 before Excavator Pi'),
+            moonShot('excavatorpi.png', 'Excavator Pi warning'),
+            moonShot('hacktodeactivateexcavator.png', 'Hack terminal to stop Excavator Pi'),
+            moonShot('vrilsphereafterexcavatorpi.png', 'Vril Sphere after Excavator Pi'),
+          ],
+        },
+        {
+          n: 4,
+          title: 'Move the Vril Sphere',
+          body: 'Push the Vril Sphere through the station until it returns to the pyramid route.',
+          bullets: [
+            'Find the Vril Sphere after Tunnel 6 is breached and Pi is hacked away.',
+            'Knife or shoot the sphere whenever it lodges in the tunnel path.',
+            'When it rises onto the satellite dish above the Receiving Bay, blast it loose with the Wave Gun.',
+            'Follow it through Tunnel 11 and dislodge it again when it gets stuck near the Semtex side.',
+            'Keep moving it until it reaches the pyramid area.',
+          ],
+          images: [
+            moonShot('hiddenvrilspherelocationnearstaminup.png', 'Hidden Vril Sphere location'),
+            moonShot('knockvrilsphereoffsatellite.gif', 'Knock the Vril Sphere off the satellite'),
+            moonShot('virlspherestuckonsatellitewhereyouusewaveguntomoveit.png', 'Vril Sphere satellite position'),
+            moonShot('closedpyramidwithvrilsphere.png', 'Vril Sphere at the pyramid'),
+          ],
+        },
+        {
+          n: 5,
+          title: 'Reveal Samantha',
+          body: 'Once the Vril Sphere locks into the pyramid route, fill the exposed tube and open the MPD.',
+          bullets: [
+            'Wait for the tube to extend from the pyramid after the sphere reaches the MPD.',
+            'Kill zombies near the tube until it finishes collecting souls.',
+            'Use the nearby switch after the tube is full.',
+            'The pyramid opens and Samantha is revealed, completing the Cryogenic Slumber Party portion.',
+          ],
+          images: [
+            moonShot('conduittubelocation.png', 'MPD conduit tube'),
+            moonShot('pyramidopennosoulboxes.png', 'Pyramid open after Samantha reveal'),
+          ],
+        },
+        {
+          n: 6,
+          title: 'Retrieve the Plates from Earth',
+          body: 'Move the plates from Area 51 back to Griffin Station and set up the Receiving Bay computer.',
+          bullets: [
+            'Teleport to Area 51 and look to the shelf outside the playable space near the teleporter.',
+            'Use an explosive to knock the plates down.',
+            'Throw a Gersh Device on or next to the plates so they are pulled onto the teleporter pad.',
+            'Teleport back to the Moon.',
+            'Use a QED to move the plates into the computer station in the Receiving Bay.',
+          ],
+          images: [
+            moonShot('knockdownplatesonearth.gif', 'Knock down the Casimir plates on Earth'),
+            moonShot('suckupplatesonearth.gif', 'Pull the Casimir plates with a Gersh Device'),
+            moonShot('computerwithplatesteleportedtoit.png', 'Casimir plates at the Receiving Bay computer'),
+          ],
+        },
+        {
+          n: 7,
+          title: 'Charge the Golden Rod',
+          body: 'Complete the computer assembly, then let Richtofen charge the Golden Rod at the Receiving Bay station.',
+          bullets: [
+            'Find the wire needed for the computer setup, commonly around the labs, Tunnel 6, or nearby exterior areas.',
+            'Install the wire at the Receiving Bay computer.',
+            'Have the Richtofen player place the Golden Rod between the Casimir plates.',
+            'Continue interacting with the computer until the dialogue ends and the screen turns green.',
+            'Pick up the charged Golden Rod.',
+          ],
+          images: [
+            moonShot('goldenrodreadytogetcharged.png', 'Golden Rod ready to charge'),
+            moonShot('goldenrodcharged.png', 'Charged Golden Rod'),
+          ],
+        },
+        {
+          n: 8,
+          title: 'Complete Richtofen\'s Grand Scheme',
+          body: 'Charge the four MPD soul tubes, then place the charged Golden Rod into the pyramid device.',
+          bullets: [
+            'Return to the MPD.',
+            'Kill zombies near each of the four raised tubes until all four are filled.',
+            'Interact with the Mythos Disc to place the charged Golden Rod.',
+            'Richtofen and Samantha swap souls, changing the announcer and pushing the quest into the Maxis finale.',
+          ],
+          images: [
+            moonShot('openpyramid4soulboxes.png', 'Four MPD soul tubes'),
+          ],
+        },
+        {
+          n: 9,
+          title: 'Arm the Missiles',
+          body: 'Detach the Vril Sphere from the MPD, finish the harder Samantha Says rounds, then send the sphere away with a Gersh Device.',
+          bullets: [
+            'Throw a QED at the Vril Sphere to detach it from the MPD.',
+            'Complete the Samantha Says computer sequence again.',
+            'Each successful sequence raises one rocket; repeat until all three rockets are ready.',
+            'Throw a Gersh Device at the Vril Sphere once the rockets are raised.',
+          ],
+          images: [
+            moonShot('vrilspherereadyforqedatpyramid.png', 'Vril Sphere ready for QED at the MPD'),
+            moonShot('samsaysterminalwithvrilspherenearit.png', 'Samantha Says with the Vril Sphere nearby'),
+            moonShot('rocketsallrisenformaxis.png', 'All rockets raised for Maxis'),
+          ],
+        },
+        {
+          n: 10,
+          title: 'The Big Bang Theory',
+          body: 'The rockets launch, Earth is destroyed, and the full Moon quest completes.',
+          bullets: [
+            'Wait through the final dialogue and countdown.',
+            'Watch the rockets fire toward Earth.',
+            'All players receive permanent perks after completion.',
+            'The Big Bang Theory achievement or trophy unlocks when the sequence finishes.',
+          ],
+          images: [
+            moonShot('eeending.gif', 'Moon Easter egg ending', { height: 440, maxHeight: 440 }),
           ],
         },
       ],
@@ -3655,6 +3839,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-ee-step-title { font-size: 13px !important; line-height: 1 !important; margin-top: 1px !important; }
         .pap-ee-images { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
         .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
+        .pap-ee-images.is-packed { display: flex !important; flex-wrap: wrap !important; align-items: flex-start !important; gap: 8px !important; }
         .pap-evidence-image { max-width: 100% !important; }
         .pap-evidence-image[style*="height: 170px"] { height: 138px !important; }
         .pap-evidence-image[style*="height: 300px"] { height: 210px !important; }
@@ -3713,6 +3898,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         #root .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
         #root .pap-ee-images { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
         #root .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
+        #root .pap-ee-images.is-packed { display: flex !important; flex-wrap: wrap !important; align-items: flex-start !important; gap: 8px !important; }
         #root .pap-evidence-image { max-width: 100% !important; }
         #root .pap-evidence-image[style*="height: 170px"] { height: 138px !important; }
         #root .pap-evidence-image[style*="height: 300px"] { height: 210px !important; }
@@ -4004,7 +4190,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false }) {
+  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false, compactOverlay = false }) {
     const [failed, setFailed] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const src = !failed ? gameAssetImg(image, map) : null;
@@ -4014,6 +4200,21 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const pos = objectPosition || (image && image.objectPosition) || 'center center';
     if (!src) return <Slot w="100%" h={height} label={title} kind={kind} tone={tone} style={style} />;
     const frameClass = 'pap-evidence-image' + (openFullSize ? ' pap-image-link' : '');
+    const captionClass = compactOverlay ? 'pap-ee-image-caption' : 'pap-stencil';
+    const compactCaptionStyle = {
+      fontFamily: T.sans,
+      fontSize: 12,
+      fontWeight: 500,
+      letterSpacing: 0,
+      lineHeight: 1.25,
+      textTransform: 'none',
+      color: T.bone,
+      textShadow: '0 1px 5px rgba(0,0,0,0.72)',
+      background: 'rgba(10,9,8,0.68)',
+      border: `1px solid ${T.line}`,
+      padding: '4px 7px',
+      maxWidth: 'min(82%, 420px)',
+    };
     const openImage = () => { if (openFullSize) setExpanded(true); };
     const handleImageKey = (event) => {
       if (!openFullSize) return;
@@ -4040,7 +4241,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{image.kind || kind}</div>}
             {showOverlay && (
               <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-                <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+                <div className={captionClass} style={compactOverlay ? compactCaptionStyle : { fontSize: 22, color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
               </div>
             )}
           </div>
@@ -4061,8 +4262,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: accent, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
           {showOverlay && (
             <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
-              <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.14 : 22, 22), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
-              <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // REF</div>
+              <div className={captionClass} style={compactOverlay ? compactCaptionStyle : { fontSize: Math.min(typeof height === 'number' ? height * 0.14 : 22, 22), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
+              {!compactOverlay && <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // REF</div>}
             </div>
           )}
         </div>
@@ -6281,6 +6482,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       if (!image || typeof image === 'string' || image.layout || image.objectFit !== 'contain') return image;
       return { ...image, layout: 'natural' };
     };
+    const displayImages = activeImages.map(stepImageDisplay);
+    const usePackedImages = displayImages.some((image) => image && typeof image !== 'string' && image.layout === 'natural');
     const showImagePlaceholder = !activeImages.length && (activeStep.imagePlaceholder || ee.imagePlaceholders);
     const activeStepDone = completed.has(activeStep.n);
     const toggleBullet = (step, index) => {
@@ -6351,9 +6554,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           </div>
           <div className="pap-ee-content">
             {activeImages.length > 0 ? (
-              <div className={'pap-ee-images ' + (activeImages.length === 1 ? 'is-single' : 'is-multiple')} style={{ display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}>
-                {activeImages.map((rawImage, i) => {
-                  const image = stepImageDisplay(rawImage);
+              <div
+                className={'pap-ee-images ' + (activeImages.length === 1 ? 'is-single' : 'is-multiple') + (usePackedImages ? ' is-packed' : '')}
+                style={usePackedImages
+                  ? { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 12 }
+                  : { display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}
+              >
+                {displayImages.map((image, i) => {
                   return (
                     <EvidenceImage
                       key={((image && image.file) || (typeof image === 'string' ? image : 'image')) + '-' + i}
@@ -6364,6 +6571,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                       kind={(image && image.kind) || ('STEP ' + activeStep.n)}
                       tone="red"
                       showOverlay={!image || image.showOverlay !== false}
+                      compactOverlay
                       openFullSize
                     />
                   );
