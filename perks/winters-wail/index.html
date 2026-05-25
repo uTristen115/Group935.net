@@ -3146,6 +3146,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     IMG_BASE + '/Icons/PaperBadgesmall3.png',
     IMG_BASE + '/Icons/PaperBadgesmall4.png',
   ];
+  const SHELF_115_LINES = [
+    IMG_BASE + '/Icons/115Shelf.png',
+    IMG_BASE + '/Icons/115Shelf2.png',
+    IMG_BASE + '/Icons/115Shelf3.png',
+  ];
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
   function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
@@ -4461,6 +4466,27 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
+  function Shelf115Line({ height = 3, style }) {
+    return (
+      <div style={{ height, width: '100%', position: 'relative', overflow: 'hidden', ...style }} aria-hidden>
+        {SHELF_115_LINES.map((src, i) => (
+          <div
+            key={src}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url("${src}")`,
+              backgroundRepeat: 'repeat-x',
+              backgroundPosition: (i * -11) + 'px center',
+              backgroundSize: 'auto 100%',
+              opacity: i === 0 ? 0.94 : i === 1 ? 0.62 : 0.46,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
   function isHiddenEasterEggBadge(value) {
     const text = String(value || '').trim().toLowerCase();
     if (!text) return true;
@@ -5318,7 +5344,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: 0, textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}>{game.title}</h1>
           </div>
         </div>
-        <HazardStripe height={3} style={{ marginTop: 18, opacity: 0.7 }} />
+        <Shelf115Line height={23} style={{ marginTop: 18 }} />
       </div>
     );
   }
@@ -6181,8 +6207,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
           kicker={ZD.maps.length + ' catalogued sites'}
-          title="All Maps"
-          sub="Every filed site, newest first by default. Filter by game, then open the dossier for imagery and notes."
+          title="Maps"
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -6219,22 +6244,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           </div>
           <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
           <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 6, height: 6, background: T.blood }} />
-              <Mono color={T.mute}>{map.eeCount + ' EE'}</Mono>
-            </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 6, height: 6, background: T.e115 }} />
-              <Mono color={T.mute}>{((map.songs && map.songs.length) || 0) + ' Songs'}</Mono>
-            </span>
-            {map.relicCount > 0 && (
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 6, height: 6, background: T.hazard }} />
-                <Mono color={T.mute}>{map.relicCount + ' Relics'}</Mono>
-              </span>
-            )}
-            <span style={{ flex: 1 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
             <Mono color={T.e115}>{'Open ›'}</Mono>
           </div>
         </div>
@@ -7424,7 +7434,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function PageHead({ crumbs, kicker, title, sub, nav }) {
+  function PageHead({ crumbs, kicker, title, sub, nav, divider = 'shelf115' }) {
     return (
       <div>
         <Crumbs parts={crumbs} nav={nav} />
@@ -7435,7 +7445,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             {sub && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, marginTop: 14, lineHeight: 1.55, maxWidth: 760 }}>{sub}</p>}
           </div>
         </div>
-        <HazardStripe height={3} style={{ marginTop: 28, opacity: 0.7 }} />
+        {divider === 'shelf115' ? (
+          <Shelf115Line height={23} style={{ marginTop: 28 }} />
+        ) : (
+          <HazardStripe height={3} style={{ marginTop: 28, opacity: 0.7 }} />
+        )}
       </div>
     );
   }
