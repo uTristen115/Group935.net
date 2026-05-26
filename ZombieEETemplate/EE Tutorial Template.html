@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Easter Egg Tutorial — Template</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --bg: #0c0d10;
+    --bg-2: #15171c;
+    --bg-3: #1c1f26;
+    --line: #262a33;
+    --line-2: #353a45;
+    --fg: #e8eaee;
+    --fg-2: #a8aeba;
+    --fg-3: #6c7380;
+    --accent: oklch(0.72 0.16 145);
+    --accent-soft: oklch(0.72 0.16 145 / 0.14);
+    --accent-line: oklch(0.72 0.16 145 / 0.45);
+    --danger: oklch(0.68 0.18 25);
+    --warn: oklch(0.78 0.14 80);
+    --radius: 10px;
+    --radius-lg: 14px;
+    --pad: 24px;
+    --pad-sm: 14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+  button{font:inherit;color:inherit}
+  ::selection{background:var(--accent-soft);color:var(--fg)}
+
+  /* layout shell */
+  .app{display:grid;grid-template-columns:340px 1fr;min-height:100vh}
+  @media (max-width: 880px){ .app{grid-template-columns: 1fr} .rail{position:static !important;height:auto !important;border-right:none;border-bottom:1px solid var(--line)} }
+
+  /* rail */
+  .rail{position:sticky;top:0;height:100vh;background:var(--bg-2);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;min-height:0}
+  .rail-head{padding:22px 22px 14px;border-bottom:1px solid var(--line)}
+  .crumb{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-3)}
+  .ee-title{font-size:18px;font-weight:600;margin:6px 0 0;letter-spacing:-0.01em}
+  .ee-sub{font-size:12.5px;color:var(--fg-2);margin-top:4px}
+
+  .progress-wrap{margin-top:14px;display:flex;align-items:center;gap:10px}
+  .progress{flex:1;height:4px;background:var(--bg-3);border-radius:99px;overflow:hidden}
+  .progress > i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .35s cubic-bezier(.2,.7,.2,1)}
+  .progress-num{font-size:11px;color:var(--fg-2);min-width:42px;text-align:right}
+
+  .rail-body{flex:1;overflow-y:auto;padding:18px 14px 24px;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+  .rail-body::-webkit-scrollbar{width:8px}
+  .rail-body::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:99px}
+
+  /* step nodes */
+  .step{position:relative;padding:10px 12px 10px 44px;border-radius:var(--radius);cursor:pointer;display:block;width:100%;text-align:left;background:transparent;border:1px solid transparent;transition:background .15s,border-color .15s}
+  .step + .step{margin-top:2px}
+  .step:hover{background:var(--bg-3)}
+  .step.active{background:var(--bg-3);border-color:var(--line-2)}
+  .step.done .step-title{color:var(--fg-2);text-decoration:line-through;text-decoration-color:var(--fg-3);text-decoration-thickness:1px}
+  .step-num{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:99px;border:1.5px solid var(--line-2);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;color:var(--fg-2);transition:all .2s}
+  .step.active .step-num{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .step.done .step-num{background:var(--accent);border-color:var(--accent);color:#0c0d10}
+  .step-title{font-size:13.5px;font-weight:500;letter-spacing:-0.005em;line-height:1.35;color:var(--fg)}
+  .step-meta{font-size:11px;color:var(--fg-3);margin-top:2px;display:flex;gap:8px;align-items:center}
+  .step-meta .dot{width:3px;height:3px;background:var(--fg-3);border-radius:99px}
+
+  /* connector line between steps */
+  .step::before{content:"";position:absolute;left:22.5px;top:-2px;width:1px;height:12px;background:var(--line-2)}
+  .step:first-child::before{display:none}
+  .step.done::before{background:var(--accent)}
+
+  /* substep mini-counter */
+  .subcount{font-size:10px;font-family:"JetBrains Mono",monospace;color:var(--fg-3);padding:1px 6px;border:1px solid var(--line);border-radius:99px}
+  .step.done .subcount{color:var(--accent);border-color:var(--accent-line)}
+
+  /* rail footer */
+  .rail-foot{border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .btn{appearance:none;border:1px solid var(--line-2);background:var(--bg-3);color:var(--fg);padding:7px 12px;border-radius:8px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s}
+  .btn:hover{background:var(--bg);border-color:var(--fg-3)}
+  .btn.ghost{background:transparent}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#0c0d10;font-weight:600}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.danger:hover{color:var(--danger);border-color:var(--danger)}
+
+  /* main */
+  .main{padding:48px clamp(28px, 5vw, 64px);max-width:1200px;width:100%}
+  .stephead{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+  .stephead .crumb-row{display:flex;align-items:center;gap:10px;color:var(--fg-3);font-size:12px}
+  .stephead .crumb-row .pill{padding:3px 8px;border:1px solid var(--line-2);border-radius:99px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.04em}
+  .stephead h1{font-size:34px;line-height:1.15;letter-spacing:-0.02em;margin:0;font-weight:600;text-wrap:balance}
+  .stephead .lead{font-size:16px;color:var(--fg-2);max-width:68ch;text-wrap:pretty;line-height:1.55;margin:0}
+
+  /* tags row */
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .tag{font-size:11px;padding:3px 9px;border-radius:99px;background:var(--bg-3);border:1px solid var(--line);color:var(--fg-2)}
+  .tag.warn{color:var(--warn);border-color:color-mix(in oklch, var(--warn), transparent 70%)}
+  .tag.req{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+
+  /* hero action bar */
+  .actionbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);margin-bottom:28px}
+  .actionbar .left{display:flex;align-items:center;gap:12px}
+  .check-big{appearance:none;border:none;background:transparent;padding:0;display:inline-flex;align-items:center;gap:10px;cursor:pointer;color:var(--fg)}
+  .check-box{width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line-2);display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--bg-3)}
+  .check-big.done .check-box{background:var(--accent);border-color:var(--accent)}
+  .check-big.done .check-box svg{stroke:#0c0d10}
+  .check-box svg{width:14px;height:14px;stroke:transparent;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+  .check-lbl{font-size:13px;font-weight:500}
+  .check-big.done .check-lbl{color:var(--fg-2)}
+  .navbtns{display:flex;gap:8px}
+
+  /* body grid: description + sidebar */
+  .grid{display:grid;grid-template-columns: minmax(0,1fr);gap:36px}
+  @media (min-width:1080px){ .grid.has-aside{grid-template-columns: minmax(0,1fr) 280px} }
+
+  .desc p{font-size:15px;line-height:1.7;color:var(--fg);margin:0 0 14px;max-width:68ch;text-wrap:pretty}
+  .desc strong{color:var(--fg);font-weight:600}
+  .desc em{font-style:normal;color:var(--accent);font-family:"JetBrains Mono",monospace;font-size:.92em;background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+
+  /* image grid — flex/fit */
+  .imgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:20px 0 28px}
+  .imgs .ph{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-2);border:1px solid var(--line);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
+  .imgs .ph.wide{grid-column:span 2;aspect-ratio:21/9}
+  .imgs .ph.tall{aspect-ratio:3/4}
+  .imgs .ph.full{grid-column:1/-1;aspect-ratio:21/8}
+  .imgs .ph .stripes{position:absolute;inset:0;background-image:repeating-linear-gradient(135deg, var(--bg-3) 0 12px, var(--bg-2) 12px 24px);opacity:.55}
+  .imgs .ph .ph-label{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--fg-3);font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:14px;text-align:center}
+  .imgs .ph .ph-label .glyph{width:28px;height:28px;border:1px dashed var(--fg-3);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--fg-3)}
+  .imgs .ph img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:2}
+  .imgs .ph .cap{position:absolute;left:10px;bottom:10px;z-index:3;background:rgba(12,13,16,.78);backdrop-filter:blur(8px);padding:5px 9px;border-radius:6px;font-size:11.5px;color:var(--fg);border:1px solid var(--line)}
+
+  /* substeps */
+  .substeps{margin-top:18px;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+  .substeps-head{padding:12px 16px;background:var(--bg-2);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .substeps-head h3{margin:0;font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--fg-2)}
+  .substeps-head .count{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--fg-3)}
+  .substep{display:flex;gap:14px;padding:14px 16px;border-top:1px solid var(--line);align-items:flex-start;cursor:pointer;transition:background .15s}
+  .substep:first-child{border-top:none}
+  .substep:hover{background:var(--bg-2)}
+  .substep-check{flex-shrink:0;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-2);background:var(--bg-3);display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s}
+  .substep-check svg{width:11px;height:11px;stroke:transparent;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+  .substep.done .substep-check{background:var(--accent);border-color:var(--accent)}
+  .substep.done .substep-check svg{stroke:#0c0d10}
+  .substep-body{flex:1;min-width:0}
+  .substep-title{font-size:14px;font-weight:500;color:var(--fg);line-height:1.45;transition:color .15s}
+  .substep.done .substep-title{color:var(--fg-2);text-decoration:line-through;text-decoration-color:var(--fg-3)}
+  .substep-detail{font-size:13px;color:var(--fg-2);margin-top:4px;line-height:1.55;max-width:62ch;text-wrap:pretty}
+  .substep-num{flex-shrink:0;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--fg-3);margin-top:3px;min-width:24px}
+
+  /* aside — tips/requirements */
+  .aside{display:flex;flex-direction:column;gap:14px;position:sticky;top:24px;align-self:flex-start}
+  .card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px}
+  .card h4{margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:6px}
+  .card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .card li{font-size:13px;color:var(--fg-2);line-height:1.5;padding-left:14px;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:99px;background:var(--accent)}
+  .card.tip li::before{background:var(--warn)}
+
+  /* bottom nav */
+  .pager{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+  .pager-side{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;max-width:48%}
+  .pager-side.r{align-items:flex-end;text-align:right}
+  .pager-side .pcrumb{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .pager-side .pname{font-size:15px;font-weight:500;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+  .pager-side a, .pager-side button{all:unset;cursor:pointer;display:block}
+  .pager-side:hover .pname{color:var(--accent)}
+  .pager-side.disabled{opacity:.4;pointer-events:none}
+
+  /* icons */
+  .ic{width:14px;height:14px;display:inline-block;vertical-align:-2px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* density variants */
+  body.density-compact .main{padding:32px clamp(24px,4vw,48px)}
+  body.density-compact .stephead h1{font-size:28px}
+  body.density-compact .stephead{margin-bottom:18px}
+  body.density-compact .desc p{font-size:14px}
+  body.density-compact .substep{padding:10px 14px}
+
+  body.density-spacious .main{padding:64px clamp(32px,6vw,80px)}
+  body.density-spacious .stephead h1{font-size:40px}
+
+  /* timeline style variant */
+  body.rail-numbers .step::before{display:none}
+  body.rail-numbers .step{padding-left:48px}
+  body.rail-numbers .step-num{width:26px;height:26px;border-radius:6px;font-size:11px;left:10px}
+
+  body.rail-dots .step-num{width:12px;height:12px;font-size:0;left:18px;border-width:2px}
+  body.rail-dots .step.active .step-num{box-shadow:0 0 0 5px var(--accent-soft)}
+  body.rail-dots .step.done .step-num{background:var(--accent)}
+  body.rail-dots .step{padding-left:42px}
+  body.rail-dots .step::before{left:23.5px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="application/json" id="ee-data">
+{
+  "title": "Tag der Toten — Main Easter Egg",
+  "subtitle": "Group 935 Tutorial",
+  "tagline": "Untether Primis from the cycle. A complete walkthrough of the final main quest.",
+  "steps": [
+    {
+      "id": "power",
+      "title": "Turn on the power",
+      "summary": "Activate the lighthouse generator to enable perks and quest interactions.",
+      "tags": [{"label":"Solo / Co-op","kind":""},{"label":"~5 min","kind":""}],
+      "description": "Head up the **lighthouse stairwell** and locate the breaker at the very top. Interact with it to bring power online across the map. You'll hear a brief audio cue and the perk machines around the map will activate. Without power, **none of the easter egg steps will progress** — make sure you confirm the green status light before moving on.",
+      "tip": "Carry a Quick Revive in solo before going up — falls from the rail are common.",
+      "requirements": ["Round 4 or later recommended", "1500 points minimum", "Catwalk path open"],
+      "images": [
+        {"label":"Lighthouse breaker location", "size":"wide"},
+        {"label":"Power-on indicator (HUD)", "size":""},
+        {"label":"Map overview", "size":""}
+      ],
+      "substeps": []
+    },
+    {
+      "id": "towers",
+      "title": "Charge the four towers",
+      "summary": "Funnel zombie souls into each elemental tower until the rune glows.",
+      "tags": [{"label":"Required","kind":"req"},{"label":"Co-op friendly","kind":""},{"label":"~15 min","kind":""}],
+      "description": "Each of the four towers requires you to **kill zombies within its radius** until the rune at its base ignites. The towers cycle through a colored aura: white → blue → fully charged. Stand inside the marker and rack up kills — outside kills will not count.",
+      "tip": "Use a wall weapon or PaP'd SMG. Avoid one-shot weapons early; you need volume of kills, not damage.",
+      "requirements": ["Power active", "Wonder Weapon optional"],
+      "images": [
+        {"label":"Tower A — North cliff", "size":""},
+        {"label":"Tower B — Docks", "size":""},
+        {"label":"Tower C — Bunker entrance", "size":""},
+        {"label":"Tower D — Lighthouse base", "size":""}
+      ],
+      "substeps": [
+        {"title":"Tower A — North cliff", "detail":"Around 35 kills. The aura is purple. Watch the cliff edge."},
+        {"title":"Tower B — Docks", "detail":"Around 30 kills. Cyan aura. Use the wooden walkway as a chokepoint."},
+        {"title":"Tower C — Bunker entrance", "detail":"Around 40 kills. Yellow aura. Train zombies in the iron room."},
+        {"title":"Tower D — Lighthouse base", "detail":"Around 35 kills. Red aura. Stand near the door but not inside."}
+      ]
+    },
+    {
+      "id": "shards",
+      "title": "Collect the memory shards",
+      "summary": "Three shards spawn after the towers are lit. Locations are semi-random per game.",
+      "tags": [{"label":"Required","kind":"req"},{"label":"Random","kind":"warn"}],
+      "description": "After all four towers are charged, three **memory shards** spawn in fixed pools of locations. You'll hear a faint chime when one is nearby. Pick each up by holding interact for ~2 seconds. The shards persist across rounds — but **dying before pickup resets that shard's location.**",
+      "tip": "Have one player camp near each tower while another sweeps spawn points.",
+      "requirements": ["All 4 towers charged"],
+      "images": [
+        {"label":"Shard glow effect", "size":"wide"},
+        {"label":"Spawn pool: docks", "size":""},
+        {"label":"Spawn pool: catwalk", "size":""}
+      ],
+      "substeps": [
+        {"title":"Shard 1 — Lower deck pool", "detail":"Possible spawns: jetty crate, generator shed, rope coil."},
+        {"title":"Shard 2 — Cliff pool", "detail":"Possible spawns: cliff bench, broken fence, weather vane."},
+        {"title":"Shard 3 — Interior pool", "detail":"Possible spawns: kitchen counter, radio room, stair landing."}
+      ]
+    },
+    {
+      "id": "summon",
+      "title": "Summon the apparition",
+      "summary": "Combine shards at the central rune circle and survive the wave.",
+      "tags": [{"label":"Required","kind":"req"},{"label":"Boss wave","kind":"warn"},{"label":"~8 min","kind":""}],
+      "description": "Place all three shards in the rune circle at the lighthouse base. The runes rotate inward and a **dense wave of fast zombies** spawns alongside one Brutus-type enemy. You must remain inside or adjacent to the circle for the apparition to fully manifest — leaving the circle resets the channel.",
+      "tip": "Bring a self-revive and at least one explosive. Position your back to the lighthouse wall.",
+      "requirements": ["3 shards in inventory", "Self-revive recommended"],
+      "images": [
+        {"label":"Rune circle alight", "size":"full"}
+      ],
+      "substeps": [
+        {"title":"Place shards in order", "detail":"North → East → West. Wrong order spawns extra hellhounds."},
+        {"title":"Defend the channel for 90 seconds", "detail":"Do not leave the chalk circle. Kill the elite to advance."},
+        {"title":"Collect the dropped key", "detail":"After the boss falls, a glowing key drops on the rune itself."}
+      ]
+    },
+    {
+      "id": "final",
+      "title": "Sever the cycle",
+      "summary": "The final encounter. Defeat the apparition and trigger the closing cinematic.",
+      "tags": [{"label":"Boss","kind":"warn"},{"label":"Final step","kind":"req"}],
+      "description": "Use the key from the previous step on the **lighthouse beacon room**. This opens the final arena. The apparition has three phases — each one ends when its core glows red. You can damage the core with any weapon, but the **Wonder Weapon does triple damage** to it and is strongly recommended.",
+      "tip": "Phase 3 spawns ghost clones — focus the real one (no chest emission). Save your Wonder Weapon ammo for this phase.",
+      "requirements": ["Beacon key", "Full perks recommended", "Wonder Weapon strongly recommended"],
+      "images": [
+        {"label":"Beacon room — entry", "size":""},
+        {"label":"Phase 1 — Open core", "size":""},
+        {"label":"Phase 2 — Shield phase", "size":""},
+        {"label":"Phase 3 — Ghost clones", "size":""},
+        {"label":"Cinematic still", "size":"wide"}
+      ],
+      "substeps": [
+        {"title":"Phase 1 — Open core","detail":"Damage the chest while it glows. Avoid ground shockwaves."},
+        {"title":"Phase 2 — Shield phase","detail":"Destroy the four orbs orbiting the apparition first."},
+        {"title":"Phase 3 — Ghost clones","detail":"Identify the real apparition (no chest light on clones)."},
+        {"title":"Trigger cinematic","detail":"Interact with the fallen core to start the ending."}
+      ]
+    }
+  ]
+}
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
