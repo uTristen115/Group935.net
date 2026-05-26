@@ -4568,6 +4568,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-vote-leader-row { display: grid; grid-template-columns: 34px 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: ${T.bg1}; border: 1px solid ${T.line}; }
       .pap-vote-leader-row.is-first { background: ${T.e115bg}; border-color: ${T.e115dim}; }
       .pap-vote-rank { font-size: 21px; text-align: center; }
+      .pap-home-manual-title { display: flex; align-items: flex-start; flex-wrap: nowrap; line-height: 0; }
+      .pap-home-manual-logo-line { display: flex; align-items: flex-start; flex: 0 1 auto; min-width: 0; line-height: 0; }
+      .pap-home-zombies-icon { display: block; width: min(7.6em, 100%); height: auto; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45)); }
       .pap-ee-step-list { position: relative; max-height: min(68vh, 760px); overflow-y: auto; padding-right: 8px; scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
       .pap-ee-step-list::-webkit-scrollbar { width: 8px; }
       .pap-ee-step-list::-webkit-scrollbar-track { background: transparent; }
@@ -4762,6 +4765,8 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
         .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
         #root .pap-song-title { font-size: 19px !important; line-height: 1.05 !important; }
+        .pap-home-manual-title { align-items: flex-start; }
+        .pap-home-zombies-icon { width: min(87vw, 100%); height: auto; }
         .pap-song-row { padding: 15px 16px; }
         h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
         .pap-num { font-size: 32px !important; }
@@ -5646,7 +5651,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <Monogram />
               <div style={{ textAlign: 'left' }}>
                 <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, letterSpacing: 1.2 }}>
-                  {'Group 935 '}<span style={{ color: T.e115 }}>//</span>{' Archive'}
+                  {'Group 935'}
                 </div>
                 <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 2.5, color: T.faint, marginTop: 2 }}>
                   {'ELEMENT 115 · OPERATIONS DATABASE · NO. ' + dossierNo()}
@@ -5838,7 +5843,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     }, [featuredPool.length]);
     const featured = featuredPool[featuredIndex % featuredPool.length] || ZD.maps.find((m) => m.id === 'citadelle') || ZD.maps[0];
     const featuredGame = ZD.games.find((g) => g.id === featured.game);
-    const archive115Color = '#009EDC';
     return (
       <div>
         <section style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 36, marginBottom: 56, alignItems: 'stretch' }}>
@@ -5847,9 +5851,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <Stamp tone="red">{'Classified — Eyes Only'}</Stamp>
               <Mono color={T.mute}>{'Vol. VII · 2008–2025'}</Mono>
             </div>
-            <h1 className="pap-stencil" style={{ fontSize: 112, color: T.bone, margin: 0 }}>
-              {'Element '}<span style={{ color: archive115Color }}>115</span><br />
-              <span style={{ color: T.bone }}>field manual.</span>
+            <h1 className="pap-stencil pap-home-manual-title" style={{ fontSize: 112, color: T.bone, margin: 0 }}>
+              <span className="pap-home-manual-logo-line">
+                <img className="pap-home-zombies-icon" src={IMG_BASE + '/Icons/zombiesicon.png'} alt="Zombies" />
+              </span>
             </h1>
             <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, lineHeight: 1.55, maxWidth: 560, marginTop: 22 }}>
               {'A field archive for Treyarch Zombies: maps, crews, weapons, songs, relics, and the story thread running from '}<strong style={{ color: T.bone, fontWeight: 600 }}>Nacht der Untoten</strong>{' to '}<strong style={{ color: T.bone, fontWeight: 600 }}>Totenreich</strong>{'.'}
