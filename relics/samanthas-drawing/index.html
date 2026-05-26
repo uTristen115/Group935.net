@@ -4568,9 +4568,40 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       .pap-vote-leader-row { display: grid; grid-template-columns: 34px 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: ${T.bg1}; border: 1px solid ${T.line}; }
       .pap-vote-leader-row.is-first { background: ${T.e115bg}; border-color: ${T.e115dim}; }
       .pap-vote-rank { font-size: 21px; text-align: center; }
-      .pap-ee-step-list { position: relative; }
+      .pap-ee-step-list { position: relative; max-height: min(68vh, 760px); overflow-y: auto; padding-right: 8px; scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
+      .pap-ee-step-list::-webkit-scrollbar { width: 8px; }
+      .pap-ee-step-list::-webkit-scrollbar-track { background: transparent; }
+      .pap-ee-step-list::-webkit-scrollbar-thumb { background: ${T.lineHi}; border-radius: 999px; border: 2px solid transparent; background-clip: content-box; }
       .pap-ee-step-pill { transition: background .08s, border-color .08s; }
       .pap-ee-step-pill:hover { background: ${T.bg1}; }
+      .pap-ee-step-summary { font-family: ${T.sans}; font-size: 12.5px; line-height: 1.35; color: ${T.faint}; margin-top: 5px; }
+      .pap-ee-step-pill.is-active { background: ${T.bg1}; border-color: ${T.lineHi}; box-shadow: inset 0 0 0 1px rgba(232,226,212,0.035); }
+      .pap-ee-step-pill.is-done .pap-ee-step-title { color: ${T.faint}; text-decoration: line-through; text-decoration-color: ${T.faint}; }
+      .pap-ee-action-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+      .pap-ee-checkbox { width: 24px; height: 24px; flex: 0 0 24px; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid ${T.lineHi}; background: ${T.bg2}; color: ${T.bg0}; font-family: ${T.display}; font-size: 13px; font-weight: 800; line-height: 1; }
+      .pap-ee-checkbox.is-done { background: ${T.e115}; border-color: ${T.e115}; }
+      .pap-ee-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 26px; align-items: start; }
+      .pap-ee-aside { position: sticky; top: 24px; display: grid; gap: 14px; }
+      .pap-ee-side-card { background: ${T.bg1}; border: 1px solid ${T.line}; padding: 16px; }
+      .pap-ee-side-card h3 { margin: 0 0 11px; font-family: ${T.mono}; font-size: 11px; letter-spacing: 2.2px; text-transform: uppercase; color: ${T.faint}; }
+      .pap-ee-side-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+      .pap-ee-side-card li { position: relative; padding-left: 14px; font-family: ${T.sans}; font-size: 13px; line-height: 1.45; color: ${T.mute}; }
+      .pap-ee-side-card li::before { content: ""; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; background: ${T.e115}; }
+      .pap-ee-substeps { background: ${T.bg1}; border: 1px solid ${T.line}; overflow: hidden; }
+      .pap-ee-substeps-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid ${T.line}; background: ${T.bg2}; }
+      .pap-ee-substep { display: grid; grid-template-columns: 24px 34px minmax(0, 1fr); gap: 12px; align-items: start; width: 100%; padding: 14px 16px; background: transparent; border: 0; border-top: 1px solid ${T.line}; color: ${T.bone}; text-align: left; cursor: pointer; }
+      .pap-ee-substep:first-of-type { border-top: 0; }
+      .pap-ee-substep:hover { background: ${T.bg2}; }
+      .pap-ee-substep.is-done .pap-ee-substep-title { color: ${T.faint}; text-decoration: line-through; text-decoration-color: ${T.faint}; }
+      .pap-ee-substep-title { display: block; font-family: ${T.sans}; font-size: 15px; line-height: 1.45; color: ${T.bone}; }
+      .pap-ee-substep-detail { display: block; margin-top: 4px; font-family: ${T.sans}; font-size: 13.5px; line-height: 1.52; color: ${T.mute}; white-space: pre-line; }
+      .pap-ee-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 28px; padding-top: 22px; border-top: 1px solid ${T.line}; }
+      .pap-ee-pager button { min-width: 0; padding: 14px 16px; border: 1px solid ${T.line}; background: ${T.bg1}; color: ${T.bone}; text-align: left; cursor: pointer; }
+      .pap-ee-pager button:hover { border-color: ${T.e115dim}; background: ${T.e115bg}; }
+      .pap-ee-pager button:disabled { opacity: 0.38; cursor: default; }
+      .pap-ee-pager button:disabled:hover { border-color: ${T.line}; background: ${T.bg1}; }
+      .pap-page-head-title-wrap { min-width: 0; flex: 1 1 auto; max-width: none !important; }
+      h1.pap-page-title-nowrap { display: block; max-width: 100%; white-space: nowrap; overflow: visible; text-overflow: clip; font-size: clamp(32px, 4.15vw, 50px) !important; }
       .pap-ee-bullet:hover span:last-child { color: ${T.e115}; }
       .pap-btn:disabled { opacity: 0.48; cursor: default; }
       .pap-btn-primary:disabled:hover { background: ${T.e115}; color: ${T.bg0}; }
@@ -4664,10 +4695,12 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-song-map { grid-column: 2 / 4; grid-row: 2; }
         .pap-song-activation { grid-column: 2 / 4; grid-row: 3; max-width: 64ch; }
         .pap-ee-layout { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
-        .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+        .pap-ee-step-list { display: block !important; max-height: 360px !important; overflow-y: auto !important; padding-right: 8px !important; }
         .pap-ee-step-line { display: none !important; }
         .pap-ee-step-pill { grid-template-columns: 34px minmax(0, 1fr) !important; padding: 9px !important; border: 1px solid ${T.line} !important; background: ${T.bg1} !important; }
         .pap-ee-step-pill .pap-stencil { font-size: 14px !important; line-height: 1.05 !important; }
+        .pap-ee-detail-grid { grid-template-columns: minmax(0, 1fr) !important; }
+        .pap-ee-aside { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
         #root [style*="grid-template-columns: repeat(4, 1fr)"],
         #root [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         #root [style*="grid-template-columns: 1.3fr 1fr"],
@@ -4758,12 +4791,20 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-ee-sidebar { order: 1; }
         .pap-ee-content { order: 2; }
         .pap-ee-progress { margin-bottom: 14px !important; }
-        .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        .pap-ee-step-list { display: block !important; max-height: 300px !important; overflow-y: auto !important; padding-right: 8px !important; }
         .pap-ee-step-line { display: none !important; }
         .pap-ee-step-pill { grid-template-columns: 30px minmax(0, 1fr) !important; gap: 8px !important; align-items: center !important; padding: 8px !important; border: 1px solid ${T.line} !important; background: ${T.bg1} !important; min-height: 60px; }
         .pap-ee-step-num { width: 30px !important; height: 30px !important; font-size: 12px !important; }
         .pap-ee-step-meta { padding-top: 0 !important; }
         .pap-ee-step-title { font-size: 13px !important; line-height: 1 !important; margin-top: 1px !important; }
+        .pap-ee-action-left { width: 100%; }
+        .pap-ee-detail-grid { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
+        .pap-ee-aside { position: static !important; display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 10px !important; }
+        .pap-ee-substeps-head { align-items: flex-start; flex-direction: column; }
+        .pap-ee-substep { grid-template-columns: 24px minmax(0, 1fr) !important; gap: 10px !important; padding: 12px !important; }
+        .pap-ee-substep .pap-ee-substep-num { display: none; }
+        .pap-ee-pager { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+        h1.pap-page-title-nowrap { white-space: nowrap !important; overflow: visible !important; text-overflow: clip !important; font-size: clamp(13px, 4.4vw, 30px) !important; }
         .pap-ee-images { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
         .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
         .pap-ee-images.is-packed { display: flex !important; flex-wrap: wrap !important; align-items: flex-start !important; gap: 8px !important; }
@@ -4822,7 +4863,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         #root [style*="gap: 24px"],
         #root [style*="gap: 22px"] { gap: 18px !important; }
         #root .pap-ee-layout { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 22px !important; margin-top: 24px !important; }
-        #root .pap-ee-step-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+        #root .pap-ee-step-list { display: block !important; max-height: 300px !important; overflow-y: auto !important; padding-right: 8px !important; }
         #root .pap-ee-images { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
         #root .pap-ee-images.is-single { grid-template-columns: minmax(0, 1fr) !important; }
         #root .pap-ee-images.is-packed { display: flex !important; flex-wrap: wrap !important; align-items: flex-start !important; gap: 8px !important; }
@@ -4846,6 +4887,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         .pap-song-map { grid-column: 1 / 3; grid-row: 2; }
         .pap-song-activation { grid-column: 1 / 3; grid-row: 3; }
         h1.pap-stencil { font-size: clamp(32px, 17vw, 48px) !important; }
+        h1.pap-page-title-nowrap { font-size: clamp(13px, 4.2vw, 22px) !important; }
         #root [style*="height: 480px"] { height: 320px !important; }
         #root [style*="height: 420px"],
         #root [style*="height: 400px"] { height: 260px !important; min-height: 260px !important; }
@@ -7387,12 +7429,72 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const m = ZD.maps.find((x) => x.id === ee.map);
     const g = ZD.games.find((x) => x.id === (m && m.game));
     const steps = ee.steps || [];
-    const [completed, setCompleted] = useState(() => new Set());
-    const [completedBullets, setCompletedBullets] = useState(() => new Set());
-    const [active, setActive] = useState(0);
+    const progressKey = 'g935.ee.progress.' + ee.id + '.steps.v2';
+    const bulletProgressKey = 'g935.ee.progress.' + ee.id + '.substeps.v2';
+    const activeKey = 'g935.ee.active.' + ee.id + '.v2';
+    const readStoredSet = (key) => {
+      try {
+        const raw = window.localStorage && window.localStorage.getItem(key);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(parsed) ? parsed : []);
+      } catch (err) {
+        return new Set();
+      }
+    };
+    const [completed, setCompleted] = useState(() => readStoredSet(progressKey));
+    const [completedBullets, setCompletedBullets] = useState(() => readStoredSet(bulletProgressKey));
+    const [active, setActiveIndex] = useState(() => {
+      try {
+        const stored = window.localStorage && window.localStorage.getItem(activeKey);
+        const parsed = Number(stored);
+        if (Number.isFinite(parsed)) return Math.max(0, Math.min(steps.length - 1, parsed));
+      } catch (err) {}
+      return 0;
+    });
+
+    useEffect(() => {
+      try {
+        if (window.localStorage) window.localStorage.setItem(progressKey, JSON.stringify(Array.from(completed)));
+      } catch (err) {}
+    }, [progressKey, completed]);
+    useEffect(() => {
+      try {
+        if (window.localStorage) window.localStorage.setItem(bulletProgressKey, JSON.stringify(Array.from(completedBullets)));
+      } catch (err) {}
+    }, [bulletProgressKey, completedBullets]);
+    useEffect(() => {
+      try {
+        if (window.localStorage) window.localStorage.setItem(activeKey, String(active));
+      } catch (err) {}
+    }, [activeKey, active]);
+
     if (!steps.length) return <EasterEggUnderConstruction ee={ee} map={m} game={g} nav={nav} />;
+
+    const safeMapName = (m && m.name) || ee.mapName || 'Map file';
+    const safeGameCode = (g && g.code) || 'Zombies';
     const bulletKey = (step, index) => step.n + ':' + index;
     const bulletKeys = (step) => (step.bullets || []).map((_, i) => bulletKey(step, i));
+    const setActive = (index) => setActiveIndex(Math.max(0, Math.min(steps.length - 1, index)));
+    const stepExcerpt = (step) => {
+      const raw = (step.body || (step.bullets && step.bullets[0]) || '').replace(/\s+/g, ' ').trim();
+      return raw.length > 78 ? raw.slice(0, 78) + '...' : raw;
+    };
+    const substepParts = (item) => {
+      const text = String(item || '');
+      const match = text.match(/^([^:]{3,74}):\s+(.+)$/);
+      if (!match) return { title: text, detail: '' };
+      return { title: match[1], detail: match[2] };
+    };
+    const isStepComplete = (step) => {
+      const keys = bulletKeys(step);
+      return completed.has(step.n) || (keys.length > 0 && keys.every((key) => completedBullets.has(key)));
+    };
+    const bulletDoneCount = (step) => {
+      const keys = bulletKeys(step);
+      if (!keys.length) return isStepComplete(step) ? 1 : 0;
+      if (completed.has(step.n)) return keys.length;
+      return keys.filter((key) => completedBullets.has(key)).length;
+    };
     const setStepComplete = (step, done) => {
       setCompleted((s) => {
         const ns = new Set(s);
@@ -7403,25 +7505,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       if (keys.length) {
         setCompletedBullets((s) => {
           const ns = new Set(s);
-          keys.forEach((key) => { if (done) ns.add(key); else ns.delete(key); });
+          keys.forEach((key) => {
+            if (done) ns.add(key);
+            else ns.delete(key);
+          });
           return ns;
         });
       }
     };
-    const toggle = (n) => {
-      const step = steps.find((item) => item.n === n);
-      if (step) setStepComplete(step, !completed.has(n));
-    };
-    const activeStep = steps[active];
-    const activeImages = activeStep.images || (activeStep.image ? [activeStep.image] : []);
-    const stepImageDisplay = (image) => {
-      if (!image || typeof image === 'string' || image.layout || image.objectFit !== 'contain') return image;
-      return { ...image, layout: 'natural' };
-    };
-    const displayImages = activeImages.map(stepImageDisplay);
-    const usePackedImages = displayImages.some((image) => image && typeof image !== 'string' && image.layout === 'natural');
-    const showImagePlaceholder = !activeImages.length && (activeStep.imagePlaceholder || ee.imagePlaceholders);
-    const activeStepDone = completed.has(activeStep.n);
+    const toggleStep = (step) => setStepComplete(step, !isStepComplete(step));
     const toggleBullet = (step, index) => {
       const key = bulletKey(step, index);
       setCompletedBullets((s) => {
@@ -7437,119 +7529,186 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         return ns;
       });
     };
-    const advance = () => {
-      setStepComplete(activeStep, true);
-      if (active < steps.length - 1) setActive(active + 1);
+    const resetProgress = () => {
+      if (!window.confirm('Reset progress for this easter egg?')) return;
+      setCompleted(new Set());
+      setCompletedBullets(new Set());
+      setActive(0);
     };
+    const CheckGlyph = () => (
+      <svg viewBox="0 0 24 24" style={{ width: 13, height: 13, stroke: 'currentColor', strokeWidth: 3, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }} aria-hidden>
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    );
+
+    const activeStep = steps[active] || steps[0];
+    const activeImages = activeStep.images || (activeStep.image ? [activeStep.image] : []);
+    const stepImageDisplay = (image) => {
+      if (!image || typeof image === 'string' || image.layout || image.objectFit !== 'contain') return image;
+      return { ...image, layout: 'natural' };
+    };
+    const displayImages = activeImages.map(stepImageDisplay);
+    const usePackedImages = displayImages.some((image) => image && typeof image !== 'string' && image.layout === 'natural');
+    const activeStepDone = isStepComplete(activeStep);
+    const activeSubTotal = (activeStep.bullets || []).length;
+    const activeSubDone = bulletDoneCount(activeStep);
+
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps',to:{name:'maps'}},{label:m.name,to:{name:'map',id:m.id}},{label:ee.title}]}
-          kicker={'Main Quest · ' + m.name + ' · ' + g.code}
+          crumbs={[
+            {label:'Archive',to:{name:'home'}},
+            {label:'Maps',to:{name:'maps'}},
+            ...(m ? [{label:safeMapName,to:{name:'map',id:m.id}}] : []),
+            {label:ee.title},
+          ]}
+          kicker={'Main Quest - ' + safeMapName + ' - ' + safeGameCode}
           title={ee.title}
           sub={ee.id === 'ascension-casimir-mechanism' ? '' : ee.summary}
+          titleNoWrap
           nav={nav}
         />
-        <PaperBadgeGroup className="pap-ee-badges" style={{ marginTop: 18 }} items={easterEggBadgeItems(ee)} />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 18, marginTop: 18 }}>
+          <PaperBadgeGroup className="pap-ee-badges" items={easterEggBadgeItems(ee)} />
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            <button type="button" className="pap-btn pap-btn-primary" onClick={() => setStepComplete(activeStep, true)} disabled={activeStepDone} style={{ padding: '10px 14px', fontSize: 11 }}>
+              {activeStepDone ? 'Step complete' : (activeSubTotal ? 'Mark substeps complete' : 'Mark step complete')}
+            </button>
+            <button type="button" className="pap-btn pap-btn-ghost" onClick={resetProgress} style={{ padding: '10px 14px', fontSize: 11 }}>Reset progress</button>
+          </div>
+        </div>
+
         <div className="pap-ee-layout" style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
           <div className="pap-ee-sidebar">
-            <div className="pap-ee-progress"><Mono color={T.e115} letter={2.5}>{'Progress · ' + completed.size + '/' + steps.length}</Mono></div>
-            <div style={{ height: 4, background: T.line, marginTop: 10, marginBottom: 18, position: 'relative' }}>
-              <div style={{ height: '100%', background: T.e115, width: ((completed.size/steps.length)*100) + '%', transition: 'width .2s' }} />
-            </div>
             <div className="pap-ee-step-list" style={{ position: 'relative' }}>
               <div className="pap-ee-step-line" style={{ position: 'absolute', left: 16, top: 14, bottom: 14, width: 1, background: T.line }} />
               {steps.map((s, i) => {
-                const done = completed.has(s.n);
+                const done = isStepComplete(s);
                 const isActive = i === active;
+                const compactDone = done && !isActive;
                 return (
-                  <button key={s.n} onClick={() => setActive(i)} className="pap-ee-step-pill"
+                  <button key={s.n} type="button" onClick={() => setActive(i)} className={'pap-ee-step-pill' + (isActive ? ' is-active' : '') + (done ? ' is-done' : '')}
                     style={{
-                      display: 'grid', gridTemplateColumns: '34px 1fr', gap: 12, alignItems: 'flex-start',
-                      width: '100%', padding: '10px 0', background: 'transparent', border: 0,
+                      display: 'grid', gridTemplateColumns: compactDone ? '28px 1fr' : '34px 1fr', gap: compactDone ? 8 : 12, alignItems: compactDone ? 'center' : 'flex-start',
+                      width: '100%', padding: compactDone ? '5px 8px 5px 0' : '10px 10px 10px 0', background: isActive ? T.bg1 : 'transparent',
+                      border: isActive ? `1px solid ${T.lineHi}` : '1px solid transparent',
                       cursor: 'pointer', textAlign: 'left', color: T.bone, position: 'relative',
                     }}>
-                    <span className="pap-ee-step-num" onClick={(e) => { e.stopPropagation(); toggle(s.n); }} style={{
-                      width: 34, height: 34, flexShrink: 0,
+                    <span className="pap-ee-step-num" onClick={(e) => { e.stopPropagation(); toggleStep(s); }} title={done ? 'Mark incomplete' : 'Mark complete'} style={{
+                      width: compactDone ? 28 : 34, height: compactDone ? 28 : 34, flexShrink: 0,
                       border: `1.5px solid ${done ? T.e115 : isActive ? T.bone : T.lineHi}`,
                       background: done ? T.e115 : T.bg0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: T.display, fontSize: 14, fontWeight: 700,
+                      fontFamily: T.display, fontSize: compactDone ? 12 : 14, fontWeight: 700,
                       color: done ? T.bg0 : isActive ? T.bone : T.mute,
                     }}>
-                      {done ? '✓' : String(s.n).padStart(2,'0')}
+                      {done ? <CheckGlyph /> : String(s.n).padStart(2,'0')}
                     </span>
-                    <div className="pap-ee-step-meta" style={{ paddingTop: 6 }}>
-                      <Mono color={isActive ? T.e115 : T.faint}>{'Step ' + s.n}</Mono>
-                      <div className="pap-stencil pap-ee-step-title" style={{ fontSize: 16, color: isActive ? T.bone : T.mute, marginTop: 2, textDecoration: done ? 'line-through' : 'none' }}>{s.title}</div>
+                    <div className="pap-ee-step-meta" style={{ paddingTop: compactDone ? 0 : 6, minWidth: 0 }}>
+                      {!compactDone && <Mono color={isActive ? T.e115 : T.faint}>{'Step ' + s.n}</Mono>}
+                      <div className="pap-stencil pap-ee-step-title" style={{ fontSize: compactDone ? 13 : 16, color: isActive ? T.bone : T.mute, marginTop: compactDone ? 0 : 2, textDecoration: done ? 'line-through' : 'none', whiteSpace: compactDone ? 'nowrap' : 'normal', overflow: compactDone ? 'hidden' : 'visible', textOverflow: compactDone ? 'ellipsis' : 'clip' }}>{s.title}</div>
+                      {!compactDone && stepExcerpt(s) && <div className="pap-ee-step-summary">{stepExcerpt(s)}</div>}
                     </div>
                   </button>
                 );
               })}
             </div>
           </div>
+
           <div className="pap-ee-content">
-            {activeImages.length > 0 ? (
+            {activeImages.length > 0 && (
               <div
                 className={'pap-ee-images ' + (activeImages.length === 1 ? 'is-single' : 'is-multiple') + (usePackedImages ? ' is-packed' : '')}
                 style={usePackedImages
                   ? { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 12 }
                   : { display: 'grid', gridTemplateColumns: activeImages.length === 1 ? '1fr' : 'repeat(2, minmax(0, 1fr))', gap: 12 }}
               >
-                {displayImages.map((image, i) => {
-                  return (
-                    <EvidenceImage
-                      key={((image && image.file) || (typeof image === 'string' ? image : 'image')) + '-' + i}
-                      map={m}
-                      image={image}
-                      height={(image && image.height) || (activeImages.length === 1 ? 300 : 170)}
-                      label={(image && image.label) || (activeStep.title + ' reference ' + String(i + 1))}
-                      kind={(image && image.kind) || ('STEP ' + activeStep.n)}
-                      tone="red"
-                      showOverlay={!image || image.showOverlay !== false}
-                      compactOverlay
-                      openFullSize
-                    />
-                  );
-                })}
+                {displayImages.map((image, i) => (
+                  <EvidenceImage
+                    key={((image && image.file) || (typeof image === 'string' ? image : 'image')) + '-' + i}
+                    map={m}
+                    image={image}
+                    height={(image && image.height) || (activeImages.length === 1 ? 300 : 170)}
+                    label={(image && image.label) || (activeStep.title + ' reference ' + String(i + 1))}
+                    kind={(image && image.kind) || ('STEP ' + activeStep.n)}
+                    tone="red"
+                    showOverlay={!image || image.showOverlay !== false}
+                    compactOverlay
+                    openFullSize
+                  />
+                ))}
               </div>
-            ) : showImagePlaceholder ? (
-              <ImageComingSoonTape label={'Step ' + activeStep.n + ' - ' + activeStep.title} height={300} />
-            ) : (
-              <Slot w="100%" h={300} label={'Step ' + activeStep.n + ' - ' + activeStep.title} kind={'STEP ' + activeStep.n} tone="red" />
             )}
-            <div style={{ marginTop: 22 }}>
-              <Mono color={T.e115} letter={2.5}>{'Step ' + activeStep.n + ' of ' + steps.length}</Mono>
-              <h2 className="pap-stencil pap-ee-step-heading" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{activeStep.title}</h2>
-              {activeStep.body && <p className="pap-ee-step-body" style={{ fontFamily: T.sans, fontSize: 16.5, color: activeStepDone ? T.mute : T.bone, lineHeight: 1.7, maxWidth: 660, margin: '0 0 16px', textDecoration: activeStepDone ? 'line-through' : 'none' }}>{activeStep.body}</p>}
-              {activeStep.bullets && activeStep.bullets.length > 0 && (
-                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 9, maxWidth: 720 }}>
-                  {activeStep.bullets.map((item, i) => {
-                    const bulletDone = activeStepDone || completedBullets.has(bulletKey(activeStep, i));
-                    return (
-                    <li key={item}>
-                      <button type="button" className="pap-ee-bullet" onClick={() => toggleBullet(activeStep, i)}
-                        style={{ display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr)', gap: 11, alignItems: 'baseline', width: '100%', padding: 0, border: 0, background: 'transparent', cursor: 'pointer', textAlign: 'left', fontFamily: T.sans, fontSize: 16, lineHeight: 1.55, color: bulletDone ? T.mute : T.bone }}>
-                        <span aria-hidden style={{ width: 13, height: 13, border: `1px solid ${bulletDone ? T.e115 : T.lineHi}`, background: bulletDone ? T.e115 : 'transparent', color: T.bg0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginTop: 5, fontFamily: T.display, fontSize: 10, fontWeight: 700 }}>{bulletDone ? '✓' : ''}</span>
-                        <span style={{ textDecoration: bulletDone ? 'line-through' : 'none', whiteSpace: 'pre-line' }}>{item}</span>
-                      </button>
-                    </li>
-                  );})}
-                </ul>
-              )}
-            </div>
-            <div className="pap-ee-actions" style={{ display: 'flex', gap: 10, marginTop: 26 }}>
-              <button className="pap-btn pap-btn-ghost" disabled={active === 0} onClick={() => setActive(active - 1)} style={{ opacity: active === 0 ? 0.4 : 1 }}>{'← Previous'}</button>
-              <button className="pap-btn pap-btn-primary" onClick={advance}>{activeStepDone ? 'Next step →' : 'Mark whole step complete →'}</button>
-            </div>
-            <div className="pap-ee-rewards" style={{ marginTop: 36, padding: 18, background: T.bg1, border: `1px solid ${T.line}` }}>
-              <Mono color={T.hazard} letter={2.5}>Rewards on completion</Mono>
-              <PaperBadgeGroup
-                className="pap-ee-reward-badges"
-                style={{ gap: 8, marginTop: 12 }}
-                items={ee.rewards || []}
-                badgeStyle={{ minWidth: 112, minHeight: 34, padding: '8px 14px 9px', fontSize: 15, letterSpacing: 1.05 }}
-              />
+
+            <div style={{ marginTop: activeImages.length > 0 ? 22 : 0 }}>
+              <div className="pap-ee-detail-grid">
+                <div>
+                  <Mono color={T.e115} letter={2.5}>{'Step ' + activeStep.n + ' of ' + steps.length}</Mono>
+                  <h2 className="pap-stencil pap-ee-step-heading" style={{ fontSize: 38, color: T.bone, margin: '8px 0 14px' }}>{activeStep.title}</h2>
+                  {activeStep.body && <p className="pap-ee-step-body" style={{ fontFamily: T.sans, fontSize: 16.5, color: activeStepDone ? T.mute : T.bone, lineHeight: 1.7, maxWidth: 760, margin: '0 0 18px', textDecoration: activeStepDone ? 'line-through' : 'none' }}>{activeStep.body}</p>}
+
+                  {activeStep.bullets && activeStep.bullets.length > 0 && (
+                    <div className="pap-ee-substeps">
+                      <div className="pap-ee-substeps-head">
+                        <div>
+                          <Mono color={T.faint} letter={2.2}>Substeps</Mono>
+                          <div className="pap-stencil" style={{ color: T.bone, fontSize: 24, marginTop: 5 }}>{'Step ' + String(activeStep.n).padStart(2, '0') + ' checklist'}</div>
+                        </div>
+                        <Mono color={T.e115}>{activeSubDone + ' / ' + activeSubTotal + ' done'}</Mono>
+                      </div>
+                      {activeStep.bullets.map((item, i) => {
+                        const bulletDone = activeStepDone || completedBullets.has(bulletKey(activeStep, i));
+                        const parts = substepParts(item);
+                        return (
+                          <button type="button" key={item} className={'pap-ee-substep' + (bulletDone ? ' is-done' : '')} onClick={() => toggleBullet(activeStep, i)}>
+                            <span className={'pap-ee-checkbox' + (bulletDone ? ' is-done' : '')} aria-hidden>{bulletDone ? <CheckGlyph /> : ''}</span>
+                            <span className="pap-ee-substep-num"><Mono color={bulletDone ? T.e115 : T.faint}>{String(i + 1).padStart(2, '0')}</Mono></span>
+                            <span>
+                              <span className="pap-ee-substep-title">{parts.title}</span>
+                              {parts.detail && <span className="pap-ee-substep-detail">{parts.detail}</span>}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                <aside className="pap-ee-aside">
+                  <div className="pap-ee-side-card">
+                    <h3>Quest file</h3>
+                    <ul>
+                      <li>{'Difficulty: ' + ee.difficulty}</li>
+                      <li>{'Duration: ' + ee.duration}</li>
+                      <li>{'Party: ' + ee.party}</li>
+                    </ul>
+                  </div>
+                  {ee.requirements && ee.requirements.length > 0 && (
+                    <div className="pap-ee-side-card">
+                      <h3>Requirements</h3>
+                      <ul>{ee.requirements.map((item) => <li key={item}>{item}</li>)}</ul>
+                    </div>
+                  )}
+                  {ee.rewards && ee.rewards.length > 0 && (
+                    <div className="pap-ee-side-card">
+                      <h3>Rewards</h3>
+                      <ul>{ee.rewards.map((item) => <li key={item}>{item}</li>)}</ul>
+                    </div>
+                  )}
+                </aside>
+              </div>
+
+              <nav className="pap-ee-pager">
+                <button type="button" disabled={active === 0} onClick={() => setActive(active - 1)}>
+                  <Mono color={T.faint} letter={2}>Previous</Mono>
+                  <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 5 }}>{active > 0 ? steps[active - 1].title : 'Start of quest'}</div>
+                </button>
+                <button type="button" disabled={active === steps.length - 1} onClick={() => setActive(active + 1)}>
+                  <Mono color={T.faint} letter={2}>Next</Mono>
+                  <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 5 }}>{active < steps.length - 1 ? steps[active + 1].title : 'Quest complete'}</div>
+                </button>
+              </nav>
             </div>
           </div>
         </div>
@@ -8342,14 +8501,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function PageHead({ crumbs, kicker, title, sub, nav, divider = 'shelf115' }) {
+  function PageHead({ crumbs, kicker, title, sub, nav, divider = 'shelf115', titleNoWrap = false }) {
     return (
       <div>
         <Crumbs parts={crumbs} nav={nav} />
         <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
-          <div style={{ maxWidth: 900 }}>
+          <div className={titleNoWrap ? 'pap-page-head-title-wrap' : ''} style={{ maxWidth: titleNoWrap ? 'none' : 900 }}>
             {kicker && <Mono color={T.e115} size={11} letter={2.5}>{kicker}</Mono>}
-            <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: '12px 0 0' }}>{title}</h1>
+            <h1 className={'pap-stencil' + (titleNoWrap ? ' pap-page-title-nowrap' : '')} style={{ fontSize: 72, color: T.bone, margin: '12px 0 0' }}>{title}</h1>
             {sub && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, marginTop: 14, lineHeight: 1.55, maxWidth: 760 }}>{sub}</p>}
           </div>
         </div>
