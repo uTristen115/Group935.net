@@ -3080,25 +3080,26 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     if (o) { w.mapId = o.mapId; w.gameIds = o.gameIds; }
   });
 
+  // Primary weapon images prefer side/profile views when available.
   const weaponDetails = [
     { order: 1, id: 'raygun', name: 'Ray Gun', map: 'Mystery Box staple', mapId: 'nacht', gameIds: ['waw','bo1','bo2','bo3','bo4','cw','bo6','bo7'], type: 'Energy pistol', introduced: 'Nacht der Untoten', summary: '', media: { dir: 'ray-gun', hero: 'raygun.png', gallery: [] } },
     { order: 2, id: 'ray-gun-mk2', name: 'Ray Gun Mark II', map: 'Buried', mapId: 'buried', gameIds: ['bo2','bo3'], type: 'Burst energy rifle', introduced: 'Buried', summary: '', media: { dir: 'ray-gun-mk2', hero: 'RayGunMkII.png', gallery: [] } },
-    { order: 3, id: 'wunderwaffe', name: 'Wunderwaffe DG-2', map: 'Shi No Numa', mapId: 'shino', gameIds: ['waw','bo1','bo3','bo4'], type: 'Arc lightning cannon', introduced: 'Shi No Numa', summary: '', media: { dir: 'wunderwaffe-dg2', hero: 'wunderwaffe1.png', gallery: ['wunderwaffe2.png'] } },
+    { order: 3, id: 'wunderwaffe', name: 'Wunderwaffe DG-2', map: 'Shi No Numa', mapId: 'shino', gameIds: ['waw','bo1','bo3','bo4'], type: 'Arc lightning cannon', introduced: 'Shi No Numa', summary: '', media: { dir: 'wunderwaffe-dg2', hero: 'wunderwaffe2.png', gallery: ['wunderwaffe1.png'] } },
     { order: 4, id: 'wunderwaffe-dg-scharfschutze', name: 'Wunderwaffe DG-Scharfschutze', map: 'Tag der Toten', mapId: 'tag', gameIds: ['bo4'], type: 'Arc sniper variant', introduced: 'Tag der Toten', summary: '', media: { dir: 'wunderwaffe-dg-scharfschutze', hero: 'Wunderwaffe_DG-scharfschutze.png', gallery: [] } },
     { order: 5, id: 'thundergun', name: 'Thundergun', map: 'Kino der Toten', mapId: 'kino', gameIds: ['bo1','bo3'], type: 'Concussive wave cannon', introduced: 'Kino der Toten', summary: '', media: { dir: 'thundergun', hero: 'thundergun.png', gallery: ['Thundergun1.png'] } },
     { order: 6, id: 'winters-howl', name: "Winter's Howl", map: 'Five', mapId: 'five', gameIds: ['bo1','bo4'], type: 'Cryogenic sidearm', introduced: 'Five', summary: '', media: { dir: 'winters-howl', hero: 'WintersHowl.png', gallery: ['wintershowl1.png'] } },
-    { order: 7, id: 'vr-11', name: 'V-R11', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Vril transformation rifle', introduced: 'Call of the Dead', summary: '', media: { dir: 'vr-11', hero: 'VR-11_Player.png', gallery: ['VR-11WW_Side.png'] } },
+    { order: 7, id: 'vr-11', name: 'V-R11', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Vril transformation rifle', introduced: 'Call of the Dead', summary: '', media: { dir: 'vr-11', hero: 'VR-11WW_Side.png', gallery: ['VR-11_Player.png'] } },
     { order: 8, id: 'scavenger', name: 'Scavenger', map: 'Call of the Dead', mapId: 'callofthedead', gameIds: ['bo1'], type: 'Explosive sniper rifle', introduced: 'Call of the Dead', summary: '', media: { dir: 'scavenger', hero: 'Scavenger_COTD_WW.png', gallery: ['Scavenger_COTD_WW1.png'] } },
     { order: 9, id: '31-79-jgb215', name: '31-79 JGb215', map: 'Shangri-La', mapId: 'shangri', gameIds: ['bo1'], type: 'Shrink ray', introduced: 'Shangri-La', summary: '', media: { dir: '31-79-jgb215', hero: '31-79_JGb215_Player.png', gallery: [] } },
-    { order: 10, id: 'wave-gun', name: 'Wave Gun / Zap Guns', map: 'Moon', mapId: 'moon', gameIds: ['bo1'], type: 'Dual-mode energy system', introduced: 'Moon', summary: '', media: { dir: 'wave-gun', hero: 'wavegun_player_combined.png', gallery: ['wavegun_side.png','zapgun_player.png'] } },
+    { order: 10, id: 'wave-gun', name: 'Wave Gun / Zap Guns', map: 'Moon', mapId: 'moon', gameIds: ['bo1'], type: 'Dual-mode energy system', introduced: 'Moon', summary: '', media: { dir: 'wave-gun', hero: 'wavegun_side.png', gallery: ['wavegun_player_combined.png','zapgun_player.png'] } },
     { order: 11, id: 'thrustodyne-m23', name: 'Thrustodyne Aeronautics Model 23', map: 'TranZit / Liberty Falls', mapId: 'tranzit', gameIds: ['bo2','bo6'], type: 'Turbine pressure cannon', introduced: 'TranZit', summary: '', media: { dir: 'thrustodyne-m23', hero: 'Thrustodyne_Aeronautics_Model_23_Side.png', gallery: [] } },
     { order: 12, id: 'sliquifier', name: 'Sliquifier', map: 'Die Rise', mapId: 'dierise', gameIds: ['bo2'], type: 'Reactive liquid projector', introduced: 'Die Rise', summary: '', media: { dir: 'sliquifier', hero: 'sliquifier_side.png', gallery: [] } },
     { order: 13, id: 'paralyzer', name: 'Paralyzer', map: 'Buried', mapId: 'buried', gameIds: ['bo2'], type: 'Gravitic paralysis weapon', introduced: 'Buried', summary: '', media: { dir: 'paralyzer', hero: 'Paralyzer_Side.png', gallery: [] } },
-    { order: 14, id: 'blundergat', name: 'Blundergat', map: 'Mob of the Dead / Blood of the Dead', mapId: 'mob', gameIds: ['bo3','bo4'], type: 'Alcatraz shotgun relic', introduced: 'Mob of the Dead', summary: '', media: { dir: 'blundergat', hero: 'blundergat_player.png', gallery: ['blundergat_side.png'] } },
+    { order: 14, id: 'blundergat', name: 'Blundergat', map: 'Mob of the Dead / Blood of the Dead', mapId: 'mob', gameIds: ['bo3','bo4'], type: 'Alcatraz shotgun relic', introduced: 'Mob of the Dead', summary: '', media: { dir: 'blundergat', hero: 'blundergat_side.png', gallery: ['blundergat_player.png'] } },
     { order: 15, id: 'staves', name: 'Elemental Staves', map: 'Origins', mapId: 'origins', gameIds: ['bo2','bo3'], type: 'Elemental relic set', introduced: 'Origins', summary: '', media: { dir: 'staves', hero: 'StaffofIce_Side.png', gallery: ['StaffofFire_Side.png','StaffofLightning_Side.png','StaffofWind_Side.png'] } },
-    { order: 16, id: 'apothicon-servant', name: 'Apothicon Servant', map: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], type: 'Apothicon living weapon', introduced: 'Shadows of Evil', summary: '', media: { dir: 'apothicon-servant', hero: 'Apothicon_Servant_Player.png', gallery: ['Apothicon_Servant_Player_Upgraded.png','Apothicon_Servant_Side.png'] } },
+    { order: 16, id: 'apothicon-servant', name: 'Apothicon Servant', map: 'Shadows of Evil', mapId: 'shadows', gameIds: ['bo3'], type: 'Apothicon living weapon', introduced: 'Shadows of Evil', summary: '', media: { dir: 'apothicon-servant', hero: 'Apothicon_Servant_Side.png', gallery: ['Apothicon_Servant_Player.png','Apothicon_Servant_Player_Upgraded.png'] } },
     { order: 17, id: 'bows', name: 'Wrath of the Ancients Bows', map: 'Der Eisendrache', mapId: 'eisendrache', gameIds: ['bo3'], type: 'Elemental bow set', introduced: 'Der Eisendrache', summary: '', media: { dir: 'bows', hero: 'WrathoftheAncients.png', gallery: ["LightningBow_Side_Kreema'ahm la Ahmahm.png",'WolfBow_Side_Kreeholo lu Kreemasaleet.png',"FireBow_Side_Kreeaho'ahm nal Ahmhogaroc.png","VoidBow_Side_Kreegakaleet lu Gosata'ahm.png",'WrathoftheAncientsFire.png'] } },
-    { order: 18, id: 'kt-4', name: 'KT-4', map: 'Zetsubou No Shima', mapId: 'zetsubou', gameIds: ['bo3'], type: 'Division 9 bio-weapon', introduced: 'Zetsubou No Shima', summary: '', media: { dir: 'kt-4', hero: 'KT4_player.png', gallery: ['KT4_side.png'] } },
+    { order: 18, id: 'kt-4', name: 'KT-4', map: 'Zetsubou No Shima', mapId: 'zetsubou', gameIds: ['bo3'], type: 'Division 9 bio-weapon', introduced: 'Zetsubou No Shima', summary: '', media: { dir: 'kt-4', hero: 'KT4_side.png', gallery: ['KT4_player.png'] } },
     { order: 19, id: 'gkz-45-mk3', name: 'GKZ-45 Mk3', map: 'Gorod Krovi', mapId: 'gorod', gameIds: ['bo3'], type: 'Dual-wield rift system', introduced: 'Gorod Krovi', summary: '', media: { dir: 'gkz-45-mk3', hero: 'GKZ-45_Mk3_BOIII_Player.png', gallery: [] } },
     { order: 20, id: 'death-of-orion', name: 'Death of Orion', map: 'IX', mapId: 'ix', gameIds: ['bo4'], type: 'Scorpion lightning weapon', introduced: 'IX', summary: '', media: { dir: 'death-of-orion', hero: 'deathoforionIX.png', gallery: [] } },
     { order: 21, id: 'kraken', name: 'Kraken', map: 'Voyage of Despair', mapId: 'voyage', gameIds: ['bo4'], type: 'Elemental heavy cannon', introduced: 'Voyage of Despair', summary: '', media: { dir: 'kraken', hero: 'Fire_Kraken_Upgrade.png', gallery: [] } },
@@ -3145,6 +3146,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     IMG_BASE + '/Icons/PaperBadgesmall2.png',
     IMG_BASE + '/Icons/PaperBadgesmall3.png',
     IMG_BASE + '/Icons/PaperBadgesmall4.png',
+  ];
+  const SHELF_115_LINES = [
+    IMG_BASE + '/Icons/115Shelf.png',
+    IMG_BASE + '/Icons/115Shelf2.png',
+    IMG_BASE + '/Icons/115Shelf3.png',
   ];
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
@@ -3307,6 +3313,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     display: '"Oswald", "Barlow Condensed", "Inter", sans-serif',
     sans:    '"IBM Plex Sans", "Inter", system-ui, sans-serif',
     mono:    '"IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace',
+    e115Font:'"LARAZ", "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace',
   };
 
   if (typeof document !== 'undefined' && !document.getElementById('pap-styles')) {
@@ -3322,6 +3329,18 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         font-family: "ShadowedRDF";
         src: url("${FONT_BASE}/BadgeFont/shadowed-rdf/Shadowed%20RDF%20Regular.ttf") format("truetype");
         font-display: swap;
+      }
+      @font-face {
+        font-family: "LARAZ";
+        src: url("${FONT_BASE}/laraz/LARAZ%20Regular.ttf") format("truetype");
+        font-display: swap;
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "LARAZ";
+        src: url("${FONT_BASE}/laraz/LARAZ%20Light.ttf") format("truetype");
+        font-display: swap;
+        font-weight: 300;
       }
       .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
       .pap-link:hover { color: ${T.e115}; }
@@ -4320,7 +4339,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit, objectPosition: 'center center', padding: 12 }} />
         {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.04) 0%, rgba(10,9,8,0.12) 55%, rgba(10,9,8,0.62) 100%)', pointerEvents: 'none' }} />}
-        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: T.e115, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.e115Font, fontSize: 9, letterSpacing: 1.8, color: T.e115, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
         {showOverlay && (
           <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
             <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
@@ -4364,7 +4383,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <img src={src} alt={title} loading={loading} onError={() => setFailed(true)}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit, objectPosition: 'center center', padding: 12 }} />
         {showOverlay && <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.02) 0%, rgba(10,9,8,0.08) 50%, rgba(10,9,8,0.58) 100%)', pointerEvents: 'none' }} />}
-        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.8, color: T.e115, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
+        {showOverlay && <div style={{ position: 'absolute', top: 8, left: 10, fontFamily: T.e115Font, fontSize: 9, letterSpacing: 1.8, color: T.e115, opacity: 0.95, textTransform: 'uppercase', background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>}
         {showOverlay && (
           <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
             <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
@@ -4404,7 +4423,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
   const Stamp = ({ children, tone = 'green', style }) => {
     const c = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.e115;
-    return <span className="pap-stamp" style={{ color: c, ...style }}>{children}</span>;
+    return <span className="pap-stamp" style={{ color: c, fontFamily: tone === 'green' ? T.e115Font : undefined, ...style }}>{children}</span>;
   };
 
   function shufflePaperBadges(count) {
@@ -4448,6 +4467,27 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
+  function Shelf115Line({ height = 3, style }) {
+    return (
+      <div style={{ height, width: '100%', position: 'relative', overflow: 'hidden', ...style }} aria-hidden>
+        {SHELF_115_LINES.map((src, i) => (
+          <div
+            key={src}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `url("${src}")`,
+              backgroundRepeat: 'repeat-x',
+              backgroundPosition: (i * -11) + 'px center',
+              backgroundSize: 'auto 100%',
+              opacity: i === 0 ? 0.94 : i === 1 ? 0.62 : 0.46,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
   function isHiddenEasterEggBadge(value) {
     const text = String(value || '').trim().toLowerCase();
     if (!text) return true;
@@ -4465,7 +4505,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   }
 
   const Mono = ({ children, color, size = 10.5, letter = 1.8, style }) => (
-    <span style={{ fontFamily: T.mono, fontSize: size, letterSpacing: letter, textTransform: 'uppercase', color: color || T.mute, ...style }}>{children}</span>
+    <span style={{ fontFamily: color === T.e115 ? T.e115Font : T.mono, fontSize: size, letterSpacing: letter, textTransform: 'uppercase', color: color || T.mute, ...style }}>{children}</span>
   );
 
   const Difficulty = ({ value = 1, style }) => (
@@ -4489,7 +4529,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const SectionHead = ({ kicker, title, action }) => (
     <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 18, marginBottom: 16, borderBottom: `1px solid ${T.line}`, paddingBottom: 10 }}>
       <div>
-        {kicker && <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 6 }}>{kicker}</div>}
+        {kicker && <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 6 }}>{kicker}</div>}
         <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{title}</div>
       </div>
       {action}
@@ -4721,7 +4761,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <div style={{ maxWidth: 1440, margin: '0 auto', padding: '14px' }}>
                 {mobileGroups.map((group, groupIndex) => (
                   <div key={group.label} style={{ marginTop: groupIndex ? 14 : 0 }}>
-                    <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.2, textTransform: 'uppercase', color: T.e115, marginBottom: 7 }}>
+                    <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.2, textTransform: 'uppercase', color: T.e115, marginBottom: 7 }}>
                       {group.label}
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 8 }}>
@@ -4785,7 +4825,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   function FooterCol({ title, links, nav }) {
     return (
       <div>
-        <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 14 }}>{title}</div>
+        <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 14 }}>{title}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {links.map(([label, page]) => (
             <button key={page} onClick={() => nav({ name: page })} className="pap-link"
@@ -5014,7 +5054,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6, lineHeight: 1 }}>{song.name}</div>
             </div>
             <button className="pap-link" onClick={() => nav({ name: 'song', id: song.id })}
-              style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase', flexShrink: 0 }}>
+              style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase', flexShrink: 0 }}>
               Open file
             </button>
           </div>
@@ -5305,7 +5345,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: 0, textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}>{game.title}</h1>
           </div>
         </div>
-        <HazardStripe height={3} style={{ marginTop: 18, opacity: 0.7 }} />
+        <Shelf115Line height={23} style={{ marginTop: 18 }} />
       </div>
     );
   }
@@ -5662,6 +5702,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         })}
       </div>
     );
+  }
+
+  function characterTileRole(role) {
+    return String(role || '').split(/\s+[·•]\s+/)[0];
   }
 
   const CREW_VARIANT_VOTE_IDS = ['dempsey', 'nikolai', 'takeo', 'richtofen'];
@@ -6151,9 +6195,10 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
 
   function Maps({ nav }) {
     const [filter, setFilter] = useState('all');
-    const [sort, setSort] = useState('canon');
+    const [sort, setSort] = useState('newest');
     const list = useMemo(() => {
       let l = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+      if (sort === 'newest')    l = [...l].reverse();
       if (sort === 'difficulty') l = [...l].sort((a, b) => b.difficulty - a.difficulty);
       if (sort === 'name')       l = [...l].sort((a, b) => a.name.localeCompare(b.name));
       return l;
@@ -6163,8 +6208,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
           kicker={ZD.maps.length + ' catalogued sites'}
-          title="All Maps"
-          sub="Every filed site in canon order. Filter by game, then open the dossier for imagery and notes."
+          title="Maps"
           nav={nav}
         />
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -6177,7 +6221,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Mono color={T.faint}>sort</Mono>
-            {[['canon','Canon'],['name','Name'],['difficulty','Diff']].map(([k,l]) => (
+            {[['newest','Newest'],['oldest','Oldest'],['name','Name'],['difficulty','Diff']].map(([k,l]) => (
               <button key={k} className={'pap-chip ' + (sort===k?'is-active':'')} onClick={() => setSort(k)}>{l}</button>
             ))}
           </div>
@@ -6194,30 +6238,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     return (
       <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-        <MapImage map={map} file={mapPrimaryFile(map, 'thumb')} height={180} label={map.name} kind={g.code + ' / ' + g.year} tone="green" />
+        <MapImage map={map} file={mapPrimaryFile(map, 'thumb')} height={180} label={map.name} kind={g.code + ' / ' + g.year} tone="green" showOverlay={false} />
         <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
-            <Difficulty value={map.difficulty} />
           </div>
           <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
           <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 6, height: 6, background: T.blood }} />
-              <Mono color={T.mute}>{map.eeCount + ' EE'}</Mono>
-            </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 6, height: 6, background: T.e115 }} />
-              <Mono color={T.mute}>{((map.songs && map.songs.length) || 0) + ' Songs'}</Mono>
-            </span>
-            {map.relicCount > 0 && (
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ width: 6, height: 6, background: T.hazard }} />
-                <Mono color={T.mute}>{map.relicCount + ' Relics'}</Mono>
-              </span>
-            )}
-            <span style={{ flex: 1 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
             <Mono color={T.e115}>{'Open ›'}</Mono>
           </div>
         </div>
@@ -6260,7 +6288,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             <div style={{ flex: 1 }} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
               {(m.tags || []).map((t) => (
-                <span key={t} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.2, color: T.e115, padding: '3px 8px', background: T.e115bg, border: `1px solid ${T.e115dim}`, textTransform: 'uppercase' }}>{t}</span>
+                <span key={t} style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 1.2, color: T.e115, padding: '3px 8px', background: T.e115bg, border: `1px solid ${T.e115dim}`, textTransform: 'uppercase' }}>{t}</span>
               ))}
             </div>
           </div>
@@ -6632,13 +6660,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     const selectedOriginalCrew = originalCrewOptions.find((o) => o.id === originalCrewVariant);
     const originalCrewLabel = selectedOriginalCrew ? selectedOriginalCrew.label : originalCrewOptions[0].label;
     const factions = [
-      { id: 'original-crew', sourceId: 'primis', title: 'Original Crew', kicker: 'Dempsey, Nikolai, Takeo, Richtofen' },
-      { id: 'aether',  title: 'Aether Figures',  kicker: 'Maxis, Samantha, Monty, Shadowman' },
-      { id: 'victis',  title: 'Victis',          kicker: 'BO2 crew — TranZit, Die Rise, Buried, Tag der Toten' },
-      { id: 'chaos',   title: 'Chaos Crew',      kicker: 'BO4 — IX, Voyage of Despair, Dead of the Night, Ancient Evil' },
-      { id: 'requiem', title: 'Requiem',         kicker: 'Cold War & BO6 operatives' },
-      { id: 'order',   title: 'The Order',       kicker: 'BO6 antagonists' },
-      { id: 'support', title: 'Support Cast',    kicker: 'Side characters — Peck, Strauss, Ravenov, Raptor One' },
+      { id: 'original-crew', sourceId: 'primis', title: 'Original Crew' },
+      { id: 'aether',  title: 'Aether Figures' },
+      { id: 'victis',  title: 'Victis' },
+      { id: 'chaos',   title: 'Chaos Crew' },
+      { id: 'requiem', title: 'Requiem' },
+      { id: 'order',   title: 'The Order' },
+      { id: 'support', title: 'Support Cast' },
     ];
     return (
       <div>
@@ -6682,10 +6710,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                       character={c}
                       variant={isOriginalCrew ? originalCrewVariant : undefined}
                       kind={isOriginalCrew ? originalCrewLabel.toUpperCase() : 'OPERATIVE'}
+                      showKind={false}
                       style={{ height: 280 }}
                     />
                     <div style={{ padding: 16 }}>
-                      <Mono color={T.e115}>{c.role}</Mono>
+                      <Mono color={T.e115}>{characterTileRole(c.role)}</Mono>
                       <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{c.name}</div>
                       {c.quote && !(f.id === 'original-crew' && c.id === 'richtofen') && <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 6, lineHeight: 1.5 }}>{'"' + c.quote + '"'}</div>}
                     </div>
@@ -6774,24 +6803,6 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             </button>
           ))}
         </div>
-        <section style={{ marginTop: 44 }}>
-          <SectionHead kicker="Reference boards" title="Lineup sheets" />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-            {[
-              ['BO7 perk lineup', 'BO7Perks.png'],
-            ].map(([label, file]) => (
-              <div key={file} className="pap-card" style={{ overflow: 'hidden', padding: 0 }}>
-                <div style={{ height: 240, background: T.bg2, borderBottom: `1px solid ${T.line}`, position: 'relative', overflow: 'hidden' }}>
-                  <img src={IMG_BASE + '/Perks/overview/' + file} alt={label} loading="lazy"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', padding: 12 }} />
-                </div>
-                <div style={{ padding: 14 }}>
-                  <Mono color={T.e115}>{label}</Mono>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
     );
   }
@@ -7023,7 +7034,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
                   <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{game.title}</div>
                 </div>
                 <button className="pap-link" onClick={() => nav({ name: 'game', id: game.id })}
-                  style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open game →'}</button>
+                  style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open game →'}</button>
               </div>
               <SongTable songs={songs} nav={nav} />
             </section>
@@ -7085,7 +7096,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
               </div>
               {map && (
                 <button className="pap-link" onClick={() => nav({ name: 'map', id: map.id })}
-                  style={{ fontFamily: T.mono, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>
+                  style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>
                   Open map file
                 </button>
               )}
@@ -7424,7 +7435,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     );
   }
 
-  function PageHead({ crumbs, kicker, title, sub, nav }) {
+  function PageHead({ crumbs, kicker, title, sub, nav, divider = 'shelf115' }) {
     return (
       <div>
         <Crumbs parts={crumbs} nav={nav} />
@@ -7435,7 +7446,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             {sub && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, marginTop: 14, lineHeight: 1.55, maxWidth: 760 }}>{sub}</p>}
           </div>
         </div>
-        <HazardStripe height={3} style={{ marginTop: 28, opacity: 0.7 }} />
+        {divider === 'shelf115' ? (
+          <Shelf115Line height={23} style={{ marginTop: 28 }} />
+        ) : (
+          <HazardStripe height={3} style={{ marginTop: 28, opacity: 0.7 }} />
+        )}
       </div>
     );
   }
