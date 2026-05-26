@@ -118,8 +118,8 @@ function Get-RouteSeo {
 
   if ($Route -eq '/') {
     return @{
-      Title = 'Group 935 | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
-      Description = 'Group 935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
+      Title = 'Group935.net | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
+      Description = 'Group935.net is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
       Url = $url
     }
   }
@@ -196,8 +196,8 @@ function Get-RouteSeo {
   }
 
   return @{
-    Title = 'Group 935 | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
-    Description = 'Group 935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
+    Title = 'Group935.net | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
+    Description = 'Group935.net is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
     Url = $url
   }
 }
