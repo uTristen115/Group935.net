@@ -250,7 +250,7 @@ function Get-TopicConfig {
         Intro = 'A Black Ops Zombies archive covering Treyarch maps, main quest Easter eggs, Black Ops 7 relics, wonder weapons, perks, songs, crews, and story notes.'
         Kind = 'maps'
         Links = @(
-          @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'Relic effects, unlock requirements, trials, and save notes.' },
+          @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'Relic effects, unlock routes, trials, and save notes.' },
           @{ Label = 'Zombies Easter Egg Tutorials'; Href = '/zombies-easter-egg-tutorials/'; Text = 'Step-by-step main quest walkthroughs.' },
           @{ Label = 'Treyarch Zombies'; Href = '/treyarch-zombies/'; Text = 'The full Treyarch Zombies archive path.' }
         )
@@ -504,7 +504,7 @@ function Get-RouteJsonLd {
         '@type' = 'ItemList'
         '@id' = $Url + '#relic-list'
         name = 'Black Ops 7 Zombies relics'
-        description = 'Black Ops 7 relic effects, unlock requirements, portal locations, trial rules, save notes, and prep tips.'
+        description = 'Black Ops 7 relic effects, unlock routes, portal locations, trial rules, save notes, and prep tips.'
         numberOfItems = $items.Count
         itemListElement = $items
       }
@@ -598,7 +598,7 @@ function Get-StaticSeoHtml {
     }
     return @(
       '<h1>Black Ops 7 Zombies Relics Guide</h1>',
-      '<p>All Black Ops 7 relics in the Group 935 archive, organized for players searching BO7 Zombies relic effects, unlock requirements, portal locations, trial rules, save safety, map, tier, and prep notes.</p>',
+      '<p>All Black Ops 7 relics in the Group 935 archive, organized for players searching BO7 Zombies relic effects, unlock routes, portal locations, trial rules, save safety, map, tier, and prep notes.</p>',
       '<p>The archive covers relics from Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.</p>',
       '<h2>All Black Ops 7 relics</h2>',
       '<ul>',
@@ -622,7 +622,7 @@ function Get-StaticSeoHtml {
         '<p><strong>Map:</strong> ' + (Escape-Html (Get-RelicMapName $relic)) + ' | <strong>Tier:</strong> ' + (Escape-Html ([string]$relic.tier)) + ' | <strong>Difficulty:</strong> ' + (Escape-Html ([string]$relic.difficulty)) + '</p>',
         '<p><strong>Portal:</strong> ' + (Escape-Html ([string]$relic.portal)) + '</p>',
         '<p><strong>Save note:</strong> ' + (Escape-Html ([string]$relic.save)) + '</p>',
-        '<h2>Unlock requirements</h2>',
+        '<h2>Unlock route</h2>',
         '<ol>' + ($unlockItems -join '') + '</ol>',
         '<h2>Trial rules and prep</h2>',
         '<p>' + (Escape-Html ([string]$relic.trial)) + '</p>',
@@ -753,7 +753,7 @@ function Get-RouteSeo {
   if ($canonicalRoute -eq '/black-ops-7-relics') {
     return @{
       Title = 'Black Ops 7 Relics Guide | Effects, Unlocks, Trials | Group 935'
-      Description = 'All Black Ops 7 Zombies relics with effects, unlock steps, portal locations, trial rules, save safety, map, tier, and prep notes.'
+      Description = 'All Black Ops 7 Zombies relics with effects, unlock routes, portal locations, trial rules, save safety, map, tier, and prep notes.'
       Url = $url
     }
   }
@@ -784,7 +784,7 @@ function Get-RouteSeo {
     $label = Get-RelicLabel $name
     return @{
       Title = $label + ' Guide | BO7 Zombies Unlocks, Trial | Group 935'
-      Description = $label + ' Black Ops 7 Zombies guide for ' + $mapName + ' with effect, unlock requirements, portal location, trial rules, save note, and prep tips.'
+      Description = $label + ' Black Ops 7 Zombies guide for ' + $mapName + ' with effect, unlock route, portal location, trial rules, save note, and prep tips.'
       Url = $url
     }
   }

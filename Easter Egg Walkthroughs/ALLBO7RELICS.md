@@ -14,7 +14,7 @@ Lawyer's Pen (AOTD)
 
 Relic Effect: Fills the map with mimic props that look like drops but spawn mimics when approached.
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 20, use Napalm or Ammo Mods to light 3 candles around the map.
 
@@ -56,7 +56,7 @@ Dragon Wings (AOTD) * Easiest Grim Relic By Requirements *
 
 Relic Effect: Disables normal power-up spawns (ex. Max Ammos on Special Rounds).
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 20, use bullet weapon to shoot three purple targets in succession while in the air using the jump pad from Vandorn Farm to Janus Towers.
 
@@ -90,11 +90,11 @@ Teddy Bear (AOTD)
 
 Relic Effect: Reduces the time between rounds (round start delay is reduced by 75%).
 
-Relic Requirements:
+Unlock Route:
 
-Reach Round 20, use bullet weapon to shoot 10 Mr. Peeks bears around the map.
+Reach Round 20, use Aether Shroud, then collect 10 Mr. Peeks dolls with the Necrofluid Gauntlet while the shroud is active.
 
-Teddy Bear Locations: Shoot in Any Order (Credit GIZMO at relichunting.com)
+Teddy Bear Locations: Collect in Any Order
 
 Janus Tower Plaza: Top left of the archway/gate leading to Blackwater Lake.
 
@@ -146,7 +146,7 @@ Gong (AM)
 
 Relic Effect: Disables your Field Upgrade from charging passively. Field upgrade starts charged, can only be refilled with “Full Power”.
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 20, kill three zombies total with a rod sticking out of them such that killing one rod zombie in each of the three locations charges a lightbulb. See “Helpful Tips For Relic” and “Augments For Relic” to learn the EXACT process of how this is done.
 
@@ -204,7 +204,7 @@ Seed (AM) * Hardest grim relic due to requirements *
 
 Relic Effect: Disables Mystery Box.
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 20, kill EXACTLY the same amount of zombies as the round you picked up the grey pistol on. If picked up on round 20, kill 20 zombies.
 
@@ -250,7 +250,7 @@ Rocket Relic (PJ) * This is the hardest grim relic trial, be prepared *
 
 Relic Effect: Disables Scorestreaks.
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: On any dog round before round 20, pet a dog. Do this in past Nuketown, or Non-Destroyed. See “Helpful Tips For Relic” for more.
 
@@ -302,13 +302,13 @@ Power Switch (TR) * Easiest Relic By Trial In The Game *
 
 Relic Effect: Randomizes tactical and lethal equipment each round.
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 20, then use the deer head altars located around the map to input a code using the combat axe on bear pelts.
 
 Note: The bear pelt CLOSEST to a given altar corresponds to the number of heads of that altar. If “Burial Grounds” altar has 1 head, hit the bear belt closest to the “Burial Grounds” altar first, and so on until all 4 bear pelts are struck with the combat axe.
 
-Deer Head Altar Locations: (Credit to Games GG)
+Deer Head Altar Locations:
 
 Eidskallen Landing: Stand opposite the Rampage Inducer near the barbed wire barrier. The altar sits on the shoreline to the southwest.
 
@@ -348,7 +348,7 @@ Vril Sphere (AOTD)
 
 Relic Effect: Limit of 4 perks. Can be bypassed with perkaholic and TEDD Tasks.
 
-Relic Requirements:
+Unlock Route:
 
 Reach Round 40, then find a doppleghast. Damage the doppleghast, but DON’T kill it. Lure it to ANY jump pad, then jump with the doppleghast and on landing it should die.
 
@@ -380,7 +380,7 @@ Samantha's Drawing (AOTD)
 
 Relic Effect: Swaps gun every round with similar rarity and PAP level.
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: Before round 40, sacrifice every rarity of gun from grey to legendary rarity in a chompy bin. On round 40+, place a wonder weapon in the chompy bin.
 
@@ -416,7 +416,7 @@ Focusing Stone (AOTD)
 
 Relic Effect: No self-revive kits.
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: Get to round 40, then kill a Zursa with the last hit being a knife. Pick up wine bottle.
 
@@ -452,7 +452,7 @@ Spider Fang (AM) * Hardest Sinister Relic By Requirements *
 
 Relic Effect: Perks prices never decrease.
 
-Relic Requirements:
+Unlock Route:
 
 Kill OSCAR where the last hit is a melee whilst the wisp tea is active and on OSCAR. Really important, see “Helpful Tips For Relic” and “Augments For Relic”.
 
@@ -504,7 +504,7 @@ Matryoshka Doll (AM) * Easiest Sinister Relic By Requirements *
 
 Relic Effect: Halves the salvage rate drop.
 
-Relic Requirements:
+Unlock Route:
 
 On Mars, place C4s on 3 piles of meat on the center stage (lower level in Mars). I am unaware of the exact amount of kills required, but train a hoard on center stage and detonate the C4s.
 
@@ -540,7 +540,7 @@ Summoning Key (PJ) * Hardest Sinister Relic By Trial *
 
 Relic Effect: Enemies explode when killed (do damage to the player).
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: Throw a grenade into the broken chimney to the right of the clock in Destroyed Nuketown. Pick up the summoning key.
 
@@ -588,7 +588,7 @@ Elephant Relic (TR) * Easiest Sinister Relic By Trial *
 
 Relic Effect: Health regen delay time is increased.
 
-Relic Requirements:
+Unlock Route:
 
 Get to round 40 without buying a single perk. There is a 50/50 chance if you pop a perkaholic before round 1 shows up this will still work.
 
@@ -632,7 +632,7 @@ Dancing Arnie Relic (TR)
 
 Relic Effect: All perk machines are cursed and give random perks.
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: Part Locations (Find Them In This EXACT Order)
 
@@ -686,7 +686,7 @@ Bus (AOTD) * Easiest Wicked Relic By Requirements Along With Golden Spork *
 
 Relic Effect: Enemy health regenerates.
 
-Relic Requirements:
+Unlock Route:
 
 Reach round 60, complete an entire round not firing a weapon, meleeing, using equipment or PHD flopper.
 
@@ -728,7 +728,7 @@ Dragon (AOTD) * Hardest Wicked Relic By Requirements Along With Music Box *
 
 Relic Effect: Ammo crates are disabled.
 
-Relic Requirements:
+Unlock Route:
 
 Complete the Cursed Boss Fight after Round 60.
 
@@ -782,7 +782,7 @@ Blood Vials (AOTD) * Easiest Wicked Relic By Trial *
 
 Relic Effect: Disables ALL augments.
 
-Relic Requirements:
+Unlock Route:
 
 On rounds 20, 30, 40, 50 and 60, find a ringing phone around the map and interact with it.
 
@@ -836,7 +836,7 @@ Golden Spork (AM) * Easiest Wicked Relic By Requirements Along With Bus *
 
 Relic Effect: Enemies deal double damage.
 
-Relic Requirements:
+Unlock Route:
 
 Complete easter egg up to the mars portal before round 60.
 
@@ -872,7 +872,7 @@ Civil Protector (AM)
 
 Relic Effect: Perk Decay, lose a perk after 100 enemy eliminations.
 
-Relic Requirements:
+Unlock Route:
 
 Activate Tessie with Energy Mine Field Upgrade, draw one zombie near to it. Receive code from Tessie by reading the flashes of its lights. Then PHD flop/slide underneath the corresponding chandeliers.
 
@@ -928,7 +928,7 @@ Mangler Helmet (PJ) * Hardest Wicked Relic By Trial *
 
 Relic Effect: Arsenal is Disabled.
 
-Relic Requirements:
+Unlock Route:
 
 NOTE: Do NOT have Seed Relic active!
 
@@ -946,7 +946,7 @@ Waves 3&6: Kill HVTs (2x Doppleghasts and 1x Rad Hound wave 3, 3x Doppleghasts a
 
 Difficulty: Very Hard (Reduced Health, No Armor Quite Difficult)
 
-Save and Quit Possible? Yes! Save and quit is possible anytime before round 60, but you will have to redo the Mr.Peeks mystery box steps.
+Save and Quit Possible? Yes! Save and quit is possible anytime before round 60, but you will have to redo the Mr. Peeks mystery box sequence.
 
 Augments For Relic: Any
 
@@ -988,7 +988,7 @@ Agarthan Device (TR)
 
 Relic Effect: Spawns a different type of zombie every round (toxic, ice, normal, etc.)
 
-Relic Requirements:
+Unlock Route:
 
 Relic Requirement #1: You MUST play as Richtofen!
 
@@ -1054,7 +1054,7 @@ Music Box (TR) * Hardest Wicked Relic By Requirements Along With Dragon *
 
 Relic Effect: Enemies can only be eliminated with critical kills.
 
-Relic Requirements:
+Unlock Route:
 
 Get to round 60, enter Tyr’s head and get 5 headshots total within 1 minute.
 
@@ -1121,3 +1121,4 @@ Don’t be afraid to throw Kazimirs when you are overwhelmed.
 Pop cache back just prior to wave 4.
 
 Save the war machine specifically for waves 5 and 6. Pop shields up and kill joy (or power keg) whenever you want on waves 5 and 6.
+

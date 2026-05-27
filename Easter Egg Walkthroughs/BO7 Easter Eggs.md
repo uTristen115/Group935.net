@@ -378,7 +378,7 @@
 
     3. Interact with the Bookshelves and count however many times the names of your Books are listed in that Section. There are 3 Bookshelves per Section. 
 
-       1. Credit to Milo for the picture below. The books are static, so you can just map your books to this example without having to look at individual bookshelves
+       1. The books are static, so you can map your books to the example below without checking every shelf one by one
 
     4. You want to turn the Bust however many times your Books are listed in a Section. Repeat this step for all 3 Sections
 
@@ -443,7 +443,7 @@
 
     2. 4 Symbols will flash on the Circular Screen on the Right of the Organ. Take note of this. It plays a melody that has a clear beginning and end. There will be static in a random position as well, pay attention to that
 
-    3. Credit to Milo for the picture. This is an example Code. There are 5 Symbols on Mars, while your Code only has 4 Symbols. The Static means that the 5th Symbol gets inserted in that Position.
+    3. Use the picture below as an example code. There are 5 Symbols on Mars, while your Code only has 4 Symbols. The Static means that the 5th Symbol gets inserted in that Position.
 
     4. Go back to Mars. You will see 5 Pillars that carry the Symbols on them. With the WW,  Shoot the Top of the Pillars. 
 
@@ -563,7 +563,7 @@
 
     1. Shoot the other face of the clock to go Purple again
 
-56.  In Cosmodrome, go to the Control Room and look on the right side Computers to look for a 6-letter Code Word (credit to MrRoflWaffles)
+56.  In Cosmodrome, go to the Control Room and look on the right side Computers to look for a 6-letter Code Word
 
     
 
@@ -698,7 +698,7 @@
 
 **Samantha’s Teddy Bear | Round Delay Reduced by 75%**
 
-1. While in Aether Shroud, shoot 10 Teddy Bears around the map with the Wonder Weapon, then Reload to reel in the Teddy Bear. Credit to LinkT000 on Twitter for the Picture Guide
+1. While in Aether Shroud, collect 10 Mr. Peeks dolls around the map with the Necrofluid Gauntlet before the shroud ends.
 
    1. Blackwater Lake in the Toilet outside playable area next to Speed Cola
 

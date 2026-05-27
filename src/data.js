@@ -1,4 +1,4 @@
-// Source extracted from index.html. Run npm run build:data after editing this file.
+// Extracted from index.html. Run npm run build:data after editing this file.
 window.ZD = (function () {
   const games = [
     { id: 'waw', code: 'WaW', title: 'World at War', year: 2008, era: 'Origins of Origins', mapCount: 4, color: '#6a5232',
@@ -2300,7 +2300,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
           body: 'Finish the fight, let the quest cinematic trigger, and make sure the completion unlock is banked before moving on.',
           bullets: [
             'After Veytharion reaches zero health, the Ashes of the Damned completion cinematic triggers.',
-            'The main quest calling card and completion credit are awarded after the cinematic.',
+            'The main quest calling card and completion confirmation are awarded after the cinematic.',
             'Completing Ashes of the Damned once unlocks Cursed mode relic access for future runs.',
             'After the cinematic, go to the docks and interact with the relic before leaving to make sure the Cursed unlock is recorded.',
           ],
@@ -2559,7 +2559,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             'Use the wall-jump routes and low-gravity movement to stay off the ground when rocks, pools, or arena pressure would trap you.',
             'Continue breaking armor and shooting exposed critical spots until Caltheris the Needle reaches zero health.',
             'There is no extra symbol code, planet alignment, or item placement after the pillar code starts the boss fight.',
-            'After Caltheris dies, wait for the completion sequence and confirm the Astra Malorum calling card and main quest completion credit are awarded.',
+            'After Caltheris dies, wait for the completion sequence and confirm the Astra Malorum calling card and main quest completion confirmation are awarded.',
           ],
         },
       ],
@@ -2915,7 +2915,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
             'The Dark Heart constantly spins during the last damage window, so wait for weak points to rotate into view and commit burst damage when they do.',
             'Avoid the same meteor and fire-tornado attacks from earlier phases while clearing Rad-Hounds before they stack up.',
             'Destroy the remaining glowing weak points until the Dark Heart reaches zero health.',
-            'Wait for the ending sequence and confirm the Paradox Junction calling card and main quest completion credit are awarded.',
+            'Wait for the ending sequence and confirm the Paradox Junction calling card and main quest completion confirmation are awarded.',
           ],
         },
       ],
@@ -3273,7 +3273,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         'Reach round 20.',
         'Ignite three candles with Napalm Burst, a Molotov, or another reliable fire source.',
         'Check the farmhouse upstairs nightstand at Vandorn Farm, the ruined fog cabin table in Lost Cabins, and the shelf beside Juggernog in Ashwood.',
-        'Do not save after lighting the candles; finish the recovery in the same session.',
+        'Do not save after lighting the candles; finish the candle route in the same session.',
       ],
       portal: 'Barnhouse south side, beside the left door.',
       trial: 'Four shock-Mimic waves: build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4. Doppelghasts may join the HVT waves.',
@@ -3299,14 +3299,14 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'The pause between rounds is heavily shortened.',
       unlock: [
         'Reach round 20.',
-        'Shoot ten Mr. Peeks bears around Ashes of the Damned.',
-        'Check Janus Tower Plaza archway, Vandorn Farm silo, the Blackwater Lake Speed Cola bathroom, Ashwood Church rafters, Rabbit Alley, both Zarya Cosmodrome spots, the Grounded Ship barrel, Lost Cabins log shelter, and the Exit 115 gantry from the diner roof.',
+        'Use Aether Shroud, then collect ten Mr. Peeks dolls with the Necrofluid Gauntlet while the shroud is active.',
+        'Use this route checklist: Janus Tower Plaza gate, Blackwater Lake Speed Cola bathroom, Lost Cabins/Ashwood route cabin, Ashwood Church, Rabbit Alley, Vandorn Farm, both Zarya Cosmodrome spots, the Grounded Ship route, and the Exit 115 gantry.',
         'Start and finish the bear hunt in one session.',
       ],
       portal: 'Vandorn Farm, on the south wall of the Mystery Box building.',
       trial: 'Every shot spends essence. Build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4.',
       save: 'Unsafe once the bear hunt starts.',
-      prep: ['Power Keg can speed up the Mr. Peeks collection if you are using a Field Upgrade route.', 'The Necrofluid Gauntlet keeps the trial cheap.', 'Sawblade traps help stretch essence further.'],
+      prep: ['Power Keg and Field Upgrade recharge routes reduce how many cycles the doll hunt takes.', 'The Necrofluid Gauntlet keeps the trial cheap.', 'Spend or stage essence before entering, because gunfire drains points quickly.'],
     },
     {
       id: 'gong', map: 'astra', tier: 'Grim', name: 'Gong', difficulty: 'Easy',
@@ -3320,7 +3320,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       portal: 'Outside Pack-a-Punch, left of the Gobblegum machine.',
       trial: 'Only electric damage counts. Build progress on waves 1 and 3; expect Klaus pressure on wave 2 and an Uber Klaus threat on wave 4.',
       save: 'Safe, but rod-zombie progress must be repeated after loading back in.',
-      prep: ['Dead Wire with Light Strike and Haste makes the bulb step more reliable.', 'Tesla Storm with duration or radius augments can cover mistakes during the setup.', 'Ping the rod zombie if you need to track it through a crowd.'],
+      prep: ['Dead Wire with Light Strike and Haste makes the bulb setup more reliable.', 'Tesla Storm with duration or radius augments can cover mistakes during the setup.', 'Ping the rod zombie if you need to track it through a crowd.'],
     },
     {
       id: 'seed', map: 'astra', tier: 'Grim', name: 'Seed', difficulty: 'Easy',
@@ -3353,7 +3353,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       id: 'power-switch', map: 'totenreich', tier: 'Grim', name: 'Power Switch', difficulty: 'Very Easy',
       effect: 'Your lethal and tactical equipment loadout changes at the start of each round.',
       unlock: [
-        'Reach round 20.',
+        'Bring a Combat Axe; a scoped weapon helps read the distant altar skull counts.',
         'Read the deer-head altars, then strike the matching bear pelts with a Combat Axe in the correct order.',
         'Use the altars at Eidskallen Landing, Dry Dock, Tyr\'s Foot, and Burial Grounds.',
         'The closest pelt to each altar represents that altar in the sequence.',
@@ -3361,17 +3361,17 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       portal: 'Blodheim Hall, south-wall bear pelt.',
       trial: 'Trap kills only. Use the map machinery through the short three-wave trial.',
       save: 'Safe.',
-      prep: ['If the altar read is unclear, the pelt order has only twenty-four possible combinations.'],
+      prep: ['Bank at least 10,000 essence so repeated Flammenfalle trap activations do not strand the run.', 'If the altar read is unclear, the pelt order has only twenty-four possible combinations.'],
     },
     {
       id: 'wrestlers-belt', map: 'totenreich', tier: 'Grim', name: "Wrestler's Belt", difficulty: 'Unknown',
       status: 'pending',
-      effect: 'Relic behavior is not verified yet.',
-      unlock: ['No reliable recovery path is filed yet. Keep this slot marked pending until the trigger is confirmed.'],
+      effect: 'Wall-buy weapons randomize each round; the unlock route is still unconfirmed.',
+      unlock: ['No reliable unlock route is filed yet. Keep this slot marked pending until the trigger is pinned down.'],
       portal: 'Unknown.',
       trial: 'Unknown.',
       save: 'Unknown.',
-      prep: ['Leave unpublished routes out of the walkthrough until the discovery is reproducible.'],
+      prep: ['Treat this relic as an unfinished entry until the wall-buy randomization trigger has a consistent route.'],
     },
     {
       id: 'vril-sphere', map: 'ashes', tier: 'Sinister', name: 'Vril Sphere', difficulty: 'Easy',
@@ -3444,7 +3444,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'Enemies explode when killed, and the blast can hurt you.',
       unlock: [
         'Throw a grenade into the broken chimney beside the Destroyed Nuketown clock and pick up the key.',
-        'On a dog round, use a grey or green Brain Rot pistol in the Yellow House backyard to turn a dog and recover the ball it digs up.',
+        'On a dog round, use a grey or green Brain Rot pistol in the Yellow House backyard to turn a dog and collect the ball it digs up.',
         'On round 40 or later, down yourself in the Green House backyard grave area, then place the collar and ball at the grave.',
       ],
       portal: 'Yellow House, southwest outside wall.',
@@ -3462,7 +3462,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       portal: 'Fishery Island, southeast corner behind the eastern building.',
       trial: 'Find cursed eggs, destroy them, and kill the HVT before the timer ends. Expect the objective to rotate through Necropincer, Doppelghast, Amalgam, and Zursa targets.',
       save: 'Unsafe; complete the no-perk run in one session.',
-      prep: ['Look for eggs at Dry Dock, Storm Bridge near Tyr\'s Foot, south Skallen Market past Mule Kick, and the south side of the Lighthouse.', 'Toxic Growth and a high-tier Jotunn Star make the no-perk climb safer.', 'Fishery Island and Lighthouse holds are the cleanest no-perk grind spots.'],
+      prep: ['Look for eggs at Beacon Island/Lighthouse, Skallen Market, Storm Bridge near Tyr\'s Foot, and the Dry Dock Mystery Box room.', 'Toxic Growth and a high-tier Jotunn Star make the no-perk climb safer.', 'Do not take perks from machines, GobbleGums, TEDD Tasks, or Mr. Peeks if you want the reliable portal spawn.'],
     },
     {
       id: 'dancing-arnie', map: 'totenreich', tier: 'Sinister', name: 'Dancing Arnie', difficulty: 'Easy',
@@ -3470,7 +3470,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       unlock: [
         'Bring the recipe items to the Blodheim Hall firepit in order.',
         'Collect the pot under the southwest Skallen Market food stand, ale near the Eidskallen Square to Fishery Island zipline porch, Chili Chunks from the crate behind the truck on the bridge, a Necropincer claw from a fire-trap kill, and a round-40 fish from the fishing rod.',
-        'After placing the ingredients, earn 100 melee kills near the firepit.',
+        'After placing the ingredients, feed souls to the dancing Mr. Peeks with Jotunn Star kills until the portal spawns.',
       ],
       portal: 'Fishery Island, northeast corner opposite the Mystery Box spot.',
       trial: 'Melee kills only. Waves 1, 3, and 4 build progress; HVT waves can bring Necropincers first, then Necropincer and Zursa pressure later.',
@@ -3482,13 +3482,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'Enemy health regenerates.',
       unlock: [
         'Reach round 60.',
-        'Complete a full round without firing, meleeing, using equipment, or triggering PhD damage.',
-        'Trap kills are the safest route, especially on a Ravager round.',
+        'Complete a full round without taking damage or personally killing enemies with weapons or equipment.',
+        'The trigger is picky, so keep the attempt clean: take no damage, avoid personal kills, and use a Ravager round if possible.',
       ],
       portal: 'Blackwater Lake, north side of the boathouse.',
       trial: 'Only Brain-Rotted allies can damage enemies. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.',
       save: 'Safe before round 60.',
-      prep: ['Use Vandorn Farm and Rabbit Alley sawblade traps for the unlock, especially on a Ravager round.', 'Avoid weapon fire, melee, equipment, and PhD damage during the no-action round.', 'Brain Rot augments that improve area damage and trigger rate speed up the trial.'],
+      prep: ['Use the safest no-damage route your patch allows; Tessie on a Ravager round is the least exposed option if trap-only runs fail.', 'Avoid weapon fire, melee, equipment, Field Upgrades, and PhD damage during the clean round.', 'Brain Rot augments that improve area damage and trigger rate speed up the trial.'],
     },
     {
       id: 'dragon', map: 'ashes', tier: 'Wicked', name: 'Dragon', difficulty: 'Hard',
@@ -3535,7 +3535,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       portal: 'Crash Site, upper level by Quick Revive on the left wall before the left door.',
       trial: 'Every zombie sprints. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Klaus, Mimic, Uber Klaus, and OSCAR HVT pressure.',
       save: 'Safe before round 60.',
-      prep: ['Hold four or five zombies to read the Tessie headlight code calmly.', 'Idle Eyes or Time Out can make the chandelier step safer if the lobby is messy.', 'Stamin-Up speed augments and the Apogee Annihilator help keep distance.'],
+      prep: ['Hold four or five zombies to read the Tessie headlight code calmly.', 'Idle Eyes or Time Out can make the chandelier setup safer if the lobby is messy.', 'Stamin-Up speed augments and the Apogee Annihilator help keep distance.'],
     },
     {
       id: 'mangler-helmet', map: 'paradox', tier: 'Wicked', name: 'Mangler Helmet', difficulty: 'Very Hard',
@@ -3544,11 +3544,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
         'Do not run the Seed relic while setting this up.',
         'Charge Mr. Peeks, then spin the Mystery Box in both Past and Destroyed Nuketown until the bunny appears.',
         'Use the Field Upgrade, take each bunny, and place them on the matching Yellow House mailboxes.',
-        'On round 60 or later, recover the ultra knife from a mailbox and kill the HVT Mimic using only that knife.',
+        'On round 60 or later, take the ultra knife from a mailbox and kill the HVT Mimic using only that knife.',
       ],
       portal: 'Destroyed Nuketown, Green House balcony.',
       trial: 'Survive six waves with reduced health and no armor. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Rad Hound HVTs.',
-      save: 'Safe before round 60, but the Mystery Box bunny steps must be repeated after a reload.',
+      save: 'Safe before round 60, but the Mystery Box bunny sequence must be repeated after a reload.',
       prep: ['Ray Gun or Sundergat should stay in hand whenever possible.', 'Make Quick Revive with Dying Wish permanent before attempting the trial.', 'Extra health, Free Throw, Mask of Distraction, PhD slide movement, Kazimirs, and War Machines are all high-value safety tools.'],
     },
     {
@@ -3556,9 +3556,9 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'The map rotates a different zombie variant into each round.',
       unlock: [
         'Play as Richtofen.',
-        'Use the RC-XD to open the Group 935 Genetic Lab uranium room and collect the walkie-talkie.',
-        'Use Tyr\'s travel system to recover Mr. Peeks from Ava\'s room and the helmet from the Urzikstan room near Strauss.',
-        'On round 15 or later, buy Melee Macchiato, melee the barrel to begin the Richtofen side sequence, then place the items on the chair once the dialogue opens the prompt.',
+        'Use the ARC-XD route into the Group 935 Genetic Lab, solve the labeled-jar puzzle, make the Necrospike, and pick up the handheld radio from the cell.',
+        'Use Tyr\'s Head exits until you collect Mr. Peeks from Ava\'s room and the helmet from the Requiem corpse room.',
+        'On round 15 or later, buy Melee Macchiato, open the Core Foundry barrel to start the Richtofen side sequence, then place the items on the chair once Von List leaves it.',
       ],
       portal: 'Dry Dock, upper west wall opposite the zipline.',
       trial: 'Enemies only count when killed indoors. Waves 1, 2, 4, and 5 build progress; later HVT waves can include Necropincers, Doppelghasts, and Zursa.',
@@ -3570,13 +3570,13 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       effect: 'Enemies only die to critical kills.',
       unlock: [
         'Reach round 60.',
-        'Enter Tyr\'s Head and land five headshots within one minute.',
-        'For solo, stack zombies near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering the head.',
+        'Enter Tyr\'s Head and land five headshot kills in one visit.',
+        'A scoped Shadow SK plus Temporal Gift and Kill Joy creates the cleanest one-minute headshot window.',
       ],
       portal: 'Dry Dock, far west by the blocked staircase near Fjord Road.',
-      trial: 'Find the holdout circles and survive as the safe zone shrinks each wave. Early waves build progress; the final two waves are the cramped Necropincer-heavy finish.',
+      trial: 'Activate six holdout circles marked by purple beams, then survive as each safe zone shrinks. The route runs Fishery Island, Tyr\'s Foot, Dry Dock, Beacon Island, Eidskallen Square, then Skallen Market.',
       save: 'Safe before round 60.',
-      prep: ['For solo headshots, stack a horde near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering Tyr\'s Head.', 'Cache Back, Shields Up, Kill Joy, and Kazimirs smooth the later holdouts.', 'Save War Machine pressure for waves 5 and 6.'],
+      prep: ['For solo headshots, stack a horde near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering Tyr\'s Head.', 'Cache Back, Shields Up, Kill Joy, and Kazimirs smooth the later holdouts.', 'Expect the later circles to be small and Necropincer-heavy.'],
     },
   ];
 

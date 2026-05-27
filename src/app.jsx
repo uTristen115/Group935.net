@@ -1,4 +1,4 @@
-// Source extracted from the old inline app blocks. Run npm run build:app after editing this file.
+// Extracted from the old inline app blocks. Run npm run build:app after editing this file.
 (function () {
   const { useState, useMemo, useEffect, useCallback } = React;
   const ZD = window.ZD;
@@ -2451,27 +2451,23 @@
   function RelicCard({ relic, defaultOpen = false }) {
     const accent = relicTierTone(relic.tier);
     const pending = relic.status === 'pending';
-    const iconSrc = relicIconImg(relic);
     return (
       <details className="pap-card" open={pending || defaultOpen ? true : undefined} style={{ padding: 0, overflow: 'hidden', borderColor: pending ? T.hazardDim : T.line }}>
-        <summary style={{ listStyle: 'none', cursor: 'pointer', padding: 18, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'start' }}>
+        <summary style={{ listStyle: 'none', cursor: 'pointer', padding: 18, display: 'grid', gridTemplateColumns: '1fr', alignItems: 'start' }}>
           <div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
               <span style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.6, textTransform: 'uppercase', color: accent, border: `1px solid ${accent}`, padding: '3px 8px', background: 'rgba(0,0,0,0.18)' }}>{relic.tier}</span>
-              <Mono color={pending ? T.hazard : T.faint}>{pending ? 'Pending recovery' : relic.difficulty}</Mono>
+              <Mono color={pending ? T.hazard : T.faint}>{pending ? 'Route pending' : relic.difficulty}</Mono>
             </div>
             <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 9 }}>{relic.name}</div>
             <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.5, marginTop: 7 }}>{relic.effect}</div>
-          </div>
-          <div style={{ width: 52, height: 52, border: `1px solid ${accent}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: accent, fontFamily: T.display, fontSize: 24, fontWeight: 700, background: 'rgba(0,0,0,0.18)' }}>
-            {iconSrc ? <img src={iconSrc} alt="" loading="lazy" style={{ width: '74%', height: '74%', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(0,0,0,0.5))' }} /> : '?'}
           </div>
         </summary>
         <div style={{ padding: '0 18px 18px' }}>
           <RelicInfoRow label="Portal" value={relic.portal} />
           <RelicInfoRow label="Trial" value={relic.trial} />
           <RelicInfoRow label="Save" value={relic.save} />
-          <RelicNoteList title="Recovery" items={relic.unlock} />
+          <RelicNoteList title="Unlock Route" items={relic.unlock} />
           <RelicNoteList title="Field Notes" items={relic.prep} />
         </div>
       </details>
@@ -4200,7 +4196,6 @@
     const [selectedId, setSelectedId] = useState(initialRelicId);
     const selected = relics.find((relic) => relic.id === selectedId) || relics[0];
     const selectedIcon = relicIconImg(selected);
-    const relicFileRef = React.useRef(null);
     useEffect(() => {
       if (relicId && relics.some((relic) => relic.id === relicId)) {
         setSelectedId(relicId);
@@ -4209,15 +4204,6 @@
     const selectRelic = useCallback((id) => {
       setSelectedId(id);
       if (nav) nav({ name: 'relics', id }, { keepScroll: true });
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          if (relicFileRef.current) {
-            const y = relicFileRef.current.getBoundingClientRect().top + window.scrollY;
-            const previewOffset = Math.min(Math.max(window.innerHeight * 0.48, 280), 560);
-            window.scrollTo({ top: Math.max(0, y - previewOffset), behavior: 'smooth' });
-          }
-        });
-      });
     }, [nav]);
     return (
       <div>
@@ -4231,7 +4217,7 @@
         </div>
 
         {selected && (
-          <section className="pap-relic-file-section" ref={relicFileRef} style={{ marginTop: 34, scrollMarginTop: 118 }}>
+          <section className="pap-relic-file-section" style={{ marginTop: 34, scrollMarginTop: 118 }}>
             <SectionHead
               kicker={selected.tier + ' relic file'}
               title={selected.name}
@@ -4269,7 +4255,7 @@
           <SectionHead
             kicker="Map files"
             title="Relic Walkthroughs"
-            sub="Routes are grouped by recovery site. Trial wave and HVT notes are player-observed patterns and can vary between runs."
+            sub="Routes are grouped by map. Trial wave and HVT notes are player-observed patterns and can vary between runs."
           />
         </section>
 
@@ -4278,7 +4264,7 @@
           return (
             <section key={map.id} style={{ marginTop: 30 }}>
               <SectionHead
-                kicker={mapRelics.length + ' relic' + (mapRelics.length === 1 ? '' : 's') + ' recovered'}
+                kicker={mapRelics.length + ' relic file' + (mapRelics.length === 1 ? '' : 's')}
                 title={map.name}
                 action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'map', id: map.id })}>Map file →</button>}
               />
@@ -4830,7 +4816,7 @@
         const relicLabel = seoRelicLabel(relic);
         return {
           title: relicLabel + ' Tutorial | Black Ops 7 Zombies | Group 935',
-          description: seoDescription(relicLabel + ' Black Ops 7 Zombies guide for ' + mapName + ' with effect, unlock requirements, portal location, trial rules, save note, and prep tips.', relicLabel + ' tutorial for Black Ops 7 Zombies on ' + mapName + ', including the effect, unlock requirements, portal, trial, save note, and prep tips.'),
+          description: seoDescription(relicLabel + ' Black Ops 7 Zombies guide for ' + mapName + ' with effect, unlock route, portal location, trial rules, save note, and prep tips.', relicLabel + ' tutorial for Black Ops 7 Zombies on ' + mapName + ', including the effect, unlock route, portal, trial, save note, and prep tips.'),
           url: seoRouteUrl(r),
           jsonLd: {
             '@context': 'https://schema.org',
@@ -4845,7 +4831,7 @@
       }
       return {
         title: 'Black Ops 7 Relics Guide | Effects, Unlocks, Trials | Group 935',
-        description: 'All Black Ops 7 Zombies relics with effects, unlock steps, portal locations, trial rules, save safety, map, tier, and prep notes.',
+        description: 'All Black Ops 7 Zombies relics with effects, unlock routes, portal locations, trial rules, save safety, map, tier, and prep notes.',
         url: seoRouteUrl(r),
         jsonLd: {
           '@context': 'https://schema.org',
