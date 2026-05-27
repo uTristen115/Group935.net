@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agarthan Device Relic Guide | BO7 Zombies Unlocks, Trial | Group 935</title>
+<meta name="description" content="Agarthan Device Relic Black Ops 7 Zombies guide for Totenreich with effect, unlock requirements, portal location, trial rules, save note, and prep tips." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0a0908" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="canonical" href="https://group935.net/black-ops-7-relics/agarthan-device/" />
+<link rel="icon" type="image/png" href="../../Images/Icons/Group935icon.png" />
+<link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
+<meta property="og:site_name" content="Group 935" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Agarthan Device Relic Guide | BO7 Zombies Unlocks, Trial | Group 935" />
+<meta property="og:description" content="Agarthan Device Relic Black Ops 7 Zombies guide for Totenreich with effect, unlock requirements, portal location, trial rules, save note, and prep tips." />
+<meta property="og:url" content="https://group935.net/black-ops-7-relics/agarthan-device/" />
+<meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Agarthan Device Relic Guide | BO7 Zombies Unlocks, Trial | Group 935" />
+<meta name="twitter:description" content="Agarthan Device Relic Black Ops 7 Zombies guide for Totenreich with effect, unlock requirements, portal location, trial rules, save note, and prep tips." />
+<meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Group 935",
+  "alternateName": ["Group935", "Group935.net", "Group 935 Archive"],
+  "url": "https://group935.net/",
+  "description": "A Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
+  "inLanguage": "en-US"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; background: #0a0908; }
+  body {
+    font-family: "IBM Plex Sans", "Inter", system-ui, sans-serif;
+    color: #e8e2d4;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  #root { min-height: 100vh; }
+  ::selection { background: #9aff6e; color: #0a0908; }
+
+  #boot {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px;
+    font-family: "IBM Plex Mono", monospace; color: #9aff6e; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; background: #0a0908; z-index: 100; padding: 40px;
+  }
+  #boot .boot-line { display: flex; gap: 10px; align-items: center; }
+  #boot .boot-cur { display: inline-block; width: 8px; height: 14px; background: #9aff6e; animation: blink 1s steps(2) infinite; vertical-align: middle; }
+  #boot .boot-err {
+    color: #ef3a3a; font-size: 12px; letter-spacing: 1px; text-transform: none;
+    max-width: 760px; white-space: pre-wrap; word-break: break-word;
+    border: 1px solid #d62828; padding: 14px; background: rgba(214,40,40,0.08);
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  body.booted #boot { display: none; }
+  .seo-static-content {
+    max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
+    color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
+  }
+  .seo-static-content h1, .seo-static-content h2 { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 0; }
+  .seo-static-content a { color: #9aff6e; }
+  body.booted .seo-static-content { display: none; }
+</style>
+<noscript><style>#boot{display:none}</style></noscript>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q90XFJQFF"></script>
+
+<script>
+  // Visible error surface: both runtime errors and unhandled rejections.
+  window.__bootErrors = [];
+  function __bootShow(label, err) {
+    const msg = err && (err.stack || err.message) || String(err);
+    window.__bootErrors.push({ label, msg });
+    const boot = document.getElementById('boot');
+    if (!boot) return;
+    let box = boot.querySelector('.boot-err');
+    if (!box) { box = document.createElement('div'); box.className = 'boot-err'; boot.appendChild(box); }
+    box.textContent = window.__bootErrors.map((e) => '[' + e.label + ']\n' + e.msg).join('\n\n');
+  }
+  window.addEventListener('error', (e) => __bootShow('runtime error', e.error || e.message));
+  window.addEventListener('unhandledrejection', (e) => __bootShow('promise rejection', e.reason));
+</script>
+<script>
+  window.G935_LOCAL_ASSET_BASE = '../../Images';
+  window.G935_ASSET_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_ASSET_BASE : '/Images';
+  window.G935_LOCAL_FONT_BASE = '../../Fonts';
+  window.G935_FONT_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_FONT_BASE : '/Fonts';
+  window.G935_LOCAL_APP_BASE = '../../dist';
+  window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
+  window.G935_DATA_BUNDLE = 'data.173d7b7da65a.js';
+  window.G935_APP_BUNDLE = 'app.26490029fedb.js';
+  window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
+  window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  if (window.G935_ANALYTICS_ENABLED) {
+    gtag('js', new Date());
+    gtag('config', window.G935_GA_MEASUREMENT_ID, { send_page_view: false });
+  }
+  window.G935_ROUTE_PATH = '/black-ops-7-relics/agarthan-device';
+  window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
+</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/black-ops-7-relics/agarthan-device/#webpage","@type":"WebPage","url":"https://group935.net/black-ops-7-relics/agarthan-device/","name":"Agarthan Device Relic Guide | BO7 Zombies Unlocks, Trial | Group 935","description":"Agarthan Device Relic Black Ops 7 Zombies guide for Totenreich with effect, unlock requirements, portal location, trial rules, save note, and prep tips.","inLanguage":"en-US","about":["Black Ops 7 Zombies relics","BO7 relic effects","BO7 relic unlocks","Zombies relic trials"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Black Ops 7 Relics","item":"https://group935.net/black-ops-7-relics/","@type":"ListItem"},{"position":3,"name":"Agarthan Device Relic","item":"https://group935.net/black-ops-7-relics/agarthan-device/","@type":"ListItem"}],"@id":"https://group935.net/black-ops-7-relics/agarthan-device/#breadcrumbs","@type":"BreadcrumbList"},{"@id":"https://group935.net/black-ops-7-relics/agarthan-device/#article","headline":"Agarthan Device Relic Tutorial","@type":"Article","keywords":["Black Ops 7 relics","BO7 relics","Agarthan Device Relic guide","Totenreich relic"],"description":"Agarthan Device Relic Black Ops 7 Zombies guide for Totenreich with effect, unlock requirements, portal location, trial rules, save note, and prep tips.","inLanguage":"en-US","mainEntityOfPage":{"@id":"https://group935.net/black-ops-7-relics/agarthan-device/#webpage"},"about":["Black Ops 7 Zombies","Totenreich","Agarthan Device Relic"]}]}</script>
+</head>
+<body>
+<div id="boot">
+  <div class="boot-line">??? BOOTING GROUP 935 ARCHIVE<span class="boot-cur"></span></div>
+  <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
+</div>
+<div id="root"></div>
+<main id="seo-static-content" class="seo-static-content"><h1>Agarthan Device Relic Tutorial - Black Ops 7 Zombies</h1> <p>The map rotates a different zombie variant into each round.</p> <p><strong>Map:</strong> Totenreich | <strong>Tier:</strong> Wicked | <strong>Difficulty:</strong> Medium-Hard</p> <p><strong>Portal:</strong> Dry Dock, upper west wall opposite the zipline.</p> <p><strong>Save note:</strong> Unsafe after the Richtofen side-quest setup is completed.</p> <h2>Unlock requirements</h2> <ol><li>Play as Richtofen.</li><li>Use the RC-XD to open the Group 935 Genetic Lab uranium room and collect the walkie-talkie.</li><li>Use Tyr&apos;s travel system to recover Mr. Peeks from Ava&apos;s room and the helmet from the Urzikstan room near Strauss.</li><li>On round 15 or later, buy Melee Macchiato, melee the barrel to begin the Richtofen side sequence, then place the items on the chair once the dialogue opens the prompt.</li></ol> <h2>Trial rules and prep</h2> <p>Enemies only count when killed indoors. Waves 1, 2, 4, and 5 build progress; later HVT waves can include Necropincers, Doppelghasts, and Zursa.</p> <ul><li>The portal can currently be opened early, but the trial still uses round-60 health.</li><li>Either hold upstairs Lighthouse with Toxic Growth or train patiently and pull HVTs indoors for the kill.</li><li>Free Throw, Mask of Distraction, PhD slide movement, and War Machines are strong safety tools.</li></ul> <p><a href="/black-ops-7-relics/">Back to all Black Ops 7 relics</a></p></main>
+
+<!-- Shared runtime: load data first, then the compiled app bundle. -->
+<script>
+(function loadSharedDataAndApp() {
+  var base = (window.G935_APP_BASE || './dist').replace(/\/$/, '');
+  var dataBundle = window.G935_DATA_BUNDLE || 'data.js';
+  var appBundle = window.G935_APP_BUNDLE || 'app.js';
+  function loadScript(src, label, onload) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    script.onload = onload || null;
+    script.onerror = function () { __bootShow(label + ' load error', script.src); };
+    document.body.appendChild(script);
+  }
+  loadScript(base + '/' + dataBundle, 'data bundle', function () {
+    loadScript(base + '/' + appBundle, 'app bundle');
+  });
+})();
+</script>
+</body>
+</html>

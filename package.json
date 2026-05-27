@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build:data": "node scripts/build-data.js",
+    "build:app": "node scripts/build-app.js",
+    "build:seo-data": "node scripts/build-seo-data.js",
+    "build:seo": "powershell.exe -ExecutionPolicy Bypass -File ./scripts/generate-seo-pages.ps1",
+    "build:check": "node scripts/check-build.js",
+    "build": "npm run build:data && npm run build:app && npm run build:seo-data && npm run build:seo && npm run build:check"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-react": "^7.28.5"
+  }
+}

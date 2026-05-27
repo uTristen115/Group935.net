@@ -1,0 +1,575 @@
+{
+  "generatedAt": "2026-05-27T14:31:54.198Z",
+  "maps": [
+    {
+      "id": "ashes",
+      "name": "Ashes of the Damned",
+      "relicCount": 9
+    },
+    {
+      "id": "astra",
+      "name": "Astra Malorum",
+      "relicCount": 6
+    },
+    {
+      "id": "paradox",
+      "name": "Paradox Junction",
+      "relicCount": 3
+    },
+    {
+      "id": "totenreich",
+      "name": "Totenreich",
+      "relicCount": 6
+    }
+  ],
+  "relics": [
+    {
+      "id": "lawyers-pen",
+      "name": "Lawyer's Pen",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Grim",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Fake drops can appear across the map, and getting close to one can turn it into a Mimic encounter.",
+      "unlock": [
+        "Reach round 20.",
+        "Ignite three candles with Napalm Burst, a Molotov, or another reliable fire source.",
+        "Check the farmhouse upstairs nightstand at Vandorn Farm, the ruined fog cabin table in Lost Cabins, and the shelf beside Juggernog in Ashwood.",
+        "Do not save after lighting the candles; finish the recovery in the same session."
+      ],
+      "portal": "Barnhouse south side, beside the left door.",
+      "trial": "Four shock-Mimic waves: build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4. Doppelghasts may join the HVT waves.",
+      "save": "Unsafe after candle progress begins.",
+      "prep": [
+        "Avoid throwing equipment into Mimic shock bursts.",
+        "Brain Rot is the cleanest ammo mod for the trial."
+      ]
+    },
+    {
+      "id": "dragon-wings",
+      "name": "Dragon Wings",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Grim",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Standard power-up drops stop appearing, including special-round ammo drops.",
+      "unlock": [
+        "Reach round 20.",
+        "Ride the jump pad from Vandorn Farm toward Janus Towers.",
+        "While airborne, shoot the three purple targets in one clean pass with a bullet weapon.",
+        "Do not save after the target sequence lands."
+      ],
+      "portal": "Northwest side of the Farmhouse.",
+      "trial": "Power-ups become hazards; touching them deals damage. Build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4.",
+      "save": "Unsafe after the airborne target sequence.",
+      "prep": [
+        "Raise look sensitivity before the jump if the targets feel too tight.",
+        "Bring a light, fast-handling bullet weapon.",
+        "Once inside the trial, give every power-up a wide berth."
+      ]
+    },
+    {
+      "id": "teddy-bear",
+      "name": "Teddy Bear",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Grim",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "The pause between rounds is heavily shortened.",
+      "unlock": [
+        "Reach round 20.",
+        "Shoot ten Mr. Peeks bears around Ashes of the Damned.",
+        "Check Janus Tower Plaza archway, Vandorn Farm silo, the Blackwater Lake Speed Cola bathroom, Ashwood Church rafters, Rabbit Alley, both Zarya Cosmodrome spots, the Grounded Ship barrel, Lost Cabins log shelter, and the Exit 115 gantry from the diner roof.",
+        "Start and finish the bear hunt in one session."
+      ],
+      "portal": "Vandorn Farm, on the south wall of the Mystery Box building.",
+      "trial": "Every shot spends essence. Build progress on waves 1 and 3, then clear Mimic HVTs on waves 2 and 4.",
+      "save": "Unsafe once the bear hunt starts.",
+      "prep": [
+        "Power Keg can speed up the Mr. Peeks collection if you are using a Field Upgrade route.",
+        "The Necrofluid Gauntlet keeps the trial cheap.",
+        "Sawblade traps help stretch essence further."
+      ]
+    },
+    {
+      "id": "gong",
+      "name": "Gong",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Grim",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Field Upgrades no longer recharge over time; Full Power becomes the main refill source.",
+      "unlock": [
+        "Reach round 20.",
+        "Find rod-marked zombies and kill one near each charged bulb.",
+        "Use the bulbs above the Pack-a-Punch doorway toward the portal, the Luminarium doorway near Juggernog, and the Machina Astralis or library doorway by the Mars route.",
+        "Place the rod zombie just in front of the bulb before killing it."
+      ],
+      "portal": "Outside Pack-a-Punch, left of the Gobblegum machine.",
+      "trial": "Only electric damage counts. Build progress on waves 1 and 3; expect Klaus pressure on wave 2 and an Uber Klaus threat on wave 4.",
+      "save": "Safe, but rod-zombie progress must be repeated after loading back in.",
+      "prep": [
+        "Dead Wire with Light Strike and Haste makes the bulb step more reliable.",
+        "Tesla Storm with duration or radius augments can cover mistakes during the setup.",
+        "Ping the rod zombie if you need to track it through a crowd."
+      ]
+    },
+    {
+      "id": "seed",
+      "name": "Seed",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Grim",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "The Mystery Box is disabled.",
+      "unlock": [
+        "Reach round 20 and pick up the grey pistol.",
+        "Kill exactly the same number of enemies as the round number when the pistol was collected.",
+        "Potential pistol spots include the Observatory Dome, Luminarium, Machina Astralis bar, and Archives of Orbis bookshelf area.",
+        "Stop using the pistol as soon as the target count is reached, finish the round with another weapon, and wait for the portal."
+      ],
+      "portal": "Observatory Dome, left side near the Ammo Cache.",
+      "trial": "Fight through four waves with a Pack-a-Punch I pistol. Waves 1 and 3 are progress waves; HVT waves can include Klaus units, a Mimic, and an Uber Klaus.",
+      "save": "Unsafe; the pistol can disappear after a reload.",
+      "prep": [
+        "Avoid passive kill sources like Elemental Pop or Wisp Tea while counting.",
+        "Rarity upgrades and Insta-Kill help, but stop using the pistol the moment the kill count matches the round.",
+        "Use the weapon stats menu to confirm the pistol kill count."
+      ]
+    },
+    {
+      "id": "rocket",
+      "name": "Rocket Relic",
+      "map": "paradox",
+      "mapName": "Paradox Junction",
+      "tier": "Grim",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "Scorestreaks cannot be used.",
+      "unlock": [
+        "Before round 20, pet a turned Rad Hound in past Nuketown.",
+        "On round 20, move to future Nuketown and pet a D.A.W.G. scorestreak.",
+        "Psych Grenades are the most reliable way to create a safe pet window."
+      ],
+      "portal": "Past Nuketown, upstairs in Green House while facing south.",
+      "trial": "Enemies only take meaningful damage from elemental weaknesses. Progress waves are 1 and 3; HVT waves usually mix Rad Hounds, Doppelghasts, and Mimics.",
+      "save": "Unsafe; pet progress does not persist cleanly.",
+      "prep": [
+        "Carry separate ammo mods: Shadow Rift for toxic zombies, Light Mend for Doppelghasts, and Brain Rot for Mimics.",
+        "Psych Grenades help create a safer Rad Hound pet window.",
+        "Golden Armor, a self-revive, and Aether Shroud give the trial breathing room."
+      ]
+    },
+    {
+      "id": "power-switch",
+      "name": "Power Switch",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Grim",
+      "difficulty": "Very Easy",
+      "status": "",
+      "effect": "Your lethal and tactical equipment loadout changes at the start of each round.",
+      "unlock": [
+        "Reach round 20.",
+        "Read the deer-head altars, then strike the matching bear pelts with a Combat Axe in the correct order.",
+        "Use the altars at Eidskallen Landing, Dry Dock, Tyr's Foot, and Burial Grounds.",
+        "The closest pelt to each altar represents that altar in the sequence."
+      ],
+      "portal": "Blodheim Hall, south-wall bear pelt.",
+      "trial": "Trap kills only. Use the map machinery through the short three-wave trial.",
+      "save": "Safe.",
+      "prep": [
+        "If the altar read is unclear, the pelt order has only twenty-four possible combinations."
+      ]
+    },
+    {
+      "id": "wrestlers-belt",
+      "name": "Wrestler's Belt",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Grim",
+      "difficulty": "Unknown",
+      "status": "pending",
+      "effect": "Relic behavior is not verified yet.",
+      "unlock": [
+        "No reliable recovery path is filed yet. Keep this slot marked pending until the trigger is confirmed."
+      ],
+      "portal": "Unknown.",
+      "trial": "Unknown.",
+      "save": "Unknown.",
+      "prep": [
+        "Leave unpublished routes out of the walkthrough until the discovery is reproducible."
+      ]
+    },
+    {
+      "id": "vril-sphere",
+      "name": "Vril Sphere",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Sinister",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "The perk limit drops to four unless another reward bypasses the cap.",
+      "unlock": [
+        "Reach round 40.",
+        "Damage a Doppelghast without killing it.",
+        "Lead it onto any jump pad and launch with it so the landing finishes the enemy."
+      ],
+      "portal": "Zarya Cosmodrome, high middle road while looking east.",
+      "trial": "Purchases are disabled during the arena. Waves 1, 3, and 4 build progress; waves 2 and 5 bring Mimic and Doppelghast HVT pressure.",
+      "save": "Safe before round 40.",
+      "prep": [
+        "Open doors, buy essentials, and craft equipment before entering.",
+        "A Pack-a-Punch III Necrofluid Gauntlet can carry most of the trial."
+      ]
+    },
+    {
+      "id": "samanthas-drawing",
+      "name": "Samantha's Drawing",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Sinister",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Your weapon is exchanged each round for a comparable rarity and Pack-a-Punch level.",
+      "unlock": [
+        "Before round 40, feed Chompy one weapon from each rarity tier from common through legendary.",
+        "On round 40 or later, place a Wonder Weapon into the Chompy bin.",
+        "Start with a grey pistol early so the lowest rarity is out of the way."
+      ],
+      "portal": "Zarya Cosmodrome, along the path toward Yuri's Lab.",
+      "trial": "Ammo Caches and Max Ammo drops are unavailable. Waves 1, 3, and 4 build progress; waves 2 and 5 can lean heavily on Doppelghast HVTs.",
+      "save": "Unsafe once Chompy progress has started.",
+      "prep": [
+        "Feed a grey pistol early so the lowest rarity is finished before the round climb.",
+        "Listen for the Chompy audio cue before committing a weapon.",
+        "Mule Kick ammo reserves make the trial more forgiving."
+      ]
+    },
+    {
+      "id": "focusing-stone",
+      "name": "Focusing Stone",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Sinister",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Self-revive kits are disabled.",
+      "unlock": [
+        "Reach round 40.",
+        "Kill a Zursa with a knife as the final hit and collect the wine bottle.",
+        "Complete a legendary TEDD task and collect the second bottle near the task reward.",
+        "Set both bottles at the Blackwater Lake wine bar, watch the burst order, then shoot the bottles in that order."
+      ],
+      "portal": "Zarya Cosmodrome, beneath the rocket while facing west.",
+      "trial": "Your essence is removed when the trial begins. Waves 1, 3, and 4 build progress; waves 2 and 5 can bring Doppelghast and Mimic HVTs.",
+      "save": "Safe before round 40.",
+      "prep": [
+        "Watch the bottle sequence immediately after placing them.",
+        "The second bottle can spawn near the TEDD reward rather than directly on it.",
+        "A Pack-a-Punch III Necrofluid Gauntlet keeps the no-essence trial simple."
+      ]
+    },
+    {
+      "id": "spider-fang",
+      "name": "Spider Fang",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Sinister",
+      "difficulty": "Hard",
+      "status": "",
+      "effect": "Perk prices stop falling over time.",
+      "unlock": [
+        "Keep the main quest untouched.",
+        "Use Wisp Tea so a wisp is active on OSCAR.",
+        "Land the final hit on OSCAR with melee while the wisp condition is active."
+      ],
+      "portal": "Archives of Orbis, opposite Stamin-Up.",
+      "trial": "All perks are stripped when the trial starts. Waves 1, 3, and 4 build progress; wave 2 can bring Uber Klaus, and wave 5 can bring OSCAR.",
+      "save": "Unsafe once OSCAR health setup is underway.",
+      "prep": [
+        "Use Wisp Tea augments that keep the wisp from killing normal zombies and extend its window.",
+        "Do not advance the main quest before attempting the OSCAR setup.",
+        "Use a legendary Pack-a-Punch III knife, with Idle Eyes, Insta-Kill, or Time Out ready for the final-hit window.",
+        "The Apogee Annihilator and War Machines help lower HVT health during the trial."
+      ]
+    },
+    {
+      "id": "matryoshka-doll",
+      "name": "Matryoshka Doll",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Sinister",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Salvage drops are cut down.",
+      "unlock": [
+        "Open the Mars portal before round 40 if possible.",
+        "On Mars, place C4 on the three meat piles around the lower center stage.",
+        "Train a large group onto the stage and detonate the C4 together."
+      ],
+      "portal": "Machina Astralis, by the Cryopod.",
+      "trial": "Kills only count while a Field Upgrade is active. Waves 1, 3, and 4 build progress; later HVT waves can include Uber Klaus and OSCAR.",
+      "save": "Safe after Mars is open and before round 40.",
+      "prep": [
+        "Aether Shroud and Frenzied Guard are the easiest Field Upgrade choices for the trial."
+      ]
+    },
+    {
+      "id": "summoning-key",
+      "name": "Summoning Key",
+      "map": "paradox",
+      "mapName": "Paradox Junction",
+      "tier": "Sinister",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "Enemies explode when killed, and the blast can hurt you.",
+      "unlock": [
+        "Throw a grenade into the broken chimney beside the Destroyed Nuketown clock and pick up the key.",
+        "On a dog round, use a grey or green Brain Rot pistol in the Yellow House backyard to turn a dog and recover the ball it digs up.",
+        "On round 40 or later, down yourself in the Green House backyard grave area, then place the collar and ball at the grave."
+      ],
+      "portal": "Yellow House, southwest outside wall.",
+      "trial": "Each wave has a timer; every enemy must die before time expires. Waves 1, 3, and 4 build progress, while waves 2 and 5 can mix Rad Hounds with Doppelghast HVTs.",
+      "save": "Unsafe after collecting the key.",
+      "prep": [
+        "Equivalent Exchange or Aftertaste can protect the intentional down.",
+        "A low-rarity Brain Rot pistol is less likely to kill the dog before it digs up the ball.",
+        "Ray Gun, Kazimirs, Free Throw, and War Machine pressure are excellent for timed clears."
+      ]
+    },
+    {
+      "id": "stuffed-elephant",
+      "name": "Stuffed Elephant",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Sinister",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "Health regeneration takes longer to begin.",
+      "unlock": [
+        "Reach round 40 without buying perks.",
+        "Perkaholic before the round counter appears may work, but do not rely on it for a clean run."
+      ],
+      "portal": "Fishery Island, southeast corner behind the eastern building.",
+      "trial": "Find cursed eggs, destroy them, and kill the HVT before the timer ends. Expect the objective to rotate through Necropincer, Doppelghast, Amalgam, and Zursa targets.",
+      "save": "Unsafe; complete the no-perk run in one session.",
+      "prep": [
+        "Look for eggs at Dry Dock, Storm Bridge near Tyr's Foot, south Skallen Market past Mule Kick, and the south side of the Lighthouse.",
+        "Toxic Growth and a high-tier Jotunn Star make the no-perk climb safer.",
+        "Fishery Island and Lighthouse holds are the cleanest no-perk grind spots."
+      ]
+    },
+    {
+      "id": "dancing-arnie",
+      "name": "Dancing Arnie",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Sinister",
+      "difficulty": "Easy",
+      "status": "",
+      "effect": "Perk machines become cursed and dispense random perks.",
+      "unlock": [
+        "Bring the recipe items to the Blodheim Hall firepit in order.",
+        "Collect the pot under the southwest Skallen Market food stand, ale near the Eidskallen Square to Fishery Island zipline porch, Chili Chunks from the crate behind the truck on the bridge, a Necropincer claw from a fire-trap kill, and a round-40 fish from the fishing rod.",
+        "After placing the ingredients, earn 100 melee kills near the firepit."
+      ],
+      "portal": "Fishery Island, northeast corner opposite the Mystery Box spot.",
+      "trial": "Melee kills only. Waves 1, 3, and 4 build progress; HVT waves can bring Necropincers first, then Necropincer and Zursa pressure later.",
+      "save": "Unsafe once the recipe chain begins.",
+      "prep": [
+        "Get the Chili Chunks from the bridge crate before the truck can create progression conflicts.",
+        "Melee Macchiato speed and backpedal augments help the trial flow.",
+        "Golden Armor and a Pack-a-Punch IV Jotunn Star make the melee-only trial much safer."
+      ]
+    },
+    {
+      "id": "bus",
+      "name": "Bus",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Wicked",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "Enemy health regenerates.",
+      "unlock": [
+        "Reach round 60.",
+        "Complete a full round without firing, meleeing, using equipment, or triggering PhD damage.",
+        "Trap kills are the safest route, especially on a Ravager round."
+      ],
+      "portal": "Blackwater Lake, north side of the boathouse.",
+      "trial": "Only Brain-Rotted allies can damage enemies. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.",
+      "save": "Safe before round 60.",
+      "prep": [
+        "Use Vandorn Farm and Rabbit Alley sawblade traps for the unlock, especially on a Ravager round.",
+        "Avoid weapon fire, melee, equipment, and PhD damage during the no-action round.",
+        "Brain Rot augments that improve area damage and trigger rate speed up the trial."
+      ]
+    },
+    {
+      "id": "dragon",
+      "name": "Dragon",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Wicked",
+      "difficulty": "Hard",
+      "status": "",
+      "effect": "Ammo crates are disabled.",
+      "unlock": [
+        "Reach round 60 or later, then complete the Cursed boss fight."
+      ],
+      "portal": "Blackwater Lake, southeast wall of the south cabin.",
+      "trial": "Explosive damage only. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.",
+      "save": "Safe before round 60.",
+      "prep": [
+        "Build perks early and try to make Quick Revive permanent.",
+        "For the boss, bring Kazimirs or Monkeys so Tessie repairs do not spiral.",
+        "PhD Flopper protection, Ray Gun, Kazimirs, and War Machines are the trial core."
+      ]
+    },
+    {
+      "id": "blood-vials",
+      "name": "Blood Vials",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "tier": "Wicked",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "All augments are disabled.",
+      "unlock": [
+        "On rounds 20, 30, 40, 50, and 60, locate a ringing phone and answer it before ending the round.",
+        "Possible phones include Janus Towers server room, Zarya control room, Blackwater Lake tool shed, Vandorn Farm first floor, Ashwood market, Exit 115 service areas, and Lost Cabins."
+      ],
+      "portal": "Blackwater Lake, inside the cabin while facing west.",
+      "trial": "Weapon damage is reduced by half. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Zursa HVTs, with Mimics possible.",
+      "save": "Unsafe once the phone chain begins.",
+      "prep": [
+        "Hold several zombies on rounds 20, 30, 40, 50, and 60 while searching for the ringing phone.",
+        "Use jump-pad routes to listen across the map, and kill a held zombie periodically if the round is at risk of flipping.",
+        "Wonder Weapons and War Machines still handle the reduced-damage HVTs well."
+      ]
+    },
+    {
+      "id": "golden-spork",
+      "name": "Golden Spork",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Wicked",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "Incoming enemy damage is doubled.",
+      "unlock": [
+        "Open the Mars portal before round 60.",
+        "After round 60, gather a large Mars horde on the ritual-circle area.",
+        "Fire the Mangler Cannon at the portal and use decoys to keep the horde on the circle as the blast resolves."
+      ],
+      "portal": "Crash Site, north of Quick Revive on the wall right of the Gobblegum machine.",
+      "trial": "Only hip-fire damage counts. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Klaus, Mimic, Uber Klaus, and OSCAR HVT pressure.",
+      "save": "Safe after Mars is open and before round 60.",
+      "prep": [
+        "Carry several decoys for the Mangler Cannon setup.",
+        "Pack-a-Punch III LGM-1 and Ray Gun hip-fire well.",
+        "War Machines do not satisfy the hip-fire rule."
+      ]
+    },
+    {
+      "id": "civil-protector",
+      "name": "Civil Protector",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "tier": "Wicked",
+      "difficulty": "Medium",
+      "status": "",
+      "effect": "After enough eliminations, one perk is removed.",
+      "unlock": [
+        "Activate Tessie with Energy Mine and pull one zombie near the car.",
+        "Read the headlight flash code.",
+        "Use PhD Flopper under the matching chandeliers: front-left is above Crafting, front-right above Ammo Cache, back-left above the left Crash Site entrance, and back-right above the right Crash Site entrance by Speed Cola."
+      ],
+      "portal": "Crash Site, upper level by Quick Revive on the left wall before the left door.",
+      "trial": "Every zombie sprints. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Klaus, Mimic, Uber Klaus, and OSCAR HVT pressure.",
+      "save": "Safe before round 60.",
+      "prep": [
+        "Hold four or five zombies to read the Tessie headlight code calmly.",
+        "Idle Eyes or Time Out can make the chandelier step safer if the lobby is messy.",
+        "Stamin-Up speed augments and the Apogee Annihilator help keep distance."
+      ]
+    },
+    {
+      "id": "mangler-helmet",
+      "name": "Mangler Helmet",
+      "map": "paradox",
+      "mapName": "Paradox Junction",
+      "tier": "Wicked",
+      "difficulty": "Very Hard",
+      "status": "",
+      "effect": "The Arsenal is disabled.",
+      "unlock": [
+        "Do not run the Seed relic while setting this up.",
+        "Charge Mr. Peeks, then spin the Mystery Box in both Past and Destroyed Nuketown until the bunny appears.",
+        "Use the Field Upgrade, take each bunny, and place them on the matching Yellow House mailboxes.",
+        "On round 60 or later, recover the ultra knife from a mailbox and kill the HVT Mimic using only that knife."
+      ],
+      "portal": "Destroyed Nuketown, Green House balcony.",
+      "trial": "Survive six waves with reduced health and no armor. Waves 1, 2, 4, and 5 build progress; waves 3 and 6 can bring Doppelghast and Rad Hound HVTs.",
+      "save": "Safe before round 60, but the Mystery Box bunny steps must be repeated after a reload.",
+      "prep": [
+        "Ray Gun or Sundergat should stay in hand whenever possible.",
+        "Make Quick Revive with Dying Wish permanent before attempting the trial.",
+        "Extra health, Free Throw, Mask of Distraction, PhD slide movement, Kazimirs, and War Machines are all high-value safety tools."
+      ]
+    },
+    {
+      "id": "agarthan-device",
+      "name": "Agarthan Device",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Wicked",
+      "difficulty": "Medium-Hard",
+      "status": "",
+      "effect": "The map rotates a different zombie variant into each round.",
+      "unlock": [
+        "Play as Richtofen.",
+        "Use the RC-XD to open the Group 935 Genetic Lab uranium room and collect the walkie-talkie.",
+        "Use Tyr's travel system to recover Mr. Peeks from Ava's room and the helmet from the Urzikstan room near Strauss.",
+        "On round 15 or later, buy Melee Macchiato, melee the barrel to begin the Richtofen side sequence, then place the items on the chair once the dialogue opens the prompt."
+      ],
+      "portal": "Dry Dock, upper west wall opposite the zipline.",
+      "trial": "Enemies only count when killed indoors. Waves 1, 2, 4, and 5 build progress; later HVT waves can include Necropincers, Doppelghasts, and Zursa.",
+      "save": "Unsafe after the Richtofen side-quest setup is completed.",
+      "prep": [
+        "The portal can currently be opened early, but the trial still uses round-60 health.",
+        "Either hold upstairs Lighthouse with Toxic Growth or train patiently and pull HVTs indoors for the kill.",
+        "Free Throw, Mask of Distraction, PhD slide movement, and War Machines are strong safety tools."
+      ]
+    },
+    {
+      "id": "music-box",
+      "name": "Music Box",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "tier": "Wicked",
+      "difficulty": "Hard",
+      "status": "",
+      "effect": "Enemies only die to critical kills.",
+      "unlock": [
+        "Reach round 60.",
+        "Enter Tyr's Head and land five headshots within one minute.",
+        "For solo, stack zombies near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering the head."
+      ],
+      "portal": "Dry Dock, far west by the blocked staircase near Fjord Road.",
+      "trial": "Find the holdout circles and survive as the safe zone shrinks each wave. Early waves build progress; the final two waves are the cramped Necropincer-heavy finish.",
+      "save": "Safe before round 60.",
+      "prep": [
+        "For solo headshots, stack a horde near Skallen Market with decoys, then use Kill Joy and Idle Eyes before entering Tyr's Head.",
+        "Cache Back, Shields Up, Kill Joy, and Kazimirs smooth the later holdouts.",
+        "Save War Machine pressure for waves 5 and 6."
+      ]
+    }
+  ]
+}
