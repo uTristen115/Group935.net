@@ -1,25 +1,900 @@
 {
-  "generatedAt": "2026-05-27T14:31:54.198Z",
+  "generatedAt": "2026-05-27T14:47:52.087Z",
+  "games": [
+    {
+      "id": "waw",
+      "code": "WaW",
+      "title": "World at War",
+      "year": 2008,
+      "era": "Origins of Origins",
+      "mapCount": 4
+    },
+    {
+      "id": "bo1",
+      "code": "BO",
+      "title": "Black Ops",
+      "year": 2010,
+      "era": "The Aether Story Begins",
+      "mapCount": 7
+    },
+    {
+      "id": "bo2",
+      "code": "BO2",
+      "title": "Black Ops II",
+      "year": 2012,
+      "era": "Maxis vs. Richtofen",
+      "mapCount": 5
+    },
+    {
+      "id": "bo3",
+      "code": "BO3",
+      "title": "Black Ops III",
+      "year": 2015,
+      "era": "The Final Chapter",
+      "mapCount": 9
+    },
+    {
+      "id": "bo4",
+      "code": "BO4",
+      "title": "Black Ops 4",
+      "year": 2018,
+      "era": "The Chaos Divergence",
+      "mapCount": 8
+    },
+    {
+      "id": "cw",
+      "code": "CW",
+      "title": "Cold War",
+      "year": 2020,
+      "era": "The Dark Aether",
+      "mapCount": 5
+    },
+    {
+      "id": "bo6",
+      "code": "BO6",
+      "title": "Black Ops 6",
+      "year": 2024,
+      "era": "Pact with the Dark",
+      "mapCount": 6
+    },
+    {
+      "id": "bo7",
+      "code": "BO7",
+      "title": "Black Ops 7",
+      "year": 2025,
+      "era": "Relics & Rift Walkers",
+      "mapCount": 4
+    }
+  ],
   "maps": [
+    {
+      "id": "nacht",
+      "name": "Nacht der Untoten",
+      "game": "waw",
+      "gameTitle": "World at War",
+      "location": "Unknown bunker, 1945",
+      "difficulty": 1,
+      "eeCount": 0,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "classic",
+        "survival",
+        "origin"
+      ]
+    },
+    {
+      "id": "verruckt",
+      "name": "Verrückt",
+      "game": "waw",
+      "gameTitle": "World at War",
+      "location": "Wittenau Sanatorium, Berlin, 1945",
+      "difficulty": 2,
+      "eeCount": 0,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "classic",
+        "perks",
+        "lore"
+      ]
+    },
+    {
+      "id": "shino",
+      "name": "Shi No Numa",
+      "game": "waw",
+      "gameTitle": "World at War",
+      "location": "Rising Sun Facility, Imperial Japan",
+      "difficulty": 2,
+      "eeCount": 0,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "classic",
+        "crew-debut",
+        "hellhounds"
+      ]
+    },
+    {
+      "id": "derriese",
+      "name": "Der Riese",
+      "game": "waw",
+      "gameTitle": "World at War",
+      "location": "Group 935 main facility, Breslau",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "classic",
+        "teleporter",
+        "pack-a-punch"
+      ]
+    },
+    {
+      "id": "kino",
+      "name": "Kino der Toten",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "Abandoned cinema, East Germany, 1960s",
+      "difficulty": 2,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "classic",
+        "teleporter",
+        "samantha"
+      ]
+    },
+    {
+      "id": "five",
+      "name": "Five",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "The Pentagon, Washington D.C., 1963",
+      "difficulty": 3,
+      "eeCount": 0,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "pentagon",
+        "classic",
+        "defcon"
+      ]
+    },
+    {
+      "id": "ascension",
+      "name": "Ascension",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "Soviet cosmodrome, 1963",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "perks",
+        "space-monkeys",
+        "wonder-grenade"
+      ]
+    },
+    {
+      "id": "callofthedead",
+      "name": "Call of the Dead",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "Siberian coast, 2011",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "celebrity-crew",
+        "siberia",
+        "vril"
+      ]
+    },
+    {
+      "id": "shangri",
+      "name": "Shangri-La",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "Himalayan jungle temple",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "temple",
+        "vril",
+        "time-loop"
+      ]
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "game": "bo1",
+      "gameTitle": "Black Ops",
+      "location": "Griffin Station, lunar far side",
+      "difficulty": 5,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "endgame",
+        "space",
+        "great-leap"
+      ]
+    },
+    {
+      "id": "tranzit",
+      "name": "TranZit",
+      "game": "bo2",
+      "gameTitle": "Black Ops II",
+      "location": "Hanford, Washington, post-Moon Earth",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "victis",
+        "bus-route",
+        "tower"
+      ]
+    },
+    {
+      "id": "dierise",
+      "name": "Die Rise",
+      "game": "bo2",
+      "gameTitle": "Black Ops II",
+      "location": "Shanghai, post-Moon Earth",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "victis",
+        "vertical",
+        "tower"
+      ]
+    },
+    {
+      "id": "mob",
+      "name": "Mob of the Dead",
+      "game": "bo2",
+      "gameTitle": "Black Ops II",
+      "location": "Alcatraz Island, 1933",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "purgatory",
+        "acidgat",
+        "noir"
+      ]
+    },
+    {
+      "id": "buried",
+      "name": "Buried",
+      "game": "bo2",
+      "gameTitle": "Black Ops II",
+      "location": "Angolan mine, post-Moon Earth",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "victis",
+        "western",
+        "final-tower"
+      ]
+    },
+    {
+      "id": "origins",
+      "name": "Origins",
+      "game": "bo2",
+      "gameTitle": "Black Ops II",
+      "location": "Excavation Site 64, Northern France",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "primis",
+        "elemental-staves",
+        "time-loop"
+      ]
+    },
+    {
+      "id": "shadows",
+      "name": "Shadows of Evil",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "Morg City, 1940s",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "noir",
+        "apothicons",
+        "gobblegums"
+      ]
+    },
+    {
+      "id": "thegiant",
+      "name": "The Giant",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "Group 935 facility, 1945",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "primis",
+        "factory",
+        "teleporter"
+      ]
+    },
+    {
+      "id": "eisendrache",
+      "name": "Der Eisendrache",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "Austrian mountain castle, 1945",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "castle",
+        "bows",
+        "primis"
+      ]
+    },
+    {
+      "id": "zetsubou",
+      "name": "Zetsubou No Shima",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "Pohnpei Island, Pacific theater",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "primis",
+        "division-9",
+        "swamp"
+      ]
+    },
+    {
+      "id": "gorod",
+      "name": "Gorod Krovi",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "Stalingrad, 1945",
+      "difficulty": 5,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "primis",
+        "dragons",
+        "stalingrad"
+      ]
+    },
+    {
+      "id": "revelations",
+      "name": "Revelations",
+      "game": "bo3",
+      "gameTitle": "Black Ops III",
+      "location": "The Aether",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "endgame",
+        "patchwork",
+        "cycle"
+      ]
+    },
+    {
+      "id": "ix",
+      "name": "IX",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "Roman coliseum, Chaos timeline",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "chaos",
+        "arena",
+        "trials"
+      ]
+    },
+    {
+      "id": "voyage",
+      "name": "Voyage of Despair",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "RMS Titanic, 1912",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "chaos",
+        "titanic",
+        "sentinel"
+      ]
+    },
+    {
+      "id": "blood",
+      "name": "Blood of the Dead",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "Alcatraz pocket dimension",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "primis",
+        "alcatraz",
+        "cycle"
+      ]
+    },
+    {
+      "id": "dotn",
+      "name": "Dead of the Night",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "Rhodes estate, England",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "chaos",
+        "manor",
+        "occult"
+      ]
+    },
+    {
+      "id": "ancientevil",
+      "name": "Ancient Evil",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "Delphi, Greece",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "chaos",
+        "delphi",
+        "gauntlets"
+      ]
+    },
+    {
+      "id": "tag",
+      "name": "Tag der Toten",
+      "game": "bo4",
+      "gameTitle": "Black Ops 4",
+      "location": "Siberian facility",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "aether",
+        "siberia",
+        "finale"
+      ]
+    },
+    {
+      "id": "diemaschine",
+      "name": "Die Maschine",
+      "game": "cw",
+      "gameTitle": "Cold War",
+      "location": "Projekt Endstation, Morasko, 1984",
+      "difficulty": 2,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "dark-aether",
+        "requiem",
+        "reboot"
+      ]
+    },
+    {
+      "id": "firebase",
+      "name": "Firebase Z",
+      "game": "cw",
+      "gameTitle": "Cold War",
+      "location": "Outpost 25, Vietnam, 1984",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "dark-aether",
+        "mimics",
+        "peck"
+      ]
+    },
+    {
+      "id": "mauer",
+      "name": "Mauer der Toten",
+      "game": "cw",
+      "gameTitle": "Cold War",
+      "location": "East Berlin, 1984",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "dark-aether",
+        "klaus",
+        "urban"
+      ]
+    },
+    {
+      "id": "forsaken",
+      "name": "Forsaken",
+      "game": "cw",
+      "gameTitle": "Cold War",
+      "location": "Ural Mountains, 1984",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "dark-aether",
+        "finale",
+        "elder"
+      ]
+    },
+    {
+      "id": "terminus",
+      "name": "Terminus",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "Atlantic prison facility, 1991",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "terminus",
+        "maya"
+      ]
+    },
+    {
+      "id": "liberty",
+      "name": "Liberty Falls",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "West Virginia, 1991",
+      "difficulty": 2,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "small-town",
+        "richtofen"
+      ]
+    },
+    {
+      "id": "citadelle",
+      "name": "Citadelle des Morts",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "Alsace, 1991",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "castle",
+        "elemental-swords"
+      ]
+    },
+    {
+      "id": "tomb",
+      "name": "The Tomb",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "Eastern Europe, 1991",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "underground",
+        "staff"
+      ]
+    },
+    {
+      "id": "shatteredveil",
+      "name": "Shattered Veil",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "Liberty Falls perimeter, 1991",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "mansion",
+        "breach"
+      ]
+    },
+    {
+      "id": "reckoning",
+      "name": "The Reckoning",
+      "game": "bo6",
+      "gameTitle": "Black Ops 6",
+      "location": "Janus facility, 1991",
+      "difficulty": 5,
+      "eeCount": 1,
+      "relicCount": 0,
+      "summary": "",
+      "tags": [
+        "bo6",
+        "facility",
+        "finale"
+      ]
+    },
     {
       "id": "ashes",
       "name": "Ashes of the Damned",
-      "relicCount": 9
+      "game": "bo7",
+      "gameTitle": "Black Ops 7",
+      "location": "Dark Aether construct",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 9,
+      "summary": "",
+      "tags": [
+        "bo7",
+        "dark-aether",
+        "relics"
+      ]
     },
     {
       "id": "astra",
       "name": "Astra Malorum",
-      "relicCount": 6
+      "game": "bo7",
+      "gameTitle": "Black Ops 7",
+      "location": "Mountaintop research site",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "bo7",
+        "relics",
+        "observatory"
+      ]
     },
     {
       "id": "paradox",
       "name": "Paradox Junction",
-      "relicCount": 3
+      "game": "bo7",
+      "gameTitle": "Black Ops 7",
+      "location": "Liminal transit hub",
+      "difficulty": 3,
+      "eeCount": 1,
+      "relicCount": 3,
+      "summary": "",
+      "tags": [
+        "bo7",
+        "relics",
+        "liminal"
+      ]
     },
     {
       "id": "totenreich",
       "name": "Totenreich",
-      "relicCount": 6
+      "game": "bo7",
+      "gameTitle": "Black Ops 7",
+      "location": "Aetheric reconstruction",
+      "difficulty": 4,
+      "eeCount": 1,
+      "relicCount": 6,
+      "summary": "",
+      "tags": [
+        "bo7",
+        "relics",
+        "finale-hint"
+      ]
+    }
+  ],
+  "easterEggs": [
+    {
+      "id": "ascension-casimir-mechanism",
+      "title": "Casimir Mechanism",
+      "map": "ascension",
+      "mapName": "Ascension",
+      "gameTitle": "Black Ops",
+      "era": "classic",
+      "summary": "Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device.",
+      "requirements": [
+        "4 players",
+        "2x Pack-a-Punched Ray Gun or Ray Gun Mark II (BO3)",
+        "Thundergun",
+        "Matryoshka Dolls",
+        "Gersh Devices"
+      ],
+      "stepCount": 6
+    },
+    {
+      "id": "call-of-the-dead-ensemble-cast",
+      "title": "Ensemble Cast",
+      "map": "callofthedead",
+      "mapName": "Call of the Dead",
+      "gameTitle": "Black Ops",
+      "era": "classic",
+      "summary": "Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal, and sending the Vril Device through the vault tube.",
+      "requirements": [
+        "Power turned on",
+        "Path to PhD Flopper open",
+        "Semtex or other explosives",
+        "V-R11 from the Mystery Box"
+      ],
+      "stepCount": 10
+    },
+    {
+      "id": "shangri-time-travel-will-tell",
+      "title": "Time Travel Will Tell",
+      "map": "shangri",
+      "mapName": "Shangri-La",
+      "gameTitle": "Black Ops",
+      "era": "classic",
+      "summary": "Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the Pack-a-Punch shrine.",
+      "requirements": [
+        "4 players from start to finish",
+        "Power on and all doors open",
+        "31-79 JGb215, upgraded to The Fractalizer for the crystal and meteor steps",
+        "Spikemores in Black Ops or Trip Mines in Zombies Chronicles",
+        "A live Napalm Zombie for the gas step"
+      ],
+      "stepCount": 13
+    },
+    {
+      "id": "shattered-veil-main-quest",
+      "title": "Shattered Veil Main Quest",
+      "map": "shatteredveil",
+      "mapName": "Shattered Veil",
+      "gameTitle": "Black Ops 6",
+      "era": "classic",
+      "summary": "Open the mansion, secure the Ray Gun Mark II, build the W, R, and P variants, clear the three liminal painting trials, return the Sentinel Artifact to S.A.M., and defeat the Z-Rex.",
+      "requirements": [
+        "Power + Pack-a-Punch",
+        "Ray Gun Mark II",
+        "Three Empty Canisters",
+        "Ray Gun Mark II-W",
+        "Ray Gun Mark II-R",
+        "Ray Gun Mark II-P",
+        "Aether Shroud recommended",
+        "Boss-ready loadout"
+      ],
+      "stepCount": 11
+    },
+    {
+      "id": "reckoning-main-quest",
+      "title": "The Reckoning Main Quest",
+      "map": "reckoning",
+      "mapName": "The Reckoning",
+      "gameTitle": "Black Ops 6",
+      "era": "classic",
+      "summary": "Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake Franken-Klaus, power the portal, and choose the final S.A.M. or Richtofen path.",
+      "requirements": [
+        "Power + Pack-a-Punch",
+        "Gorgofex Wonder Weapon",
+        "Melee Macchiato",
+        "Explosive lethal",
+        "Two Klaus arms from special rounds",
+        "Boss-ready loadout"
+      ],
+      "stepCount": 12
+    },
+    {
+      "id": "ashes-main-quest",
+      "title": "Ashes of the Damned Main Quest",
+      "map": "ashes",
+      "mapName": "Ashes of the Damned",
+      "gameTitle": "Black Ops 7",
+      "era": "bo7",
+      "summary": "Repair Ol' Tessie, install Pack-a-Punch, build the Necrofluid Gauntlet, brew the serum, unlock the Ashwood prism, clear the four area puzzles, collect the final wisps, and defeat Veytharion.",
+      "requirements": [
+        "Ol' Tessie active",
+        "Pack-a-Punch installed",
+        "Abomination Beam installed",
+        "Necrofluid Gauntlet built"
+      ],
+      "stepCount": 22
+    },
+    {
+      "id": "astra-main-quest",
+      "title": "Astra Malorum Main Quest",
+      "map": "astra",
+      "mapName": "Astra Malorum",
+      "gameTitle": "Black Ops 7",
+      "era": "bo7",
+      "summary": "Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.",
+      "requirements": [
+        "Power restored",
+        "Pack-a-Punch open",
+        "Hacksaw collected",
+        "LGM-1 Wonder Weapon acquired"
+      ],
+      "stepCount": 17
+    },
+    {
+      "id": "paradox-main-quest",
+      "title": "Paradox Junction Main Quest",
+      "map": "paradox",
+      "mapName": "Paradox Junction",
+      "gameTitle": "Black Ops 7",
+      "era": "bo7",
+      "summary": "Open Pack-a-Punch across both timelines, build the Blundergat, upgrade it into the Sundergat, restore the Twins through the swing, fireplace, music box, piano, cymbals, and golden-note routes, then destroy the Dark Heart.",
+      "requirements": [
+        "Pack-a-Punch open",
+        "Blundergat crafted",
+        "Sundergat upgraded",
+        "Wisp Tea and Death Perception available",
+        "Combat Axe, Molotov, and Brain Rot or Psych Grenade ready"
+      ],
+      "stepCount": 22
+    },
+    {
+      "id": "totenreich-main-quest",
+      "title": "Totenreich Main Quest",
+      "map": "totenreich",
+      "mapName": "Totenreich",
+      "gameTitle": "Black Ops 7",
+      "era": "bo7",
+      "summary": "Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.",
+      "requirements": [
+        "Power restored",
+        "Pack-a-Punch open",
+        "Jotun Star built"
+      ],
+      "stepCount": 11
+    },
+    {
+      "id": "moon-big-bang-theory",
+      "title": "Cryogenic Slumber Party / Big Bang Theory",
+      "map": "moon",
+      "mapName": "Moon",
+      "gameTitle": "Black Ops",
+      "era": "bo7",
+      "summary": "Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap Richtofen and Samantha, then arm the rockets that strike Earth.",
+      "requirements": [
+        "Power on",
+        "Hacker",
+        "Wave Gun",
+        "QED",
+        "Gersh Device",
+        "Excavator Pi must breach Tunnel 6",
+        "Richtofen needs the Golden Rod and Focusing Stone for the full Big Bang Theory path"
+      ],
+      "stepCount": 10
     }
   ],
   "relics": [

@@ -17,16 +17,22 @@ $dataSource = if (Test-Path -LiteralPath $dataSourcePath) { Get-Content -Raw -Li
 $seoData = if (Test-Path -LiteralPath $seoDataPath) { Get-Content -Raw -LiteralPath $seoDataPath | ConvertFrom-Json } else { $null }
 $script:SeoRelicsById = @{}
 $script:SeoMapsById = @{}
+$script:SeoGames = @()
+$script:SeoMaps = @()
+$script:SeoEasterEggs = @()
 if ($seoData -and $seoData.relics) {
   foreach ($relic in $seoData.relics) {
     if ($relic.id) { $script:SeoRelicsById[[string]$relic.id] = $relic }
   }
 }
 if ($seoData -and $seoData.maps) {
+  $script:SeoMaps = @($seoData.maps)
   foreach ($map in $seoData.maps) {
     if ($map.id) { $script:SeoMapsById[[string]$map.id] = $map }
   }
 }
+if ($seoData -and $seoData.games) { $script:SeoGames = @($seoData.games) }
+if ($seoData -and $seoData.easterEggs) { $script:SeoEasterEggs = @($seoData.easterEggs) }
 $dataBundleName = 'data.js'
 $appBundleName = 'app.js'
 if (Test-Path -LiteralPath $manifestPath) {
@@ -109,6 +115,7 @@ function Get-CanonicalRoute {
 
   if ($Route -eq '/relics') { return '/black-ops-7-relics' }
   if ($Route -match '^/relics/([^/]+)$') { return '/black-ops-7-relics/' + $Matches[1] }
+  if ($Route -eq '/call-of-duty-zombies') { return '/cod-zombies' }
   return $Route
 }
 
@@ -134,6 +141,132 @@ function Get-RelicLabel {
 
   if ($Name -match '(?i)\brelic$') { return $Name }
   return $Name + ' Relic'
+}
+
+function Get-EasterEggUrl {
+  param(
+    [string]$Id,
+    [string]$SiteUrl
+  )
+
+  return Get-PublicUrl -Route ('/easter-eggs/' + $Id) -SiteUrl $SiteUrl
+}
+
+function Get-TopicItems {
+  param(
+    [string]$Kind,
+    [string]$SiteUrl
+  )
+
+  switch ($Kind) {
+    'easter-eggs' {
+      return @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | Select-Object -First 28 | ForEach-Object {
+        @{
+          '@type' = 'ListItem'
+          position = 0
+          name = [string]$_.title
+          description = [string]$_.summary
+          url = Get-EasterEggUrl -Id ([string]$_.id) -SiteUrl $SiteUrl
+        }
+      })
+    }
+    'maps' {
+      return @($script:SeoMaps | Sort-Object gameTitle, name | Select-Object -First 30 | ForEach-Object {
+        @{
+          '@type' = 'ListItem'
+          position = 0
+          name = [string]$_.name
+          description = ([string]$_.gameTitle) + ' Zombies map'
+          url = Get-PublicUrl -Route ('/maps/' + [string]$_.id) -SiteUrl $SiteUrl
+        }
+      })
+    }
+    default { return @() }
+  }
+}
+
+function Get-TopicConfig {
+  param([string]$Route)
+
+  $canonicalRoute = Get-CanonicalRoute $Route
+  switch ($canonicalRoute) {
+    '/zombies-easter-eggs' {
+      return @{
+        Key = 'zombies-easter-eggs'
+        Title = 'Zombies Easter Eggs | Main Quest Guides and Story Archives | Group 935'
+        Description = 'Browse Zombies Easter eggs, main quest guides, map tutorials, rewards, requirements, and story archives for Treyarch and Black Ops Zombies.'
+        H1 = 'Zombies Easter Eggs'
+        Intro = 'A focused archive for Zombies Easter eggs, main quests, rewards, map objectives, story steps, and related Treyarch Zombies files.'
+        Kind = 'easter-eggs'
+        Links = @(
+          @{ Label = 'Zombies Easter Egg Tutorials'; Href = '/zombies-easter-egg-tutorials/'; Text = 'Step-by-step main quest tutorials and setup notes.' },
+          @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'BO7 relic effects, unlocks, portals, and trials.' },
+          @{ Label = 'Zombies Maps'; Href = '/maps/'; Text = 'Map files with Easter egg counts, songs, locations, and images.' }
+        )
+      }
+    }
+    '/zombies-easter-egg-tutorials' {
+      return @{
+        Key = 'zombies-easter-egg-tutorials'
+        Title = 'Zombies Easter Egg Tutorials | Main Quest Walkthroughs | Group 935'
+        Description = 'Step-by-step Zombies Easter egg tutorials with setup requirements, main quest walkthroughs, reward notes, boss prep, and map links.'
+        H1 = 'Zombies Easter Egg Tutorials'
+        Intro = 'Tutorial-focused Zombies Easter egg pages built for players looking for main quest steps, setup requirements, boss prep, and reward notes.'
+        Kind = 'easter-eggs'
+        Links = @(
+          @{ Label = 'Zombies Easter Eggs'; Href = '/zombies-easter-eggs/'; Text = 'Browse the wider Easter egg archive.' },
+          @{ Label = 'Call of Duty Zombies'; Href = '/cod-zombies/'; Text = 'COD Zombies maps, guides, relics, perks, and story files.' },
+          @{ Label = 'Black Ops Zombies'; Href = '/black-ops-zombies/'; Text = 'Black Ops era maps and Treyarch Zombies guides.' }
+        )
+      }
+    }
+    '/cod-zombies' {
+      return @{
+        Key = 'cod-zombies'
+        Title = 'Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935'
+        Description = 'COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore.'
+        H1 = 'Call of Duty Zombies Guides'
+        Intro = 'A Call of Duty Zombies archive for players searching COD Zombies Easter eggs, Black Ops Zombies maps, relic tutorials, perks, wonder weapons, songs, characters, and lore.'
+        Kind = 'maps'
+        Links = @(
+          @{ Label = 'Zombies Easter Eggs'; Href = '/zombies-easter-eggs/'; Text = 'Main quest guides and Easter egg archive pages.' },
+          @{ Label = 'Black Ops Zombies'; Href = '/black-ops-zombies/'; Text = 'Black Ops and Treyarch Zombies map archive.' },
+          @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'BO7 Zombies relic unlocks, effects, portals, and trials.' }
+        )
+      }
+    }
+    '/black-ops-zombies' {
+      return @{
+        Key = 'black-ops-zombies'
+        Title = 'Black Ops Zombies Guides | Treyarch Maps, Easter Eggs, Relics | Group 935'
+        Description = 'Black Ops Zombies guides for Treyarch maps, Easter eggs, BO7 relic tutorials, perks, wonder weapons, songs, crews, and story files.'
+        H1 = 'Black Ops Zombies Guides'
+        Intro = 'A Black Ops Zombies archive covering Treyarch maps, main quest Easter eggs, Black Ops 7 relics, wonder weapons, perks, songs, crews, and story notes.'
+        Kind = 'maps'
+        Links = @(
+          @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'Relic effects, unlock requirements, trials, and save notes.' },
+          @{ Label = 'Zombies Easter Egg Tutorials'; Href = '/zombies-easter-egg-tutorials/'; Text = 'Step-by-step main quest walkthroughs.' },
+          @{ Label = 'Treyarch Zombies'; Href = '/treyarch-zombies/'; Text = 'The full Treyarch Zombies archive path.' }
+        )
+      }
+    }
+    '/treyarch-zombies' {
+      return @{
+        Key = 'treyarch-zombies'
+        Title = 'Treyarch Zombies Archive | Maps, Easter Eggs, Relics | Group 935'
+        Description = 'Treyarch Zombies archive with map guides, Easter egg tutorials, Black Ops Zombies lore, BO7 relics, wonder weapons, perks, and songs.'
+        H1 = 'Treyarch Zombies Archive'
+        Intro = 'An archive built around Treyarch Zombies: World at War, Black Ops, Dark Aether, Black Ops 7 relics, Easter eggs, maps, weapons, perks, songs, and story threads.'
+        Kind = 'maps'
+        Links = @(
+          @{ Label = 'Call of Duty Zombies'; Href = '/cod-zombies/'; Text = 'Broad COD Zombies guide hub.' },
+          @{ Label = 'Black Ops Zombies'; Href = '/black-ops-zombies/'; Text = 'Black Ops map and Easter egg focus.' },
+          @{ Label = 'Zombies Easter Eggs'; Href = '/zombies-easter-eggs/'; Text = 'Main quest and Easter egg guide hub.' }
+        )
+      }
+    }
+    default { return $null }
+  }
 }
 
 function Limit-Text {
@@ -171,6 +304,45 @@ function Get-RouteJsonLd {
   $breadcrumbItems = @(
     @{ '@type' = 'ListItem'; position = 1; name = 'Group 935'; item = $base + '/' }
   )
+
+  $topic = Get-TopicConfig $canonicalRoute
+  if ($topic) {
+    $breadcrumbItems += @{ '@type' = 'ListItem'; position = 2; name = [string]$topic.H1; item = $Url }
+    $items = Get-TopicItems -Kind ([string]$topic.Kind) -SiteUrl $SiteUrl
+    $position = 1
+    foreach ($item in $items) {
+      $item.position = $position
+      $position += 1
+    }
+    return ConvertTo-JsonLd @{
+      '@context' = 'https://schema.org'
+      '@graph' = @(
+        @{
+          '@type' = 'WebPage'
+          '@id' = $Url + '#webpage'
+          url = $Url
+          name = $Title
+          description = $Description
+          isPartOf = @{ '@id' = $base + '/#website' }
+          about = @('Zombies Easter eggs', 'COD Zombies', 'Black Ops Zombies', 'Treyarch Zombies')
+          inLanguage = 'en-US'
+        },
+        @{
+          '@type' = 'BreadcrumbList'
+          '@id' = $Url + '#breadcrumbs'
+          itemListElement = $breadcrumbItems
+        },
+        @{
+          '@type' = 'ItemList'
+          '@id' = $Url + '#featured-list'
+          name = [string]$topic.H1
+          description = [string]$topic.Description
+          numberOfItems = $items.Count
+          itemListElement = $items
+        }
+      )
+    }
+  }
 
   if ($canonicalRoute -match '^/black-ops-7-relics(?:/([^/]+))?$') {
     $breadcrumbItems += @{ '@type' = 'ListItem'; position = 2; name = 'Black Ops 7 Relics'; item = Get-PublicUrl -Route '/black-ops-7-relics' -SiteUrl $SiteUrl }
@@ -256,6 +428,45 @@ function Get-StaticSeoHtml {
   )
 
   $canonicalRoute = Get-CanonicalRoute $Route
+  $topic = Get-TopicConfig $canonicalRoute
+  if ($topic) {
+    $items = @()
+    if ($topic.Kind -eq 'easter-eggs') {
+      foreach ($ee in $script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | Select-Object -First 28) {
+        $href = '/easter-eggs/' + [string]$ee.id + '/'
+        $label = Escape-Html ([string]$ee.title)
+        $mapName = Escape-Html ([string]$ee.mapName)
+        $gameTitle = Escape-Html ([string]$ee.gameTitle)
+        $summary = Escape-Html ([string]$ee.summary)
+        $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $mapName + ' (' + $gameTitle + '). ' + $summary + '</li>'
+      }
+    } else {
+      foreach ($map in $script:SeoMaps | Sort-Object gameTitle, name | Select-Object -First 30) {
+        $href = '/maps/' + [string]$map.id + '/'
+        $label = Escape-Html ([string]$map.name)
+        $gameTitle = Escape-Html ([string]$map.gameTitle)
+        $details = Escape-Html (([string]$map.eeCount) + ' Easter egg file(s), ' + ([string]$map.relicCount) + ' relic file(s)')
+        $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $gameTitle + '. ' + $details + '.</li>'
+      }
+    }
+    $linkItems = @()
+    foreach ($link in @($topic.Links)) {
+      $linkItems += '<li><a href="' + (Escape-Html ([string]$link.Href)) + '">' + (Escape-Html ([string]$link.Label)) + '</a> - ' + (Escape-Html ([string]$link.Text)) + '</li>'
+    }
+    return @(
+      '<h1>' + (Escape-Html ([string]$topic.H1)) + '</h1>',
+      '<p>' + (Escape-Html ([string]$topic.Intro)) + '</p>',
+      '<h2>Featured archive pages</h2>',
+      '<ul>',
+      ($linkItems -join ''),
+      '</ul>',
+      '<h2>Browse files</h2>',
+      '<ul>',
+      ($items -join ''),
+      '</ul>'
+    ) -join ''
+  }
+
   if ($canonicalRoute -eq '/black-ops-7-relics') {
     $items = @()
     foreach ($relic in $script:SeoRelicsById.Values | Sort-Object mapName, tier, name) {
@@ -392,6 +603,14 @@ function Get-RouteSeo {
     return @{
       Title = 'Black Ops 7 Zombies Maps and Relics | Group 935'
       Description = 'Black Ops 7 Zombies archive for relic tutorials, map Easter eggs, characters, perks, wonder weapons, songs, and Dark Aether story files.'
+      Url = $url
+    }
+  }
+  $topic = Get-TopicConfig $canonicalRoute
+  if ($topic) {
+    return @{
+      Title = [string]$topic.Title
+      Description = [string]$topic.Description
       Url = $url
     }
   }
@@ -561,6 +780,12 @@ $routes = @(
   '/maps',
   '/relics',
   '/black-ops-7-relics',
+  '/zombies-easter-eggs',
+  '/zombies-easter-egg-tutorials',
+  '/cod-zombies',
+  '/call-of-duty-zombies',
+  '/black-ops-zombies',
+  '/treyarch-zombies',
   '/perks'
 )
 
@@ -571,7 +796,7 @@ $routes += $perkIds | ForEach-Object { '/perks/' + $_ }
 $routes += ($classicEasterEggIds + $bo7EasterEggIds) | ForEach-Object { '/easter-eggs/' + $_ }
 
 $routes = $routes | Where-Object { $_ } | Select-Object -Unique
-$sitemapRoutes = $routes | Where-Object { $_ -notmatch '^/relics(/|$)' }
+$sitemapRoutes = $routes | Where-Object { $_ -notmatch '^/relics(/|$)' -and $_ -ne '/call-of-duty-zombies' }
 
 $rootSeo = Get-RouteSeo -Route '/' -SiteUrl $SiteUrl
 $rootHtml = Set-StaticSeo -Html $index -Title $rootSeo.Title -Description $rootSeo.Description -Url $rootSeo.Url -AssetBase './Images' -FontBase './Fonts' -AppBase './dist' -DataBundle $dataBundleName -AppBundle $appBundleName -RoutePath '' -SiteUrl $SiteUrl

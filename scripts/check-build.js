@@ -3,7 +3,22 @@ const path = require('path');
 const vm = require('vm');
 
 const root = path.resolve(__dirname, '..');
-const htmlRoots = ['index.html', '404.html', 'games', 'maps', 'perks', 'relics', 'black-ops-7-relics', 'easter-eggs'];
+const htmlRoots = [
+  'index.html',
+  '404.html',
+  'games',
+  'maps',
+  'perks',
+  'relics',
+  'black-ops-7-relics',
+  'zombies-easter-eggs',
+  'zombies-easter-egg-tutorials',
+  'cod-zombies',
+  'call-of-duty-zombies',
+  'black-ops-zombies',
+  'treyarch-zombies',
+  'easter-eggs',
+];
 const manifestPath = path.join(root, 'dist', 'asset-manifest.json');
 
 function readManifest() {
@@ -120,6 +135,40 @@ function assertRelicSeoRoutes() {
   }
 }
 
+function assertTopicSeoRoutes() {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const canonicalRoutes = [
+    'https://group935.net/zombies-easter-eggs/',
+    'https://group935.net/zombies-easter-egg-tutorials/',
+    'https://group935.net/cod-zombies/',
+    'https://group935.net/black-ops-zombies/',
+    'https://group935.net/treyarch-zombies/',
+  ];
+  for (const url of canonicalRoutes) {
+    if (!sitemap.includes(url)) throw new Error('Sitemap is missing topic route: ' + url);
+  }
+  if (sitemap.includes('https://group935.net/call-of-duty-zombies/')) {
+    throw new Error('Sitemap should list /cod-zombies/, not the call-of-duty-zombies alias.');
+  }
+  const checks = [
+    ['zombies-easter-eggs', 'Zombies Easter Eggs'],
+    ['zombies-easter-egg-tutorials', 'Zombies Easter Egg Tutorials'],
+    ['cod-zombies', 'Call of Duty Zombies'],
+    ['black-ops-zombies', 'Black Ops Zombies'],
+    ['treyarch-zombies', 'Treyarch Zombies'],
+  ];
+  for (const [dir, phrase] of checks) {
+    const html = fs.readFileSync(path.join(root, dir, 'index.html'), 'utf8');
+    if (!html.includes(phrase) || !html.includes('pap-route-jsonld')) {
+      throw new Error('Topic SEO route is missing static content or JSON-LD: ' + dir);
+    }
+  }
+  const alias = fs.readFileSync(path.join(root, 'call-of-duty-zombies', 'index.html'), 'utf8');
+  if (!alias.includes('https://group935.net/cod-zombies/')) {
+    throw new Error('/call-of-duty-zombies/ alias is not canonicalized to /cod-zombies/.');
+  }
+}
+
 function assertGeneratedShells(files, bundles) {
   const failures = [];
   for (const file of files) {
@@ -193,6 +242,7 @@ assertGeneratedShells(htmlFiles, bundles);
 const scriptCount = parseInlineScripts(htmlFiles);
 const jsonLdCount = parseJsonLd(htmlFiles);
 assertRelicSeoRoutes();
+assertTopicSeoRoutes();
 smokeSharedBundles(bundles);
 
 console.log('Build check passed: ' + htmlFiles.length + ' HTML files, ' + scriptCount + ' inline scripts, ' + jsonLdCount + ' JSON-LD blocks, shared bundle smoke.');

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935</title>
+<meta name="description" content="COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0a0908" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<link rel="canonical" href="https://group935.net/cod-zombies/" />
+<link rel="icon" type="image/png" href="../Images/Icons/Group935icon.png" />
+<link rel="apple-touch-icon" href="../Images/Icons/Group935icon.png" />
+<meta property="og:site_name" content="Group 935" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935" />
+<meta property="og:description" content="COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore." />
+<meta property="og:url" content="https://group935.net/cod-zombies/" />
+<meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935" />
+<meta name="twitter:description" content="COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore." />
+<meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Group 935",
+  "alternateName": ["Group935", "Group935.net", "Group 935 Archive"],
+  "url": "https://group935.net/",
+  "description": "A Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
+  "inLanguage": "en-US"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100%; background: #0a0908; }
+  body {
+    font-family: "IBM Plex Sans", "Inter", system-ui, sans-serif;
+    color: #e8e2d4;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  #root { min-height: 100vh; }
+  ::selection { background: #9aff6e; color: #0a0908; }
+
+  #boot {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px;
+    font-family: "IBM Plex Mono", monospace; color: #9aff6e; font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; background: #0a0908; z-index: 100; padding: 40px;
+  }
+  #boot .boot-line { display: flex; gap: 10px; align-items: center; }
+  #boot .boot-cur { display: inline-block; width: 8px; height: 14px; background: #9aff6e; animation: blink 1s steps(2) infinite; vertical-align: middle; }
+  #boot .boot-err {
+    color: #ef3a3a; font-size: 12px; letter-spacing: 1px; text-transform: none;
+    max-width: 760px; white-space: pre-wrap; word-break: break-word;
+    border: 1px solid #d62828; padding: 14px; background: rgba(214,40,40,0.08);
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  body.booted #boot { display: none; }
+  .seo-static-content {
+    max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
+    color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
+  }
+  .seo-static-content h1, .seo-static-content h2 { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: 0; }
+  .seo-static-content a { color: #9aff6e; }
+  body.booted .seo-static-content { display: none; }
+</style>
+<noscript><style>#boot{display:none}</style></noscript>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7Q90XFJQFF"></script>
+
+<script>
+  // Visible error surface: both runtime errors and unhandled rejections.
+  window.__bootErrors = [];
+  function __bootShow(label, err) {
+    const msg = err && (err.stack || err.message) || String(err);
+    window.__bootErrors.push({ label, msg });
+    const boot = document.getElementById('boot');
+    if (!boot) return;
+    let box = boot.querySelector('.boot-err');
+    if (!box) { box = document.createElement('div'); box.className = 'boot-err'; boot.appendChild(box); }
+    box.textContent = window.__bootErrors.map((e) => '[' + e.label + ']\n' + e.msg).join('\n\n');
+  }
+  window.addEventListener('error', (e) => __bootShow('runtime error', e.error || e.message));
+  window.addEventListener('unhandledrejection', (e) => __bootShow('promise rejection', e.reason));
+</script>
+<script>
+  window.G935_LOCAL_ASSET_BASE = '../Images';
+  window.G935_ASSET_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_ASSET_BASE : '/Images';
+  window.G935_LOCAL_FONT_BASE = '../Fonts';
+  window.G935_FONT_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_FONT_BASE : '/Fonts';
+  window.G935_LOCAL_APP_BASE = '../dist';
+  window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
+  window.G935_DATA_BUNDLE = 'data.173d7b7da65a.js';
+  window.G935_APP_BUNDLE = 'app.117c9edbd973.js';
+  window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
+  window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  if (window.G935_ANALYTICS_ENABLED) {
+    gtag('js', new Date());
+    gtag('config', window.G935_GA_MEASUREMENT_ID, { send_page_view: false });
+  }
+  window.G935_ROUTE_PATH = '/call-of-duty-zombies';
+  window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
+</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/cod-zombies/#webpage","@type":"WebPage","url":"https://group935.net/cod-zombies/","name":"Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935","description":"COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore.","inLanguage":"en-US","about":["Zombies Easter eggs","COD Zombies","Black Ops Zombies","Treyarch Zombies"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Call of Duty Zombies Guides","item":"https://group935.net/cod-zombies/","@type":"ListItem"}],"@id":"https://group935.net/cod-zombies/#breadcrumbs","@type":"BreadcrumbList"},{"name":"Call of Duty Zombies Guides","@id":"https://group935.net/cod-zombies/#featured-list","itemListElement":[{"url":"https://group935.net/maps/ascension/","description":"Black Ops Zombies map","@type":"ListItem","name":"Ascension","position":1},{"url":"https://group935.net/maps/callofthedead/","description":"Black Ops Zombies map","@type":"ListItem","name":"Call of the Dead","position":2},{"url":"https://group935.net/maps/five/","description":"Black Ops Zombies map","@type":"ListItem","name":"Five","position":3},{"url":"https://group935.net/maps/kino/","description":"Black Ops Zombies map","@type":"ListItem","name":"Kino der Toten","position":4},{"url":"https://group935.net/maps/moon/","description":"Black Ops Zombies map","@type":"ListItem","name":"Moon","position":5},{"url":"https://group935.net/maps/shangri/","description":"Black Ops Zombies map","@type":"ListItem","name":"Shangri-La","position":6},{"url":"https://group935.net/maps/ancientevil/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"Ancient Evil","position":7},{"url":"https://group935.net/maps/blood/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"Blood of the Dead","position":8},{"url":"https://group935.net/maps/dotn/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"Dead of the Night","position":9},{"url":"https://group935.net/maps/ix/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"IX","position":10},{"url":"https://group935.net/maps/tag/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"Tag der Toten","position":11},{"url":"https://group935.net/maps/voyage/","description":"Black Ops 4 Zombies map","@type":"ListItem","name":"Voyage of Despair","position":12},{"url":"https://group935.net/maps/citadelle/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"Citadelle des Morts","position":13},{"url":"https://group935.net/maps/liberty/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"Liberty Falls","position":14},{"url":"https://group935.net/maps/shatteredveil/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"Shattered Veil","position":15},{"url":"https://group935.net/maps/terminus/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"Terminus","position":16},{"url":"https://group935.net/maps/reckoning/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"The Reckoning","position":17},{"url":"https://group935.net/maps/tomb/","description":"Black Ops 6 Zombies map","@type":"ListItem","name":"The Tomb","position":18},{"url":"https://group935.net/maps/ashes/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Ashes of the Damned","position":19},{"url":"https://group935.net/maps/astra/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Astra Malorum","position":20},{"url":"https://group935.net/maps/paradox/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Paradox Junction","position":21},{"url":"https://group935.net/maps/totenreich/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Totenreich","position":22},{"url":"https://group935.net/maps/buried/","description":"Black Ops II Zombies map","@type":"ListItem","name":"Buried","position":23},{"url":"https://group935.net/maps/dierise/","description":"Black Ops II Zombies map","@type":"ListItem","name":"Die Rise","position":24},{"url":"https://group935.net/maps/mob/","description":"Black Ops II Zombies map","@type":"ListItem","name":"Mob of the Dead","position":25},{"url":"https://group935.net/maps/origins/","description":"Black Ops II Zombies map","@type":"ListItem","name":"Origins","position":26},{"url":"https://group935.net/maps/tranzit/","description":"Black Ops II Zombies map","@type":"ListItem","name":"TranZit","position":27},{"url":"https://group935.net/maps/eisendrache/","description":"Black Ops III Zombies map","@type":"ListItem","name":"Der Eisendrache","position":28},{"url":"https://group935.net/maps/gorod/","description":"Black Ops III Zombies map","@type":"ListItem","name":"Gorod Krovi","position":29},{"url":"https://group935.net/maps/revelations/","description":"Black Ops III Zombies map","@type":"ListItem","name":"Revelations","position":30}],"description":"COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore.","@type":"ItemList","numberOfItems":30}]}</script>
+</head>
+<body>
+<div id="boot">
+  <div class="boot-line">??? BOOTING GROUP 935 ARCHIVE<span class="boot-cur"></span></div>
+  <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
+</div>
+<div id="root"></div>
+<main id="seo-static-content" class="seo-static-content"><h1>Call of Duty Zombies Guides</h1> <p>A Call of Duty Zombies archive for players searching COD Zombies Easter eggs, Black Ops Zombies maps, relic tutorials, perks, wonder weapons, songs, characters, and lore.</p> <h2>Featured archive pages</h2> <ul> <li><a href="/zombies-easter-eggs/">Zombies Easter Eggs</a> - Main quest guides and Easter egg archive pages.</li><li><a href="/black-ops-zombies/">Black Ops Zombies</a> - Black Ops and Treyarch Zombies map archive.</li><li><a href="/black-ops-7-relics/">Black Ops 7 Relics</a> - BO7 Zombies relic unlocks, effects, portals, and trials.</li> </ul> <h2>Browse files</h2> <ul> <li><a href="/maps/ascension/">Ascension</a> - Black Ops. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/callofthedead/">Call of the Dead</a> - Black Ops. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/five/">Five</a> - Black Ops. 0 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/kino/">Kino der Toten</a> - Black Ops. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/moon/">Moon</a> - Black Ops. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/shangri/">Shangri-La</a> - Black Ops. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/ancientevil/">Ancient Evil</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/blood/">Blood of the Dead</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/dotn/">Dead of the Night</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/ix/">IX</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/tag/">Tag der Toten</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/voyage/">Voyage of Despair</a> - Black Ops 4. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/citadelle/">Citadelle des Morts</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/liberty/">Liberty Falls</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/shatteredveil/">Shattered Veil</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/terminus/">Terminus</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/reckoning/">The Reckoning</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/tomb/">The Tomb</a> - Black Ops 6. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/ashes/">Ashes of the Damned</a> - Black Ops 7. 1 Easter egg file(s), 9 relic file(s).</li><li><a href="/maps/astra/">Astra Malorum</a> - Black Ops 7. 1 Easter egg file(s), 6 relic file(s).</li><li><a href="/maps/paradox/">Paradox Junction</a> - Black Ops 7. 1 Easter egg file(s), 3 relic file(s).</li><li><a href="/maps/totenreich/">Totenreich</a> - Black Ops 7. 1 Easter egg file(s), 6 relic file(s).</li><li><a href="/maps/buried/">Buried</a> - Black Ops II. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/dierise/">Die Rise</a> - Black Ops II. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/mob/">Mob of the Dead</a> - Black Ops II. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/origins/">Origins</a> - Black Ops II. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/tranzit/">TranZit</a> - Black Ops II. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/eisendrache/">Der Eisendrache</a> - Black Ops III. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/gorod/">Gorod Krovi</a> - Black Ops III. 1 Easter egg file(s), 0 relic file(s).</li><li><a href="/maps/revelations/">Revelations</a> - Black Ops III. 1 Easter egg file(s), 0 relic file(s).</li> </ul></main>
+
+<!-- Shared runtime: load data first, then the compiled app bundle. -->
+<script>
+(function loadSharedDataAndApp() {
+  var base = (window.G935_APP_BASE || './dist').replace(/\/$/, '');
+  var dataBundle = window.G935_DATA_BUNDLE || 'data.js';
+  var appBundle = window.G935_APP_BUNDLE || 'app.js';
+  function loadScript(src, label, onload) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    script.onload = onload || null;
+    script.onerror = function () { __bootShow(label + ' load error', script.src); };
+    document.body.appendChild(script);
+  }
+  loadScript(base + '/' + dataBundle, 'data bundle', function () {
+    loadScript(base + '/' + appBundle, 'app bundle');
+  });
+})();
+</script>
+</body>
+</html>

@@ -4534,6 +4534,9 @@
     if (!parts.length) return { name: 'home' };
     const top = parts[0];
     const id = parts[1];
+    const topicRoutes = ['zombies-easter-eggs', 'zombies-easter-egg-tutorials', 'cod-zombies', 'black-ops-zombies', 'treyarch-zombies'];
+    if (top === 'call-of-duty-zombies') return { name: 'cod-zombies' };
+    if (topicRoutes.includes(top)) return { name: top };
     if (top === 'games') return id ? { name: 'game', id } : { name: 'games' };
     if (top === 'maps') return id ? { name: 'map', id } : { name: 'maps' };
     if (top === 'relics' || top === 'black-ops-7-relics' || top === 'bo7-relics') return id ? { name: 'relics', id } : { name: 'relics' };
@@ -4619,12 +4622,89 @@
     if (!relic || !relic.name) return 'Black Ops 7 Relic';
     return /\brelic$/i.test(relic.name) ? relic.name : relic.name + ' Relic';
   }
+  function seoTopicForRoute(name) {
+    const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []);
+    const topic = {
+      'zombies-easter-eggs': {
+        title: 'Zombies Easter Eggs | Main Quest Guides and Story Archives | Group 935',
+        description: 'Browse Zombies Easter eggs, main quest guides, map tutorials, rewards, requirements, and story archives for Treyarch and Black Ops Zombies.',
+        listName: 'Zombies Easter Eggs',
+        items: allEasterEggs.map((ee, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: ee.title,
+          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        })),
+      },
+      'zombies-easter-egg-tutorials': {
+        title: 'Zombies Easter Egg Tutorials | Main Quest Walkthroughs | Group 935',
+        description: 'Step-by-step Zombies Easter egg tutorials with setup requirements, main quest walkthroughs, reward notes, boss prep, and map links.',
+        listName: 'Zombies Easter Egg Tutorials',
+        items: allEasterEggs.map((ee, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: ee.title,
+          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        })),
+      },
+      'cod-zombies': {
+        title: 'Call of Duty Zombies Guides | Easter Eggs, Maps, Relics | Group 935',
+        description: 'COD Zombies guides for Easter eggs, Black Ops Zombies maps, BO7 relics, wonder weapons, perks, songs, characters, and lore.',
+        listName: 'Call of Duty Zombies Maps',
+        items: (ZD.maps || []).map((map, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: map.name,
+          url: seoRouteUrl({ name: 'map', id: map.id }),
+        })),
+      },
+      'black-ops-zombies': {
+        title: 'Black Ops Zombies Guides | Treyarch Maps, Easter Eggs, Relics | Group 935',
+        description: 'Black Ops Zombies guides for Treyarch maps, Easter eggs, BO7 relic tutorials, perks, wonder weapons, songs, crews, and story files.',
+        listName: 'Black Ops Zombies Guides',
+        items: (ZD.maps || []).filter((map) => /^bo|^cw$/.test(map.game)).map((map, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: map.name,
+          url: seoRouteUrl({ name: 'map', id: map.id }),
+        })),
+      },
+      'treyarch-zombies': {
+        title: 'Treyarch Zombies Archive | Maps, Easter Eggs, Relics | Group 935',
+        description: 'Treyarch Zombies archive with map guides, Easter egg tutorials, Black Ops Zombies lore, BO7 relics, wonder weapons, perks, and songs.',
+        listName: 'Treyarch Zombies Archive',
+        items: (ZD.maps || []).map((map, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: map.name,
+          url: seoRouteUrl({ name: 'map', id: map.id }),
+        })),
+      },
+    }[name];
+    if (!topic) return null;
+    const route = { name };
+    const url = seoRouteUrl(route);
+    return {
+      title: topic.title,
+      description: topic.description,
+      url,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: topic.listName,
+        url,
+        itemListElement: topic.items.slice(0, 30),
+      },
+    };
+  }
   function seoDescription(text, fallback) {
     const clean = String(text || fallback || SEO_DEFAULT_DESCRIPTION).replace(/\s+/g, ' ').trim();
     return clean.length > 158 ? clean.slice(0, 155).replace(/\s+\S*$/, '') + '...' : clean;
   }
   function seoForRoute(route) {
     const r = route || { name: 'home' };
+    const topicSeo = seoTopicForRoute(r.name);
+    if (topicSeo) return topicSeo;
     if (r.name === 'relics') {
       const relic = r.id ? (ZD.relics || []).find((item) => item.id === r.id) : null;
       if (relic) {
@@ -4865,6 +4945,13 @@
       case 'games':      page = <Games nav={nav} />; break;
       case 'game':       page = <Game id={route.id} nav={nav} />; break;
       case 'maps':       page = <Maps nav={nav} />; break;
+      case 'zombies-easter-eggs':
+      case 'zombies-easter-egg-tutorials':
+        page = <Maps nav={nav} />; break;
+      case 'cod-zombies':
+      case 'black-ops-zombies':
+      case 'treyarch-zombies':
+        page = <Games nav={nav} />; break;
       case 'vote':       page = <FavoriteMapVote nav={nav} />; break;
       case 'vote-weapons': page = <VotePage key="weapons" nav={nav} pollId="weapons" />; break;
       case 'vote-perks': page = <VotePage key="perks" nav={nav} pollId="perks" />; break;
