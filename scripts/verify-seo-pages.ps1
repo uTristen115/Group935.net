@@ -7,6 +7,7 @@ $ErrorActionPreference = 'Stop'
 $root = Resolve-Path (Join-Path $PSScriptRoot '..')
 $indexPath = Join-Path $root 'index.html'
 $sitemapPath = Join-Path $root 'sitemap.xml'
+$manifestPath = Join-Path $root 'dist\asset-manifest.json'
 
 function Fail {
   param([string]$Message)
@@ -63,6 +64,11 @@ $oldAstraRoute = '/maps/' + $oldAstraSlug
 $oldAstraPattern = '\b' + $oldAstraSlug + '\b|Ast' + 'ro Malorum|' + [regex]::Escape($oldAstraRoute)
 
 $index = Get-Content -Raw -LiteralPath $indexPath
+$manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
+$appBundlePath = Join-Path $root ('dist\' + [string]$manifest.bundles.app.file)
+$dataBundlePath = Join-Path $root ('dist\' + [string]$manifest.bundles.data.file)
+$appSource = Get-Content -Raw -LiteralPath $appBundlePath
+$dataSource = Get-Content -Raw -LiteralPath $dataBundlePath
 if ($index -notmatch "window\.G935_LOCAL_ASSET_BASE\s*=\s*'\./Images';") {
   Fail 'Root index.html does not declare the local file asset base.'
 }
@@ -74,6 +80,18 @@ if ($index -notmatch $runtimeAssetPattern) {
 }
 if ($index -notmatch $runtimeFontPattern) {
   Fail 'Runtime font base must use /Fonts on deployed pages and local relative paths for file:// pages.'
+}
+if ($index -notmatch '<meta property="og:site_name" content="CoD Zombies Archive" />') {
+  Fail 'Root index.html should declare CoD Zombies Archive as the Open Graph site name.'
+}
+if ($index -notmatch '"@type": "WebSite"' -or $index -notmatch '"name": "CoD Zombies Archive"') {
+  Fail 'Root index.html should declare CoD Zombies Archive in WebSite structured data.'
+}
+if ($index -match '<title>Group935\.net') {
+  Fail 'Root title still starts with Group935.net instead of CoD Zombies Archive.'
+}
+if ($appSource -notmatch 'SEO_SITE_NAME' -or $appSource -notmatch 'CoD Zombies Archive') {
+  Fail 'App route metadata should preserve CoD Zombies Archive as the site name.'
 }
 if ($index -notmatch [regex]::Escape("https://www.googletagmanager.com/gtag/js?id=$gaMeasurementId")) {
   Fail 'Root index.html is missing the Google Analytics tag.'
@@ -87,19 +105,19 @@ if ($index -notmatch "G935_ANALYTICS_ENABLED\s*=\s*window\.location\.protocol ==
 if ($index -notmatch "send_page_view:\s*false") {
   Fail 'Analytics config must disable automatic page_view events so app route tracking controls page views.'
 }
-if ($index -notmatch 'analyticsTrackPageView\(route\)') {
+if ($appSource -notmatch 'analyticsTrackPageView\(route\)') {
   Fail 'App route changes are not wired to analytics page view tracking.'
 }
-if ($index -notmatch 'url\("\$\{FONT_BASE\}/Help%20Scratch%20Writing/help-me/HelpMe\.ttf"\)') {
+if ($appSource -notmatch 'url\("\$\{FONT_BASE\}/Help%20Scratch%20Writing/help-me/HelpMe\.ttf"\)') {
   Fail 'HelpMe scratch font does not use the route-aware font base.'
 }
 if ($index -notmatch "window\.G935_ROUTE_PATH\s*=\s*'';") {
   Fail 'Root index.html should not force a route path.'
 }
-if ($index -notmatch "window\.location\.protocol === 'file:'") {
+if ($appSource -notmatch "window\.location\.protocol\s*={2,3}\s*[`"']file:[`"']") {
   Fail 'Router is missing the local file:// navigation branch.'
 }
-if ($index -notmatch "window\.history\.pushState") {
+if ($appSource -notmatch "window\.history\.pushState") {
   Fail 'Router is missing the clean URL pushState branch for deployed pages.'
 }
 
@@ -118,12 +136,16 @@ foreach ($url in $xml.urlset.url) {
   $routes += $route
 }
 
-if (-not ($routes -contains '/relics')) { Fail 'Sitemap is missing /relics.' }
-if (-not ($routes -contains '/relics/teddy-bear')) { Fail 'Sitemap is missing /relics/teddy-bear.' }
+if ($routes -contains '/relics') { Fail 'Sitemap should not include /relics alias routes.' }
+if ($routes -contains '/relics/teddy-bear') { Fail 'Sitemap should not include /relics/teddy-bear alias routes.' }
+if (-not ($routes -contains '/black-ops-7-relics')) { Fail 'Sitemap is missing /black-ops-7-relics.' }
+if (-not ($routes -contains '/black-ops-7-relics/teddy-bear')) { Fail 'Sitemap is missing /black-ops-7-relics/teddy-bear.' }
+if (-not ($routes -contains '/site-index')) { Fail 'Sitemap is missing /site-index.' }
 if (-not ($routes -contains '/perks')) { Fail 'Sitemap is missing /perks.' }
 if (-not ($routes -contains '/perks/wisp-tea')) { Fail 'Sitemap is missing /perks/wisp-tea.' }
 if (-not ($routes -contains '/easter-eggs/totenreich-main-quest')) { Fail 'Sitemap is missing /easter-eggs/totenreich-main-quest.' }
 if (-not ($routes -contains '/easter-eggs/moon-big-bang-theory')) { Fail 'Sitemap is missing /easter-eggs/moon-big-bang-theory.' }
+if (-not ($routes -contains '/maps/nacht')) { Fail 'Sitemap is missing /maps/nacht.' }
 if (-not ($routes -contains '/maps/astra')) { Fail 'Sitemap is missing /maps/astra.' }
 if (-not ($routes -contains '/maps/totenreich')) { Fail 'Sitemap is missing /maps/totenreich.' }
 if ($routes -contains $oldAstraRoute) { Fail 'Sitemap still contains the old Astra route.' }
@@ -168,10 +190,6 @@ foreach ($route in $routes) {
   if ($html -notmatch [regex]::Escape("window.G935_GA_MEASUREMENT_ID = '$gaMeasurementId';")) {
     Fail "Generated file for $route is missing the GA4 measurement ID."
   }
-  if ($html -notmatch 'analyticsTrackPageView\(route\)') {
-    Fail "Generated file for $route is missing app route analytics tracking."
-  }
-
   $canonical = Get-PublicUrl -Route $route -SiteUrl $SiteUrl
   if ($html -notmatch [regex]::Escape("<link rel=`"canonical`" href=`"$canonical`" />")) {
     Fail "Generated file for $route has the wrong canonical URL."
@@ -184,9 +202,11 @@ foreach ($route in $routes) {
 $sampleFiles = @(
   'index.html',
   '404.html',
-  'relics/teddy-bear/index.html',
+  'site-index/index.html',
+  'black-ops-7-relics/teddy-bear/index.html',
   'easter-eggs/totenreich-main-quest/index.html',
   'easter-eggs/moon-big-bang-theory/index.html',
+  'maps/nacht/index.html',
   'maps/astra/index.html',
   'maps/totenreich/index.html',
   'games/bo7/index.html'
@@ -211,22 +231,22 @@ $wispFile = Join-Path $root 'perks\wisp-tea\index.html'
 if (-not (Test-Path -LiteralPath $wispFile)) { Fail 'Missing generated Wisp Tea route file.' }
 $wispHtml = Get-Content -Raw -LiteralPath $wispFile
 if ($wispHtml -notmatch 'Wisp Tea') { Fail 'Wisp Tea is missing from the generated perk page.' }
-if ($wispHtml -notmatch "dir:\s*'wisp-tea'" -or $wispHtml -notmatch "hero:\s*'WispTea\.png'") {
-  Fail 'Wisp Tea generated page does not reference the WispTea image.'
+if ($dataSource -notmatch 'wisp-tea' -or $dataSource -notmatch 'WispTea\.png') {
+  Fail 'Wisp Tea data bundle does not reference the WispTea image.'
 }
 
 $totenreichEeFile = Join-Path $root 'easter-eggs\totenreich-main-quest\index.html'
 if (-not (Test-Path -LiteralPath $totenreichEeFile)) { Fail 'Missing generated Totenreich Easter egg route file.' }
 $totenreichEeHtml = Get-Content -Raw -LiteralPath $totenreichEeFile
-if ($totenreichEeHtml -notmatch 'Images Coming Soon') { Fail 'Totenreich Easter egg page is missing the construction tape image placeholder.' }
-if ($totenreichEeHtml -notmatch 'Build the Jotun Star') { Fail 'Totenreich Easter egg page is missing the rewritten step data.' }
+if ($totenreichEeHtml -notmatch 'Totenreich Main Quest') { Fail 'Totenreich Easter egg page is missing its static title.' }
+if ($dataSource -notmatch 'Build the Jotun Star') { Fail 'Totenreich Easter egg data is missing the rewritten step data.' }
 
 $moonEeFile = Join-Path $root 'easter-eggs\moon-big-bang-theory\index.html'
 if (-not (Test-Path -LiteralPath $moonEeFile)) { Fail 'Missing generated Moon Easter egg route file.' }
 $moonEeHtml = Get-Content -Raw -LiteralPath $moonEeFile
 if ($moonEeHtml -notmatch 'Cryogenic Slumber Party / Big Bang Theory') { Fail 'Moon Easter egg page is missing the starter step data.' }
-if ($moonEeHtml -notmatch 'knockvrilsphereoffsatellite\.gif' -or $moonEeHtml -notmatch 'eeending\.gif') {
-  Fail 'Moon Easter egg page does not reference the new Moon gif assets.'
+if ($dataSource -notmatch 'knockvrilsphereoffsatellite\.gif' -or $dataSource -notmatch 'eeending\.gif') {
+  Fail 'Moon Easter egg data does not reference the new Moon gif assets.'
 }
 
 Write-Host "SEO/local file checks passed for $($routes.Count) sitemap routes."

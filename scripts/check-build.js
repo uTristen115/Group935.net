@@ -6,6 +6,7 @@ const root = path.resolve(__dirname, '..');
 const htmlRoots = [
   'index.html',
   '404.html',
+  'site-index',
   'games',
   'maps',
   'perks',
@@ -169,6 +170,27 @@ function assertTopicSeoRoutes() {
   }
 }
 
+function assertSiteIndexRoutes() {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const required = [
+    'https://group935.net/site-index/',
+    'https://group935.net/maps/nacht/',
+    'https://group935.net/maps/kino/',
+    'https://group935.net/maps/totenreich/',
+  ];
+  for (const url of required) {
+    if (!sitemap.includes(url)) throw new Error('Sitemap is missing crawl index route: ' + url);
+  }
+  const siteIndex = fs.readFileSync(path.join(root, 'site-index', 'index.html'), 'utf8');
+  for (const phrase of ['Group 935 Site Index', '/zombies-easter-eggs/', '/maps/nacht/', '/black-ops-7-relics/summoning-key/']) {
+    if (!siteIndex.includes(phrase)) throw new Error('Site index is missing expected crawl link/content: ' + phrase);
+  }
+  const kino = fs.readFileSync(path.join(root, 'maps', 'kino', 'index.html'), 'utf8');
+  if (!kino.includes('Kino der Toten Zombies Easter Egg Guide') || kino.includes('map file for Black Ops 7 Zombies')) {
+    throw new Error('Generated classic map SEO page has incorrect map metadata.');
+  }
+}
+
 function assertGeneratedShells(files, bundles) {
   const failures = [];
   for (const file of files) {
@@ -243,6 +265,7 @@ const scriptCount = parseInlineScripts(htmlFiles);
 const jsonLdCount = parseJsonLd(htmlFiles);
 assertRelicSeoRoutes();
 assertTopicSeoRoutes();
+assertSiteIndexRoutes();
 smokeSharedBundles(bundles);
 
 console.log('Build check passed: ' + htmlFiles.length + ' HTML files, ' + scriptCount + ' inline scripts, ' + jsonLdCount + ' JSON-LD blocks, shared bundle smoke.');

@@ -1752,7 +1752,7 @@
             </div>
             <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
-            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Lore','lore'],['About','about']]} nav={nav} />
+            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Lore','lore'],['Site Index','site-index'],['About','about']]} nav={nav} />
           </div>
           <div className="pap-footer-bottom" style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div>Fan project. Not affiliated with Activision or Treyarch. All trademarks belong to their owners.</div>
@@ -4484,6 +4484,86 @@
     );
   }
 
+  function SiteIndex({ nav }) {
+    const gameTitle = (id) => {
+      const game = ZD.games.find((g) => g.id === id);
+      return game ? game.title : 'Treyarch Zombies';
+    };
+    const easterEggs = [...(ZD.bo7EasterEggs || []), ...(ZD.classicEasterEggs || [])]
+      .sort((a, b) => (a.mapName || '').localeCompare(b.mapName || '') || (a.title || '').localeCompare(b.title || ''));
+    const groups = [
+      {
+        title: 'Core archive pages',
+        links: [
+          ['Group 935', { name: 'home' }, 'Main archive home page.'],
+          ['Treyarch Zombies Games', { name: 'games' }, 'World at War through Black Ops 7.'],
+          ['Black Ops 7 Zombies', { name: 'game', id: 'bo7' }, 'Black Ops 7 maps, relics, and main quest files.'],
+          ['Zombies Maps', { name: 'maps' }, 'All map records and related files.'],
+          ['Zombies Easter Eggs', { name: 'zombies-easter-eggs' }, 'Main quest and Easter egg guide hub.'],
+          ['Zombies Easter Egg Tutorials', { name: 'zombies-easter-egg-tutorials' }, 'Step-by-step main quest walkthroughs.'],
+          ['COD Zombies Guides', { name: 'cod-zombies' }, 'COD Zombies maps, Easter eggs, relics, perks, and lore.'],
+          ['Black Ops Zombies Guides', { name: 'black-ops-zombies' }, 'Black Ops era maps and Easter egg files.'],
+          ['Treyarch Zombies Archive', { name: 'treyarch-zombies' }, 'Treyarch Zombies maps, story, relics, perks, and songs.'],
+          ['Black Ops 7 Relics', { name: 'relics' }, 'Relic unlocks, effects, portals, and trials.'],
+          ['Zombies Perks', { name: 'perks' }, 'Perk machines, effects, and appearances.'],
+        ],
+      },
+      {
+        title: 'Map files',
+        links: [...(ZD.maps || [])]
+          .sort((a, b) => gameTitle(a.game).localeCompare(gameTitle(b.game)) || a.name.localeCompare(b.name))
+          .map((map) => [map.name, { name: 'map', id: map.id }, gameTitle(map.game) + ' Zombies map.']),
+      },
+      {
+        title: 'Easter egg guides',
+        links: easterEggs.map((ee) => [ee.title, { name: 'ee', id: ee.id }, (ee.mapName || 'Zombies') + ' main quest guide.']),
+      },
+      {
+        title: 'Black Ops 7 relic files',
+        links: [...(ZD.relics || [])]
+          .sort((a, b) => seoMapName(a.map).localeCompare(seoMapName(b.map)) || a.name.localeCompare(b.name))
+          .map((relic) => [seoRelicLabel(relic), { name: 'relics', id: relic.id }, seoMapName(relic.map) + ' relic file.']),
+      },
+      {
+        title: 'Perk files',
+        links: [...(ZD.perks || [])]
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((perk) => [perk.name, { name: 'perk', id: perk.id }, 'Zombies perk reference.']),
+      },
+    ];
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Site Index'}]}
+          nav={nav}
+          kicker="Navigation"
+          title="Site Index"
+          sub="A complete route index for the Group 935 archive: topic hubs, maps, Easter egg guides, Black Ops 7 relics, and perks."
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 22, marginTop: 30 }}>
+          {groups.map((group) => (
+            <section key={group.title} style={{ borderTop: `1px solid ${T.line}`, paddingTop: 14 }}>
+              <Mono color={T.e115}>{group.title}</Mono>
+              <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
+                {group.links.map(([label, route, text]) => (
+                  <button
+                    key={(route.name || '') + '-' + (route.id || '')}
+                    onClick={() => nav(route)}
+                    className="pap-link"
+                    style={{ textAlign: 'left', padding: '7px 0', borderBottom: `1px solid ${T.line}`, color: T.bone }}
+                  >
+                    <span style={{ display: 'block', fontFamily: T.display, fontSize: 15, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>{label}</span>
+                    <span style={{ display: 'block', fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 2 }}>{text}</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   function NotFound({ nav, what }) {
     return (
       <div style={{ padding: '80px 0', textAlign: 'center' }}>
@@ -4598,8 +4678,9 @@
   window.__papBuildRoutePath = buildRoutePath;
 
   const SEO_SITE_URL = 'https://group935.net';
-  const SEO_DEFAULT_TITLE = 'Group935.net | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
-  const SEO_DEFAULT_DESCRIPTION = 'Group935.net is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
+  const SEO_SITE_NAME = 'CoD Zombies Archive';
+  const SEO_DEFAULT_TITLE = 'CoD Zombies Archive | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
+  const SEO_DEFAULT_DESCRIPTION = 'CoD Zombies Archive is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
   function seoPublicRoutePath(route) {
     const path = buildRoutePath(route || { name: 'home' });
     return path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
@@ -4703,6 +4784,43 @@
   }
   function seoForRoute(route) {
     const r = route || { name: 'home' };
+    if (r.name === 'site-index') {
+      const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []);
+      const siteIndexRoutes = [
+        { name: 'Group 935', route: { name: 'home' } },
+        { name: 'Treyarch Zombies Games', route: { name: 'games' } },
+        { name: 'Black Ops 7 Zombies', route: { name: 'game', id: 'bo7' } },
+        { name: 'Zombies Maps', route: { name: 'maps' } },
+        { name: 'Zombies Easter Eggs', route: { name: 'zombies-easter-eggs' } },
+        { name: 'Zombies Easter Egg Tutorials', route: { name: 'zombies-easter-egg-tutorials' } },
+        { name: 'COD Zombies Guides', route: { name: 'cod-zombies' } },
+        { name: 'Black Ops Zombies Guides', route: { name: 'black-ops-zombies' } },
+        { name: 'Treyarch Zombies Archive', route: { name: 'treyarch-zombies' } },
+        { name: 'Black Ops 7 Relics', route: { name: 'relics' } },
+        { name: 'Zombies Perks', route: { name: 'perks' } },
+      ]
+        .concat((ZD.maps || []).map((map) => ({ name: map.name, route: { name: 'map', id: map.id } })))
+        .concat(allEasterEggs.map((ee) => ({ name: ee.title, route: { name: 'ee', id: ee.id } })))
+        .concat((ZD.relics || []).map((relic) => ({ name: seoRelicLabel(relic), route: { name: 'relics', id: relic.id } })))
+        .concat((ZD.perks || []).map((perk) => ({ name: perk.name, route: { name: 'perk', id: perk.id } })));
+      return {
+        title: 'Group 935 Site Index | Zombies Easter Eggs, Maps, Relics',
+        description: 'Crawlable Group 935 site index for Zombies Easter eggs, tutorials, COD Zombies guides, Black Ops Zombies maps, Black Ops 7 relics, and perks.',
+        url: seoRouteUrl(r),
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Group 935 Site Index',
+          url: seoRouteUrl(r),
+          itemListElement: siteIndexRoutes.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            url: seoRouteUrl(item.route),
+          })),
+        },
+      };
+    }
     const topicSeo = seoTopicForRoute(r.name);
     if (topicSeo) return topicSeo;
     if (r.name === 'relics') {
@@ -4881,6 +4999,7 @@
     const seo = seoForRoute(route);
     document.title = seo.title;
     seoSetMeta('meta[name="description"]', { name: 'description', content: seo.description });
+    seoSetMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: SEO_SITE_NAME });
     seoSetMeta('meta[property="og:title"]', { property: 'og:title', content: seo.title });
     seoSetMeta('meta[property="og:description"]', { property: 'og:description', content: seo.description });
     seoSetMeta('meta[property="og:url"]', { property: 'og:url', content: seo.url });
@@ -4972,6 +5091,7 @@
       case 'lore':       page = route.id ? <LoreArticle id={route.id} nav={nav} /> : <Lore nav={nav} />; break;
       case 'search':     page = <Search query={query} nav={nav} />; break;
       case 'about':      page = <About nav={nav} />; break;
+      case 'site-index': page = <SiteIndex nav={nav} />; break;
       case 'home':       page = <Home nav={nav} />; break;
       default:           page = <NotFound nav={nav} />;
     }
