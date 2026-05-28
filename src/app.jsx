@@ -650,6 +650,9 @@
       .pap-main-nav::-webkit-scrollbar-thumb { background: ${T.lineHi}; }
       .pap-mobile-menu-toggle { display: none; }
       .pap-mobile-menu { display: none; }
+      .pap-game-logo-hero { margin-top: 16px; min-height: 360px; display: flex; align-items: center; justify-content: center; padding: 28px 0 20px; }
+      .pap-game-logo-hero-img { display: block; width: min(760px, 82vw); max-height: 300px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.72)); }
+      .pap-game-primary-section { margin-top: 48px; }
       @media (max-width: 1100px) {
         .pap-header-inner { flex-wrap: wrap !important; gap: 16px !important; }
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
@@ -735,6 +738,9 @@
         #root .pap-search input { flex: 1 1 auto !important; width: auto !important; min-width: 0 !important; height: 42px !important; line-height: 42px !important; }
         #root .pap-search span { display: none !important; }
         .pap-main, .term-main { padding: 22px 14px 44px !important; }
+        .pap-game-logo-hero { margin-top: 10px; min-height: clamp(160px, 43vw, 220px); padding: 6px 0 8px; }
+        .pap-game-logo-hero-img { width: min(680px, 88vw); max-height: clamp(105px, 30vw, 155px); }
+        .pap-game-primary-section { margin-top: 30px !important; }
         .pap-footer-grid, .pap-footer-bottom { padding-left: 14px !important; padding-right: 14px !important; }
         .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
         .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
@@ -880,6 +886,9 @@
         .pap-song-activation { grid-column: 1 / 3; grid-row: 3; }
         h1.pap-stencil { font-size: clamp(32px, 17vw, 48px) !important; }
         h1.pap-page-title-nowrap { font-size: clamp(13px, 4.2vw, 22px) !important; }
+        .pap-game-logo-hero { min-height: clamp(140px, 40vw, 180px); padding: 4px 0 6px; }
+        .pap-game-logo-hero-img { max-height: clamp(92px, 28vw, 126px); }
+        .pap-game-primary-section { margin-top: 26px !important; }
         #root [style*="height: 480px"] { height: 320px !important; }
         #root [style*="height: 420px"],
         #root [style*="height: 400px"] { height: 260px !important; min-height: 260px !important; }
@@ -2193,7 +2202,7 @@
         <GameHero game={g} nav={nav} />
 
         {/* MAPS */}
-        <section style={{ marginTop: 48 }}>
+        <section className="pap-game-primary-section">
           <SectionHead title="Maps in this game" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {mapsIn.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
@@ -2343,8 +2352,8 @@
       return (
         <div>
           <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Games',to:{name:'games'}},{label:game.title}]} nav={nav} />
-          <div style={{ marginTop: 16, minHeight: 360, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '28px 0 20px' }}>
-            <img src={logoSrc} alt={game.title} style={{ display: 'block', width: 'min(760px, 82vw)', maxHeight: 300, objectFit: 'contain', filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.72))' }} />
+          <div className="pap-game-logo-hero">
+            <img className="pap-game-logo-hero-img" src={logoSrc} alt={game.title} />
           </div>
           <Shelf115Line height={23} style={{ marginTop: 18 }} />
         </div>
