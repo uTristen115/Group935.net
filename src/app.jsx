@@ -653,6 +653,12 @@
       .pap-game-logo-hero { margin-top: 16px; min-height: 360px; display: flex; align-items: center; justify-content: center; padding: 28px 0 20px; }
       .pap-game-logo-hero-img { display: block; width: min(760px, 82vw); max-height: 300px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.72)); }
       .pap-game-primary-section { margin-top: 48px; }
+      .pap-game-tile-icon { position: absolute; top: 10px; left: 10px; z-index: 2; width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.72)); pointer-events: none; }
+      .pap-game-tile-icon-waw,
+      .pap-game-tile-icon-bo1,
+      .pap-game-tile-icon-bo4 { width: 46px; height: 46px; }
+      .pap-game-tile-icon-bo6,
+      .pap-game-tile-icon-bo7 { top: 3px; }
       @media (max-width: 1100px) {
         .pap-header-inner { flex-wrap: wrap !important; gap: 16px !important; }
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
@@ -741,6 +747,12 @@
         .pap-game-logo-hero { margin-top: 10px; min-height: clamp(160px, 43vw, 220px); padding: 6px 0 8px; }
         .pap-game-logo-hero-img { width: min(680px, 88vw); max-height: clamp(105px, 30vw, 155px); }
         .pap-game-primary-section { margin-top: 30px !important; }
+        .pap-game-tile-icon { top: 8px; left: 8px; width: 44px; height: 44px; }
+        .pap-game-tile-icon-waw,
+        .pap-game-tile-icon-bo1,
+        .pap-game-tile-icon-bo4 { width: 39px; height: 39px; }
+        .pap-game-tile-icon-bo6,
+        .pap-game-tile-icon-bo7 { top: 2px; }
         .pap-footer-grid, .pap-footer-bottom { padding-left: 14px !important; padding-right: 14px !important; }
         .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
         .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
@@ -1900,7 +1912,6 @@
   }
 
   function GameTile({ game, nav }) {
-    const mapsIn = ZD.maps.filter((m) => m.game === game.id);
     const [hover, setHover] = useState(false);
     const [hoverIdx, setHoverIdx] = useState(0);
     const onEnter = () => {
@@ -1911,9 +1922,11 @@
     };
     const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
     const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    const iconSrc = game.imgIcon ? gameImg(game, game.imgIcon) : null;
     return (
       <button onClick={() => nav({ name: 'game', id: game.id })}
         onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
+        aria-label={game.title}
         className="pap-card pap-card-clickable"
         style={{ padding: 0, textAlign: 'left', color: T.bone, position: 'relative', overflow: 'hidden',
           minHeight: 280, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -1933,11 +1946,7 @@
             transform: hover ? 'scale(1.05)' : 'scale(1)',
           }} />
         )}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0) 35%, rgba(10,9,8,0.85) 78%, rgba(10,9,8,0.98) 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'relative', padding: 18 }}>
-          <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>{game.title}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 6 }}>{mapsIn.length + ' maps'}</div>
-        </div>
+        {iconSrc && <img className={'pap-game-tile-icon pap-game-tile-icon-' + game.id} src={iconSrc} alt="" aria-hidden loading="lazy" />}
       </button>
     );
   }
@@ -3245,7 +3254,6 @@
     const list = useMemo(() => {
       let l = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
       if (sort === 'newest')    l = [...l].reverse();
-      if (sort === 'difficulty') l = [...l].sort((a, b) => b.difficulty - a.difficulty);
       if (sort === 'name')       l = [...l].sort((a, b) => a.name.localeCompare(b.name));
       return l;
     }, [filter, sort]);
@@ -3267,7 +3275,7 @@
           <div style={{ flex: 1 }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Mono color={T.faint}>sort</Mono>
-            {[['newest','Newest'],['oldest','Oldest'],['name','Name'],['difficulty','Diff']].map(([k,l]) => (
+            {[['newest','Newest'],['oldest','Oldest'],['name','Name']].map(([k,l]) => (
               <button key={k} className={'pap-chip ' + (sort===k?'is-active':'')} onClick={() => setSort(k)}>{l}</button>
             ))}
           </div>
@@ -3281,6 +3289,7 @@
 
   function MapCard({ map, nav }) {
     const g = ZD.games.find((x) => x.id === map.game);
+    const iconSrc = g && g.imgIcon ? gameImg(g, g.imgIcon) : null;
     return (
       <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: 260 }}>
@@ -3295,6 +3304,7 @@
           style={{ position: 'absolute', inset: 0, border: 0 }}
         />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.06) 0%, rgba(10,9,8,0.20) 45%, rgba(10,9,8,0.88) 100%)', pointerEvents: 'none' }} />
+        {iconSrc && <img className={'pap-game-tile-icon pap-game-tile-icon-' + g.id} src={iconSrc} alt="" aria-hidden loading="lazy" />}
         <div style={{ position: 'relative', minHeight: 260, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textShadow: '0 2px 14px rgba(0,0,0,0.82)' }}>
           <div className="pap-stencil" style={{ fontSize: 29, color: T.bone, lineHeight: 1.05 }}>{map.name}</div>
           <Mono color={T.e115} style={{ marginTop: 10 }}>{'Open ›'}</Mono>
