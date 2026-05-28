@@ -1467,10 +1467,9 @@
     );
   };
 
-  const SectionHead = ({ kicker, title, action }) => (
+  const SectionHead = ({ title, action }) => (
     <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 18, marginBottom: 16, borderBottom: `1px solid ${T.line}`, paddingBottom: 10 }}>
       <div>
-        {kicker && <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 6 }}>{kicker}</div>}
         <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{title}</div>
       </div>
       {action}
@@ -1927,11 +1926,7 @@
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0) 35%, rgba(10,9,8,0.85) 78%, rgba(10,9,8,0.98) 100%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', padding: 18 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-            <Mono color={T.e115} letter={2}>{game.code + ' · ' + game.year}</Mono>
-            <Mono color={T.faint}>{mapsIn.length + '/' + game.mapCount}</Mono>
-          </div>
-          <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 8, lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>{game.title}</div>
+          <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 12px rgba(0,0,0,0.6)' }}>{game.title}</div>
           <div style={{ fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 6 }}>{mapsIn.length + ' maps'}</div>
         </div>
       </button>
@@ -2048,62 +2043,138 @@
           kicker="The Games"
           title="All Games"
           sub={'Every Treyarch Zombies title from World at War (2008) through Black Ops 7 (2025). Select a game to see its maps.'} nav={nav} />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, marginTop: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: 34, rowGap: 10, marginTop: 32 }}>
           {ZD.games.map((g) => <GameRow key={g.id} game={g} nav={nav} />)}
         </div>
       </div>
     );
   }
 
+  function seededUnit(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function hashKey(value) {
+    return String(value || '').split('').reduce((acc, char) => ((acc << 5) - acc) + char.charCodeAt(0), 0);
+  }
+
+  function gameMapCollage(game) {
+    const mapsIn = ZD.maps.filter((m) => m.game === game.id && m.media);
+    const base = Math.abs(hashKey(game.id));
+    const selectedMaps = mapsIn.slice().sort((a, b) =>
+      seededUnit(base + hashKey(a.id)) - seededUnit(base + hashKey(b.id))
+    ).slice(0, Math.min(6, mapsIn.length));
+    const spread = Math.max(1, selectedMaps.length - 1);
+    const verticalBands = [-18, 4, 28, 50];
+    return selectedMaps.map((map, i) => {
+      const files = [mapPrimaryFile(map, 'thumb')]
+        .concat(mapGalleryItems(map).map((item) => item.file))
+        .filter((file, index, all) => file && all.indexOf(file) === index);
+      const gallerySlot = files.length > 1
+        ? 1 + Math.floor(seededUnit(base + hashKey(map.id + ':gallery')) * (files.length - 1))
+        : 0;
+      const file = files[gallerySlot] || files[0];
+      const src = mapImg(map, file);
+      if (!src) return null;
+      const r = (n) => seededUnit(base + i * 97 + n * 23);
+      const laneLeft = -10 + (i / spread) * 84;
+      const bandTop = verticalBands[i % verticalBands.length];
+      return {
+        map,
+        file,
+        src,
+        width: 40 + r(1) * 14,
+        left: Math.max(-12, Math.min(76, laneLeft + (r(2) - 0.5) * 10)),
+        top: Math.max(-22, Math.min(62, bandTop + (r(3) - 0.5) * 12)),
+        rotate: -12 + r(4) * 24,
+        opacity: 0.36 + r(5) * 0.16,
+        z: i + 1,
+      };
+    }).filter(Boolean);
+  }
+
   function GameRow({ game, nav }) {
-    const mapsIn = ZD.maps.filter((m) => m.game === game.id);
-    const [hover, setHover] = useState(false);
-    const [hoverIdx, setHoverIdx] = useState(0);
-    const onEnter = () => {
-      if (game.imgHover && game.imgHover.length > 1) {
-        setHoverIdx(Math.floor(Math.random() * game.imgHover.length));
-      }
-      setHover(true);
-    };
-    const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
-    const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    const logoSrc = game.imgLogo ? gameImg(game, game.imgLogo) : null;
+    const collage = useMemo(() => gameMapCollage(game), [game.id]);
     return (
       <button onClick={() => nav({ name: 'game', id: game.id })}
-        onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
-        className="pap-card pap-card-clickable"
-        style={{ display: 'grid', gridTemplateColumns: '200px 1fr', padding: 0, color: T.bone, textAlign: 'left' }}>
-        <div style={{ position: 'relative', width: 200, height: 220, overflow: 'hidden', borderRight: `1px solid ${T.line}` }}>
-          {baseSrc && (
-            <img src={baseSrc} alt={game.title} loading="lazy" style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-              opacity: hover && hoverSrc ? 0 : 1,
-              transition: 'opacity .25s ease, transform .5s ease',
-              transform: hover ? 'scale(1.05)' : 'scale(1)',
-            }} />
+        className="pap-card-clickable"
+        style={{ display: 'grid', gridTemplateColumns: '190px 1fr', alignItems: 'center', minHeight: 158, padding: 0, color: T.bone, textAlign: 'left', overflow: 'hidden', background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`, boxShadow: 'none' }}>
+        <div style={{ minHeight: 158, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '18px 18px 18px 0' }}>
+          {logoSrc ? (
+            <img src={logoSrc} alt={game.title} loading="lazy" style={{ display: 'block', width: '100%', maxHeight: 104, objectFit: 'contain', filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.82))' }} />
+          ) : (
+            <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, lineHeight: 1.05, textAlign: 'center' }}>{game.code}</div>
           )}
-          {hoverSrc && (
-            <img src={hoverSrc} alt="" aria-hidden loading="lazy" style={{
-              position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover',
-              opacity: hover ? 1 : 0,
-              transition: 'opacity .25s ease, transform .5s ease',
-              transform: hover ? 'scale(1.05)' : 'scale(1)',
-            }} />
-          )}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,9,8,0) 60%, rgba(10,9,8,0.5) 100%)', pointerEvents: 'none' }} />
         </div>
-        <div style={{ padding: 22, display: 'flex', flexDirection: 'column' }}>
-          <Mono color={T.e115} letter={2}>{game.code + ' · ' + game.year}</Mono>
-          <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 6 }}>{game.title}</div>
-          <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 4 }}>{mapsIn.length + ' maps catalogued'}</div>
-          <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
-            {mapsIn.map((m) => (
-              <span key={m.id} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.2, color: T.mute, padding: '3px 8px', background: T.bg1, border: `1px solid ${T.line}`, textTransform: 'uppercase' }}>{m.name}</span>
-            ))}
-          </div>
+        <div style={{ alignSelf: 'stretch', position: 'relative', overflow: 'hidden', minHeight: 158, padding: '22px 0 22px 24px', display: 'flex', alignItems: 'center' }}>
+          {collage.map((item) => (
+            <img
+              key={item.map.id + '-' + item.file}
+              src={item.src}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: 'absolute',
+                width: item.width + '%',
+                aspectRatio: '16 / 9',
+                left: item.left + '%',
+                top: item.top + '%',
+                objectFit: 'cover',
+                opacity: item.opacity,
+                transform: 'rotate(' + item.rotate + 'deg)',
+                zIndex: item.z,
+              }}
+            />
+          ))}
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,9,8,0.22) 0%, rgba(10,9,8,0.02) 45%, rgba(10,9,8,0.42) 100%)', pointerEvents: 'none', zIndex: 20 }} />
+          <div className="pap-stencil" style={{ position: 'relative', zIndex: 25, fontSize: 30, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>{game.title}</div>
         </div>
       </button>
     );
+  }
+
+  const ORIGINAL_CREW_IDS = new Set(['dempsey', 'nikolai', 'takeo', 'richtofen']);
+  function originalCrewVariantForGame(gameId) {
+    if (gameId === 'waw' || gameId === 'bo1') return 'ultimis';
+    if (gameId === 'bo7') return 'tempus';
+    return 'primis';
+  }
+  function crewLabelForCharacter(character, gameId) {
+    if (!character) return '';
+    if (ORIGINAL_CREW_IDS.has(character.id)) {
+      const variant = originalCrewVariantForGame(gameId);
+      return ({ primis: 'Primis', ultimis: 'Ultimis', tempus: 'Tempus' })[variant] || 'Primis';
+    }
+    if (character.faction === 'support') {
+      if (character.id === 'ravenov') return 'Omega';
+      if (/requiem/i.test(character.role || '') || character.id === 'raptor_one') return 'Requiem';
+      return 'Support';
+    }
+    return ({
+      victis: 'Victis',
+      chaos: 'Chaos',
+      requiem: 'Requiem',
+      aether: 'Aether',
+      order: 'The Order',
+      darkaether: 'Dark Aether',
+      celebrity: 'Celebrity',
+    })[character.faction] || characterTileRole(character.role);
+  }
+  function crewCardMeta(gameId, character) {
+    const label = crewLabelForCharacter(character, gameId);
+    return {
+      label,
+      variant: character && ORIGINAL_CREW_IDS.has(character.id) ? originalCrewVariantForGame(gameId) : undefined,
+    };
+  }
+  function crewPortraitFrameStyle(variant, height) {
+    return variant === 'ultimis'
+      ? { aspectRatio: '1 / 1', height: 'auto' }
+      : { height };
   }
 
   function Game({ id, nav }) {
@@ -2121,17 +2192,9 @@
         {/* HERO with key art background */}
         <GameHero game={g} nav={nav} />
 
-        {/* ABOUT */}
-        {g.description && (
-          <section style={{ marginTop: 48 }}>
-            <SectionHead kicker={'About ' + g.code} title={g.title} />
-            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.bone, lineHeight: 1.75, maxWidth: 820 }}>{g.description}</p>
-          </section>
-        )}
-
         {/* MAPS */}
         <section style={{ marginTop: 48 }}>
-          <SectionHead kicker={mapsIn.length + ' of ' + g.mapCount + ' sites'} title="Maps in this game" />
+          <SectionHead title="Maps in this game" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {mapsIn.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
           </div>
@@ -2140,7 +2203,7 @@
         {/* SONGS */}
         {songsIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker={songsIn.length + ' catalogued track' + (songsIn.length === 1 ? '' : 's')} title="Songs"
+            <SectionHead title="Songs"
               action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'songs' })}>All songs →</button>}
             />
             <SongTable songs={songsIn} nav={nav} />
@@ -2150,16 +2213,20 @@
         {/* WONDER WEAPONS */}
         {wwIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker="Weapons" title="Wonder Weapons" />
+            <SectionHead title="Wonder Weapons" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
               {wwIn.map((w, i) => (
-                <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card pap-card-clickable"
-                  style={{ padding: 18, display: 'grid', gridTemplateColumns: '112px 1fr', gap: 18, color: T.bone, textAlign: 'left', borderColor: T.line }}>
-                  <WeaponImage weapon={w} height={118} label={w.name} />
-                  <div>
-                    <Mono color={T.e115}>{w.map || String(i+1).padStart(2,'0')}</Mono>
-                    <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4 }}>{w.name}</div>
-                    {w.summary && <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 8 }}>{w.summary}</p>}
+                <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card-clickable"
+                  style={{ padding: 0, color: T.bone, textAlign: 'left', background: 'transparent', border: 0, boxShadow: 'none', position: 'relative', overflow: 'hidden', minHeight: 230 }}>
+                  <WeaponImage
+                    weapon={w}
+                    height="100%"
+                    label={w.name}
+                    showOverlay={false}
+                    style={{ position: 'absolute', inset: 0, border: 0, background: 'transparent' }}
+                  />
+                  <div style={{ position: 'relative', minHeight: 230, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textAlign: 'center' }}>
+                    <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>{w.name}</div>
                   </div>
                 </button>
               ))}
@@ -2170,7 +2237,6 @@
         {/* GOBBLEGUMS — feature-flagged per game */}
         {g.features && g.features.hasGobblegums && (
           <ContentSection
-            kicker={g.id === 'bo3' ? 'Vending mechanic · Classic era' : g.id === 'bo7' ? 'Returning mechanic · BO7 rules' : 'Gobblegums'}
             title={'Gobblegums' + (g.id === 'bo3' ? '' : g.id === 'bo7' ? ' — Reforged' : '')}
             items={g.gobblegums}
             kind="gobblegum"
@@ -2181,7 +2247,6 @@
         {/* ELIXIRS — BO4 */}
         {g.features && g.features.hasElixirs && (
           <ContentSection
-            kicker="Vending mechanic · BO4 rules"
             title="Elixirs"
             items={g.elixirs}
             kind="elixir"
@@ -2192,7 +2257,6 @@
         {/* AUGMENTS — BO6 */}
         {g.features && g.features.hasAugments && (
           <ContentSection
-            kicker="Perk modifications · BO6 rules"
             title="Augments"
             items={g.augments}
             kind="augment"
@@ -2203,20 +2267,23 @@
         {/* CREW */}
         {crewIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
-            <SectionHead kicker="Personnel" title="Crew of this game"
+            <SectionHead title="Crew of this game"
               action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'characters' })}>All crew →</button>}
             />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-              {crewIn.map((c) => (
-                <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
-                  style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
-                  <CharacterImage character={c} kind="OPERATIVE" style={{ height: 180 }} />
-                  <div style={{ padding: 14 }}>
-                    <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
-                    <Mono color={T.faint}>{c.role}</Mono>
-                  </div>
-                </button>
-              ))}
+              {crewIn.map((c) => {
+                const meta = crewCardMeta(g.id, c);
+                return (
+                  <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                    style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
+                    <CharacterImage character={c} variant={meta.variant} kind={meta.label.toUpperCase()} showKind={false} style={crewPortraitFrameStyle(meta.variant, 180)} />
+                    <div style={{ padding: 14 }}>
+                      <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
+                      <Mono color={T.faint}>{meta.label}</Mono>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </section>
         )}
@@ -2225,7 +2292,6 @@
         {g.features && g.features.hasRelics && relicMapsIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
             <SectionHead
-              kicker={'BO7 mechanic · ' + totalRelics + ' relics across ' + relicMapsIn.length + ' sites'}
               title="Relics"
               action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'relics' })}>Full catalogue →</button>}
             />
@@ -2250,7 +2316,7 @@
 
         {/* CONTINUE */}
         <section style={{ marginTop: 48 }}>
-          <SectionHead kicker="Other games" title="Continue exploring" />
+          <SectionHead title="Continue exploring" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
             {ZD.games.filter((x) => x.id !== g.id).slice(0, 4).map((other) => <GameTile key={other.id} game={other} nav={nav} />)}
           </div>
@@ -2270,13 +2336,27 @@
     };
     const baseSrc  = game.imgBase  ? gameImg(game, game.imgBase) : null;
     const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
+    const basePosition = game.heroBasePosition || 'center center';
+    const hoverPosition = game.heroHoverPosition || basePosition;
+    const logoSrc = game.imgLogo ? gameImg(game, game.imgLogo) : null;
+    if (logoSrc) {
+      return (
+        <div>
+          <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Games',to:{name:'games'}},{label:game.title}]} nav={nav} />
+          <div style={{ marginTop: 16, minHeight: 360, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '28px 0 20px' }}>
+            <img src={logoSrc} alt={game.title} style={{ display: 'block', width: 'min(760px, 82vw)', maxHeight: 300, objectFit: 'contain', filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.72))' }} />
+          </div>
+          <Shelf115Line height={23} style={{ marginTop: 18 }} />
+        </div>
+      );
+    }
     return (
       <div>
         <Crumbs parts={[{label:'Archive',to:{name:'home'}},{label:'Games',to:{name:'games'}},{label:game.title}]} nav={nav} />
         <div onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
           style={{ marginTop: 16, position: 'relative', overflow: 'hidden', border: `1px solid ${T.line}`, minHeight: 420, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-          {baseSrc && <img src={baseSrc} alt={game.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: hover && hoverSrc ? 0 : 1, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
-          {hoverSrc && <img src={hoverSrc} alt="" aria-hidden style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: hover ? 1 : 0, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
+          {baseSrc && <img src={baseSrc} alt={game.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: basePosition, opacity: hover && hoverSrc ? 0 : 1, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
+          {hoverSrc && <img src={hoverSrc} alt="" aria-hidden style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: hoverPosition, opacity: hover ? 1 : 0, transition: 'opacity .25s, transform .6s', transform: hover ? 'scale(1.03)' : 'scale(1)' }} />}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.55) 55%, rgba(10,9,8,0.95) 100%)', pointerEvents: 'none' }} />
           <div style={{ position: 'relative', padding: 36 }}>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
@@ -2612,10 +2692,30 @@
       const last = character.name.split(' ').slice(-1)[0];
       return <Slot label={last} kind={kind} tone="green" style={style} />;
     }
-    const objectPosition = p.objectPosition || 'center 20%';
-    const imgStyle = { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition };
+    const isUltimis = v === 'ultimis';
+    const objectPosition = p.objectPosition || (isUltimis ? 'center center' : 'center 20%');
+    const objectFit = p.objectFit || (isUltimis ? 'contain' : 'cover');
+    const imgInset = isUltimis ? 10 : 0;
+    const imgStyle = {
+      position: 'absolute',
+      inset: imgInset,
+      width: imgInset ? 'calc(100% - 20px)' : '100%',
+      height: imgInset ? 'calc(100% - 20px)' : '100%',
+      objectFit,
+      objectPosition,
+    };
+    const frameStyle = isUltimis
+      ? {
+        background: `radial-gradient(circle at center, rgba(207,160,96,0.14), ${T.bg2} 68%)`,
+        border: `1px solid rgba(207,160,96,0.55)`,
+        boxShadow: 'inset 0 0 0 1px rgba(255,244,214,0.06)',
+      }
+      : {
+        background: T.bg2,
+        border: `1px solid ${T.line}`,
+      };
     return (
-      <div style={{ position: 'relative', overflow: 'hidden', background: T.bg2, border: `1px solid ${T.line}`, ...style }}>
+      <div style={{ position: 'relative', overflow: 'hidden', ...frameStyle, ...style }}>
         <img src={src} alt={character.name} loading="lazy" style={imgStyle} />
         {showKind && (
           <div style={{ position: 'absolute', top: 6, left: 8, fontFamily: T.mono, fontSize: 9, letterSpacing: 1.5, color: T.bone, opacity: 0.85, background: 'rgba(10,9,8,0.55)', padding: '2px 7px' }}>{kind}</div>
@@ -3174,17 +3274,21 @@
     const g = ZD.games.find((x) => x.id === map.game);
     return (
       <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
-        style={{ padding: 0, color: T.bone, textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-        <MapImage map={map} file={mapPrimaryFile(map, 'thumb')} height={180} label={map.name} kind={g.code + ' / ' + g.year} tone="green" showOverlay={false} />
-        <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
-          </div>
-          <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 10 }}>{map.name}</div>
-          <div style={{ flex: 1 }} />
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.line}` }}>
-            <Mono color={T.e115}>{'Open ›'}</Mono>
-          </div>
+        style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: 260 }}>
+        <MapImage
+          map={map}
+          file={mapPrimaryFile(map, 'thumb')}
+          height="100%"
+          label={map.name}
+          kind={g.code + ' / ' + g.year}
+          tone="green"
+          showOverlay={false}
+          style={{ position: 'absolute', inset: 0, border: 0 }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.06) 0%, rgba(10,9,8,0.20) 45%, rgba(10,9,8,0.88) 100%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'relative', minHeight: 260, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textShadow: '0 2px 14px rgba(0,0,0,0.82)' }}>
+          <div className="pap-stencil" style={{ fontSize: 29, color: T.bone, lineHeight: 1.05 }}>{map.name}</div>
+          <Mono color={T.e115} style={{ marginTop: 10 }}>{'Open ›'}</Mono>
         </div>
       </button>
     );
@@ -3317,16 +3421,19 @@
         <section style={{ marginTop: 40 }}>
           <SectionHead kicker="Personnel present" title="On site" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {pickCharactersForMap(m).map((c) => (
-              <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
-                style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
-                <CharacterImage character={c} kind="OPERATIVE" style={{ height: 170 }} />
-                <div style={{ padding: 14 }}>
-                  <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
-                  <Mono color={T.faint}>{c.role}</Mono>
-                </div>
-              </button>
-            ))}
+            {pickCharactersForMap(m).map((c) => {
+              const meta = crewCardMeta(m.game, c);
+              return (
+                <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                  style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
+                  <CharacterImage character={c} variant={meta.variant} kind={meta.label.toUpperCase()} showKind={false} style={crewPortraitFrameStyle(meta.variant, 170)} />
+                  <div style={{ padding: 14 }}>
+                    <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
+                    <Mono color={T.faint}>{meta.label}</Mono>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </section>
 
@@ -3713,26 +3820,27 @@
     const [originalCrewVariant, setOriginalCrewVariant] = useState(originalCrewOptions[0].id);
     const selectedOriginalCrew = originalCrewOptions.find((o) => o.id === originalCrewVariant);
     const originalCrewLabel = selectedOriginalCrew ? selectedOriginalCrew.label : originalCrewOptions[0].label;
+    const supportingCastIds = new Set(['director_richtofen']);
     const factions = [
       { id: 'original-crew', sourceId: 'primis', title: 'Original Crew' },
-      { id: 'aether',  title: 'Aether Figures' },
       { id: 'victis',  title: 'Victis' },
       { id: 'chaos',   title: 'Chaos Crew' },
       { id: 'requiem', title: 'Requiem' },
-      { id: 'order',   title: 'The Order' },
-      { id: 'support', title: 'Support Cast' },
+      {
+        id: 'supporting-cast',
+        title: 'Supporting Cast',
+        match: (c) => c.faction === 'support' || c.faction === 'aether' || supportingCastIds.has(c.id),
+      },
     ];
     return (
       <div>
         <PageHead
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Crew'}]}
-          kicker={ZD.characters.length + ' personnel on file'}
           title="The Crew"
-          sub={ZD.characters.length + ' named personnel grouped by faction.'}
           nav={nav}
         />
         {factions.map((f) => {
-          const inFaction = ZD.characters.filter((c) => c.faction === (f.sourceId || f.id));
+          const inFaction = ZD.characters.filter((c) => f.match ? f.match(c) : c.faction === (f.sourceId || f.id));
           const isOriginalCrew = f.id === 'original-crew';
           if (inFaction.length === 0) return null;
           return (
@@ -3757,23 +3865,26 @@
                 ) : null}
               />
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18 }}>
-                {inFaction.map((c) => (
-                  <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
-                    style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
-                    <CharacterImage
-                      character={c}
-                      variant={isOriginalCrew ? originalCrewVariant : undefined}
-                      kind={isOriginalCrew ? originalCrewLabel.toUpperCase() : 'OPERATIVE'}
-                      showKind={false}
-                      style={{ height: 280 }}
-                    />
-                    <div style={{ padding: 16 }}>
-                      <Mono color={T.e115}>{characterTileRole(c.role)}</Mono>
-                      <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{c.name}</div>
-                      {c.quote && !(f.id === 'original-crew' && c.id === 'richtofen') && <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, marginTop: 6, lineHeight: 1.5 }}>{'"' + c.quote + '"'}</div>}
-                    </div>
-                  </button>
-                ))}
+                {inFaction.map((c) => {
+                  const variant = isOriginalCrew ? originalCrewVariant : undefined;
+                  const isUltimisTile = variant === 'ultimis';
+                  return (
+                    <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                      style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: isUltimisTile ? 0 : 320, aspectRatio: isUltimisTile ? '1 / 1' : undefined }}>
+                      <CharacterImage
+                        character={c}
+                        variant={variant}
+                        kind={isOriginalCrew ? originalCrewLabel.toUpperCase() : 'OPERATIVE'}
+                        showKind={false}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+                      />
+                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.04) 0%, rgba(10,9,8,0.22) 46%, rgba(10,9,8,0.9) 100%)', pointerEvents: 'none' }} />
+                      <div style={{ position: 'relative', minHeight: isUltimisTile ? '100%' : 320, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textShadow: '0 2px 14px rgba(0,0,0,0.82)' }}>
+                        <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, lineHeight: 1.05 }}>{c.name}</div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </section>
           );
@@ -3837,22 +3948,13 @@
           sub="Weapon records with origin, type, appearances, and image files."
           nav={nav}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', columnGap: 28, rowGap: 38, marginTop: 32 }}>
           {ZD.wonderWeapons.map((w, i) => (
-            <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card pap-card-clickable"
-              style={{ padding: 0, color: T.bone, textAlign: 'left', overflow: 'hidden' }}>
-              <WeaponImage weapon={w} height={190} label={w.name} />
-              <div style={{ padding: 18 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', marginBottom: 9 }}>
-                  <Mono color={T.e115}>{w.map || 'Unfiled'}</Mono>
-                  <Mono color={T.faint}>{String(i + 1).padStart(2, '0')}</Mono>
-                </div>
-                <div className="pap-stencil" style={{ fontSize: 23, color: T.bone, marginTop: 4 }}>{w.name}</div>
-                {w.summary && <p style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55, marginTop: 9 }}>{w.summary}</p>}
-                <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {w.type && <span className="pap-chip" style={{ cursor: 'default' }}>{w.type}</span>}
-                  <span className="pap-chip" style={{ cursor: 'default' }}>{weaponGalleryItems(w, true).length + ' img'}</span>
-                </div>
+            <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card-clickable"
+              style={{ padding: 0, color: T.bone, textAlign: 'center', overflow: 'hidden', background: 'transparent', border: 0, boxShadow: 'none' }}>
+              <WeaponImage weapon={w} height={170} label={w.name} showOverlay={false} style={{ background: 'transparent', border: 0 }} />
+              <div style={{ padding: '12px 8px 0' }}>
+                <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, lineHeight: 1.05 }}>{w.name}</div>
               </div>
             </button>
           ))}
@@ -3944,15 +4046,13 @@
           sub="Perk records with introduction map, gameplay effect, appearances, and machine images."
           nav={nav}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18, marginTop: 32 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: 18, rowGap: 34, marginTop: 32 }}>
           {ZD.perks.map((p) => (
-            <button key={p.id} onClick={() => nav({ name: 'perk', id: p.id })} className="pap-card pap-card-clickable"
-              style={{ padding: 0, color: T.bone, textAlign: 'left', overflow: 'hidden' }}>
-              <PerkImage perk={p} height={170} label={p.name} />
-              <div style={{ padding: 18 }}>
-                <Mono color={T.e115}>{p.introduced || 'Perk-a-Cola'}</Mono>
-                <div className="pap-stencil" style={{ fontSize: 20, color: T.bone, marginTop: 8 }}>{p.name}</div>
-                {p.effect && <div style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.5, marginTop: 7 }}>{p.effect}</div>}
+            <button key={p.id} onClick={() => nav({ name: 'perk', id: p.id })} className="pap-card-clickable"
+              style={{ padding: 0, color: T.bone, textAlign: 'center', overflow: 'hidden', background: 'transparent', border: 0, boxShadow: 'none' }}>
+              <PerkImage perk={p} height={150} label={p.name} showOverlay={false} style={{ background: 'transparent', border: 0 }} />
+              <div style={{ padding: '10px 8px 0' }}>
+                <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, lineHeight: 1.05 }}>{p.name}</div>
               </div>
             </button>
           ))}
@@ -4563,15 +4663,13 @@
     );
   }
 
-  function PageHead({ crumbs, kicker, title, sub, nav, divider = 'shelf115', titleNoWrap = false }) {
+  function PageHead({ crumbs, title, nav, divider = 'shelf115', titleNoWrap = false }) {
     return (
       <div>
         <Crumbs parts={crumbs} nav={nav} />
         <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
           <div className={titleNoWrap ? 'pap-page-head-title-wrap' : ''} style={{ maxWidth: titleNoWrap ? 'none' : 900 }}>
-            {kicker && <Mono color={T.e115} size={11} letter={2.5}>{kicker}</Mono>}
             <h1 className={'pap-stencil' + (titleNoWrap ? ' pap-page-title-nowrap' : '')} style={{ fontSize: 72, color: T.bone, margin: '12px 0 0' }}>{title}</h1>
-            {sub && <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, marginTop: 14, lineHeight: 1.55, maxWidth: 760 }}>{sub}</p>}
           </div>
         </div>
         {divider === 'shelf115' ? (
@@ -5246,12 +5344,11 @@
     );
   }
 
-  function PageHead({ cmd, title, sub }) {
+  function PageHead({ cmd, title }) {
     return (
       <div style={{ marginBottom: 22 }}>
         <Prompt cmd={cmd} />
         <h1 style={{ fontFamily: C.pixel, fontSize: 46, color: C.bright, margin: '4px 0 4px', fontWeight: 400, letterSpacing: 0.5, lineHeight: 1 }}>{title}</h1>
-        {sub && <div style={{ color: C.dim, maxWidth: 760, fontSize: 13.5, lineHeight: 1.55 }}>{sub}</div>}
         <HRule cols={300} />
       </div>
     );

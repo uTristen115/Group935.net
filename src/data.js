@@ -2,21 +2,21 @@
 window.ZD = (function () {
   const games = [
     { id: 'waw', code: 'WaW', title: 'World at War', year: 2008, era: 'Origins of Origins', mapCount: 4, color: '#6a5232',
-      imgDir: 'World at War',       imgBase: 'CoDWaW.png', imgHover: ['CoDWaWZ1.png','CoDWaWZ2.png'] },
+      imgDir: 'World at War',       imgBase: 'CoDWaW.png', imgHover: ['CoDWaWZ1.png','CoDWaWZ2.png'], imgLogo: 'WaWZombie.png' },
     { id: 'bo1', code: 'BO',  title: 'Black Ops', year: 2010, era: 'The Aether Story Begins', mapCount: 7, color: '#7a3b32',
-      imgDir: 'Black Ops',          imgBase: 'CoDBO1.png', imgHover: ['CoDBO1Z.png'] },
+      imgDir: 'Black Ops',          imgBase: 'CoDBO1.png', imgHover: ['CoDBO1Z.png'], imgLogo: 'BlackOpsZombiesLogo.png' },
     { id: 'bo2', code: 'BO2', title: 'Black Ops II', year: 2012, era: 'Maxis vs. Richtofen', mapCount: 5, color: '#3f5a6b',
-      imgDir: 'Black Ops 2',        imgBase: 'CoDBO2.png', imgHover: ['CoDBO2Z.png'] },
+      imgDir: 'Black Ops 2',        imgBase: 'CoDBO2.png', imgHover: ['CoDBO2Z.png'], imgLogo: 'bo2Logo.png', heroBasePosition: 'center bottom', heroHoverPosition: 'center 25%' },
     { id: 'bo3', code: 'BO3', title: 'Black Ops III', year: 2015, era: 'The Final Chapter', mapCount: 9, color: '#5a3a6b',
-      imgDir: 'Black Ops 3',        imgBase: 'CoDBO3.png', imgHover: ['CoDBO3Z.png'] },
+      imgDir: 'Black Ops 3',        imgBase: 'CoDBO3.png', imgHover: ['CoDBO3Z.png'], imgLogo: 'BO3Logo.png' },
     { id: 'bo4', code: 'BO4', title: 'Black Ops 4',  year: 2018, era: 'The Chaos Divergence', mapCount: 8, color: '#2f5a4a',
-      imgDir: 'Black Ops 4',        imgBase: 'CoDBO4.png', imgHover: ['CoDBO4Z.png'] },
+      imgDir: 'Black Ops 4',        imgBase: 'CoDBO4.png', imgHover: ['CoDBO4Z.png'], imgLogo: 'BOIIIILogo.png' },
     { id: 'cw',  code: 'CW',  title: 'Cold War',     year: 2020, era: 'The Dark Aether', mapCount: 5, color: '#3a4a6b',
-      imgDir: 'Black Ops Cold War', imgBase: 'CoDCW.png',  imgHover: ['CoDCWZ.png'] },
+      imgDir: 'Black Ops Cold War', imgBase: 'CoDCW.png',  imgHover: ['CoDCWZ.png'], imgLogo: 'CoDCWZLogo.png' },
     { id: 'bo6', code: 'BO6', title: 'Black Ops 6',  year: 2024, era: 'Pact with the Dark', mapCount: 4, color: '#5a2f2f',
-      imgDir: 'Black Ops 6',        imgBase: 'CoDBO6.png', imgHover: ['CoDBO6Z.png'] },
+      imgDir: 'Black Ops 6',        imgBase: 'CoDBO6.png', imgHover: ['CoDBO6Z.png'], imgLogo: 'BO6Logo.png' },
     { id: 'bo7', code: 'BO7', title: 'Black Ops 7',  year: 2025, era: 'Relics & Rift Walkers', mapCount: 4, color: '#6b4a2a',
-      imgDir: 'Black Ops 7',        imgBase: 'CoDBO7.png', imgHover: ['CoDBO7Z.png'] },
+      imgDir: 'Black Ops 7',        imgBase: 'CoDBO7.png', imgHover: ['CoDBO7Z.png'], imgLogo: 'BO7Logo.png' },
   ];
   const maps = [
     { id: 'nacht',     game: 'waw', name: 'Nacht der Untoten', location: 'Unknown bunker, 1945', difficulty: 1, eeCount: 0, relicCount: 0, summary: '', tags: ['classic', 'survival', 'origin'] },
@@ -4070,7 +4070,7 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
     { id: 'director_richtofen', name: 'Edward Richtofen', role: 'Director · The Order', origin: 'Unknown · uses the name', faction: 'order',
       summary: '',
       quote: null, hue: 280,
-      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Director_Richtofen.png', label: 'Director', objectPosition: 'center 25%' } },
+      portraits: { default: { dir: 'Requiem/Side Characters', file: 'Director_Richtofen.png', label: 'Director', objectPosition: 'center 50%' } },
       defaultPortrait: 'default' },
 
     // ── Requiem support cast ──
