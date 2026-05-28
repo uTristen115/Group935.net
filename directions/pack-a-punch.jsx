@@ -1,6 +1,6 @@
 // PRIMARY DIRECTION — PACK-A-PUNCH
-// In-character "Group 935 Archive": industrial, high-contrast, Element 115
-// green + blood red + hazard yellow on warm black. Heavy condensed display
+// In-character "Group 935 Archive": industrial, high-contrast, brass
+// accent + blood red + hazard yellow on warm black. Heavy condensed display
 // type. Zero italics. Hash routing.
 
 (function () {
@@ -19,9 +19,9 @@
     bone:    '#e8e2d4',
     mute:    '#9b9282',
     faint:   '#605949',
-    e115:    '#9aff6e',          // Element 115 green
-    e115dim: '#4a7a2c',
-    e115bg:  'rgba(154, 255, 110, 0.08)',
+    e115:    '#d6a24a',
+    e115dim: '#7f5b24',
+    e115bg:  'rgba(214, 162, 74, 0.10)',
     blood:   '#d62828',
     bloodH:  '#ef3a3a',
     hazard:  '#f5c518',
@@ -82,7 +82,7 @@
   // ─── primitives ────────────────────────────────────────────────────────
 
   // Image placeholder — uses gradient + sigil watermark, NOT diagonal lines.
-  const Slot = ({ w, h, label, tone = 'green', style, kind = 'PHOTO' }) => {
+  const Slot = ({ w, h, label, tone = 'accent', style, kind = 'PHOTO' }) => {
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
     return (
       <div style={{
@@ -118,7 +118,7 @@
   );
 
   // Tiny classification chip
-  const Stamp = ({ children, tone = 'green', style }) => {
+  const Stamp = ({ children, tone = 'accent', style }) => {
     const c = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.e115;
     return <span className="pap-stamp" style={{ color: c, ...style }}>{children}</span>;
   };
@@ -127,7 +127,7 @@
     <span style={{ fontFamily: T.mono, fontSize: size, letterSpacing: letter, textTransform: 'uppercase', color: color || T.mute, ...style }}>{children}</span>
   );
 
-  // Difficulty bar — 5 segments, e115 green for filled, faint for empty
+  // Difficulty bar — 5 segments, brass accent for filled, faint for empty
   const Difficulty = ({ value = 1, style }) => (
     <div style={{ display: 'inline-flex', gap: 3, alignItems: 'center', ...style }} aria-label={`Difficulty ${value} of 5`}>
       {Array.from({ length: 5 }).map((_, i) => (
@@ -138,7 +138,7 @@
 
   // Big numeric stat — display face, mono label
   const BigStat = ({ value, label, tone = 'bone' }) => {
-    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.bone;
+    const c = tone === 'accent' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.bone;
     return (
       <div>
         <div className="pap-stencil pap-num" style={{ fontSize: 44, color: c }}>{String(value).padStart(2, '0')}</div>
@@ -404,8 +404,8 @@
             </div>
             <div style={{ flex: 1 }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36, paddingTop: 22, borderTop: `1px solid ${T.line}` }}>
-              <BigStat value={ZD.games.length} label="Games" tone="green" />
-              <BigStat value={ZD.maps.length} label="Maps" tone="green" />
+              <BigStat value={ZD.games.length} label="Games" tone="accent" />
+              <BigStat value={ZD.maps.length} label="Maps" tone="accent" />
               <BigStat value={totalEE} label="Main EEs" tone="yellow" />
               <BigStat value={totalRelics} label="Relics" tone="red" />
             </div>
@@ -414,7 +414,7 @@
           {/* hero side panel */}
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: -8, right: -8, width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', border: `1px solid ${T.e115dim}`, pointerEvents: 'none' }} />
-            <Slot w="100%" h="100%" label={featured.name} tone="green" kind="INTEL ▌ FEATURE" style={{ minHeight: 480 }} />
+            <Slot w="100%" h="100%" label={featured.name} tone="accent" kind="INTEL ▌ FEATURE" style={{ minHeight: 480 }} />
             <div style={{ position: 'absolute', bottom: 18, left: 18, right: 18, background: T.bg0, padding: 18, border: `1px solid ${T.lineHi}` }}>
               <Mono color={T.e115}>★ Featured Intel · {featuredGame.code} {featuredGame.year}</Mono>
               <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{featured.name}</div>
@@ -516,7 +516,7 @@
                 padding: '10px 6px', background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`,
                 cursor: 'pointer', color: T.bone, textAlign: 'left',
               }}>
-              <Slot w={54} h={54} label="" kind={c.id.slice(0,3).toUpperCase()} tone="green" />
+              <Slot w={54} h={54} label="" kind={c.id.slice(0,3).toUpperCase()} tone="accent" />
               <div>
                 <div className="pap-stencil" style={{ fontSize: 17, color: T.bone, letterSpacing: 0.5 }}>{c.name}</div>
                 <Mono color={T.faint}>{c.role}</Mono>
@@ -543,7 +543,7 @@
             return (
               <button key={g.id} onClick={() => nav({ name: 'game', id: g.id })} className="pap-card pap-card-clickable"
                 style={{ display: 'grid', gridTemplateColumns: '180px 1fr', padding: 0, color: T.bone, textAlign: 'left' }}>
-                <Slot w={180} h={200} label={g.code} kind={'GAME · ' + g.year} tone="green" style={{ borderRight: `1px solid ${T.line}` }} />
+                <Slot w={180} h={200} label={g.code} kind={'GAME · ' + g.year} tone="accent" style={{ borderRight: `1px solid ${T.line}` }} />
                 <div style={{ padding: 22, display: 'flex', flexDirection: 'column' }}>
                   <Mono color={T.e115} letter={2}>{g.code} · {g.year}</Mono>
                   <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 6 }}>{g.title}</div>
@@ -630,7 +630,7 @@
     return (
       <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-        <Slot w="100%" h={180} label={map.name} kind={g.code + ' · ' + g.year} tone="green" />
+        <Slot w="100%" h={180} label={map.name} kind={g.code + ' · ' + g.year} tone="accent" />
         <div style={{ padding: 18, display: 'flex', flexDirection: 'column', flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Mono color={T.e115}>{g.code} · {g.year}</Mono>
@@ -676,7 +676,7 @@
 
         {/* hero strip */}
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
-          <Slot w="100%" h={400} label={m.name} kind="SITE · IMAGERY" tone="green" />
+          <Slot w="100%" h={400} label={m.name} kind="SITE · IMAGERY" tone="accent" />
           <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
             <Mono color={T.e115}>Intel Sheet</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
@@ -685,7 +685,7 @@
             <IntelRow label="Game" value={g.title + ' · ' + g.code} />
             <IntelRow label="Location" value={m.location} />
             <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
-            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
+            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'accent' : 'mute'} />
             <IntelRow label="Relics" value={m.relicCount > 0 ? m.relicCount + ' hidden' : '—'} tone={m.relicCount > 0 ? 'yellow' : 'mute'} />
 
             <div style={{ flex: 1 }} />
@@ -758,7 +758,7 @@
             {pickCharactersForMap(m).map((c) => (
               <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
                 style={{ padding: 14, color: T.bone, textAlign: 'left' }}>
-                <Slot w="100%" h={140} label={c.name.split(' ').slice(-1)[0]} kind="OPERATIVE" tone="green" />
+                <Slot w="100%" h={140} label={c.name.split(' ').slice(-1)[0]} kind="OPERATIVE" tone="accent" />
                 <div className="pap-stencil" style={{ fontSize: 17, color: T.bone, marginTop: 10 }}>{c.name}</div>
                 <Mono color={T.faint}>{c.role}</Mono>
               </button>
@@ -789,7 +789,7 @@
   }
 
   function IntelRow({ label, value, tone }) {
-    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
+    const c = tone === 'accent' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
     return (
       <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 12, padding: '10px 0', borderBottom: `1px solid ${T.line}` }}>
         <Mono color={T.faint}>{label}</Mono>
@@ -839,7 +839,7 @@
         <div style={{ display: 'flex', gap: 10, marginTop: 18, flexWrap: 'wrap' }}>
           <Stamp tone="red">{ee.difficulty}</Stamp>
           <Stamp tone="yellow">{ee.duration}</Stamp>
-          <Stamp tone="green">{ee.party}</Stamp>
+          <Stamp tone="accent">{ee.party}</Stamp>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 36, marginTop: 36 }}>
@@ -921,7 +921,7 @@
           {ZD.characters.map((c) => (
             <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
               style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
-              <Slot w="100%" h={260} label={c.name} kind="OPERATIVE" tone="green" />
+              <Slot w="100%" h={260} label={c.name} kind="OPERATIVE" tone="accent" />
               <div style={{ padding: 16 }}>
                 <Mono color={T.e115}>{c.role}</Mono>
                 <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 6 }}>{c.name}</div>
@@ -948,11 +948,11 @@
         />
         <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: 36, marginTop: 32 }}>
           <div>
-            <Slot w={380} h={480} label={c.name} kind="DOSSIER" tone="green" />
+            <Slot w={380} h={480} label={c.name} kind="DOSSIER" tone="accent" />
             <div style={{ marginTop: 18, padding: 16, background: T.bg1, border: `1px solid ${T.line}` }}>
               <IntelRow label="Origin" value={c.origin} />
               <IntelRow label="Role" value={c.role} />
-              <IntelRow label="Status" value="Active" tone="green" />
+              <IntelRow label="Status" value="Active" tone="accent" />
             </div>
           </div>
           <div>
@@ -990,7 +990,7 @@
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
           {ZD.wonderWeapons.map((w, i) => (
             <div key={w.id} className="pap-card" style={{ padding: 22, display: 'grid', gridTemplateColumns: '90px 1fr', gap: 18 }}>
-              <Slot w={90} h={110} label={String(i+1).padStart(2,'0')} kind="WW" tone="green" />
+              <Slot w={90} h={110} label={String(i+1).padStart(2,'0')} kind="WW" tone="accent" />
               <div>
                 <Mono color={T.e115}>{w.map}</Mono>
                 <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{w.name}</div>

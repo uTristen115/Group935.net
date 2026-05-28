@@ -170,9 +170,9 @@
     bone:    '#e8e2d4',
     mute:    '#9b9282',
     faint:   '#605949',
-    e115:    '#9aff6e',
-    e115dim: '#4a7a2c',
-    e115bg:  'rgba(154, 255, 110, 0.08)',
+    e115:    '#d6a24a',
+    e115dim: '#7f5b24',
+    e115bg:  'rgba(214, 162, 74, 0.10)',
     blood:   '#d62828',
     bloodH:  '#ef3a3a',
     hazard:  '#f5c518',
@@ -500,7 +500,7 @@
         object-fit: contain;
         filter: drop-shadow(0 20px 30px rgba(0,0,0,0.42));
       }
-      .pap-btn { font-family: ${T.display}; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
+      .pap-btn { font-family: ${T.e115Font}; font-weight: 400; letter-spacing: 1.8px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
       .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-primary:hover { background: ${T.bone}; }
       .pap-btn-ghost { background: transparent; color: ${T.bone}; border: 1px solid ${T.lineHi}; }
@@ -528,8 +528,8 @@
       .pap-vote-leader-row { display: grid; grid-template-columns: 34px 86px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 10px; background: ${T.bg1}; border: 1px solid ${T.line}; }
       .pap-vote-leader-row.is-first { background: ${T.e115bg}; border-color: ${T.e115dim}; }
       .pap-vote-rank { font-size: 21px; text-align: center; }
-      .pap-home-manual-title { display: flex; align-items: flex-start; flex-wrap: nowrap; line-height: 0; }
-      .pap-home-manual-logo-line { display: flex; align-items: flex-start; flex: 0 1 auto; min-width: 0; line-height: 0; }
+      .pap-home-manual-title { display: flex; align-items: center; flex-wrap: nowrap; line-height: 0; }
+      .pap-home-manual-logo-line { display: flex; align-items: center; flex: 0 1 auto; min-width: 0; line-height: 0; }
       .pap-home-zombies-icon { display: block; width: min(7.6em, 100%); height: auto; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45)); }
       .pap-kronorium { --kronorium-line-x: 14px; position: relative; margin-top: clamp(28px, 4vw, 48px); max-width: 1040px; }
       .pap-kronorium::before { content: ""; position: absolute; left: var(--kronorium-line-x); top: 8px; bottom: 10px; width: 1px; background: linear-gradient(to bottom, ${T.e115}, ${T.hazard}, ${T.blood}); opacity: 0.68; }
@@ -659,6 +659,20 @@
       .pap-game-tile-icon-bo4 { width: 46px; height: 46px; }
       .pap-game-tile-icon-bo6,
       .pap-game-tile-icon-bo7 { top: 3px; }
+      .pap-home-feature-window { position: relative; cursor: pointer; }
+      .pap-home-feature-window .pap-map-image { transition: border-color .1s ease, filter .12s ease; }
+      .pap-home-feature-window .pap-map-image img {
+        transform-origin: var(--pap-feature-origin-x, 50%) var(--pap-feature-origin-y, 50%);
+        transition: transform .08s linear, filter .12s ease;
+        will-change: transform;
+      }
+      .pap-home-feature-window:hover .pap-map-image,
+      .pap-home-feature-window:focus-within .pap-map-image { border-color: ${T.e115dim}; filter: brightness(1.04); }
+      .pap-home-feature-window:hover .pap-map-image img,
+      .pap-home-feature-window:focus-within .pap-map-image img {
+        transform: scale(1.055) translate3d(var(--pap-feature-pan-x, 0), var(--pap-feature-pan-y, 0), 0);
+        filter: contrast(1.06) brightness(1.04);
+      }
       @media (max-width: 1100px) {
         .pap-header-inner { flex-wrap: wrap !important; gap: 16px !important; }
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
@@ -757,7 +771,7 @@
         .pap-footer-bottom { flex-direction: column !important; gap: 8px !important; }
         .pap-stencil { letter-spacing: 0 !important; overflow-wrap: anywhere; font-size: clamp(18px, 8vw, 36px) !important; line-height: 1 !important; }
         #root .pap-song-title { font-size: 19px !important; line-height: 1.05 !important; }
-        .pap-home-manual-title { align-items: flex-start; }
+        .pap-home-manual-title { align-items: center; }
         .pap-home-zombies-icon { width: min(87vw, 100%); height: auto; }
         .pap-song-row { padding: 15px 16px; }
         h1.pap-stencil { font-size: clamp(34px, 15vw, 56px) !important; }
@@ -909,7 +923,7 @@
     document.head.appendChild(s);
   }
 
-  const Slot = ({ w, h, label, tone = 'green', style, kind = 'PHOTO' }) => {
+  const Slot = ({ w, h, label, tone = 'accent', style, kind = 'PHOTO' }) => {
     const accent = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.e115;
     return (
       <div style={{
@@ -1000,7 +1014,7 @@
                 height={220}
                 label={item.label}
                 kind="GALLERY"
-                tone="green"
+                tone="accent"
                 showOverlay={false}
                 objectFit={item.objectFit || 'cover'}
                 objectPosition={item.objectPosition}
@@ -1044,7 +1058,7 @@
       <>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
           {visibleItems.map((item) => (
-            <MapImage key={item.file} map={map} file={item.file} height={220} label={item.label} kind="GALLERY" tone="green" showOverlay={false} objectFit={item.objectFit || 'cover'} objectPosition={item.objectPosition} openFullSize />
+            <MapImage key={item.file} map={map} file={item.file} height={220} label={item.label} kind="GALLERY" tone="accent" showOverlay={false} objectFit={item.objectFit || 'cover'} objectPosition={item.objectPosition} openFullSize />
           ))}
           {hasOverflow && <MapGalleryMoreButton map={map} items={overflowItems} onOpen={() => setOpen(true)} />}
         </div>
@@ -1127,7 +1141,7 @@
     return response.json();
   }
 
-  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false }) {
+  function MapImage({ map, file, label, kind = 'SITE IMAGERY', tone = 'accent', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false }) {
     const [failed, setFailed] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const src = !failed ? mapImg(map, file || mapPrimaryFile(map)) : null;
@@ -1172,7 +1186,7 @@
     );
   }
 
-  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'green', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false, compactOverlay = false }) {
+  function EvidenceImage({ map, image, label, kind = 'REFERENCE', tone = 'accent', height = 180, style, loading = 'lazy', showOverlay = true, objectFit = 'cover', objectPosition, openFullSize = false, compactOverlay = false }) {
     const [failed, setFailed] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const src = !failed ? gameAssetImg(image, map) : null;
@@ -1290,7 +1304,7 @@
     const [failed, setFailed] = useState(false);
     const src = !failed ? weaponImg(weapon, file || weaponPrimaryFile(weapon)) : null;
     const title = label || (weapon && weapon.name) || 'Wonder weapon';
-    if (!src) return <Slot w="100%" h={height} label={title} kind="WW" tone="green" style={style} />;
+    if (!src) return <Slot w="100%" h={height} label={title} kind="WW" tone="accent" style={style} />;
     return (
       <div style={{
         width: '100%', height, position: 'relative', overflow: 'hidden',
@@ -1334,7 +1348,7 @@
     const [failed, setFailed] = useState(false);
     const src = !failed ? perkImg(perk, file || perkPrimaryFile(perk)) : null;
     const title = label || (perk && perk.name) || 'Perk-a-Cola';
-    if (!src) return <Slot w="100%" h={height} label={title} kind="PERK" tone="green" style={style} />;
+    if (!src) return <Slot w="100%" h={height} label={title} kind="PERK" tone="accent" style={style} />;
     return (
       <div style={{
         width: '100%', height, position: 'relative', overflow: 'hidden',
@@ -1383,9 +1397,9 @@
     );
   }
 
-  const Stamp = ({ children, tone = 'green', style }) => {
+  const Stamp = ({ children, tone = 'accent', style }) => {
     const c = tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.e115;
-    return <span className="pap-stamp" style={{ color: c, fontFamily: tone === 'green' ? T.e115Font : undefined, ...style }}>{children}</span>;
+    return <span className="pap-stamp" style={{ color: c, fontFamily: tone === 'accent' ? T.e115Font : undefined, ...style }}>{children}</span>;
   };
 
   function shufflePaperBadges(count) {
@@ -1479,7 +1493,7 @@
   );
 
   const BigStat = ({ value, label, tone = 'bone' }) => {
-    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.bone;
+    const c = tone === 'accent' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : T.bone;
     return (
       <div>
         <div className="pap-stencil pap-num" style={{ fontSize: 44, color: c }}>{String(value).padStart(2, '0')}</div>
@@ -1552,7 +1566,7 @@
             background: T.bg1, border: `1px solid ${T.lineHi}`, minWidth: 180,
             padding: '6px 0', zIndex: 50, boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
           }}>
-            {items.map((n) => {
+            {items.map((n, i) => {
               const active = route.name === n.id
                 || (n.id === 'maps' && (route.name === 'map' || route.name === 'ee'))
                 || (n.id === 'characters' && route.name === 'character')
@@ -1560,20 +1574,24 @@
                 || (n.id === 'weapons' && route.name === 'weapon')
                 || (n.id === 'perks' && route.name === 'perk');
               return (
-                <button key={n.id} onClick={() => { nav({ name: n.id }); setOpen(false); }}
-                  style={{
-                    display: 'block', width: '100%', textAlign: 'left',
-                    background: active ? T.e115bg : 'transparent',
-                    border: 0, padding: '10px 18px',
-                    fontFamily: T.display, fontWeight: 600, fontSize: 12.5, letterSpacing: 1.8, textTransform: 'uppercase',
-                    color: active ? T.e115 : T.bone, cursor: 'pointer',
-                  }}
-                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = T.bg3; }}
-                  onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
-                >
-                  {n.label}
-                  {n.sub && <span style={{ display: 'block', fontFamily: T.mono, fontSize: 9, letterSpacing: 1.5, color: T.faint, marginTop: 2, fontWeight: 400 }}>{n.sub}</span>}
-                </button>
+                <React.Fragment key={n.id}>
+                  <button onClick={() => { nav({ name: n.id }); setOpen(false); }}
+                    style={{
+                      display: 'block', width: '100%', textAlign: 'left',
+                      background: active ? T.e115bg : 'transparent',
+                      border: 0, padding: '10px 18px',
+                      fontFamily: T.display, fontWeight: 600, fontSize: 12.5, letterSpacing: 1.8, textTransform: 'uppercase',
+                      color: active ? T.e115 : T.bone, cursor: 'pointer',
+                    }}
+                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = T.bg3; }}
+                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                  >
+                    {n.label}
+                  </button>
+                  {i < items.length - 1 && (
+                    <div aria-hidden="true" style={{ width: 'calc(100% - 36px)', height: 1, margin: '0 auto', background: `linear-gradient(90deg, transparent 0%, ${T.lineHi} 16%, ${T.lineHi} 84%, transparent 100%)`, opacity: 0.58 }} />
+                  )}
+                </React.Fragment>
               );
             })}
           </div>
@@ -1586,33 +1604,29 @@
     const now = useNow();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const databaseItems = [
-      { id: 'games', label: 'Games', sub: 'WaW through BO7' },
-      { id: 'maps', label: 'Maps', sub: 'All 40+ locations' },
-      { id: 'songs', label: 'Songs', sub: 'Easter egg tracks' },
+      { id: 'games', label: 'Games' },
+      { id: 'maps', label: 'Maps' },
+      { id: 'songs', label: 'Songs' },
+      { id: 'weapons', label: 'Wonder Weapons' },
+      { id: 'perks', label: 'Perks' },
     ];
     const votingItems = [
-      { id: 'vote', label: 'Maps', sub: 'Favorite map of all time' },
-      { id: 'vote-weapons', label: 'Wonder Weapons', sub: 'Favorite arsenal' },
-      { id: 'vote-perks', label: 'Perks', sub: 'Favorite machine' },
-      { id: 'vote-characters', label: 'Characters', sub: 'Favorite operator' },
+      { id: 'vote', label: 'Maps' },
+      { id: 'vote-weapons', label: 'Wonder Weapons' },
+      { id: 'vote-perks', label: 'Perks' },
+      { id: 'vote-characters', label: 'Characters' },
     ];
     const relicItems = [
-      { id: 'relics', label: 'Relics', sub: 'Cursed Standard' },
-    ];
-    const armoryItems = [
-      { id: 'weapons', label: 'Wonder Weapons', sub: 'Weapon records' },
-      { id: 'perks', label: 'Perks', sub: 'Vending machines' },
+      { id: 'relics', label: 'Relics' },
     ];
     const storyItems = [
-      { id: 'timeline', label: 'Kronorium', sub: 'Book of events' },
-      { id: 'lore', label: 'Lore', sub: 'Deep readings' },
-      { id: 'characters', label: 'Crew', sub: 'Operatives & figures' },
+      { id: 'timeline', label: 'Kronorium' },
+      { id: 'characters', label: 'Crew' },
     ];
     const mobileGroups = [
       { label: 'Database', items: databaseItems },
       { label: 'Voting', items: votingItems },
       { label: 'Relics', items: relicItems },
-      { label: 'Armory', items: armoryItems },
       { label: 'Story', items: storyItems },
     ];
     const isItemActive = (n) =>
@@ -1667,7 +1681,6 @@
             </button>
             <nav className="pap-main-nav" style={{ display: 'flex', gap: 4, marginLeft: 14, alignItems: 'center' }}>
               <NavDropdown label="Database" route={route} nav={nav} items={databaseItems} />
-              <NavDropdown label="Armory" route={route} nav={nav} items={armoryItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
               <NavDropdown label="Voting" route={route} nav={nav} items={votingItems} />
               <button
@@ -1733,7 +1746,7 @@
                             key={n.id}
                             onClick={() => mobileNav({ name: n.id })}
                             style={{
-                              minHeight: 58,
+                              minHeight: 44,
                               textAlign: 'left',
                               background: active ? T.e115bg : T.bg2,
                               border: `1px solid ${active ? T.e115dim : T.line}`,
@@ -1744,7 +1757,6 @@
                             }}
                           >
                             {n.label}
-                            {n.sub && <span style={{ display: 'block', fontFamily: T.mono, fontSize: 8.5, letterSpacing: 1.2, color: T.faint, marginTop: 3, fontWeight: 400 }}>{n.sub}</span>}
                           </button>
                         );
                       })}
@@ -1772,7 +1784,7 @@
             </div>
             <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
-            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Lore','lore'],['Site Index','site-index'],['About','about']]} nav={nav} />
+            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Site Index','site-index'],['About','about']]} nav={nav} />
           </div>
           <div className="pap-footer-bottom" style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div>Fan project. Not affiliated with Activision or Treyarch. All trademarks belong to their owners.</div>
@@ -1850,6 +1862,23 @@
     }, [featuredPool.length]);
     const featured = featuredPool[featuredIndex % featuredPool.length] || ZD.maps.find((m) => m.id === 'citadelle') || ZD.maps[0];
     const featuredGame = ZD.games.find((g) => g.id === featured.game);
+    const featuredGameIcon = featuredGame && featuredGame.imgIcon ? gameImg(featuredGame, featuredGame.imgIcon) : null;
+    const openFeaturedMap = () => nav({ name: 'map', id: featured.id });
+    const moveFeaturedImage = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+      const y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+      event.currentTarget.style.setProperty('--pap-feature-origin-x', (x * 100).toFixed(1) + '%');
+      event.currentTarget.style.setProperty('--pap-feature-origin-y', (y * 100).toFixed(1) + '%');
+      event.currentTarget.style.setProperty('--pap-feature-pan-x', ((0.5 - x) * 12).toFixed(2) + 'px');
+      event.currentTarget.style.setProperty('--pap-feature-pan-y', ((0.5 - y) * 8).toFixed(2) + 'px');
+    };
+    const resetFeaturedImage = (event) => {
+      event.currentTarget.style.setProperty('--pap-feature-origin-x', '50%');
+      event.currentTarget.style.setProperty('--pap-feature-origin-y', '50%');
+      event.currentTarget.style.setProperty('--pap-feature-pan-x', '0px');
+      event.currentTarget.style.setProperty('--pap-feature-pan-y', '0px');
+    };
     return (
       <div>
         <section style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 36, marginBottom: 56, alignItems: 'stretch' }}>
@@ -1863,24 +1892,20 @@
                 <img className="pap-home-zombies-icon" src={IMG_BASE + '/Icons/zombiesicon.png'} alt="Zombies" />
               </span>
             </h1>
-            <p style={{ fontFamily: T.sans, fontSize: 17, color: T.mute, lineHeight: 1.55, maxWidth: 560, marginTop: 22 }}>
-              {'A field archive for everything Treyarch Zombies'}
-            </p>
-            <div style={{ display: 'flex', gap: 12, marginTop: 26 }}>
-              <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'maps' })}>{'Explore the Maps →'}</button>
+            <div style={{ display: 'flex', gap: 12, marginTop: 72 }}>
+              <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'maps' })}>{'Explore the Maps'}</button>
               <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'timeline' })}>Read the Kronorium</button>
             </div>
             <div style={{ flex: 1 }} />
           </div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: -8, right: -8, width: 'calc(100% + 16px)', height: 'calc(100% + 16px)', border: `1px solid ${T.e115dim}`, pointerEvents: 'none' }} />
-            <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="green" loading="eager" showOverlay={false} objectFit="cover" style={{ minHeight: 380, borderColor: T.e115dim }} />
+          <div className="pap-home-feature-window" onClick={openFeaturedMap} onMouseMove={moveFeaturedImage} onMouseLeave={resetFeaturedImage}>
+            <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="accent" loading="eager" showOverlay={false} objectFit="cover" style={{ minHeight: 380 }} />
+            {featuredGameIcon && <img className={'pap-game-tile-icon pap-game-tile-icon-' + featuredGame.id} src={featuredGameIcon} alt="" aria-hidden loading="lazy" />}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(10,9,8,0.9) 100%)', padding: '32px 16px 14px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
               <div style={{ minWidth: 0 }}>
-                <Mono color={T.e115}>{'★ ' + featuredGame.code + ' · ' + featuredGame.year}</Mono>
                 <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4, lineHeight: 1 }}>{featured.name}</div>
               </div>
-              <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }} onClick={() => nav({ name: 'map', id: featured.id })}>
+              <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }} onClick={(event) => { event.stopPropagation(); openFeaturedMap(); }}>
                 {'Open →'}
               </button>
             </div>
@@ -1959,12 +1984,12 @@
     const route = { name: 'ee', id: ee.id };
     const gameName = (game && game.title) || 'Archive';
     const subtitle = ee.title || ee.summary;
-    const action = 'Open tutorial ->';
+    const action = 'Open tutorial';
     return (
       <div className="pap-card" style={{ padding: 0, position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%' }}>
         <CallingCardReward ee={ee} height={220} />
         <div style={{ position: 'relative', flex: '1 1 auto', minHeight: 330, overflow: 'hidden', borderTop: `1px solid ${T.line}` }}>
-          <MapImage map={m} height="100%" label={mapName} kind="MAP FILE" tone="green" showOverlay={false} objectFit="cover" style={{ position: 'absolute', inset: 0, border: 0 }} />
+          <MapImage map={m} height="100%" label={mapName} kind="MAP FILE" tone="accent" showOverlay={false} objectFit="cover" style={{ position: 'absolute', inset: 0, border: 0 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.66) 0%, rgba(10,9,8,0.16) 38%, rgba(10,9,8,0.96) 100%)', pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, padding: '16px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, textShadow: '0 2px 12px rgba(0,0,0,0.85)' }}>
             <Stamp tone="red">Main Quest</Stamp>
@@ -2041,7 +2066,7 @@
             {activationShots.map((shot, i) => (
               <div key={i} style={{ minWidth: 0 }}>
                 {shot ? (
-                  <EvidenceImage map={map} image={shot} height={112} label={shot.label || (song.name + ' trigger ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} objectFit="contain" openFullSize />
+                  <EvidenceImage map={map} image={shot} height={112} label={shot.label || (song.name + ' trigger ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="accent" showOverlay={false} objectFit="contain" openFullSize />
                 ) : (
                   <Slot w="100%" h={112} label={'Trigger ' + String(i + 1)} kind="SCREENSHOT NEEDED" tone="yellow" />
                 )}
@@ -2378,7 +2403,7 @@
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,9,8,0.1) 0%, rgba(10,9,8,0.55) 55%, rgba(10,9,8,0.95) 100%)', pointerEvents: 'none' }} />
           <div style={{ position: 'relative', padding: 36 }}>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
-              <Stamp tone="green">{game.code}</Stamp>
+              <Stamp tone="accent">{game.code}</Stamp>
               <Mono color={T.bone}>{game.year + ' · ' + game.era}</Mono>
             </div>
             <h1 className="pap-stencil" style={{ fontSize: 72, color: T.bone, margin: 0, textShadow: '0 4px 18px rgba(0,0,0,0.7)' }}>{game.title}</h1>
@@ -2606,7 +2631,7 @@
   const RARITY_COLOR = {
     'common':     '#9b9282',
     'rare':       '#3a8fff',
-    'ultra-rare': '#9aff6e',
+    'ultra-rare': T.e115,
     'epic':       '#b066ff',
     'legendary':  '#f5c518',
     'mega':       '#d062ff',
@@ -2642,7 +2667,7 @@
         borderRadius: isMajor ? 24 : 4,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontFamily: T.display, fontWeight: 700, fontSize: 13, color,
-        background: 'rgba(154,255,110,0.04)',
+        background: T.e115bg,
       }}>
         {(perk || 'A').replace(/[^A-Za-z]/g, '').slice(0, 3).toUpperCase()}
         {isMajor && <div style={{ position: 'absolute', top: -6, right: -6, width: 14, height: 14, borderRadius: 7, background: T.e115, border: `2px solid ${T.bg0}` }} />}
@@ -2663,7 +2688,7 @@
         {/* contextual subline */}
         {item.rarity && (
           <div style={{ marginTop: 6 }}>
-            <span style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 1.8, color, textTransform: 'uppercase', padding: '2px 8px', border: `1px solid ${color}`, background: 'rgba(154,255,110,0.04)' }}>{item.rarity}</span>
+            <span style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 1.8, color, textTransform: 'uppercase', padding: '2px 8px', border: `1px solid ${color}`, background: T.e115bg }}>{item.rarity}</span>
           </div>
         )}
         {item.perk && (
@@ -2708,7 +2733,7 @@
     if (!src) {
       // Fallback for characters without portraits (samantha, maxis — voice/disembodied).
       const last = character.name.split(' ').slice(-1)[0];
-      return <Slot label={last} kind={kind} tone="green" style={style} />;
+      return <Slot label={last} kind={kind} tone="accent" style={style} />;
     }
     const isUltimis = v === 'ultimis';
     const objectPosition = p.objectPosition || (isUltimis ? 'center center' : 'center 20%');
@@ -2875,7 +2900,7 @@
         getDetailRoute: (item) => ({ name: 'map', id: item.id }),
         renderImage: (item, height, compact) => {
           const g = ZD.games.find((x) => x.id === item.game);
-          return <MapImage map={item} file={mapPrimaryFile(item, 'thumb')} height={height} label={item.name} kind={(g && g.code) || 'MAP'} tone="green" showOverlay={!compact} />;
+          return <MapImage map={item} file={mapPrimaryFile(item, 'thumb')} height={height} label={item.name} kind={(g && g.code) || 'MAP'} tone="accent" showOverlay={!compact} />;
         },
       },
       weapons: {
@@ -3106,7 +3131,7 @@
                 <div style={{ padding: 16, display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                     <Mono color={T.e115}>{config.getMeta(item)}</Mono>
-                    {isSelected && <Stamp tone="green" style={{ fontSize: 9 }}>Picked</Stamp>}
+                    {isSelected && <Stamp tone="accent" style={{ fontSize: 9 }}>Picked</Stamp>}
                   </div>
                   <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, marginTop: 9 }}>{item.name}</div>
                   <div style={{ flex: 1 }} />
@@ -3299,7 +3324,7 @@
           height="100%"
           label={map.name}
           kind={g.code + ' / ' + g.year}
-          tone="green"
+          tone="accent"
           showOverlay={false}
           style={{ position: 'absolute', inset: 0, border: 0 }}
         />
@@ -3334,7 +3359,7 @@
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
-          <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="green" loading="eager" openFullSize />
+          <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="accent" loading="eager" openFullSize />
           <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
             <Mono color={T.e115}>Intel Sheet</Mono>
             <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
@@ -3342,8 +3367,8 @@
             <IntelRow label="Game" value={g.title + ' · ' + g.code} />
             <IntelRow label="Location" value={m.location} />
             <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
-            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'green' : 'mute'} />
-            <IntelRow label="Songs" value={(m.songs && m.songs.length) ? (m.songs.length + ' catalogued') : '—'} tone={(m.songs && m.songs.length) ? 'green' : 'mute'} />
+            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'accent' : 'mute'} />
+            <IntelRow label="Songs" value={(m.songs && m.songs.length) ? (m.songs.length + ' catalogued') : '—'} tone={(m.songs && m.songs.length) ? 'accent' : 'mute'} />
             {relicCount > 0 && <IntelRow label="Relics" value={relicCount + ' hidden'} tone="yellow" />}
             <div style={{ flex: 1 }} />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
@@ -3484,7 +3509,7 @@
   }
 
   function IntelRow({ label, value, tone }) {
-    const c = tone === 'green' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
+    const c = tone === 'accent' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
     return (
       <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 12, padding: '10px 0', borderBottom: `1px solid ${T.line}` }}>
         <Mono color={T.faint}>{label}</Mono>
@@ -3932,7 +3957,7 @@
             <div style={{ marginTop: 18, padding: 16, background: T.bg1, border: `1px solid ${T.line}` }}>
               <IntelRow label="Origin" value={c.origin} />
               <IntelRow label="Role" value={c.role} />
-              <IntelRow label="Status" value="Active" tone="green" />
+              <IntelRow label="Status" value="Active" tone="accent" />
             </div>
           </div>
           <div>
@@ -4009,7 +4034,7 @@
               <IntelRow label="Origin" value={w.map || 'Unconfirmed'} />
               <IntelRow label="Type" value={w.type || 'Wonder weapon'} />
               <IntelRow label="Introduced" value={w.introduced || 'Unknown'} />
-              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="green" />
+              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="accent" />
             </div>
             {originMap && (
               <button className="pap-btn pap-btn-primary" style={{ marginTop: 18, width: '100%' }} onClick={() => nav({ name: 'map', id: originMap.id })}>
@@ -4106,7 +4131,7 @@
             <div style={{ marginTop: 18 }}>
               <IntelRow label="Introduced" value={p.introduced || 'Unknown'} />
               <IntelRow label="Effect" value={p.effect || 'TBD'} />
-              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="green" />
+              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="accent" />
             </div>
             {originMap && (
               <button className="pap-btn pap-btn-primary" style={{ marginTop: 18, width: '100%' }} onClick={() => nav({ name: 'map', id: originMap.id })}>
@@ -4283,7 +4308,7 @@
               {activationShots.map((shot, i) => (
                 <div key={i}>
                   {shot ? (
-                    <EvidenceImage map={map} image={shot} height={170} label={shot.label || (song.name + ' activation ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="green" showOverlay={false} objectFit="contain" openFullSize />
+                    <EvidenceImage map={map} image={shot} height={170} label={shot.label || (song.name + ' activation ' + String(i + 1))} kind={'TRIGGER ' + String(i + 1)} tone="accent" showOverlay={false} objectFit="contain" openFullSize />
                   ) : (
                     <Slot w="100%" h={170} label={'Trigger ' + String(i + 1)} kind="SCREENSHOT NEEDED" tone="yellow" />
                   )}
@@ -5191,7 +5216,7 @@
       case 'songs':      page = <Songs nav={nav} />; break;
       case 'song':       page = <SongDetail id={route.id} nav={nav} />; break;
       case 'relics':     page = <RelicsBO7 nav={nav} relicId={route.id} />; break;
-      case 'lore':       page = route.id ? <LoreArticle id={route.id} nav={nav} /> : <Lore nav={nav} />; break;
+      case 'lore':       page = <NotFound nav={nav} what="lore file" />; break;
       case 'search':     page = <Search query={query} nav={nav} />; break;
       case 'about':      page = <About nav={nav} />; break;
       case 'site-index': page = <SiteIndex nav={nav} />; break;
@@ -5311,7 +5336,7 @@
   function Shell({ route, setRoute, query, setQuery, children }) {
     const nav = [
       ['home','home'], ['games','games'], ['maps','sites'],
-      ['characters','subjects'], ['lore','memos'], ['timeline','kronorium'], ['relics','relics'],
+      ['characters','subjects'], ['timeline','kronorium'], ['relics','relics'],
     ];
     return (
       <div className="term-shell" style={{ background: C.bg, color: C.ink, fontFamily: C.mono, minHeight: '100%', fontSize: 14, lineHeight: 1.55 }}>
@@ -5810,7 +5835,6 @@
       case 'ee':         page = <EE setRoute={setRoute} />; break;
       case 'characters': page = <Characters setRoute={setRoute} />; break;
       case 'character':  page = <CharacterDetail id={route.id} setRoute={setRoute} />; break;
-      case 'lore':       page = <Lore />; break;
       case 'timeline':   page = <Timeline />; break;
       case 'relics':     page = <Relics setRoute={setRoute} />; break;
       case 'search':     page = <Search query={query} setRoute={setRoute} />; break;
