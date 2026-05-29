@@ -757,6 +757,13 @@
       .pap-main-nav { scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
       .pap-main-nav::-webkit-scrollbar { height: 4px; }
       .pap-main-nav::-webkit-scrollbar-thumb { background: ${T.lineHi}; }
+      .pap-support-link { position: absolute; right: 32px; top: 50%; transform: translate(calc(100% + 14px), -50%); display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: ${T.bone}; text-decoration: none; white-space: nowrap; transition: color .14s ease, filter .14s ease; }
+      .pap-support-link:hover,
+      .pap-support-link:focus-visible { color: ${T.e115}; filter: drop-shadow(0 0 10px rgba(214, 162, 74, 0.28)); outline: none; }
+      .pap-support-link::after { content: attr(data-label); position: absolute; left: calc(100% + 8px); top: 50%; transform: translate(-4px, -50%); opacity: 0; pointer-events: none; color: ${T.e115}; font-family: ${T.mono}; font-size: 8.5px; font-weight: 700; letter-spacing: 1.45px; line-height: 1.15; text-transform: uppercase; text-shadow: 0 0 12px rgba(214, 162, 74, 0.18); transition: opacity .14s ease, transform .14s ease; }
+      .pap-support-link:hover::after,
+      .pap-support-link:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
+      .pap-support-icon { width: 16.5px; height: 16.5px; flex: 0 0 16.5px; color: currentColor; opacity: 0.92; }
       .pap-mobile-menu-toggle { display: none; }
       .pap-mobile-menu { display: none; }
       .pap-mobile-menu-inner { max-width: 1440px; margin: 0 auto; padding: 14px; display: grid; gap: 14px; }
@@ -870,6 +877,7 @@
         #root .pap-brand .pap-stencil { font-size: clamp(19px, 5.7vw, 24px) !important; line-height: 1 !important; white-space: nowrap; }
         #root .pap-brand [style*="font-size: 9.5px"] { display: none !important; }
         .pap-header-spacer { display: none !important; }
+        .pap-support-link { display: none !important; }
         .pap-main-nav { display: none !important; }
         .pap-mobile-menu-toggle { display: inline-flex !important; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid ${T.lineHi}; background: ${T.bg1}; color: ${T.bone}; cursor: pointer; }
         .pap-mobile-menu-toggle.is-open { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
@@ -1862,6 +1870,21 @@
                 style={{ background: 'transparent', border: 0, outline: 'none', color: T.bone, fontFamily: T.mono, fontSize: 11.5, width: '100%' }} />
               <span style={{ fontFamily: T.mono, fontSize: 9, color: T.faint, border: `1px solid ${T.line}`, padding: '1px 5px' }}>/</span>
             </div>
+            <a
+              className="pap-support-link"
+              href="https://www.etsy.com/shop/3DAlchemyShop"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-label="Help the Devs"
+              aria-label="Help the devs on Etsy"
+            >
+              <svg className="pap-support-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 8h11v6.5A4.5 4.5 0 0 1 11.5 19h-2A4.5 4.5 0 0 1 5 14.5V8Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+                <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                <path d="M7 4.5c.6.55.6 1.15 0 1.8M10.5 4.5c.6.55.6 1.15 0 1.8M14 4.5c.6.55.6 1.15 0 1.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M4 21h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+              </svg>
+            </a>
           </div>
           {mobileMenuOpen && (
             <div className="pap-mobile-menu">
