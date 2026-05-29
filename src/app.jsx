@@ -1735,7 +1735,7 @@
     ];
     const mobileGroups = [
       { label: 'Database', items: databaseItems },
-      { label: 'Voting', items: votingItems },
+      { label: 'Community Votes', items: votingItems },
       { label: 'Relics', items: relicItems },
       { label: 'Story', items: storyItems },
     ];
@@ -1792,7 +1792,7 @@
             <nav className="pap-main-nav" style={{ display: 'flex', gap: 4, marginLeft: 14, alignItems: 'center' }}>
               <NavDropdown label="Database" route={route} nav={nav} items={databaseItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
-              <NavDropdown label="Voting" route={route} nav={nav} items={votingItems} />
+              <NavDropdown label="Community Votes" route={route} nav={nav} items={votingItems} />
               <button
                 type="button"
                 onClick={() => nav({ name: 'relics' })}
@@ -1892,7 +1892,7 @@
                 {'group935.net · doc ' + dossierNo()}
               </div>
             </div>
-            <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
+            <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Community Votes','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['GobbleGums','gobblegums'],['Songs','songs']]} nav={nav} />
             <FooterCol title="Reading" links={[['Kronorium','timeline'],['Site Index','site-index'],['About','about']]} nav={nav} />
           </div>
@@ -3364,7 +3364,7 @@
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting'},{label:config.title}]}
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Community Votes'},{label:config.title}]}
           kicker="Community vote"
           title={config.title}
           sub={config.sub}
@@ -3530,7 +3530,7 @@
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Voting',to:{name:config.routeName}},{label:'Full Ranking'}]}
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Community Votes',to:{name:config.routeName}},{label:'Full Ranking'}]}
           kicker={totalVotes + ' total votes'}
           title={config.leaderboardTitle + ' Ranking'}
           sub={'Every ' + config.itemPlural + ' option ranked from first to last by current vote total.'}
