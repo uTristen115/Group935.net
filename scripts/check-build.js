@@ -10,6 +10,7 @@ const htmlRoots = [
   'games',
   'maps',
   'perks',
+  'gobblegums',
   'relics',
   'black-ops-7-relics',
   'zombies-easter-eggs',
@@ -177,12 +178,13 @@ function assertSiteIndexRoutes() {
     'https://group935.net/maps/nacht/',
     'https://group935.net/maps/kino/',
     'https://group935.net/maps/totenreich/',
+    'https://group935.net/gobblegums/',
   ];
   for (const url of required) {
     if (!sitemap.includes(url)) throw new Error('Sitemap is missing crawl index route: ' + url);
   }
   const siteIndex = fs.readFileSync(path.join(root, 'site-index', 'index.html'), 'utf8');
-  for (const phrase of ['Group 935 Site Index', '/zombies-easter-eggs/', '/maps/nacht/', '/black-ops-7-relics/summoning-key/']) {
+  for (const phrase of ['Group 935 Site Index', '/zombies-easter-eggs/', '/maps/nacht/', '/black-ops-7-relics/summoning-key/', '/gobblegums/']) {
     if (!siteIndex.includes(phrase)) throw new Error('Site index is missing expected crawl link/content: ' + phrase);
   }
   const kino = fs.readFileSync(path.join(root, 'maps', 'kino', 'index.html'), 'utf8');

@@ -314,6 +314,7 @@ function Get-SiteIndexGroups {
       New-SiteIndexLink -Href '/treyarch-zombies/' -Label 'Treyarch Zombies Archive' -Text 'Treyarch Zombies maps, story, relics, perks, and songs.'
       New-SiteIndexLink -Href '/black-ops-7-relics/' -Label 'Black Ops 7 Relics' -Text 'Relic unlocks, effects, portal locations, and trials.'
       New-SiteIndexLink -Href '/perks/' -Label 'Zombies Perks' -Text 'Perk machines, effects, and game appearances.'
+      New-SiteIndexLink -Href '/gobblegums/' -Label 'Black Ops 7 GobbleGums' -Text 'GobbleGum list by rarity.'
     )
   }
 
@@ -526,6 +527,53 @@ function Get-RouteJsonLd {
     return ConvertTo-JsonLd @{ '@context' = 'https://schema.org'; '@graph' = $graph }
   }
 
+  if ($canonicalRoute -eq '/gobblegums') {
+    $breadcrumbItems += @{ '@type' = 'ListItem'; position = 2; name = 'Black Ops 7 GobbleGums'; item = $Url }
+    $gumNames = @(
+      'Gift Card', 'Perkaholic', 'Wonderbar!', 'Time Out', 'Near Death Experience', 'Reign Drops', 'Hidden Power',
+      'Round Off', 'Armor Gettin''', 'Idle Eyes', 'Wall Power', 'Flavor Hex', 'Immolation Liquidation', 'Support Group', 'Phoenix Up', 'Modified Chaos', 'On the House', 'Wall to Wall Clearance', 'Crate Power',
+      'Requipment', 'Power Vacuum', 'Respin Cycle', 'Dead Drop', 'Who''s Keeping Score?', 'Free Fire', 'Exit Strategy', 'Profit Sharing', 'Explosive Flourish', 'Soda Fountain', 'Nowhere But There',
+      'Aftertaste', 'Kill Joy', 'Cache Back', 'Temporal Gift', 'Stock Option', 'Anywhere But Here', 'Power Keg', 'Tactical Diffusion', 'Arsenal Accelerator', 'Shields Up',
+      'Newtonian Negation', 'Indiegestion', 'Rainburps', 'Quacknarok', 'Die Pitched', 'Holiday Cheer'
+    )
+    $items = @()
+    for ($i = 0; $i -lt $gumNames.Count; $i++) {
+      $items += @{
+        '@type' = 'ListItem'
+        position = $i + 1
+        name = $gumNames[$i]
+        url = $Url
+      }
+    }
+    return ConvertTo-JsonLd @{
+      '@context' = 'https://schema.org'
+      '@graph' = @(
+        @{
+          '@type' = 'WebPage'
+          '@id' = $Url + '#webpage'
+          url = $Url
+          name = $Title
+          description = $Description
+          isPartOf = @{ '@id' = $base + '/#website' }
+          about = @('Black Ops 7 Zombies GobbleGums', 'GobbleGum list')
+          inLanguage = 'en-US'
+        },
+        @{
+          '@type' = 'BreadcrumbList'
+          '@id' = $Url + '#breadcrumbs'
+          itemListElement = $breadcrumbItems
+        },
+        @{
+          '@type' = 'ItemList'
+          '@id' = $Url + '#gobblegum-list'
+          name = 'Black Ops 7 GobbleGums'
+          numberOfItems = $items.Count
+          itemListElement = $items
+        }
+      )
+    }
+  }
+
   return ConvertTo-JsonLd @{
     '@context' = 'https://schema.org'
     '@type' = 'WebPage'
@@ -614,6 +662,22 @@ function Get-StaticSeoHtml {
       '<p>All Black Ops 7 relics in the Group 935 archive, organized for players searching BO7 Zombies relic effects, unlock routes, portal locations, trial rules, save safety, map, tier, and prep notes.</p>',
       '<p>The archive covers relics from Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.</p>',
       '<h2>All Black Ops 7 relics</h2>',
+      '<ul>',
+      ($items -join ''),
+      '</ul>'
+    ) -join ''
+  }
+
+  if ($canonicalRoute -eq '/gobblegums') {
+    $items = @(
+      '<li><strong>Ultra:</strong> Gift Card, Perkaholic, Wonderbar!, Time Out, Near Death Experience, Reign Drops, Hidden Power.</li>',
+      '<li><strong>Legendary:</strong> Round Off, Armor Gettin'', Idle Eyes, Wall Power, Flavor Hex, Immolation Liquidation, Support Group, Phoenix Up, Modified Chaos, On the House, Wall to Wall Clearance, Crate Power.</li>',
+      '<li><strong>Epic:</strong> Requipment, Power Vacuum, Respin Cycle, Dead Drop, Who''s Keeping Score?, Free Fire, Exit Strategy, Profit Sharing, Explosive Flourish, Soda Fountain, Nowhere But There.</li>',
+      '<li><strong>Rare:</strong> Aftertaste, Kill Joy, Cache Back, Temporal Gift, Stock Option, Anywhere But Here, Power Keg, Tactical Diffusion, Arsenal Accelerator, Shields Up.</li>',
+      '<li><strong>Whimsical:</strong> Newtonian Negation, Indiegestion, Rainburps, Quacknarok, Die Pitched, Holiday Cheer.</li>'
+    )
+    return @(
+      '<h1>Black Ops 7 Zombies GobbleGums</h1>',
       '<ul>',
       ($items -join ''),
       '</ul>'
@@ -778,6 +842,13 @@ function Get-RouteSeo {
       Url = $url
     }
   }
+  if ($canonicalRoute -eq '/gobblegums') {
+    return @{
+      Title = 'Black Ops 7 GobbleGums List | Group 935'
+      Description = 'Black Ops 7 Zombies GobbleGums list organized by rarity.'
+      Url = $url
+    }
+  }
   if ($canonicalRoute -match '^/maps/([^/]+)$') {
     $slug = $Matches[1]
     $map = if ($script:SeoMapsById.ContainsKey($slug)) { $script:SeoMapsById[$slug] } else { $null }
@@ -937,7 +1008,8 @@ $routes = @(
   '/call-of-duty-zombies',
   '/black-ops-zombies',
   '/treyarch-zombies',
-  '/perks'
+  '/perks',
+  '/gobblegums'
 )
 
 $routes += $mapIds | ForEach-Object { '/maps/' + $_ }
@@ -984,7 +1056,7 @@ foreach ($route in $sitemapRoutes) {
   [void]$sitemap.AppendLine('    <loc>' + [System.Security.SecurityElement]::Escape($loc) + '</loc>')
   [void]$sitemap.AppendLine('    <lastmod>' + $today + '</lastmod>')
   [void]$sitemap.AppendLine('    <changefreq>weekly</changefreq>')
-  [void]$sitemap.AppendLine('    <priority>' + $(if ($route -eq '/') { '1.0' } elseif ($route -eq '/black-ops-7-relics') { '0.95' } elseif ($route -match '^/black-ops-7-relics/') { '0.85' } else { '0.8' }) + '</priority>')
+  [void]$sitemap.AppendLine('    <priority>' + $(if ($route -eq '/') { '1.0' } elseif ($route -eq '/black-ops-7-relics' -or $route -eq '/gobblegums') { '0.95' } elseif ($route -match '^/black-ops-7-relics/') { '0.85' } else { '0.8' }) + '</priority>')
   [void]$sitemap.AppendLine('  </url>')
 }
 [void]$sitemap.AppendLine('</urlset>')

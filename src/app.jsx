@@ -215,6 +215,115 @@
       .pap-card:hover { border-color: ${T.e115dim}; background: ${T.bg3}; }
       .pap-card-clickable { cursor: pointer; }
       .pap-card-clickable:hover { transform: translateY(-1px); }
+      @keyframes pap-gum-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      @keyframes pap-gum-particle {
+        0% { opacity: 0; transform: translate(var(--pap-particle-start-x), var(--pap-particle-start-y)) scale(0.45); }
+        16% { opacity: 0.95; }
+        58% { opacity: 0.68; }
+        100% { opacity: 0; transform: translate(var(--pap-particle-end-x), var(--pap-particle-end-y)) scale(0.08); }
+      }
+      .pap-gum-float { animation: pap-gum-float 4.8s ease-in-out infinite; }
+      .pap-gum-card {
+        position: relative;
+        z-index: 0;
+      }
+      .pap-gum-card:hover,
+      .pap-gum-card:focus-within {
+        z-index: 80;
+      }
+      .pap-gum-hover-body {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        transform-origin: var(--pap-gum-origin-x, 50%) var(--pap-gum-origin-y, 50%);
+        transform: translate3d(var(--pap-gum-pan-x, 0), var(--pap-gum-pan-y, 0), 0) scale(1);
+        transition: transform .08s linear, filter .12s ease;
+        will-change: transform;
+      }
+      .pap-gum-float:hover .pap-gum-hover-body {
+        transform: translate3d(var(--pap-gum-pan-x, 0), var(--pap-gum-pan-y, 0), 0) scale(1.18);
+        filter: brightness(1.08);
+      }
+      .pap-gum-particle {
+        position: absolute;
+        left: calc(50% - 3px);
+        top: calc(50% - 3px);
+        z-index: 2;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        pointer-events: none;
+        animation-name: pap-gum-particle;
+        animation-timing-function: ease-out;
+        animation-iteration-count: infinite;
+        will-change: transform, opacity;
+      }
+      .pap-gum-arc-name {
+        position: absolute;
+        inset: -13px;
+        z-index: 4;
+        overflow: visible;
+        pointer-events: none;
+      }
+      .pap-gum-arc-name text {
+        fill: currentColor;
+        stroke: ${T.bg0};
+        stroke-width: 2.8px;
+        paint-order: stroke fill;
+        font-family: "ShadowedRDF", ${T.display};
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .pap-gum-effect-tooltip {
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 14px);
+        z-index: 100;
+        width: min(240px, 76vw);
+        padding: 10px 12px 11px;
+        background: rgba(10, 9, 8, 0.94);
+        border: 1px solid currentColor;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.42), 0 0 22px color-mix(in srgb, currentColor 28%, transparent);
+        color: currentColor;
+        font-family: "ShadowedRDF", ${T.display};
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: 0.35px;
+        line-height: 1.07;
+        text-align: center;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translate3d(-50%, -2px, 0) scale(0.96);
+        transform-origin: top center;
+        transition: opacity .12s ease, transform .12s ease;
+        pointer-events: none;
+      }
+      .pap-gum-effect-tooltip::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        width: 10px;
+        height: 10px;
+        background: rgba(10, 9, 8, 0.94);
+        border-left: 1px solid currentColor;
+        border-top: 1px solid currentColor;
+        transform: translateX(-50%) rotate(45deg);
+      }
+      .pap-gum-float:hover .pap-gum-effect-tooltip {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0) scale(1);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pap-gum-float { animation: none !important; }
+        .pap-gum-particle { animation-duration: 3.2s !important; }
+      }
       .pap-paper-badge {
         position: relative;
         isolation: isolate;
@@ -1609,6 +1718,7 @@
       { id: 'songs', label: 'Songs' },
       { id: 'weapons', label: 'Wonder Weapons' },
       { id: 'perks', label: 'Perks' },
+      { id: 'gobblegums', label: 'GobbleGums' },
     ];
     const votingItems = [
       { id: 'vote', label: 'Maps' },
@@ -1783,7 +1893,7 @@
               </div>
             </div>
             <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Favorite Map','vote'],['Crew','characters']]} nav={nav} />
-            <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['Songs','songs']]} nav={nav} />
+            <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['GobbleGums','gobblegums'],['Songs','songs']]} nav={nav} />
             <FooterCol title="Reading" links={[['Kronorium','timeline'],['Site Index','site-index'],['About','about']]} nav={nav} />
           </div>
           <div className="pap-footer-bottom" style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
@@ -2284,16 +2394,7 @@
             items={g.gobblegums}
             kind="gobblegum"
             emptyHint={'Drop your ' + g.code + ' gobblegum spreadsheet rows into the gameContent block in the data IIFE — name, rarity, effect.'}
-          />
-        )}
-
-        {/* ELIXIRS — BO4 */}
-        {g.features && g.features.hasElixirs && (
-          <ContentSection
-            title="Elixirs"
-            items={g.elixirs}
-            kind="elixir"
-            emptyHint="Drop your BO4 elixir spreadsheet rows into the gameContent block — name, rarity, effect."
+            action={g.id === 'bo7' ? <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'gobblegums' })}>Full catalogue -></button> : null}
           />
         )}
 
@@ -2626,14 +2727,15 @@
     );
   }
 
-  // ─── content cards: gobblegums / elixirs / augments ────────────────────
-  // Shared rarity palette used by gobblegums + elixirs.
+  // ─── content cards: gobblegums / augments ────────────────────
+  // Shared rarity palette used by gobblegums.
   const RARITY_COLOR = {
     'common':     '#9b9282',
     'rare':       '#3a8fff',
+    'ultra':      '#e34242',
     'ultra-rare': T.e115,
     'epic':       '#b066ff',
-    'legendary':  '#f5c518',
+    'legendary':  '#e0782f',
     'mega':       '#d062ff',
     'whimsical':  '#ff6eb5',
   };
@@ -2644,16 +2746,6 @@
         <circle cx="24" cy="24" r="20" fill={color} opacity="0.12" />
         <circle cx="24" cy="24" r="20" fill="none" stroke={color} strokeWidth="2.5" />
         <circle cx="17" cy="17" r="3.5" fill="#fff" opacity="0.35" />
-      </svg>
-    );
-  }
-  function ElixirVial({ color }) {
-    return (
-      <svg width="36" height="48" viewBox="0 0 36 48" aria-hidden>
-        <path d="M14 4 L22 4 L22 16 L29 26 L29 40 Q29 44 25 44 L11 44 Q7 44 7 40 L7 26 L14 16 Z"
-              fill={color} fillOpacity="0.12" stroke={color} strokeWidth="2" strokeLinejoin="round" />
-        <line x1="12" y1="4" x2="24" y2="4" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M7 32 L29 32" stroke={color} strokeWidth="1" opacity="0.5" />
       </svg>
     );
   }
@@ -2678,7 +2770,6 @@
   function ContentCard({ kind, item }) {
     const color = item.rarity ? (RARITY_COLOR[item.rarity.toLowerCase()] || T.mute) : T.e115;
     const icon = kind === 'gobblegum' ? <GumBubble color={color} />
-              : kind === 'elixir'    ? <ElixirVial color={color} />
               : kind === 'augment'   ? <AugmentIcon perk={item.perk} type={item.type} />
               : null;
     return (
@@ -2724,6 +2815,229 @@
   }
 
   // ─── character portraits ───────────────────────────────────────────────
+  const GOBBLEGUM_RARITY_LABEL = {
+    ultra: 'Ultra',
+    legendary: 'Legendary',
+    epic: 'Epic',
+    rare: 'Rare',
+    whimsical: 'Whimsical',
+  };
+  const GOBBLEGUM_RARITY_DIR = {
+    ultra: 'Ultra',
+    legendary: 'Legendary',
+    epic: 'Epic',
+    rare: 'Rare',
+    whimsical: 'Whimsical',
+  };
+
+  function gumLabel(value) {
+    const raw = String(value || '');
+    return GOBBLEGUM_RARITY_LABEL[raw.toLowerCase()] || raw.replace(/(^|\s|-)\S/g, (char) => char.toUpperCase()).replace(/-/g, ' ');
+  }
+
+  function gobblegumImageSrc(gum) {
+    if (!gum || !gum.image) return null;
+    const dir = GOBBLEGUM_RARITY_DIR[String(gum.rarity || '').toLowerCase()];
+    return dir ? (IMG_BASE + '/Games/Black Ops 7/GobbleGums/' + dir + '/' + gum.image) : null;
+  }
+
+  function gobblegumFloatStyle(index) {
+    return {
+      animationDuration: (4.2 + ((index * 7) % 5) * 0.32).toFixed(2) + 's',
+      animationDelay: '-' + (0.35 + ((index * 11) % 9) * 0.29).toFixed(2) + 's',
+    };
+  }
+
+  const GOBBLEGUM_PARTICLES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  function gobblegumParticleStyle(gumIndex, particleIndex, rarity) {
+    const color = RARITY_COLOR[String(rarity || '').toLowerCase()] || RARITY_COLOR.rare;
+    const angle = (-165 + ((particleIndex * 43 + gumIndex * 23) % 300)) * Math.PI / 180;
+    const startDistance = 43 + ((gumIndex * 5 + particleIndex * 7) % 12);
+    const endDistance = startDistance + 24 + ((gumIndex * 3 + particleIndex * 11) % 18);
+    const startX = Math.cos(angle) * startDistance;
+    const startY = Math.sin(angle) * startDistance;
+    const endX = Math.cos(angle) * endDistance;
+    const endY = Math.sin(angle) * endDistance - 10;
+    return {
+      '--pap-particle-start-x': startX.toFixed(1) + 'px',
+      '--pap-particle-start-y': startY.toFixed(1) + 'px',
+      '--pap-particle-end-x': endX.toFixed(1) + 'px',
+      '--pap-particle-end-y': endY.toFixed(1) + 'px',
+      background: `radial-gradient(circle, #fff 0%, ${color} 55%, transparent 72%)`,
+      boxShadow: `0 0 8px ${color}, 0 0 18px ${color}cc, 0 0 28px ${color}66`,
+      animationDuration: (1.45 + ((gumIndex + particleIndex * 3) % 5) * 0.18).toFixed(2) + 's',
+      animationDelay: '-' + (0.08 + ((gumIndex * 3 + particleIndex * 5) % 11) * 0.12).toFixed(2) + 's',
+    };
+  }
+
+  function gobblegumArcTextStyle(name) {
+    const length = String(name || '').length;
+    return {
+      fontSize: length > 21 ? 13.75 : length > 17 ? 15 : length > 13 ? 16.25 : 17.8,
+      letterSpacing: length > 21 ? 0.55 : length > 17 ? 0.75 : 1,
+    };
+  }
+
+  function GobblegumArcName({ gum, color }) {
+    const pathId = 'pap-gum-name-arc-' + String(gum.id || gum.name).replace(/[^a-z0-9_-]/gi, '-');
+    const textStyle = gobblegumArcTextStyle(gum.name);
+    return (
+      <svg
+        className="pap-gum-arc-name"
+        viewBox="0 0 140 140"
+        aria-hidden="true"
+        style={{ color, filter: 'drop-shadow(0 3px 7px rgba(0,0,0,0.82))' }}
+      >
+        <defs>
+          <path id={pathId} d="M 14 66 A 56 56 0 0 1 126 66" />
+        </defs>
+        <text style={textStyle}>
+          <textPath href={'#' + pathId} startOffset="50%" textAnchor="middle">
+            {gum.name}
+          </textPath>
+        </text>
+      </svg>
+    );
+  }
+
+  function moveGobblegumImage(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+    const y = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+    event.currentTarget.style.setProperty('--pap-gum-origin-x', (50 + ((x - 0.5) * 18)).toFixed(1) + '%');
+    event.currentTarget.style.setProperty('--pap-gum-origin-y', (50 + ((y - 0.5) * 16)).toFixed(1) + '%');
+    event.currentTarget.style.setProperty('--pap-gum-pan-x', ((0.5 - x) * 2.25).toFixed(2) + 'px');
+    event.currentTarget.style.setProperty('--pap-gum-pan-y', ((0.5 - y) * 1.75).toFixed(2) + 'px');
+  }
+
+  function resetGobblegumImage(event) {
+    event.currentTarget.style.setProperty('--pap-gum-origin-x', '50%');
+    event.currentTarget.style.setProperty('--pap-gum-origin-y', '50%');
+    event.currentTarget.style.setProperty('--pap-gum-pan-x', '0px');
+    event.currentTarget.style.setProperty('--pap-gum-pan-y', '0px');
+  }
+
+  function Gobblegums({ nav }) {
+    const guide = ZD.gobblegumGuide || {};
+    const game = (ZD.games || []).find((g) => g.id === 'bo7') || {};
+    const gums = game.gobblegums || [];
+    const rarityOrder = guide.rarityOrder || ['ultra', 'legendary', 'epic', 'rare', 'whimsical'];
+    const byRarity = rarityOrder
+      .map((rarity) => ({ rarity, items: gums.filter((gum) => gum.rarity === rarity) }))
+      .filter((group) => group.items.length);
+
+    return (
+      <div>
+        <PageHead
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Black Ops 7',to:{name:'game',id:'bo7'}},{label:'GobbleGums'}]}
+          title="GobbleGums"
+          nav={nav}
+        />
+
+        {byRarity.map((group) => (
+          <section key={group.rarity} style={{ marginTop: 44 }}>
+            <SectionHead kicker={group.items.length + ' gums'} title={gumLabel(group.rarity) + ' GobbleGums'} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+              {group.items.map((gum, gumIndex) => {
+                const hasImage = Boolean(gum.image);
+                const rarityColor = RARITY_COLOR[group.rarity] || T.e115;
+                return (
+                  <div
+                    key={gum.id}
+                    id={'gum-' + gum.id}
+                    className={hasImage ? 'pap-gum-card' : 'pap-card pap-gum-card'}
+                    style={{
+                      padding: 18,
+                      minHeight: hasImage ? 172 : 112,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
+                      background: hasImage ? 'transparent' : undefined,
+                      border: hasImage ? '1px solid transparent' : undefined,
+                      boxShadow: hasImage ? 'none' : undefined,
+                    }}
+                  >
+                    <div>
+                      {hasImage && (
+                        <div
+                          className="pap-gum-float"
+                          onMouseMove={moveGobblegumImage}
+                          onMouseLeave={resetGobblegumImage}
+                          style={{
+                            position: 'relative',
+                            width: 116,
+                            height: 116,
+                            margin: '0 auto',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            overflow: 'visible',
+                            background: 'transparent',
+                            ...gobblegumFloatStyle(gumIndex),
+                          }}
+                        >
+                          <div className="pap-gum-hover-body">
+                            <div aria-hidden="true" style={{
+                              position: 'absolute',
+                              zIndex: 1,
+                              inset: 10,
+                              borderRadius: '50%',
+                              background: `radial-gradient(circle, ${rarityColor}92 0%, ${rarityColor}44 44%, transparent 74%)`,
+                              filter: 'blur(10px)',
+                              opacity: 0.9,
+                            }} />
+                            {GOBBLEGUM_PARTICLES.map((particle) => (
+                              <span
+                                key={particle}
+                                className="pap-gum-particle"
+                                aria-hidden="true"
+                                style={gobblegumParticleStyle(gumIndex, particle, group.rarity)}
+                              />
+                            ))}
+                            <img
+                              src={gobblegumImageSrc(gum)}
+                              alt={gum.name}
+                              loading="lazy"
+                              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                              style={{
+                                position: 'relative',
+                                zIndex: 3,
+                                display: 'block',
+                                width: 98,
+                                height: 98,
+                                objectFit: 'contain',
+                                background: 'transparent',
+                                filter: `drop-shadow(0 10px 18px ${rarityColor}55) drop-shadow(0 2px 8px rgba(0,0,0,0.65))`,
+                              }}
+                            />
+                            <GobblegumArcName gum={gum} color={rarityColor} />
+                          </div>
+                          {gum.effect && (
+                            <div
+                              className="pap-gum-effect-tooltip"
+                              style={{ color: rarityColor }}
+                            >
+                              {gum.effect}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {!hasImage && (
+                        <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, lineHeight: 1.02 }}>{gum.name}</div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    );
+  }
+
   function CharacterImage({ character, variant, style, kind = 'OPERATIVE', showKind = true }) {
     if (!character) return null;
     const variants = character.portraits || null;
@@ -4536,6 +4850,11 @@
         if (p.name.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || (p.effect || '').toLowerCase().includes(q))
           out.push({ kind: 'perk', id: p.id, title: p.name, sub: p.effect || p.introduced || '' });
       });
+      const bo7Game = (ZD.games || []).find((g) => g.id === 'bo7');
+      ((bo7Game && bo7Game.gobblegums) || []).forEach((gum) => {
+        const haystack = [gum.name, gum.rarity, gum.type, gum.effect, gum.doa4, gum.use].join(' ').toLowerCase();
+        if (haystack.includes(q)) out.push({ kind: 'gobblegum', id: gum.id, title: gum.name, sub: gum.effect || gum.rarity || '' });
+      });
       return out;
     }, [q]);
     return (
@@ -4544,7 +4863,7 @@
           crumbs={[{label:'Archive',to:{name:'home'}},{label:'Search'}]}
           kicker={hits.length + ' result' + (hits.length === 1 ? '' : 's')}
           title={q ? ('"' + query + '"') : 'Search the archive'}
-          sub={q ? 'Matches across maps, games, crew, wonder weapons, and perks.' : 'Type in the bar at top, then hit Enter.'}
+          sub={q ? 'Matches across maps, games, crew, wonder weapons, perks, and GobbleGums.' : 'Type in the bar at top, then hit Enter.'}
           nav={nav}
         />
         {!q && (
@@ -4559,6 +4878,7 @@
                        : h.kind === 'character' ? { name: 'character', id: h.id }
                        : h.kind === 'weapon' ? { name: 'weapon', id: h.id }
                        : h.kind === 'perk' ? { name: 'perk', id: h.id }
+                       : h.kind === 'gobblegum' ? { name: 'gobblegums' }
                        : { name: 'home' };
             return (
               <button key={i} onClick={() => nav(route)} className="pap-row"
@@ -4636,6 +4956,7 @@
           ['Treyarch Zombies Archive', { name: 'treyarch-zombies' }, 'Treyarch Zombies maps, story, relics, perks, and songs.'],
           ['Black Ops 7 Relics', { name: 'relics' }, 'Relic unlocks, effects, portals, and trials.'],
           ['Zombies Perks', { name: 'perks' }, 'Perk machines, effects, and appearances.'],
+          ['Black Ops 7 GobbleGums', { name: 'gobblegums' }, 'GobbleGum list by rarity.'],
         ],
       },
       {
@@ -4751,6 +5072,7 @@
     if (top === 'characters') return id ? { name: 'character', id } : { name: 'characters' };
     if (top === 'weapons' || top === 'wonder-weapons') return id ? { name: 'weapon', id } : { name: 'weapons' };
     if (top === 'perks') return id ? { name: 'perk', id } : { name: 'perks' };
+    if (top === 'gobblegums' || top === 'black-ops-7-gobblegums') return { name: 'gobblegums', id };
     if (top === 'songs') return id ? { name: 'song', id } : { name: 'songs' };
     if (top === 'easter-eggs') return id ? { name: 'ee', id } : { name: 'maps' };
     if (top === 'lore') return id ? { name: 'lore', id } : { name: 'lore' };
@@ -4785,6 +5107,7 @@
       case 'weapon': return '/wonder-weapons' + id;
       case 'perks': return '/perks' + id;
       case 'perk': return '/perks' + id;
+      case 'gobblegums': return '/gobblegums' + id;
       case 'timeline': return '/timeline';
       case 'songs': return '/songs';
       case 'song': return '/songs' + id;
@@ -4926,6 +5249,7 @@
         { name: 'Treyarch Zombies Archive', route: { name: 'treyarch-zombies' } },
         { name: 'Black Ops 7 Relics', route: { name: 'relics' } },
         { name: 'Zombies Perks', route: { name: 'perks' } },
+        { name: 'Black Ops 7 GobbleGums', route: { name: 'gobblegums' } },
       ]
         .concat((ZD.maps || []).map((map) => ({ name: map.name, route: { name: 'map', id: map.id } })))
         .concat(allEasterEggs.map((ee) => ({ name: ee.title, route: { name: 'ee', id: ee.id } })))
@@ -5059,6 +5383,27 @@
         title: 'Zombies Perks Reference | Group 935',
         description: 'Browse Treyarch Zombies perks, machines, effects, Black Ops 7 variants, images, and archive notes.',
         url: seoRouteUrl(r),
+      };
+    }
+    if (r.name === 'gobblegums') {
+      const gums = (((ZD.games || []).find((g) => g.id === 'bo7') || {}).gobblegums || []);
+      return {
+        title: 'Black Ops 7 GobbleGums List | Group 935',
+        description: 'Black Ops 7 Zombies GobbleGums list organized by rarity.',
+        url: seoRouteUrl(r),
+        jsonLd: {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Black Ops 7 GobbleGums',
+          url: seoRouteUrl(r),
+          itemListElement: gums.map((gum, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: gum.name,
+            description: gum.effect,
+            url: seoRouteUrl(r) + '#gum-' + gum.id,
+          })),
+        },
       };
     }
     if (r.name === 'perk') {
@@ -5212,6 +5557,7 @@
       case 'weapon':     page = <WeaponDetail id={route.id} nav={nav} />; break;
       case 'perks':      page = <Perks nav={nav} />; break;
       case 'perk':       page = <PerkDetail id={route.id} nav={nav} />; break;
+      case 'gobblegums': page = <Gobblegums nav={nav} />; break;
       case 'timeline':   page = <Timeline nav={nav} />; break;
       case 'songs':      page = <Songs nav={nav} />; break;
       case 'song':       page = <SongDetail id={route.id} nav={nav} />; break;
