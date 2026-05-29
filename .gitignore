@@ -1,2 +1,12 @@
 node_modules/
 .npm-cache/
+
+# Local tooling state
+.claude/
+.edge-mobile-profile/
+.design-canvas.state.json
+
+# Scratch output
+*.log
+*.tmp
+*.bak
