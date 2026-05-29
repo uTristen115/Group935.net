@@ -79,6 +79,12 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://group935.net/contribute/</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://group935.net/maps/nacht/</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>weekly</changefreq>

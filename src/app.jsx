@@ -599,9 +599,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 24px;
-        background: linear-gradient(180deg, ${T.bg2}, ${T.bg1});
-        border: 1px solid ${T.line};
+        padding: 0;
+        background: transparent;
+        border: 0;
       }
       .pap-relic-selected-portrait img {
         width: min(80%, 220px);
@@ -877,7 +877,7 @@
         #root .pap-brand .pap-stencil { font-size: clamp(19px, 5.7vw, 24px) !important; line-height: 1 !important; white-space: nowrap; }
         #root .pap-brand [style*="font-size: 9.5px"] { display: none !important; }
         .pap-header-spacer { display: none !important; }
-        .pap-support-link { display: none !important; }
+        .pap-support-link, .pap-contribute-cta { display: none !important; }
         .pap-main-nav { display: none !important; }
         .pap-mobile-menu-toggle { display: inline-flex !important; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid ${T.lineHi}; background: ${T.bg1}; color: ${T.bone}; cursor: pointer; }
         .pap-mobile-menu-toggle.is-open { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
@@ -1759,12 +1759,16 @@
       { id: 'timeline', label: 'Kronorium', desc: 'Read the Zombies timeline archive.' },
       { id: 'characters', label: 'Crew', desc: 'Browse characters, factions, and portraits.' },
     ];
+    const contributeItems = [
+      { id: 'contribute', label: 'Submit Info', desc: 'Send info to be verified and credited.' },
+    ];
     const mobileGroups = [
       { label: 'Start', desc: 'Orientation', items: startItems },
       { label: 'Database', desc: 'Reference pages', items: databaseItems },
       { label: 'Community Votes', desc: 'Poll categories', items: votingItems },
       { label: 'Relics', desc: 'Black Ops 7', items: relicItems },
       { label: 'Story', desc: 'Lore and crews', items: storyItems },
+      { label: 'Contribute', desc: 'Help the archive', items: contributeItems },
     ];
     const isItemActive = (n) =>
       route.name === n.id
@@ -1869,6 +1873,29 @@
                 style={{ background: 'transparent', border: 0, outline: 'none', color: T.bone, fontFamily: T.mono, fontSize: 11.5, width: '100%' }} />
               <span style={{ fontFamily: T.mono, fontSize: 9, color: T.faint, border: `1px solid ${T.line}`, padding: '1px 5px' }}>/</span>
             </div>
+            <button
+              type="button"
+              className="pap-contribute-cta"
+              onClick={() => nav({ name: 'contribute' })}
+              style={{
+                marginLeft: 14,
+                background: route.name === 'contribute' ? T.e115 : T.e115bg,
+                border: `1px solid ${T.e115dim}`,
+                color: route.name === 'contribute' ? T.bg0 : T.e115,
+                padding: '7px 14px',
+                fontFamily: T.display,
+                fontWeight: 700,
+                fontSize: 12.5,
+                letterSpacing: 2,
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = T.e115; e.currentTarget.style.color = T.bg0; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = route.name === 'contribute' ? T.e115 : T.e115bg; e.currentTarget.style.color = route.name === 'contribute' ? T.bg0 : T.e115; }}
+            >
+              Contribute
+            </button>
             <a
               className="pap-support-link"
               href="https://www.etsy.com/shop/3DAlchemyShop"
@@ -1937,7 +1964,7 @@
             </div>
             <FooterCol title="Archive" links={[['Games','games'],['Maps','maps'],['Community Votes','vote'],['Crew','characters']]} nav={nav} />
             <FooterCol title="Reference" links={[['Wonder Weapons','weapons'],['Perks','perks'],['GobbleGums','gobblegums'],['Songs','songs']]} nav={nav} />
-            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Site Index','site-index'],['About','about']]} nav={nav} />
+            <FooterCol title="Reading" links={[['Kronorium','timeline'],['Site Index','site-index'],['About','about'],['Contribute','contribute']]} nav={nav} />
           </div>
           <div className="pap-footer-bottom" style={{ borderTop: `1px solid ${T.line}`, padding: '14px 32px', maxWidth: 1440, margin: '0 auto', display: 'flex', justifyContent: 'space-between', fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div>Fan project. Not affiliated with Activision or Treyarch. All trademarks belong to their owners.</div>
@@ -2731,10 +2758,12 @@
           </div>
         </summary>
         <div style={{ padding: '0 18px 18px' }}>
+          <RelicInfoRow label="Cursed" value={relic.cursed} />
           <RelicInfoRow label="Portal" value={relic.portal} />
           <RelicInfoRow label="Trial" value={relic.trial} />
           <RelicInfoRow label="Save" value={relic.save} />
-          <RelicNoteList title="Unlock Route" items={relic.unlock} />
+          <RelicNoteList title="Before You Start" items={relic.requirements} />
+          <RelicNoteList title="Unlock Steps" items={relic.unlock} />
           <RelicNoteList title="Field Notes" items={relic.prep} />
         </div>
       </details>
@@ -4977,6 +5006,90 @@
     );
   }
 
+  function Contribute({ nav }) {
+    const FORM_VIEW_URL = 'https://forms.gle/HdocWP7mVDgDH2Zv5';
+    const FORM_EMBED_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc7VN-5xkMkfOOeIEM1yZcBh0sOOP1ckEhxIqg44up1qdiwpA/viewform?embedded=true';
+    return (
+      <div>
+        <PageHead
+          crumbs={[{ label: 'Archive', to: { name: 'home' } }, { label: 'Contribute' }]}
+          title="Interested in Helping?"
+          nav={nav}
+        />
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 36, marginTop: 32 }}>
+          <div>
+            <p style={{ fontFamily: T.sans, fontSize: 16.5, lineHeight: 1.7, color: T.bone, margin: '0 0 22px' }}>
+              {'Spotted a missing step, a wrong detail, or have notes, images, or sources that belong in the archive? Fill out the form below. Every submission is reviewed and verified before it goes live — and once your info is added, you get credited for it.'}
+            </p>
+
+            <a href={FORM_VIEW_URL} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-block', fontFamily: T.display, fontWeight: 700, fontSize: 14, letterSpacing: 2,
+                textTransform: 'uppercase', color: T.e115, background: T.e115bg, border: `1px solid ${T.e115dim}`,
+                padding: '11px 20px', textDecoration: 'none', marginBottom: 22,
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = T.e115; e.currentTarget.style.color = T.bg0; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = T.e115bg; e.currentTarget.style.color = T.e115; }}>
+              {'Open the form in a new tab ↗'}
+            </a>
+
+            <div style={{ border: `1px solid ${T.line}`, background: T.bg2, padding: 6 }}>
+              <iframe
+                src={FORM_EMBED_URL}
+                title="Group 935 archive contribution form"
+                loading="lazy"
+                style={{ width: '100%', height: 1200, border: 0, display: 'block' }} />
+            </div>
+            <p style={{ fontFamily: T.mono, fontSize: 11, letterSpacing: 1, color: T.faint, marginTop: 10 }}>
+              {'Form not loading? '}
+              <a href={FORM_VIEW_URL} target="_blank" rel="noopener noreferrer" style={{ color: T.e115 }}>{'Open it in a new tab.'}</a>
+            </p>
+          </div>
+
+          <aside>
+            <div style={{ padding: 22, background: T.bg1, border: `1px solid ${T.line}`, position: 'sticky', top: 70 }}>
+              <Mono color={T.e115}>How it works</Mono>
+              <ol style={{ fontFamily: T.sans, fontSize: 14.5, lineHeight: 1.6, color: T.bone, margin: '14px 0 0', paddingLeft: 18 }}>
+                <li style={{ marginBottom: 10 }}>{'Fill out the contribution form.'}</li>
+                <li style={{ marginBottom: 10 }}>{'We verify it against gameplay and sources.'}</li>
+                <li style={{ marginBottom: 10 }}>{'It gets added to the archive.'}</li>
+                <li>{'You’re credited by the name you gave.'}</li>
+              </ol>
+              <div style={{ borderTop: `1px solid ${T.line}`, marginTop: 18, paddingTop: 16 }}>
+                <Mono color={T.faint} size={9.5}>Good to include</Mono>
+                <ul style={{ fontFamily: T.sans, fontSize: 13.5, lineHeight: 1.55, color: T.mute, margin: '10px 0 0', paddingLeft: 18 }}>
+                  <li style={{ marginBottom: 6 }}>{'Exact map / quest names'}</li>
+                  <li style={{ marginBottom: 6 }}>{'Step order for Easter eggs'}</li>
+                  <li>{'Video or screenshot proof'}</li>
+                </ul>
+              </div>
+              <div style={{ borderTop: `1px solid ${T.line}`, marginTop: 18, paddingTop: 16 }}>
+                <Mono color={T.faint} size={9.5}>Like the archive?</Mono>
+                <a href="https://www.etsy.com/shop/3DAlchemyShop" target="_blank" rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 12,
+                    color: T.e115, textDecoration: 'none', fontFamily: T.mono, fontWeight: 700,
+                    fontSize: 12, letterSpacing: 1.6, textTransform: 'uppercase',
+                    filter: 'drop-shadow(0 0 10px rgba(214, 162, 74, 0.32))',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = T.hazard; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = T.e115; }}>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ width: 24, height: 24, color: T.e115, flex: '0 0 24px' }}>
+                    <path d="M5 8h11v6.5A4.5 4.5 0 0 1 11.5 19h-2A4.5 4.5 0 0 1 5 14.5V8Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+                    <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                    <path d="M7 4.5c.6.55.6 1.15 0 1.8M10.5 4.5c.6.55.6 1.15 0 1.8M14 4.5c.6.55.6 1.15 0 1.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M4 21h14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                  </svg>
+                  {'Help the Devs'}
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    );
+  }
+
   function SiteIndex({ nav }) {
     const gameTitle = (id) => {
       const game = ZD.games.find((g) => g.id === id);
@@ -5000,6 +5113,7 @@
           ['Black Ops 7 Relics', { name: 'relics' }, 'Relic unlocks, effects, portals, and trials.'],
           ['Zombies Perks', { name: 'perks' }, 'Perk machines, effects, and appearances.'],
           ['Black Ops 7 GobbleGums', { name: 'gobblegums' }, 'GobbleGum list by rarity.'],
+          ['Contribute', { name: 'contribute' }, 'Submit info to be verified and credited in the archive.'],
         ],
       },
       {
@@ -5121,6 +5235,7 @@
     if (top === 'lore') return id ? { name: 'lore', id } : { name: 'lore' };
     if (top === 'timeline' || top === 'kronorium') return { name: 'timeline' };
     if (top === 'about') return { name: 'about' };
+    if (top === 'contribute' || top === 'help' || top === 'submit') return { name: 'contribute' };
     if (top === 'search') return { name: 'search' };
     if (top === 'vote') return { name: 'vote' };
     if (top === 'vote-weapons') return { name: 'vote-weapons' };
@@ -5158,6 +5273,7 @@
       case 'ee': return withSlash('/easter-eggs' + id);
       case 'lore': return withSlash('/lore' + id);
       case 'about': return withSlash('/about');
+      case 'contribute': return withSlash('/contribute');
       case 'search': return withSlash('/search');
       case 'vote': return withSlash('/vote');
       case 'vote-weapons': return withSlash('/vote-weapons');
@@ -5326,7 +5442,7 @@
         const relicLabel = seoRelicLabel(relic);
         return {
           title: relicLabel + ' Tutorial | Black Ops 7 Zombies | Group 935',
-          description: seoDescription(relicLabel + ' Black Ops 7 Zombies guide for ' + mapName + ' with effect, unlock route, portal location, trial rules, save note, and prep tips.', relicLabel + ' tutorial for Black Ops 7 Zombies on ' + mapName + ', including the effect, unlock route, portal, trial, save note, and prep tips.'),
+          description: seoDescription(relicLabel + ' Black Ops 7 Zombies guide for ' + mapName + ' with effect, unlock steps, portal location, trial rules, save note, and prep tips.', relicLabel + ' tutorial for Black Ops 7 Zombies on ' + mapName + ', including the effect, unlock steps, portal, trial, save note, and prep tips.'),
           url: seoRouteUrl(r),
           jsonLd: {
             '@context': 'https://schema.org',
@@ -5341,7 +5457,7 @@
       }
       return {
         title: 'Black Ops 7 Relics Guide | Effects, Unlocks, Trials | Group 935',
-        description: 'All Black Ops 7 Zombies relics with effects, unlock routes, portal locations, trial rules, save safety, map, tier, and prep notes.',
+        description: 'All Black Ops 7 Zombies relics with effects, unlock steps, portal locations, trial rules, save safety, map, tier, and prep notes.',
         url: seoRouteUrl(r),
         jsonLd: {
           '@context': 'https://schema.org',
@@ -5609,6 +5725,7 @@
       case 'lore':       page = <NotFound nav={nav} what="lore file" />; break;
       case 'search':     page = <Search query={query} nav={nav} />; break;
       case 'about':      page = <About nav={nav} />; break;
+      case 'contribute': page = <Contribute nav={nav} />; break;
       case 'site-index': page = <SiteIndex nav={nav} />; break;
       case 'home':       page = <Home nav={nav} />; break;
       default:           page = <NotFound nav={nav} />;
