@@ -255,6 +255,9 @@ function smokeSharedBundles(bundles) {
   vm.runInContext(fs.readFileSync(path.join(root, 'dist', bundles.appFile), 'utf8'), context, { filename: 'dist/' + bundles.appFile });
   if (!context.window.ZD) throw new Error('ZD missing after data bundle.');
   if (!context.window.PackAPunch) throw new Error('PackAPunch missing after app bundle.');
+  if (context.window.__papBuildRoutePath({ name: 'ee', id: 'ashes-main-quest' }) !== '/easter-eggs/ashes-main-quest/') {
+    throw new Error('Client route builder must return the canonical trailing-slash Easter egg URL.');
+  }
   if (!mounted) throw new Error('App did not reach the mount path.');
   if (errors.length) throw new Error('Boot errors: ' + JSON.stringify(errors));
 }

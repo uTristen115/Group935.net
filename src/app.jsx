@@ -759,6 +759,20 @@
       .pap-main-nav::-webkit-scrollbar-thumb { background: ${T.lineHi}; }
       .pap-mobile-menu-toggle { display: none; }
       .pap-mobile-menu { display: none; }
+      .pap-mobile-menu-inner { max-width: 1440px; margin: 0 auto; padding: 14px; display: grid; gap: 14px; }
+      .pap-mobile-menu-section { border: 1px solid ${T.line}; background: rgba(10, 9, 8, 0.64); }
+      .pap-mobile-menu-section-head { padding: 12px 13px 10px; border-bottom: 1px solid ${T.line}; background: rgba(232, 226, 212, 0.025); }
+      .pap-mobile-menu-kicker { font-family: ${T.mono}; font-size: 9px; letter-spacing: 1.7px; color: ${T.faint}; text-transform: uppercase; margin-bottom: 5px; }
+      .pap-mobile-menu-title { font-family: ${T.e115Font}; font-size: 13px; letter-spacing: 2.3px; color: ${T.e115}; text-transform: uppercase; }
+      .pap-mobile-menu-list { display: grid; gap: 7px; padding: 9px; }
+      .pap-mobile-nav-item { width: 100%; min-height: 64px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; text-align: left; background: ${T.bg2}; border: 1px solid ${T.line}; color: ${T.bone}; padding: 11px 12px; cursor: pointer; }
+      .pap-mobile-nav-item:hover,
+      .pap-mobile-nav-item:focus-visible { border-color: ${T.lineHi}; background: ${T.bg3}; outline: none; }
+      .pap-mobile-nav-item.is-active { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; box-shadow: inset 0 0 0 1px rgba(89, 211, 255, 0.16); }
+      .pap-mobile-nav-label { display: block; font-family: ${T.display}; font-weight: 800; font-size: 19px; letter-spacing: 0.7px; line-height: 1; text-transform: uppercase; color: currentColor; }
+      .pap-mobile-nav-desc { display: block; margin-top: 5px; font-family: ${T.sans}; font-size: 13px; letter-spacing: 0; line-height: 1.28; text-transform: none; color: ${T.mute}; }
+      .pap-mobile-nav-item.is-active .pap-mobile-nav-desc { color: ${T.bone}; }
+      .pap-mobile-nav-arrow { justify-self: end; font-family: ${T.mono}; font-size: 18px; color: currentColor; opacity: 0.82; }
       .pap-game-logo-hero { margin-top: 16px; min-height: 360px; display: flex; align-items: center; justify-content: center; padding: 28px 0 20px; }
       .pap-game-logo-hero-img { display: block; width: min(760px, 82vw); max-height: 300px; object-fit: contain; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.72)); }
       .pap-game-primary-section { margin-top: 48px; }
@@ -859,7 +873,7 @@
         .pap-main-nav { display: none !important; }
         .pap-mobile-menu-toggle { display: inline-flex !important; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid ${T.lineHi}; background: ${T.bg1}; color: ${T.bone}; cursor: pointer; }
         .pap-mobile-menu-toggle.is-open { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
-        .pap-mobile-menu { display: block !important; border-top: 1px solid ${T.line}; border-bottom: 1px solid ${T.line}; background: rgba(16, 15, 13, 0.98); box-shadow: 0 18px 36px rgba(0,0,0,0.55); max-height: calc(100vh - 116px); overflow-y: auto; }
+        .pap-mobile-menu { display: block !important; border-top: 1px solid ${T.line}; border-bottom: 1px solid ${T.line}; background: rgba(16, 15, 13, 0.99); box-shadow: 0 18px 36px rgba(0,0,0,0.55); max-height: calc(100vh - 116px); overflow-y: auto; overscroll-behavior: contain; }
         .pap-main-nav > button, .term-btn { min-height: 40px; white-space: nowrap; }
         .pap-search, .term-search { width: 100% !important; min-width: 0 !important; margin: 0 !important; }
         #root .pap-search { order: 3; flex: 0 0 100%; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; min-height: 44px !important; padding: 0 12px !important; gap: 9px !important; }
@@ -953,7 +967,7 @@
         #root .pap-header-inner { flex-wrap: wrap !important; }
         #root .pap-brand, #root .pap-search, #root .pap-mobile-menu-toggle { flex-wrap: nowrap !important; }
         #root [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
-        #root .pap-mobile-menu [style*="grid-template-columns"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        #root .pap-mobile-menu [style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
         #root .pap-stats-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 8px !important; }
         #root .pap-stats-grid > div { min-width: 0 !important; }
         #root .pap-stats-grid .pap-num { font-size: clamp(24px, 7vw, 32px) !important; }
@@ -1712,32 +1726,37 @@
   function Shell({ route, nav, query, setQuery, children }) {
     const now = useNow();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const startItems = [
+      { id: 'home', label: 'Home', desc: 'Return to the main archive dashboard.' },
+      { id: 'site-index', label: 'Site Index', desc: 'Open every crawlable page in one list.' },
+    ];
     const databaseItems = [
-      { id: 'games', label: 'Games' },
-      { id: 'maps', label: 'Maps' },
-      { id: 'songs', label: 'Songs' },
-      { id: 'weapons', label: 'Wonder Weapons' },
-      { id: 'perks', label: 'Perks' },
-      { id: 'gobblegums', label: 'GobbleGums' },
+      { id: 'games', label: 'Games', desc: 'Browse every Treyarch Zombies chapter.' },
+      { id: 'maps', label: 'Maps', desc: 'Open map pages, galleries, quests, and songs.' },
+      { id: 'songs', label: 'Songs', desc: 'Find secret songs and activation notes.' },
+      { id: 'weapons', label: 'Wonder Weapons', desc: 'Inspect wonder weapon files and variants.' },
+      { id: 'perks', label: 'Perks', desc: 'Browse perk machines, effects, and images.' },
+      { id: 'gobblegums', label: 'GobbleGums', desc: 'View the Black Ops 7 GobbleGums catalogue.' },
     ];
     const votingItems = [
-      { id: 'vote', label: 'Maps' },
-      { id: 'vote-weapons', label: 'Wonder Weapons' },
-      { id: 'vote-perks', label: 'Perks' },
-      { id: 'vote-characters', label: 'Characters' },
+      { id: 'vote', label: 'Maps', desc: 'Vote for the community favorite map.' },
+      { id: 'vote-weapons', label: 'Wonder Weapons', desc: 'Vote for the top wonder weapon.' },
+      { id: 'vote-perks', label: 'Perks', desc: 'Vote for the favorite perk.' },
+      { id: 'vote-characters', label: 'Characters', desc: 'Vote for the favorite character or crew variant.' },
     ];
     const relicItems = [
-      { id: 'relics', label: 'Relics' },
+      { id: 'relics', label: 'Relics', desc: 'Open Black Ops 7 relic files and trial notes.' },
     ];
     const storyItems = [
-      { id: 'timeline', label: 'Kronorium' },
-      { id: 'characters', label: 'Crew' },
+      { id: 'timeline', label: 'Kronorium', desc: 'Read the Zombies timeline archive.' },
+      { id: 'characters', label: 'Crew', desc: 'Browse characters, factions, and portraits.' },
     ];
     const mobileGroups = [
-      { label: 'Database', items: databaseItems },
-      { label: 'Community Votes', items: votingItems },
-      { label: 'Relics', items: relicItems },
-      { label: 'Story', items: storyItems },
+      { label: 'Start', desc: 'Orientation', items: startItems },
+      { label: 'Database', desc: 'Reference pages', items: databaseItems },
+      { label: 'Community Votes', desc: 'Poll categories', items: votingItems },
+      { label: 'Relics', desc: 'Black Ops 7', items: relicItems },
+      { label: 'Story', desc: 'Lore and crews', items: storyItems },
     ];
     const isItemActive = (n) =>
       route.name === n.id
@@ -1745,7 +1764,11 @@
       || (n.id === 'characters' && route.name === 'character')
       || (n.id === 'games' && route.name === 'game')
       || (n.id === 'weapons' && route.name === 'weapon')
-      || (n.id === 'perks' && route.name === 'perk');
+      || (n.id === 'perks' && route.name === 'perk')
+      || (n.id === 'vote' && route.name === 'vote-ranking' && (!route.id || route.id === 'maps'))
+      || (n.id === 'vote-weapons' && route.name === 'vote-ranking' && route.id === 'weapons')
+      || (n.id === 'vote-perks' && route.name === 'vote-ranking' && route.id === 'perks')
+      || (n.id === 'vote-characters' && route.name === 'vote-ranking' && route.id === 'characters');
     const mobileNav = (r) => {
       setMobileMenuOpen(false);
       nav(r);
@@ -1842,36 +1865,34 @@
           </div>
           {mobileMenuOpen && (
             <div className="pap-mobile-menu">
-              <div style={{ maxWidth: 1440, margin: '0 auto', padding: '14px' }}>
+              <div className="pap-mobile-menu-inner">
                 {mobileGroups.map((group, groupIndex) => (
-                  <div key={group.label} style={{ marginTop: groupIndex ? 14 : 0 }}>
-                    <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.2, textTransform: 'uppercase', color: T.e115, marginBottom: 7 }}>
-                      {group.label}
+                  <section key={group.label} className="pap-mobile-menu-section">
+                    <div className="pap-mobile-menu-section-head">
+                      <div className="pap-mobile-menu-kicker">{group.desc || ('Section ' + String(groupIndex + 1).padStart(2, '0'))}</div>
+                      <div className="pap-mobile-menu-title">{group.label}</div>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 8 }}>
+                    <div className="pap-mobile-menu-list">
                       {group.items.map((n) => {
                         const active = isItemActive(n);
                         return (
                           <button
                             key={n.id}
+                            type="button"
                             onClick={() => mobileNav({ name: n.id })}
-                            style={{
-                              minHeight: 44,
-                              textAlign: 'left',
-                              background: active ? T.e115bg : T.bg2,
-                              border: `1px solid ${active ? T.e115dim : T.line}`,
-                              color: active ? T.e115 : T.bone,
-                              padding: '10px 11px',
-                              fontFamily: T.display, fontWeight: 700, fontSize: 14, letterSpacing: 1.8, textTransform: 'uppercase',
-                              cursor: 'pointer',
-                            }}
+                            className={'pap-mobile-nav-item ' + (active ? 'is-active' : '')}
+                            aria-current={active ? 'page' : undefined}
                           >
-                            {n.label}
+                            <span>
+                              <span className="pap-mobile-nav-label">{n.label}</span>
+                              <span className="pap-mobile-nav-desc">{n.desc}</span>
+                            </span>
+                            <span className="pap-mobile-nav-arrow" aria-hidden="true">-&gt;</span>
                           </button>
                         );
                       })}
                     </div>
-                  </div>
+                  </section>
                 ))}
               </div>
             </div>
@@ -5095,32 +5116,33 @@
   function buildRoutePath(r) {
     if (!r || r.name === 'home') return '/';
     const id = r.id ? '/' + encodeURIComponent(r.id) : '';
+    const withSlash = (path) => path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
     switch (r.name) {
-      case 'games': return '/games';
-      case 'game': return '/games' + id;
-      case 'maps': return '/maps';
-      case 'map': return '/maps' + id;
-      case 'relics': return '/black-ops-7-relics' + id;
-      case 'characters': return '/characters';
-      case 'character': return '/characters' + id;
-      case 'weapons': return '/wonder-weapons';
-      case 'weapon': return '/wonder-weapons' + id;
-      case 'perks': return '/perks' + id;
-      case 'perk': return '/perks' + id;
-      case 'gobblegums': return '/gobblegums' + id;
-      case 'timeline': return '/timeline';
-      case 'songs': return '/songs';
-      case 'song': return '/songs' + id;
-      case 'ee': return '/easter-eggs' + id;
-      case 'lore': return '/lore' + id;
-      case 'about': return '/about';
-      case 'search': return '/search';
-      case 'vote': return '/vote';
-      case 'vote-weapons': return '/vote-weapons';
-      case 'vote-perks': return '/vote-perks';
-      case 'vote-characters': return '/vote-characters';
-      case 'vote-ranking': return '/vote-ranking' + id;
-      default: return '/' + encodeURIComponent(r.name) + id;
+      case 'games': return withSlash('/games');
+      case 'game': return withSlash('/games' + id);
+      case 'maps': return withSlash('/maps');
+      case 'map': return withSlash('/maps' + id);
+      case 'relics': return withSlash('/black-ops-7-relics' + id);
+      case 'characters': return withSlash('/characters');
+      case 'character': return withSlash('/characters' + id);
+      case 'weapons': return withSlash('/wonder-weapons');
+      case 'weapon': return withSlash('/wonder-weapons' + id);
+      case 'perks': return withSlash('/perks' + id);
+      case 'perk': return withSlash('/perks' + id);
+      case 'gobblegums': return withSlash('/gobblegums' + id);
+      case 'timeline': return withSlash('/timeline');
+      case 'songs': return withSlash('/songs');
+      case 'song': return withSlash('/songs' + id);
+      case 'ee': return withSlash('/easter-eggs' + id);
+      case 'lore': return withSlash('/lore' + id);
+      case 'about': return withSlash('/about');
+      case 'search': return withSlash('/search');
+      case 'vote': return withSlash('/vote');
+      case 'vote-weapons': return withSlash('/vote-weapons');
+      case 'vote-perks': return withSlash('/vote-perks');
+      case 'vote-characters': return withSlash('/vote-characters');
+      case 'vote-ranking': return withSlash('/vote-ranking' + id);
+      default: return withSlash('/' + encodeURIComponent(r.name) + id);
     }
   }
   window.__papParseHash = parseHash;
