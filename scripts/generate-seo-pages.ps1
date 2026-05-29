@@ -87,19 +87,6 @@ function Get-RouteAppBase {
   return (('../' * $depth) + 'dist')
 }
 
-function Get-RouteFaviconFile {
-  param([string]$Route)
-
-  if ((Get-CanonicalRoute $Route) -eq '/black-ops-zombies') {
-    foreach ($file in @('Group935iconBlack.png', 'Group935icon-black.png', 'blackicon.png', 'BlackIcon.png')) {
-      if (Test-Path -LiteralPath (Join-Path $root ('Images\Icons\' + $file))) {
-        return $file
-      }
-    }
-  }
-  return 'Group935icon.png'
-}
-
 function Replace-HeadValue {
   param(
     [string]$Html,
@@ -737,13 +724,13 @@ function Set-StaticSeo {
   $appBundleEsc = Escape-Html $AppBundle
   $routeEsc = Escape-Html $RoutePath
   $siteNameEsc = Escape-Html 'CoD Zombies Archive'
-  $faviconFileEsc = Escape-Html (Get-RouteFaviconFile -Route $RoutePath)
 
   $next = [regex]::Replace($Html, '<title>.*?</title>', '<title>' + $titleEsc + '</title>', 1)
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="description" content=")[^"]*(" />)' -Value $descriptionEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<link rel="canonical" href=")[^"]*(" />)' -Value $urlEsc
-  $next = Replace-HeadValue -Html $next -Pattern '(<link rel="icon" type="image/png" href=")[^"]*(" />)' -Value ($assetEsc + '/Icons/' + $faviconFileEsc)
-  $next = Replace-HeadValue -Html $next -Pattern '(<link rel="apple-touch-icon" href=")[^"]*(" />)' -Value ($assetEsc + '/Icons/' + $faviconFileEsc)
+  $next = Replace-HeadValue -Html $next -Pattern '(<link rel="icon" type="image/png" href=")[^"]*(" />)' -Value ($assetEsc + '/Icons/Group935iconBlack.png')
+  $next = Replace-HeadValue -Html $next -Pattern '(<link rel="icon" type="image/png" media="\(prefers-color-scheme: dark\)" href=")[^"]*(" />)' -Value ($assetEsc + '/Icons/Group935icon.png')
+  $next = Replace-HeadValue -Html $next -Pattern '(<link rel="apple-touch-icon" href=")[^"]*(" />)' -Value ($assetEsc + '/Icons/Group935icon.png')
   $next = Replace-HeadValue -Html $next -Pattern '(<meta property="og:site_name" content=")[^"]*(" />)' -Value $siteNameEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<meta property="og:title" content=")[^"]*(" />)' -Value $titleEsc
   $next = Replace-HeadValue -Html $next -Pattern '(<meta property="og:description" content=")[^"]*(" />)' -Value $descriptionEsc

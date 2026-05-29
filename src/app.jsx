@@ -1794,7 +1794,6 @@
                 <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: 3, background: T.blood, animation: 'pap-blink 1.4s steps(2) infinite' }} />
                 Declassified
               </span>
-              <span>{'Doc 7-G935 · Annot. Requiem · 1991'}</span>
               <span style={{ color: T.mute, whiteSpace: 'nowrap' }}>Clearance: Agent</span>
             </div>
             <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
@@ -1816,7 +1815,7 @@
                   {'Group 935'}
                 </div>
                 <div style={{ fontFamily: T.mono, fontSize: 9.5, letterSpacing: 2.5, color: T.faint, marginTop: 2 }}>
-                  {'ELEMENT 115 · OPERATIONS DATABASE · NO. ' + dossierNo()}
+                  {'ELEMENT 115 · OPERATIONS DATABASE'}
                 </div>
               </div>
             </button>
