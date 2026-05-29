@@ -757,7 +757,7 @@
       .pap-main-nav { scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
       .pap-main-nav::-webkit-scrollbar { height: 4px; }
       .pap-main-nav::-webkit-scrollbar-thumb { background: ${T.lineHi}; }
-      .pap-support-link { position: absolute; right: 32px; top: 50%; transform: translate(calc(100% + 14px), -50%); display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: ${T.bone}; text-decoration: none; white-space: nowrap; transition: color .14s ease, filter .14s ease; }
+      .pap-support-link { position: absolute; right: 18px; top: 50%; transform: translate(100%, -50%); display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: ${T.bone}; text-decoration: none; white-space: nowrap; transition: color .14s ease, filter .14s ease; }
       .pap-support-link:hover,
       .pap-support-link:focus-visible { color: ${T.e115}; filter: drop-shadow(0 0 10px rgba(214, 162, 74, 0.28)); outline: none; }
       .pap-support-link::after { content: attr(data-label); position: absolute; left: calc(100% + 8px); top: 50%; transform: translate(-4px, -50%); opacity: 0; pointer-events: none; color: ${T.e115}; font-family: ${T.mono}; font-size: 8.5px; font-weight: 700; letter-spacing: 1.45px; line-height: 1.15; text-transform: uppercase; text-shadow: 0 0 12px rgba(214, 162, 74, 0.18); transition: opacity .14s ease, transform .14s ease; }
@@ -5030,7 +5030,7 @@
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = T.e115; e.currentTarget.style.color = T.bg0; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = T.e115bg; e.currentTarget.style.color = T.e115; }}>
-              {'Open the form in a new tab ↗'}
+              {'Open the form'}
             </a>
 
             <div style={{ border: `1px solid ${T.line}`, background: T.bg2, padding: 6 }}>
@@ -5060,11 +5060,9 @@
                 <ul style={{ fontFamily: T.sans, fontSize: 13.5, lineHeight: 1.55, color: T.mute, margin: '10px 0 0', paddingLeft: 18 }}>
                   <li style={{ marginBottom: 6 }}>{'Exact map / quest names'}</li>
                   <li style={{ marginBottom: 6 }}>{'Step order for Easter eggs'}</li>
-                  <li>{'Video or screenshot proof'}</li>
                 </ul>
               </div>
               <div style={{ borderTop: `1px solid ${T.line}`, marginTop: 18, paddingTop: 16 }}>
-                <Mono color={T.faint} size={9.5}>Like the archive?</Mono>
                 <a href="https://www.etsy.com/shop/3DAlchemyShop" target="_blank" rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 12,
