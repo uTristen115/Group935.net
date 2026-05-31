@@ -12,6 +12,9 @@ const htmlRoots = [
   'perks',
   'gobblegums',
   'relics',
+  'black-ops-7',
+  'black-ops-7-easter-eggs',
+  'black-ops-7-easter-egg-tutorials',
   'black-ops-7-relics',
   'zombies-easter-eggs',
   'zombies-easter-egg-tutorials',
@@ -140,6 +143,9 @@ function assertRelicSeoRoutes() {
 function assertTopicSeoRoutes() {
   const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
   const canonicalRoutes = [
+    'https://group935.net/black-ops-7/',
+    'https://group935.net/black-ops-7-easter-eggs/',
+    'https://group935.net/black-ops-7-easter-egg-tutorials/',
     'https://group935.net/zombies-easter-eggs/',
     'https://group935.net/zombies-easter-egg-tutorials/',
     'https://group935.net/cod-zombies/',
@@ -152,7 +158,13 @@ function assertTopicSeoRoutes() {
   if (sitemap.includes('https://group935.net/call-of-duty-zombies/')) {
     throw new Error('Sitemap should list /cod-zombies/, not the call-of-duty-zombies alias.');
   }
+  if (sitemap.includes('https://group935.net/games/bo7/')) {
+    throw new Error('Sitemap should list /black-ops-7/, not the /games/bo7/ alias.');
+  }
   const checks = [
+    ['black-ops-7', 'Black Ops 7 Zombies'],
+    ['black-ops-7-easter-eggs', 'Black Ops 7 Easter Eggs'],
+    ['black-ops-7-easter-egg-tutorials', 'Black Ops 7 Easter Egg Tutorials'],
     ['zombies-easter-eggs', 'Zombies Easter Eggs'],
     ['zombies-easter-egg-tutorials', 'Zombies Easter Egg Tutorials'],
     ['cod-zombies', 'Call of Duty Zombies'],
@@ -169,6 +181,10 @@ function assertTopicSeoRoutes() {
   if (!alias.includes('https://group935.net/cod-zombies/')) {
     throw new Error('/call-of-duty-zombies/ alias is not canonicalized to /cod-zombies/.');
   }
+  const bo7Alias = fs.readFileSync(path.join(root, 'games', 'bo7', 'index.html'), 'utf8');
+  if (!bo7Alias.includes('https://group935.net/black-ops-7/')) {
+    throw new Error('/games/bo7/ alias is not canonicalized to /black-ops-7/.');
+  }
 }
 
 function assertSiteIndexRoutes() {
@@ -184,8 +200,12 @@ function assertSiteIndexRoutes() {
     if (!sitemap.includes(url)) throw new Error('Sitemap is missing crawl index route: ' + url);
   }
   const siteIndex = fs.readFileSync(path.join(root, 'site-index', 'index.html'), 'utf8');
-  for (const phrase of ['Group 935 Site Index', '/zombies-easter-eggs/', '/maps/nacht/', '/black-ops-7-relics/summoning-key/', '/gobblegums/']) {
+  for (const phrase of ['Group 935 Site Index', '/black-ops-7/', '/black-ops-7-easter-eggs/', '/zombies-easter-eggs/', '/maps/nacht/', '/black-ops-7-relics/summoning-key/', '/gobblegums/']) {
     if (!siteIndex.includes(phrase)) throw new Error('Site index is missing expected crawl link/content: ' + phrase);
+  }
+  const ashes = fs.readFileSync(path.join(root, 'maps', 'ashes', 'index.html'), 'utf8');
+  if (!ashes.includes('Ashes of the Damned Black Ops 7 Easter Egg Guide') || !ashes.includes('/black-ops-7-easter-eggs/')) {
+    throw new Error('Generated Black Ops 7 map SEO page is missing targeted map metadata.');
   }
   const kino = fs.readFileSync(path.join(root, 'maps', 'kino', 'index.html'), 'utf8');
   if (!kino.includes('Kino der Toten Zombies Easter Egg Guide') || kino.includes('map file for Black Ops 7 Zombies')) {
@@ -257,6 +277,9 @@ function smokeSharedBundles(bundles) {
   if (!context.window.PackAPunch) throw new Error('PackAPunch missing after app bundle.');
   if (context.window.__papBuildRoutePath({ name: 'ee', id: 'ashes-main-quest' }) !== '/easter-eggs/ashes-main-quest/') {
     throw new Error('Client route builder must return the canonical trailing-slash Easter egg URL.');
+  }
+  if (context.window.__papBuildRoutePath({ name: 'game', id: 'bo7' }) !== '/black-ops-7/') {
+    throw new Error('Client route builder must canonicalize Black Ops 7 to /black-ops-7/.');
   }
   if (!mounted) throw new Error('App did not reach the mount path.');
   if (errors.length) throw new Error('Boot errors: ' + JSON.stringify(errors));

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T19:58:29.036Z",
+  "generatedAt": "2026-05-31T19:28:47.150Z",
   "games": [
     {
       "id": "waw",
@@ -1113,20 +1113,19 @@
       "map": "totenreich",
       "mapName": "Totenreich",
       "tier": "Grim",
-      "difficulty": "Unknown",
+      "difficulty": "Classified",
       "cursed": "Cursed Mode required; no Cursed Tier required.",
       "status": "pending",
-      "effect": "Wall-buy weapons randomize each round; the unlock method is still unconfirmed.",
+      "effect": "Wall-buy weapons randomize each round.",
       "requirements": [],
-      "unlock": [],
-      "portal": "Unknown.",
-      "trial": "Unknown.",
-      "save": "Unknown.",
+      "unlock": [
+        "Classified"
+      ],
+      "portal": "Classified",
+      "trial": "Classified",
+      "save": "Classified",
       "prep": [
-        "No reliable unlock method is filed yet.",
-        "Keep this slot marked pending until the trigger has repeatable steps, a portal location, and a tested save note.",
-        "Do not publish a guessed method here just because the effect has been observed.",
-        "When testing, track the active map tier, round, wall buys touched, melee or trap interactions, and whether any side quest state changed before the wall buys randomized."
+        "Classified"
       ]
     },
     {

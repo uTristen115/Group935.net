@@ -138,6 +138,10 @@ foreach ($url in $xml.urlset.url) {
 
 if ($routes -contains '/relics') { Fail 'Sitemap should not include /relics alias routes.' }
 if ($routes -contains '/relics/teddy-bear') { Fail 'Sitemap should not include /relics/teddy-bear alias routes.' }
+if ($routes -contains '/games/bo7') { Fail 'Sitemap should not include /games/bo7 alias route.' }
+if (-not ($routes -contains '/black-ops-7')) { Fail 'Sitemap is missing /black-ops-7.' }
+if (-not ($routes -contains '/black-ops-7-easter-eggs')) { Fail 'Sitemap is missing /black-ops-7-easter-eggs.' }
+if (-not ($routes -contains '/black-ops-7-easter-egg-tutorials')) { Fail 'Sitemap is missing /black-ops-7-easter-egg-tutorials.' }
 if (-not ($routes -contains '/black-ops-7-relics')) { Fail 'Sitemap is missing /black-ops-7-relics.' }
 if (-not ($routes -contains '/black-ops-7-relics/teddy-bear')) { Fail 'Sitemap is missing /black-ops-7-relics/teddy-bear.' }
 if (-not ($routes -contains '/site-index')) { Fail 'Sitemap is missing /site-index.' }
@@ -203,6 +207,9 @@ $sampleFiles = @(
   'index.html',
   '404.html',
   'site-index/index.html',
+  'black-ops-7/index.html',
+  'black-ops-7-easter-eggs/index.html',
+  'black-ops-7-easter-egg-tutorials/index.html',
   'black-ops-7-relics/teddy-bear/index.html',
   'easter-eggs/totenreich-main-quest/index.html',
   'easter-eggs/moon-big-bang-theory/index.html',
@@ -225,6 +232,20 @@ foreach ($sample in $sampleFiles) {
   if ($html -match 'black-ops-7-relic-tutorials') {
     Fail "Sample file $sample still references the removed static relic tutorial page."
   }
+}
+
+$bo7AliasFile = Join-Path $root 'games\bo7\index.html'
+if (-not (Test-Path -LiteralPath $bo7AliasFile)) { Fail 'Missing generated /games/bo7 alias file.' }
+$bo7AliasHtml = Get-Content -Raw -LiteralPath $bo7AliasFile
+if ($bo7AliasHtml -notmatch [regex]::Escape('<link rel="canonical" href="https://group935.net/black-ops-7/" />')) {
+  Fail '/games/bo7 alias is not canonicalized to /black-ops-7/.'
+}
+
+$ashesFile = Join-Path $root 'maps\ashes\index.html'
+if (-not (Test-Path -LiteralPath $ashesFile)) { Fail 'Missing generated Ashes map route file.' }
+$ashesHtml = Get-Content -Raw -LiteralPath $ashesFile
+if ($ashesHtml -notmatch 'Ashes of the Damned Black Ops 7 Easter Egg Guide' -or $ashesHtml -notmatch '/black-ops-7-easter-eggs/') {
+  Fail 'Ashes map page is missing Black Ops 7 Easter Egg SEO content.'
 }
 
 $wispFile = Join-Path $root 'perks\wisp-tea\index.html'

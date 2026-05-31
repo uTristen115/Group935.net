@@ -16,6 +16,7 @@ window.ZD = (function () {
     { id: 'bo6', code: 'BO6', title: 'Black Ops 6',  year: 2024, era: 'Pact with the Dark', mapCount: 4, color: '#5a2f2f',
       imgDir: 'Black Ops 6',        imgBase: 'CoDBO6.png', imgHover: ['CoDBO6Z.png'], imgLogo: 'BO6Logo.png', imgIcon: 'blackops6icon.png' },
     { id: 'bo7', code: 'BO7', title: 'Black Ops 7',  year: 2025, era: 'Relics & Rift Walkers', mapCount: 4, color: '#6b4a2a',
+      description: 'Black Ops 7 Zombies maps, Easter Eggs, Easter Egg tutorials, relics, GobbleGums, wonder weapons, perks, songs, characters, and story files.',
       imgDir: 'Black Ops 7',        imgBase: 'CoDBO7.png', imgHover: ['CoDBO7Z.png'], imgLogo: 'BO7Logo.png', imgIcon: 'BO7icon.png' },
   ];
   const maps = [
@@ -39,10 +40,10 @@ window.ZD = (function () {
     { id: 'liberty',   game: 'bo6', name: 'Liberty Falls', location: 'West Virginia, 1991', difficulty: 2, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'small-town', 'richtofen'] },
     { id: 'citadelle', game: 'bo6', name: 'Citadelle des Morts', location: 'Alsace, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'castle', 'elemental-swords'] },
     { id: 'tomb',      game: 'bo6', name: 'The Tomb', location: 'Eastern Europe, 1991', difficulty: 4, eeCount: 1, relicCount: 6, summary: '', tags: ['bo6', 'underground', 'staff'] },
-    { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: '', tags: ['bo7', 'dark-aether', 'relics'] },
-    { id: 'astra',     game: 'bo7', name: 'Astra Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'observatory'] },
-    { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: '', tags: ['bo7', 'relics', 'liminal'] },
-    { id: 'totenreich',game: 'bo7', name: 'Totenreich', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: '', tags: ['bo7', 'relics', 'finale-hint'] },
+    { id: 'ashes',     game: 'bo7', name: 'Ashes of the Damned', location: 'Dark Aether construct', difficulty: 4, eeCount: 1, relicCount: 9, summary: 'Ashes of the Damned Black Ops 7 Zombies map guide with a main Easter Egg tutorial, Ol\' Tessie setup, Necrofluid Gauntlet steps, relics, songs, and images.', tags: ['bo7', 'dark-aether', 'relics'] },
+    { id: 'astra',     game: 'bo7', name: 'Astra Malorum', location: 'Mountaintop research site', difficulty: 3, eeCount: 0, relicCount: 6, summary: 'Astra Malorum Black Ops 7 Zombies map guide with a main Easter Egg walkthrough, Harmonic Oculus setup, LGM-1 steps, relics, songs, and images.', tags: ['bo7', 'relics', 'observatory'] },
+    { id: 'paradox',   game: 'bo7', name: 'Paradox Junction', location: 'Liminal transit hub', difficulty: 3, eeCount: 0, relicCount: 3, summary: 'Paradox Junction Black Ops 7 Zombies map guide with a main Easter Egg tutorial, timeline setup, Sundergat steps, relics, songs, and images.', tags: ['bo7', 'relics', 'liminal'] },
+    { id: 'totenreich',game: 'bo7', name: 'Totenreich', location: 'Aetheric reconstruction', difficulty: 4, eeCount: 0, relicCount: 6, summary: 'Totenreich Black Ops 7 Zombies map guide with a main Easter Egg walkthrough, Jotun Star setup, Symbol Dial steps, relics, songs, and images.', tags: ['bo7', 'relics', 'finale-hint'] },
   ];
   const characters = [
     { id: 'dempsey',   name: 'Tank Dempsey',      role: 'Marine · Primis',           origin: 'Wisconsin, USA',          summary: '', quote: null, hue: 16 },
@@ -3388,15 +3389,15 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
       prep: ['A scoped weapon helps read distant altar skull counts.', 'If an outside-map altar is hard to read, rotate to a safer sightline and zoom in rather than guessing under pressure.', 'Write down the skull counts before entering the Stave Church, because the shield order is easy to lose under pressure.', 'Bank at least 10,000 essence so repeated Flammenfalle trap activations do not strand the run.', 'Train zombies tightly before starting a trap cycle so the activation produces enough progress.', 'This is one of the safest relic arenas as long as you resist the reflex to shoot weakened zombies.'],
     },
     {
-      id: 'wrestlers-belt', map: 'totenreich', tier: 'Grim', name: "Wrestler's Belt", difficulty: 'Unknown',
+      id: 'wrestlers-belt', map: 'totenreich', tier: 'Grim', name: "Wrestler's Belt", difficulty: 'Classified',
       cursed: 'Cursed Mode required; no Cursed Tier required.',
       status: 'pending',
-      effect: 'Wall-buy weapons randomize each round; the unlock method is still unconfirmed.',
-      unlock: [],
-      portal: 'Unknown.',
-      trial: 'Unknown.',
-      save: 'Unknown.',
-      prep: ['No reliable unlock method is filed yet.', 'Keep this slot marked pending until the trigger has repeatable steps, a portal location, and a tested save note.', 'Do not publish a guessed method here just because the effect has been observed.', 'When testing, track the active map tier, round, wall buys touched, melee or trap interactions, and whether any side quest state changed before the wall buys randomized.'],
+      effect: 'Wall-buy weapons randomize each round.',
+      unlock: ['Classified'],
+      portal: 'Classified',
+      trial: 'Classified',
+      save: 'Classified',
+      prep: ['Classified'],
     },
     {
       id: 'vril-sphere', map: 'ashes', tier: 'Sinister', name: 'Vril Sphere', difficulty: 'Easy',

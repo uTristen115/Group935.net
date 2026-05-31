@@ -3941,7 +3941,7 @@
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 22 }}>
               {map && <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'map', id: map.id })}>Open map file -></button>}
-              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'game', id: 'bo7' })}>Black Ops 7 -></button>
+              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'black-ops-7' })}>Black Ops 7 -></button>
             </div>
           </div>
         </div>
@@ -5101,7 +5101,9 @@
         links: [
           ['Group 935', { name: 'home' }, 'Main archive home page.'],
           ['Treyarch Zombies Games', { name: 'games' }, 'World at War through Black Ops 7.'],
-          ['Black Ops 7 Zombies', { name: 'game', id: 'bo7' }, 'Black Ops 7 maps, relics, and main quest files.'],
+          ['Black Ops 7 Zombies', { name: 'black-ops-7' }, 'Black Ops 7 maps, Easter Eggs, relics, and main quest files.'],
+          ['Black Ops 7 Easter Eggs', { name: 'black-ops-7-easter-eggs' }, 'BO7 Zombies main quest guide hub.'],
+          ['Black Ops 7 Easter Egg Tutorials', { name: 'black-ops-7-easter-egg-tutorials' }, 'Step-by-step BO7 Zombies main quest walkthroughs.'],
           ['Zombies Maps', { name: 'maps' }, 'All map records and related files.'],
           ['Zombies Easter Eggs', { name: 'zombies-easter-eggs' }, 'Main quest and Easter egg guide hub.'],
           ['Zombies Easter Egg Tutorials', { name: 'zombies-easter-egg-tutorials' }, 'Step-by-step main quest walkthroughs.'],
@@ -5218,8 +5220,9 @@
     if (!parts.length) return { name: 'home' };
     const top = parts[0];
     const id = parts[1];
-    const topicRoutes = ['zombies-easter-eggs', 'zombies-easter-egg-tutorials', 'cod-zombies', 'black-ops-zombies', 'treyarch-zombies'];
+    const topicRoutes = ['black-ops-7-easter-eggs', 'black-ops-7-easter-egg-tutorials', 'zombies-easter-eggs', 'zombies-easter-egg-tutorials', 'cod-zombies', 'black-ops-zombies', 'treyarch-zombies'];
     if (top === 'call-of-duty-zombies') return { name: 'cod-zombies' };
+    if (top === 'black-ops-7' || top === 'bo7-zombies') return { name: 'black-ops-7' };
     if (topicRoutes.includes(top)) return { name: top };
     if (top === 'games') return id ? { name: 'game', id } : { name: 'games' };
     if (top === 'maps') return id ? { name: 'map', id } : { name: 'maps' };
@@ -5254,7 +5257,8 @@
     const withSlash = (path) => path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
     switch (r.name) {
       case 'games': return withSlash('/games');
-      case 'game': return withSlash('/games' + id);
+      case 'game': return r.id === 'bo7' ? withSlash('/black-ops-7') : withSlash('/games' + id);
+      case 'black-ops-7': return withSlash('/black-ops-7');
       case 'maps': return withSlash('/maps');
       case 'map': return withSlash('/maps' + id);
       case 'relics': return withSlash('/black-ops-7-relics' + id);
@@ -5314,7 +5318,46 @@
   }
   function seoTopicForRoute(name) {
     const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []);
+    const bo7Maps = (ZD.maps || []).filter((map) => map.game === 'bo7');
+    const bo7MapIds = new Set(bo7Maps.map((map) => map.id));
+    const bo7EasterEggs = allEasterEggs.filter((ee) => bo7MapIds.has(ee.map));
     const topic = {
+      'black-ops-7': {
+        title: 'Black Ops 7 Zombies Guides | Easter Eggs, Maps, Tutorials | Group 935',
+        description: 'Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links.',
+        listName: 'Black Ops 7 Zombies Maps',
+        items: bo7Maps.map((map, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: map.name,
+          description: map.summary,
+          url: seoRouteUrl({ name: 'map', id: map.id }),
+        })),
+      },
+      'black-ops-7-easter-eggs': {
+        title: 'Black Ops 7 Easter Eggs | Main Quest Guides | Group 935',
+        description: 'Black Ops 7 Easter Eggs hub with BO7 Zombies main quest guides for Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.',
+        listName: 'Black Ops 7 Easter Eggs',
+        items: bo7EasterEggs.map((ee, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: ee.title,
+          description: ee.summary,
+          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        })),
+      },
+      'black-ops-7-easter-egg-tutorials': {
+        title: 'Black Ops 7 Easter Egg Tutorials | BO7 Walkthroughs | Group 935',
+        description: 'Black Ops 7 Easter Egg tutorials with BO7 Zombies walkthroughs, setup requirements, boss prep, rewards, and map links.',
+        listName: 'Black Ops 7 Easter Egg Tutorials',
+        items: bo7EasterEggs.map((ee, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: ee.title,
+          description: ee.summary,
+          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        })),
+      },
       'zombies-easter-eggs': {
         title: 'Zombies Easter Eggs | Main Quest Guides and Story Archives | Group 935',
         description: 'Browse Zombies Easter eggs, main quest guides, map tutorials, rewards, requirements, and story archives for Treyarch and Black Ops Zombies.',
@@ -5398,7 +5441,9 @@
       const siteIndexRoutes = [
         { name: 'Group 935', route: { name: 'home' } },
         { name: 'Treyarch Zombies Games', route: { name: 'games' } },
-        { name: 'Black Ops 7 Zombies', route: { name: 'game', id: 'bo7' } },
+        { name: 'Black Ops 7 Zombies', route: { name: 'black-ops-7' } },
+        { name: 'Black Ops 7 Easter Eggs', route: { name: 'black-ops-7-easter-eggs' } },
+        { name: 'Black Ops 7 Easter Egg Tutorials', route: { name: 'black-ops-7-easter-egg-tutorials' } },
         { name: 'Zombies Maps', route: { name: 'maps' } },
         { name: 'Zombies Easter Eggs', route: { name: 'zombies-easter-eggs' } },
         { name: 'Zombies Easter Egg Tutorials', route: { name: 'zombies-easter-egg-tutorials' } },
@@ -5474,6 +5519,7 @@
     if (r.name === 'game') {
       const game = ZD.games.find((g) => g.id === r.id);
       if (game) {
+        if (game.id === 'bo7') return seoTopicForRoute('black-ops-7');
         return {
           title: game.title + ' Zombies Maps, Easter Eggs | Group 935',
           description: seoDescription(game.description, game.title + ' Zombies maps, Easter eggs, relics, wonder weapons, perks, songs, characters, and story files in the Group 935 archive.'),
@@ -5485,6 +5531,13 @@
       const map = ZD.maps.find((m) => m.id === r.id);
       if (map) {
         const gameTitle = seoGameTitle(map.game);
+        if (map.game === 'bo7') {
+          return {
+            title: map.name + ' Black Ops 7 Easter Egg Guide | Group 935',
+            description: seoDescription(map.summary, map.name + ' Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.'),
+            url: seoRouteUrl(r),
+          };
+        }
         return {
           title: map.name + ' Zombies Easter Egg Guide | Group 935',
           description: seoDescription(map.summary, map.name + ' guide for ' + gameTitle + ' Zombies, including Easter egg notes, relics, map location, image gallery, songs, and archive details.'),
@@ -5694,7 +5747,10 @@
     switch (route.name) {
       case 'games':      page = <Games nav={nav} />; break;
       case 'game':       page = <Game id={route.id} nav={nav} />; break;
+      case 'black-ops-7': page = <Game id="bo7" nav={nav} />; break;
       case 'maps':       page = <Maps nav={nav} />; break;
+      case 'black-ops-7-easter-eggs':
+      case 'black-ops-7-easter-egg-tutorials':
       case 'zombies-easter-eggs':
       case 'zombies-easter-egg-tutorials':
         page = <Maps nav={nav} />; break;
