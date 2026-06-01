@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T19:28:47.150Z",
+  "generatedAt": "2026-06-01T19:03:31.288Z",
   "games": [
     {
       "id": "waw",
@@ -122,7 +122,7 @@
       "gameTitle": "World at War",
       "location": "Group 935 main facility, Breslau",
       "difficulty": 3,
-      "eeCount": 1,
+      "eeCount": 0,
       "relicCount": 0,
       "summary": "",
       "tags": [
@@ -138,7 +138,7 @@
       "gameTitle": "Black Ops",
       "location": "Abandoned cinema, East Germany, 1960s",
       "difficulty": 2,
-      "eeCount": 1,
+      "eeCount": 0,
       "relicCount": 0,
       "summary": "",
       "tags": [
@@ -330,7 +330,7 @@
       "gameTitle": "Black Ops III",
       "location": "Group 935 facility, 1945",
       "difficulty": 3,
-      "eeCount": 1,
+      "eeCount": 0,
       "relicCount": 0,
       "summary": "",
       "tags": [

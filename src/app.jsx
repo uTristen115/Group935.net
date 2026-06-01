@@ -181,6 +181,7 @@
     sans:    '"IBM Plex Sans", "Inter", system-ui, sans-serif',
     mono:    '"IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace',
     e115Font:'"LARAZ", "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace',
+    intelFont:'"Saniretro", "Oswald", "IBM Plex Sans", system-ui, sans-serif',
   };
 
   if (typeof document !== 'undefined' && !document.getElementById('pap-styles')) {
@@ -208,6 +209,12 @@
         src: url("${FONT_BASE}/laraz/LARAZ%20Light.ttf") format("truetype");
         font-display: swap;
         font-weight: 300;
+      }
+      @font-face {
+        font-family: "Saniretro";
+        src: url("${FONT_BASE}/saniretro/Saniretro.ttf") format("truetype");
+        font-display: swap;
+        font-weight: 400;
       }
       .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
       .pap-link:hover { color: ${T.e115}; }
@@ -609,11 +616,90 @@
         object-fit: contain;
         filter: drop-shadow(0 20px 30px rgba(0,0,0,0.42));
       }
+      .pap-map-relic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+        gap: 14px;
+        max-width: 760px;
+      }
+      .pap-map-relic-icon {
+        position: relative;
+        aspect-ratio: 1;
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px;
+        border: 1px solid var(--pap-relic-accent, ${T.lineHi});
+        background: rgba(10, 9, 8, 0.3);
+        color: ${T.bone};
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform .12s, border-color .12s, background .12s, box-shadow .12s;
+      }
+      .pap-map-relic-icon::before {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border: 1px solid rgba(232,226,212,0.08);
+        pointer-events: none;
+      }
+      .pap-map-relic-icon::after {
+        content: "";
+        position: absolute;
+        left: 13px;
+        right: 13px;
+        bottom: 9px;
+        height: 1px;
+        background: var(--pap-relic-accent, ${T.e115});
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      .pap-map-relic-icon:hover,
+      .pap-map-relic-icon:focus-visible {
+        transform: translateY(-1px);
+        background: rgba(232,226,212,0.045);
+        border-color: ${T.bone};
+        box-shadow: 0 0 22px rgba(214,162,74,0.14), inset 0 0 0 1px rgba(232,226,212,0.08);
+        outline: none;
+      }
+      .pap-map-relic-icon img {
+        position: relative;
+        z-index: 1;
+        width: 76%;
+        height: 76%;
+        object-fit: contain;
+        filter: drop-shadow(0 12px 16px rgba(0,0,0,0.5));
+      }
       .pap-btn { font-family: ${T.e115Font}; font-weight: 400; letter-spacing: 1.8px; text-transform: uppercase; cursor: pointer; padding: 14px 22px; font-size: 13px; transition: background .12s, color .12s; border: 0; }
       .pap-btn-primary { background: ${T.e115}; color: ${T.bg0}; }
       .pap-btn-primary:hover { background: ${T.bone}; }
       .pap-btn-ghost { background: transparent; color: ${T.bone}; border: 1px solid ${T.lineHi}; }
       .pap-btn-ghost:hover { border-color: ${T.e115}; color: ${T.e115}; }
+      @keyframes pap-intel-line-scan { 0% { background-position: 160% 0; opacity: 0.42; } 45% { opacity: 0.9; } 100% { background-position: -60% 0; opacity: 0.42; } }
+      @keyframes pap-intel-line-pulse { 0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 0 rgba(214,162,74,0)); } 50% { opacity: 1; filter: drop-shadow(0 0 7px rgba(214,162,74,0.45)); } }
+      .pap-intel-card { position: relative; padding: 26px 32px 24px 40px; min-height: 100%; display: flex; flex-direction: column; overflow: hidden; color: ${T.bone}; background-image: url("${IMG_BASE}/Icons/IntelSheetBacking.png"); background-repeat: no-repeat; background-position: center; background-size: 100% 100%; border: 0; box-shadow: none; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.34)); }
+      .pap-intel-head { position: relative; padding: 0 0 11px; background: transparent; }
+      .pap-intel-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(214,162,74,0.12), rgba(214,162,74,0.78), rgba(232,226,212,0.32), rgba(214,162,74,0.1)); background-size: 220% 100%; animation: pap-intel-line-scan 5.8s linear infinite; }
+      .pap-intel-heading { display: flex; align-items: center; gap: 12px; font-family: ${T.intelFont}; font-size: 26px; font-weight: 400; letter-spacing: 1.4px; color: ${T.bone}; line-height: 1.05; text-transform: uppercase; }
+      .pap-intel-heading::after { content: ""; height: 1px; flex: 1 1 auto; background: linear-gradient(90deg, rgba(214,162,74,0.22), rgba(214,162,74,0.78), rgba(232,226,212,0.26), transparent); background-size: 220% 100%; animation: pap-intel-line-scan 5.2s linear infinite; }
+      .pap-intel-grid { padding: 8px 0 0; }
+      .pap-intel-row { position: relative; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 13px; align-items: center; padding: 10px 0 11px; }
+      .pap-intel-row::before { content: ""; position: absolute; left: -12px; top: 10px; bottom: 11px; width: 2px; background: transparent; }
+      .pap-intel-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(232,226,212,0.04), rgba(214,162,74,0.34), rgba(232,226,212,0.1), transparent); background-size: 220% 100%; animation: pap-intel-line-scan 6.4s linear infinite; }
+      .pap-intel-row.is-primary { padding-top: 12px; padding-bottom: 13px; }
+      .pap-intel-row.is-primary::before { background: linear-gradient(180deg, rgba(214,162,74,0.1), ${T.e115}, rgba(214,162,74,0.12)); animation: pap-intel-line-pulse 3.8s ease-in-out infinite; }
+      .pap-intel-row:last-child::after { display: none; }
+      .pap-intel-label { font-family: ${T.intelFont}; font-size: 12.5px; font-weight: 400; letter-spacing: 1.2px; color: ${T.faint}; line-height: 1.35; text-transform: uppercase; }
+      .pap-intel-value { min-width: 0; font-family: ${T.intelFont}; font-size: 17.5px; font-weight: 400; letter-spacing: 0.6px; color: ${T.bone}; line-height: 1.35; overflow-wrap: anywhere; }
+      .pap-intel-row.is-primary .pap-intel-label { color: ${T.e115}; }
+      .pap-intel-row.is-primary .pap-intel-value { font-size: 21px; letter-spacing: 0.75px; color: ${T.bone}; }
+      .pap-intel-value.is-accent { color: ${T.e115}; }
+      .pap-intel-value.is-yellow { color: ${T.hazard}; }
+      .pap-intel-value.is-muted { color: ${T.mute}; }
+      .pap-intel-links { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+      .pap-intel-link { appearance: none; border: 0; border-bottom: 1px solid ${T.e115dim}; background: transparent; color: ${T.bone}; cursor: pointer; font: inherit; font-weight: 400; letter-spacing: inherit; line-height: 1.45; padding: 0 0 2px; }
+      .pap-intel-link:hover { color: ${T.e115}; border-bottom-color: ${T.e115}; }
       .pap-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-family: ${T.mono}; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid ${T.line}; color: ${T.mute}; background: transparent; cursor: pointer; }
       .pap-chip:hover { color: ${T.bone}; border-color: ${T.lineHi}; }
       .pap-chip.is-active { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
@@ -2778,6 +2864,36 @@
     );
   }
 
+  function MapRelicIconGrid({ relics, nav }) {
+    const items = orderedRelicBoardItems(relics);
+    return (
+      <div className="pap-map-relic-grid" role="list" aria-label="Relics on this map">
+        {items.map((relic) => {
+          const iconSrc = relicIconImg(relic);
+          const pending = relic.status === 'pending';
+          return (
+            <button
+              key={relic.id}
+              type="button"
+              role="listitem"
+              className="pap-map-relic-icon"
+              style={{ '--pap-relic-accent': relicTierTone(relic.tier) }}
+              aria-label={'Open ' + relic.name + ' relic file'}
+              title={relic.name}
+              onClick={() => nav({ name: 'relics', id: relic.id })}
+            >
+              {iconSrc ? (
+                <img src={iconSrc} alt="" loading="lazy" />
+              ) : (
+                <span className="pap-relic-slot-placeholder" aria-hidden>{pending ? '?' : 'R'}</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
   function SongTable({ songs, nav }) {
     return (
       <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
@@ -3724,6 +3840,80 @@
     );
   }
 
+  function MapIntelRow({ label, value, tone }) {
+    const toneClass = tone ? (' is-' + tone) : '';
+    const rowClass = 'pap-intel-row' + (label === 'Designation' ? ' is-primary' : '');
+    return (
+      <div className={rowClass}>
+        <div className="pap-intel-label">{label}</div>
+        <div className={'pap-intel-value' + toneClass}>{value}</div>
+      </div>
+    );
+  }
+
+  function MapIntelCrewLinks({ crew, nav }) {
+    return (
+      <div className="pap-intel-links">
+        {crew.map((member) => (
+          <button
+            key={member.id}
+            type="button"
+            className="pap-intel-link"
+            onClick={() => nav({ name: 'character', id: member.id })}
+          >
+            {member.name}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  function MapIntelCrewGroups({ groups, nav }) {
+    return (
+      <div className="pap-intel-links">
+        {groups.map((group) => (
+          <button
+            key={group}
+            type="button"
+            className="pap-intel-link"
+            onClick={() => nav(crewGroupRoute(group))}
+          >
+            {group}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  function mapIntelCrewValue(map, nav) {
+    const crew = playableCharactersForMap(map);
+    const groups = crewGroupLabelsForMap(map);
+    if (groups.length > 0) return <MapIntelCrewGroups groups={groups} nav={nav} />;
+    if (crew.length > 0) return <MapIntelCrewLinks crew={crew} nav={nav} />;
+    return null;
+  }
+
+  function MapIntelSheet({ map, ee, hasEE, relicCount, nav }) {
+    const crewValue = mapIntelCrewValue(map, nav);
+    const rows = [
+      ['Designation', map.name],
+      ['Location', map.location],
+      crewValue && ['Crew', crewValue],
+      hasEE && ['Main Quest', ee ? 'Guide catalogued' : 'Guide pending', ee ? 'accent' : 'muted'],
+      relicCount > 0 && ['Relics', relicCount + ' hidden', 'yellow'],
+    ].filter(Boolean);
+    return (
+      <aside className="pap-intel-card">
+        <div className="pap-intel-head">
+          <div className="pap-intel-heading">Intel Sheet</div>
+        </div>
+        <div className="pap-intel-grid">
+          {rows.map(([label, value, tone]) => <MapIntelRow key={label} label={label} value={value} tone={tone} />)}
+        </div>
+      </aside>
+    );
+  }
+
   function MapDetail({ id, nav }) {
     const m = ZD.maps.find((x) => x.id === id);
     if (!m) return <NotFound nav={nav} what="Map" />;
@@ -3746,23 +3936,7 @@
         />
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24, marginTop: 28 }}>
           <MapImage map={m} height={400} label={m.name} kind="SITE / IMAGERY" tone="accent" loading="eager" openFullSize />
-          <div className="pap-card" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
-            <Mono color={T.e115}>Intel Sheet</Mono>
-            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Site Brief</div>
-            <IntelRow label="Designation" value={m.name} />
-            <IntelRow label="Game" value={g.title + ' · ' + g.code} />
-            <IntelRow label="Location" value={m.location} />
-            <IntelRow label="Threat Level" value={<Difficulty value={m.difficulty} />} />
-            <IntelRow label="Main Quest" value={hasEE ? '1 catalogued' : 'None catalogued'} tone={hasEE ? 'accent' : 'mute'} />
-            <IntelRow label="Songs" value={(m.songs && m.songs.length) ? (m.songs.length + ' catalogued') : '—'} tone={(m.songs && m.songs.length) ? 'accent' : 'mute'} />
-            {relicCount > 0 && <IntelRow label="Relics" value={relicCount + ' hidden'} tone="yellow" />}
-            <div style={{ flex: 1 }} />
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 16 }}>
-              {(m.tags || []).map((t) => (
-                <span key={t} style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 1.2, color: T.e115, padding: '3px 8px', background: T.e115bg, border: `1px solid ${T.e115dim}`, textTransform: 'uppercase' }}>{t}</span>
-              ))}
-            </div>
-          </div>
+          <MapIntelSheet map={m} ee={ee} hasEE={hasEE} relicCount={relicCount} nav={nav} />
         </div>
 
         {m.summary && (
@@ -3779,9 +3953,10 @@
           </section>
         )}
 
-        <section style={{ marginTop: 40 }}>
-          <SectionHead kicker={hasEE ? 'Primary Easter Egg' : 'No primary quest catalogued'} title="Main Quest" />
-          {hasEE && ee ? (
+        {hasEE && (
+          <section style={{ marginTop: 40 }}>
+            <SectionHead kicker="Primary Easter Egg" title="Main Quest" />
+            {ee ? (
             <button onClick={() => nav({ name: 'ee', id: ee.id })} className="pap-card pap-card-clickable"
               style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
               {ee.rewardGif ? (
@@ -3805,15 +3980,11 @@
                 <Mono color={T.e115} size={13} letter={2.5}>{'Begin →'}</Mono>
               </div>
             </button>
-          ) : hasEE ? (
-            <ComingSoon what="Full walkthrough" />
-          ) : (
-            <div className="pap-card" style={{ padding: 22, display: 'flex', alignItems: 'center', gap: 16 }}>
-              <PaperBadgeGroup items={['Classic Era']} className="pap-map-quest-badges" style={{ gap: 8 }} />
-              <div style={{ fontFamily: T.sans, fontSize: 14.5, color: T.mute }}>No main quest catalogued for this site. This is a pure-survival map.</div>
-            </div>
-          )}
-        </section>
+            ) : (
+              <ComingSoon what="Full walkthrough" />
+            )}
+          </section>
+        )}
 
         {/* SONGS section */}
         {(m.songs && m.songs.length > 0) && (
@@ -3844,14 +4015,14 @@
         {relicCount > 0 && (
           <section style={{ marginTop: 40 }}>
             <SectionHead kicker={relicCount + ' relics on site'} title="Relics" />
-            {relics.length > 0 ? <RelicGrid relics={relics} /> : <ComingSoon what="Individual relic write-ups" />}
+            {relics.length > 0 ? <MapRelicIconGrid relics={relics} nav={nav} /> : <ComingSoon what="Individual relic write-ups" />}
           </section>
         )}
 
         <section style={{ marginTop: 40 }}>
           <SectionHead kicker="Personnel present" title="On site" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {pickCharactersForMap(m).map((c) => {
+            {playableCharactersForMap(m).map((c) => {
               const meta = crewCardMeta(m.game, c);
               return (
                 <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
@@ -3892,6 +4063,23 @@
     const g = ZD.games.find((x) => x.id === m.game);
     const ids = (g && g.crewIds) || [];
     return ids.map((id) => ZD.characters.find((c) => c.id === id)).filter(Boolean).slice(0, 8);
+  }
+
+  const NON_PLAYABLE_CREW_IDS = new Set(['sam_ai']);
+  function playableCharactersForMap(m) {
+    return pickCharactersForMap(m).filter((c) => !NON_PLAYABLE_CREW_IDS.has(c.id));
+  }
+
+  function crewGroupLabelsForMap(m) {
+    if (!m) return [];
+    if (Array.isArray(m.crewGroups) && m.crewGroups.length) return [...new Set(m.crewGroups)];
+    if (m.game === 'bo7') return ['Requiem', 'Tempus'];
+    return [];
+  }
+
+  function crewGroupRoute(group) {
+    const id = String(group || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return { name: 'characters', id: id || undefined };
   }
 
   function IntelRow({ label, value, tone }) {
@@ -4241,15 +4429,33 @@
     );
   }
 
-  function Characters({ nav }) {
+  function normalizeCrewSection(section) {
+    const id = String(section || '').toLowerCase();
+    if (['primis', 'ultimis', 'tempus'].includes(id)) return { sectionId: 'original-crew', variant: id };
+    if (id === 'original-crew') return { sectionId: 'original-crew', variant: 'primis' };
+    if (['victis', 'chaos', 'requiem', 'supporting-cast'].includes(id)) return { sectionId: id };
+    return null;
+  }
+
+  function Characters({ nav, section }) {
     const originalCrewOptions = [
       { id: 'primis', label: 'Primis' },
       { id: 'ultimis', label: 'Ultimis' },
       { id: 'tempus', label: 'Tempus' },
     ];
-    const [originalCrewVariant, setOriginalCrewVariant] = useState(originalCrewOptions[0].id);
+    const initialSection = normalizeCrewSection(section);
+    const [originalCrewVariant, setOriginalCrewVariant] = useState(initialSection && initialSection.variant ? initialSection.variant : originalCrewOptions[0].id);
     const selectedOriginalCrew = originalCrewOptions.find((o) => o.id === originalCrewVariant);
     const originalCrewLabel = selectedOriginalCrew ? selectedOriginalCrew.label : originalCrewOptions[0].label;
+    useEffect(() => {
+      const target = normalizeCrewSection(section);
+      if (!target) return;
+      if (target.variant) setOriginalCrewVariant(target.variant);
+      window.setTimeout(() => {
+        const el = document.getElementById('crew-section-' + target.sectionId);
+        if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }, 0);
+    }, [section]);
     const supportingCastIds = new Set(['director_richtofen']);
     const factions = [
       { id: 'original-crew', sourceId: 'primis', title: 'Original Crew' },
@@ -4274,7 +4480,7 @@
           const isOriginalCrew = f.id === 'original-crew';
           if (inFaction.length === 0) return null;
           return (
-            <section key={f.id} style={{ marginTop: 44 }}>
+            <section key={f.id} id={'crew-section-' + f.id} style={{ marginTop: 44, scrollMarginTop: 24 }}>
               <SectionHead
                 kicker={f.kicker}
                 title={f.title}
@@ -5215,7 +5421,10 @@
     return h;
   }
   function parseRoutePath(pathname) {
-    const path = String(pathname || '/').replace(/\/index\.html$/i, '/');
+    const rawPath = String(pathname || '/');
+    const anchorMatch = rawPath.match(/#([^/?#]+)/);
+    const anchor = anchorMatch ? decodeURIComponent(anchorMatch[1]) : '';
+    const path = rawPath.replace(/[?#].*$/, '').replace(/\/index\.html$/i, '/');
     const parts = path.split('/').filter(Boolean).map((part) => decodeURIComponent(part));
     if (!parts.length) return { name: 'home' };
     const top = parts[0];
@@ -5227,7 +5436,10 @@
     if (top === 'games') return id ? { name: 'game', id } : { name: 'games' };
     if (top === 'maps') return id ? { name: 'map', id } : { name: 'maps' };
     if (top === 'relics' || top === 'black-ops-7-relics' || top === 'bo7-relics') return id ? { name: 'relics', id } : { name: 'relics' };
-    if (top === 'characters') return id ? { name: 'character', id } : { name: 'characters' };
+    if (top === 'characters') {
+      if (id) return { name: 'character', id };
+      return normalizeCrewSection(anchor) ? { name: 'characters', id: anchor } : { name: 'characters' };
+    }
     if (top === 'weapons' || top === 'wonder-weapons') return id ? { name: 'weapon', id } : { name: 'weapons' };
     if (top === 'perks') return id ? { name: 'perk', id } : { name: 'perks' };
     if (top === 'gobblegums' || top === 'black-ops-7-gobblegums') return { name: 'gobblegums', id };
@@ -5246,10 +5458,11 @@
     return { name: top || 'home', id };
   }
   function parseCurrentRoute() {
-    if (window.location.hash && /^#\/?/.test(window.location.hash)) return parseHash(window.location.hash);
-    if (window.G935_ROUTE_PATH) return parseRoutePath(window.G935_ROUTE_PATH);
+    if (window.location.hash && /^#\//.test(window.location.hash)) return parseHash(window.location.hash);
+    const anchor = window.location.hash && !/^#\//.test(window.location.hash) ? window.location.hash : '';
+    if (window.G935_ROUTE_PATH) return parseRoutePath(window.G935_ROUTE_PATH + anchor);
     if (window.location.protocol === 'file:') return { name: 'home' };
-    return parseRoutePath(window.location.pathname);
+    return parseRoutePath(window.location.pathname + anchor);
   }
   function buildRoutePath(r) {
     if (!r || r.name === 'home') return '/';
@@ -5262,7 +5475,7 @@
       case 'maps': return withSlash('/maps');
       case 'map': return withSlash('/maps' + id);
       case 'relics': return withSlash('/black-ops-7-relics' + id);
-      case 'characters': return withSlash('/characters');
+      case 'characters': return withSlash('/characters') + (r.id && normalizeCrewSection(r.id) ? ('#' + encodeURIComponent(r.id)) : '');
       case 'character': return withSlash('/characters' + id);
       case 'weapons': return withSlash('/wonder-weapons');
       case 'weapon': return withSlash('/wonder-weapons' + id);
@@ -5295,7 +5508,7 @@
   const SEO_DEFAULT_TITLE = 'CoD Zombies Archive | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
   const SEO_DEFAULT_DESCRIPTION = 'CoD Zombies Archive is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
   function seoPublicRoutePath(route) {
-    const path = buildRoutePath(route || { name: 'home' });
+    const path = buildRoutePath(route || { name: 'home' }).split('#')[0];
     return path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
   }
   function seoRouteUrl(route) {
@@ -5765,7 +5978,7 @@
       case 'vote-ranking': page = <VoteRankingPage key={'ranking-' + (route.id || 'maps')} nav={nav} pollId={route.id || 'maps'} />; break;
       case 'map':        page = <MapDetail id={route.id} nav={nav} />; break;
       case 'ee':         page = <EEPage id={route.id} nav={nav} />; break;
-      case 'characters': page = <Characters nav={nav} />; break;
+      case 'characters': page = <Characters nav={nav} section={route.id} />; break;
       case 'character':  page = <CharacterDetail id={route.id} nav={nav} />; break;
       case 'weapons':    page = <WonderWeapons nav={nav} />; break;
       case 'weapon':     page = <WeaponDetail id={route.id} nav={nav} />; break;
@@ -6128,8 +6341,10 @@
             </div>
           </>
         )}
-        <Prompt cmd={'ls ./quests'} sub={m.eeCount ? 'one main quest catalogued.' : 'no quests on file.'} />
-        {m.eeCount && ee.map === m.id ? (
+        {m.eeCount > 0 && (
+          <>
+            <Prompt cmd={'ls ./quests'} sub={m.eeCount ? 'one main quest catalogued.' : 'no quests on file.'} />
+            {m.eeCount && ee.map === m.id ? (
           <button className="term-card" onClick={() => setRoute({ name: 'ee', id: ee.id })}
             style={{ padding: 0, width: '100%', cursor: 'pointer', textAlign: 'left', color: C.ink, font: 'inherit', display: 'grid', gridTemplateColumns: '180px 1fr auto', marginBottom: 32 }}>
             <Slot w={180} h={130} label="EE.01" kind="quest still" style={{ border: 'none', borderRight: `1px solid ${C.line}` }} />
@@ -6144,6 +6359,8 @@
           </button>
         ) : (
           <div style={{ color: C.dim, marginBottom: 32 }}>(empty directory)</div>
+            )}
+          </>
         )}
       </div>
     );
