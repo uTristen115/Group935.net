@@ -676,19 +676,17 @@
       .pap-btn-primary:hover { background: ${T.bone}; }
       .pap-btn-ghost { background: transparent; color: ${T.bone}; border: 1px solid ${T.lineHi}; }
       .pap-btn-ghost:hover { border-color: ${T.e115}; color: ${T.e115}; }
-      @keyframes pap-intel-line-scan { 0% { background-position: 160% 0; opacity: 0.42; } 45% { opacity: 0.9; } 100% { background-position: -60% 0; opacity: 0.42; } }
-      @keyframes pap-intel-line-pulse { 0%, 100% { opacity: 0.55; filter: drop-shadow(0 0 0 rgba(214,162,74,0)); } 50% { opacity: 1; filter: drop-shadow(0 0 7px rgba(214,162,74,0.45)); } }
       .pap-intel-card { position: relative; padding: 26px 32px 24px 40px; min-height: 100%; display: flex; flex-direction: column; overflow: hidden; color: ${T.bone}; background-image: url("${IMG_BASE}/Icons/IntelSheetBacking.png"); background-repeat: no-repeat; background-position: center; background-size: 100% 100%; border: 0; box-shadow: none; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.34)); }
       .pap-intel-head { position: relative; padding: 0 0 11px; background: transparent; }
-      .pap-intel-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(214,162,74,0.12), rgba(214,162,74,0.78), rgba(232,226,212,0.32), rgba(214,162,74,0.1)); background-size: 220% 100%; animation: pap-intel-line-scan 5.8s linear infinite; }
+      .pap-intel-head::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(214,162,74,0.56); }
       .pap-intel-heading { display: flex; align-items: center; gap: 12px; font-family: ${T.intelFont}; font-size: 26px; font-weight: 400; letter-spacing: 1.4px; color: ${T.bone}; line-height: 1.05; text-transform: uppercase; }
-      .pap-intel-heading::after { content: ""; height: 1px; flex: 1 1 auto; background: linear-gradient(90deg, rgba(214,162,74,0.22), rgba(214,162,74,0.78), rgba(232,226,212,0.26), transparent); background-size: 220% 100%; animation: pap-intel-line-scan 5.2s linear infinite; }
+      .pap-intel-heading::after { content: ""; height: 1px; flex: 1 1 auto; background: rgba(214,162,74,0.52); }
       .pap-intel-grid { padding: 8px 0 0; }
       .pap-intel-row { position: relative; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 13px; align-items: center; padding: 10px 0 11px; }
       .pap-intel-row::before { content: ""; position: absolute; left: -12px; top: 10px; bottom: 11px; width: 2px; background: transparent; }
-      .pap-intel-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(232,226,212,0.04), rgba(214,162,74,0.34), rgba(232,226,212,0.1), transparent); background-size: 220% 100%; animation: pap-intel-line-scan 6.4s linear infinite; }
+      .pap-intel-row::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(214,162,74,0.24); }
       .pap-intel-row.is-primary { padding-top: 12px; padding-bottom: 13px; }
-      .pap-intel-row.is-primary::before { background: linear-gradient(180deg, rgba(214,162,74,0.1), ${T.e115}, rgba(214,162,74,0.12)); animation: pap-intel-line-pulse 3.8s ease-in-out infinite; }
+      .pap-intel-row.is-primary::before { background: ${T.e115}; }
       .pap-intel-row:last-child::after { display: none; }
       .pap-intel-label { font-family: ${T.intelFont}; font-size: 12.5px; font-weight: 400; letter-spacing: 1.2px; color: ${T.faint}; line-height: 1.35; text-transform: uppercase; }
       .pap-intel-value { min-width: 0; font-family: ${T.intelFont}; font-size: 17.5px; font-weight: 400; letter-spacing: 0.6px; color: ${T.bone}; line-height: 1.35; overflow-wrap: anywhere; }
