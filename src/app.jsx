@@ -257,6 +257,10 @@
         transform: translate3d(var(--pap-gum-pan-x, 0), var(--pap-gum-pan-y, 0), 0) scale(1.18);
         filter: brightness(1.08);
       }
+      .pap-gum-float.pap-perk-hover-nudge:hover .pap-gum-hover-body {
+        transform: translate3d(0, -6px, 0) scale(1);
+        filter: brightness(1.06);
+      }
       .pap-gum-particle {
         position: absolute;
         left: calc(50% - 3px);
@@ -279,6 +283,26 @@
         pointer-events: none;
       }
       .pap-gum-arc-name text {
+        fill: currentColor;
+        stroke: ${T.bg0};
+        stroke-width: 2.8px;
+        paint-order: stroke fill;
+        font-family: "ShadowedRDF", ${T.display};
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .pap-perk-flat-name {
+        position: absolute;
+        left: 50%;
+        top: -48px;
+        z-index: 4;
+        width: 220px;
+        height: 90px;
+        transform: translateX(-50%);
+        overflow: visible;
+        pointer-events: none;
+      }
+      .pap-perk-flat-name text {
         fill: currentColor;
         stroke: ${T.bg0};
         stroke-width: 2.8px;
@@ -698,6 +722,8 @@
       .pap-intel-links { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
       .pap-intel-link { appearance: none; border: 0; border-bottom: 1px solid ${T.e115dim}; background: transparent; color: ${T.bone}; cursor: pointer; font: inherit; font-weight: 400; letter-spacing: inherit; line-height: 1.45; padding: 0 0 2px; }
       .pap-intel-link:hover { color: ${T.e115}; border-bottom-color: ${T.e115}; }
+      .pap-intel-action { appearance: none; width: 100%; margin-top: 18px; padding: 10px 12px 11px; border: 1px solid rgba(214,162,74,0.42); background: rgba(214,162,74,0.12); color: ${T.bone}; cursor: pointer; font-family: ${T.intelFont}; font-size: 17.5px; font-weight: 400; letter-spacing: 0.7px; line-height: 1.15; text-transform: uppercase; transition: background .12s, border-color .12s, color .12s; }
+      .pap-intel-action:hover { border-color: rgba(214,162,74,0.78); background: rgba(214,162,74,0.2); color: ${T.e115}; }
       .pap-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-family: ${T.mono}; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid ${T.line}; color: ${T.mute}; background: transparent; cursor: pointer; }
       .pap-chip:hover { color: ${T.bone}; border-color: ${T.lineHi}; }
       .pap-chip.is-active { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
@@ -1579,6 +1605,192 @@
           <div style={{ position: 'absolute', bottom: 8, left: 10, right: 10, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-end' }}>
             <div className="pap-stencil" style={{ fontSize: Math.min(typeof height === 'number' ? height * 0.15 : 24, 24), color: T.bone, textShadow: '0 2px 12px rgba(0,0,0,0.75)', lineHeight: 0.95 }}>{title}</div>
             <div style={{ fontFamily: T.mono, fontSize: 9, letterSpacing: 1.4, color: T.mute, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>G935 // PERK</div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  const PERK_ICON_COLOR = {
+    jugg: '#d7242f',
+    qr: '#58c9ff',
+    sc: '#62c85b',
+    ddc: '#e17b32',
+    sf: '#f0b93e',
+    phd: '#9f63ff',
+    mule: '#4f8f38',
+    tomb: '#b78a60',
+    'deadshot-daiquiri': '#a8a8a8',
+    'whos-who': '#42c7c3',
+    'vulture-aid': '#91302f',
+    'electric-cherry': '#48bfff',
+    'widows-wine': '#b36c72',
+    'der-wunderfizz': '#4fb7ff',
+    'deadshot-dealer': '#f0c94a',
+    'death-perception': '#e45835',
+    'dying-wish': '#4aa9ff',
+    'victorious-tortoise': '#b8f4c1',
+    'stone-cold-stronghold': '#a3927d',
+    'winters-wail': '#3fc6d9',
+    timeslip: '#bf70ff',
+    'ethereal-razor': '#dd3f69',
+    'electric-burst': '#51dfff',
+    zombshell: '#8ee764',
+    'secret-sauce': '#ff80b8',
+    'bandolier-bandit': '#9b6a3c',
+    'blaze-phase': '#ff5f2f',
+    'blood-wolf-bite': '#d63d49',
+    'elemental-pop': '#ff69d5',
+    'phd-slider': '#f0ba37',
+    'melee-macchiato': '#b55f34',
+    'wisp-tea': '#58bfff',
+  };
+
+  function perkIconColor(perk) {
+    return PERK_ICON_COLOR[perk && perk.id] || T.e115;
+  }
+
+  function perkParticleStyle(perkIndex, particleIndex, color, scale = 1) {
+    const angle = (-170 + ((particleIndex * 47 + perkIndex * 19) % 310)) * Math.PI / 180;
+    const startDistance = (46 + ((perkIndex * 7 + particleIndex * 5) % 13)) * scale;
+    const endDistance = startDistance + (22 + ((perkIndex * 5 + particleIndex * 9) % 18)) * scale;
+    const startX = Math.cos(angle) * startDistance;
+    const startY = Math.sin(angle) * startDistance;
+    const endX = Math.cos(angle) * endDistance;
+    const endY = Math.sin(angle) * endDistance - 8;
+    return {
+      '--pap-particle-start-x': startX.toFixed(1) + 'px',
+      '--pap-particle-start-y': startY.toFixed(1) + 'px',
+      '--pap-particle-end-x': endX.toFixed(1) + 'px',
+      '--pap-particle-end-y': endY.toFixed(1) + 'px',
+      background: `radial-gradient(circle, #fff 0%, ${color} 56%, transparent 74%)`,
+      boxShadow: `0 0 8px ${color}, 0 0 18px ${color}cc, 0 0 28px ${color}66`,
+      animationDuration: (1.5 + ((perkIndex + particleIndex * 2) % 5) * 0.18).toFixed(2) + 's',
+      animationDelay: '-' + (0.1 + ((perkIndex * 4 + particleIndex * 5) % 11) * 0.12).toFixed(2) + 's',
+    };
+  }
+
+  function perkFlatNameTextStyle(name) {
+    const length = String(name || '').length;
+    return {
+      fontSize: length > 14 ? 16.8 : 20.4,
+      letterSpacing: length > 14 ? 0.45 : 0.75,
+    };
+  }
+
+  function perkNameLines(name) {
+    const text = String(name || '');
+    if (text.length <= 13) return [text];
+    const words = text.split(/\s+/).filter(Boolean);
+    if (words.length < 2) return [text];
+    let best = null;
+    let bestScore = Infinity;
+    for (let i = 1; i < words.length; i += 1) {
+      const first = words.slice(0, i).join(' ');
+      const second = words.slice(i).join(' ');
+      const score = Math.max(first.length, second.length) * 2 + Math.abs(first.length - second.length);
+      if (score < bestScore) {
+        best = [first, second];
+        bestScore = score;
+      }
+    }
+    return best || [text];
+  }
+
+  function PerkFlatName({ perk, color }) {
+    const name = (perk && perk.name) || '';
+    const lines = perkNameLines(name);
+    const textStyle = perkFlatNameTextStyle(name);
+    const yStart = lines.length > 1 ? 28 : 46;
+    return (
+      <svg
+        className="pap-perk-flat-name"
+        viewBox="0 0 220 90"
+        aria-hidden="true"
+        style={{ color, filter: 'drop-shadow(0 3px 7px rgba(0,0,0,0.82))' }}
+      >
+        <text
+          x="110"
+          y={yStart}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          style={textStyle}
+        >
+          {lines.map((line, index) => (
+            <tspan key={line + index} x="110" dy={index ? 19 : 0}>
+              {line}
+            </tspan>
+          ))}
+        </text>
+      </svg>
+    );
+  }
+
+  function PerkIconTile({ perk, index, size = 136, imageSize = 106, glowInset = 13, glowBlur = 10, showName = true, showTooltip = true, loading = 'lazy', hoverBehavior = 'zoom', style }) {
+    const [failed, setFailed] = useState(false);
+    const color = perkIconColor(perk);
+    const src = !failed ? perkImg(perk, perkPrimaryFile(perk)) : null;
+    const scale = size / 136;
+    const useHoverPan = hoverBehavior !== 'nudge';
+    if (!src) return <Slot w="100%" h={Math.max(164, size)} label={perk && perk.name} kind="PERK" tone="accent" style={{ background: 'transparent', border: 0, ...style }} />;
+    return (
+      <div
+        className={'pap-gum-float' + (hoverBehavior === 'nudge' ? ' pap-perk-hover-nudge' : '')}
+        onMouseMove={useHoverPan ? moveGobblegumImage : undefined}
+        onMouseLeave={useHoverPan ? resetGobblegumImage : undefined}
+        style={{
+          position: 'relative',
+          width: size,
+          height: size,
+          margin: '18px auto 0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'visible',
+          background: 'transparent',
+          ...gobblegumFloatStyle(index),
+          ...style,
+        }}
+      >
+        <div className="pap-gum-hover-body">
+          <div aria-hidden="true" style={{
+            position: 'absolute',
+            zIndex: 1,
+            inset: glowInset,
+            borderRadius: '50%',
+            background: `radial-gradient(circle, ${color}92 0%, ${color}42 45%, transparent 74%)`,
+            filter: `blur(${glowBlur}px)`,
+            opacity: 0.92,
+          }} />
+          {GOBBLEGUM_PARTICLES.map((particle) => (
+            <span
+              key={particle}
+              className="pap-gum-particle"
+              aria-hidden="true"
+              style={perkParticleStyle(index, particle, color, scale)}
+            />
+          ))}
+          <img
+            src={src}
+            alt={perk && perk.name}
+            loading={loading}
+            onError={() => setFailed(true)}
+            style={{
+              position: 'relative',
+              zIndex: 3,
+              display: 'block',
+              width: imageSize,
+              height: imageSize,
+              objectFit: 'contain',
+              background: 'transparent',
+              filter: `drop-shadow(0 10px 18px ${color}55) drop-shadow(0 2px 8px rgba(0,0,0,0.65))`,
+            }}
+          />
+          {showName && <PerkFlatName perk={perk} color={color} />}
+        </div>
+        {showTooltip && perk && perk.effect && (
+          <div className="pap-gum-effect-tooltip" style={{ color }}>
+            {perk.effect}
           </div>
         )}
       </div>
@@ -3838,14 +4050,21 @@
     );
   }
 
-  function MapIntelRow({ label, value, tone }) {
-    const toneClass = tone ? (' is-' + tone) : '';
-    const rowClass = 'pap-intel-row' + (label === 'Designation' ? ' is-primary' : '');
+  function IntelSheet({ heading, rows, children, style }) {
     return (
-      <div className={rowClass}>
-        <div className="pap-intel-label">{label}</div>
-        <div className={'pap-intel-value' + toneClass}>{value}</div>
-      </div>
+      <aside className="pap-intel-card" style={style}>
+        <div className="pap-intel-head">
+          <div className="pap-intel-heading">{heading}</div>
+        </div>
+        {rows && rows.length > 0 && (
+          <div className="pap-intel-grid">
+            {rows.map(([label, value, tone, primary]) => (
+              <IntelRow key={label} label={label} value={value} tone={tone} primary={primary} />
+            ))}
+          </div>
+        )}
+        {children}
+      </aside>
     );
   }
 
@@ -3901,14 +4120,7 @@
       relicCount > 0 && ['Relics', relicCount + ' hidden', 'yellow'],
     ].filter(Boolean);
     return (
-      <aside className="pap-intel-card">
-        <div className="pap-intel-head">
-          <div className="pap-intel-heading">Intel Sheet</div>
-        </div>
-        <div className="pap-intel-grid">
-          {rows.map(([label, value, tone]) => <MapIntelRow key={label} label={label} value={value} tone={tone} />)}
-        </div>
-      </aside>
+      <IntelSheet heading="Intel Sheet" rows={rows} />
     );
   }
 
@@ -4080,12 +4292,13 @@
     return { name: 'characters', id: id || undefined };
   }
 
-  function IntelRow({ label, value, tone }) {
-    const c = tone === 'accent' ? T.e115 : tone === 'red' ? T.blood : tone === 'yellow' ? T.hazard : tone === 'mute' ? T.mute : T.bone;
+  function IntelRow({ label, value, tone, primary = false }) {
+    const toneClass = tone ? (' is-' + tone) : '';
+    const rowClass = 'pap-intel-row' + (primary || label === 'Designation' ? ' is-primary' : '');
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 12, padding: '10px 0', borderBottom: `1px solid ${T.line}` }}>
-        <Mono color={T.faint}>{label}</Mono>
-        <div style={{ fontFamily: T.sans, fontSize: 14, color: c, fontWeight: 500 }}>{value}</div>
+      <div className={rowClass}>
+        <div className="pap-intel-label">{label}</div>
+        <div className={'pap-intel-value' + toneClass}>{value}</div>
       </div>
     );
   }
@@ -4544,11 +4757,15 @@
           <div>
             <CharacterImage character={c} variant={variant} kind="DOSSIER" style={{ width: 380, height: 480 }} />
             <VariantToggle character={c} variant={variant} setVariant={setVariant} />
-            <div style={{ marginTop: 18, padding: 16, background: T.bg1, border: `1px solid ${T.line}` }}>
-              <IntelRow label="Origin" value={c.origin} />
-              <IntelRow label="Role" value={c.role} />
-              <IntelRow label="Status" value="Active" tone="accent" />
-            </div>
+            <IntelSheet
+              heading="Dossier"
+              rows={[
+                ['Origin', c.origin],
+                ['Role', c.role],
+                ['Status', 'Active', 'accent'],
+              ]}
+              style={{ marginTop: 18 }}
+            />
           </div>
           <div>
             {c.quote && (
@@ -4617,21 +4834,14 @@
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 0.75fr', gap: 28, marginTop: 32, alignItems: 'start' }}>
           <WeaponImage weapon={w} height={440} label={w.name} loading="eager" showOverlay={false} />
-          <aside className="pap-card" style={{ padding: 22 }}>
-            <Mono color={T.e115} letter={2.5}>Weapon File</Mono>
-            <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 8 }}>{w.name}</div>
-            <div style={{ marginTop: 16 }}>
-              <IntelRow label="Origin" value={w.map || 'Unconfirmed'} />
-              <IntelRow label="Type" value={w.type || 'Wonder weapon'} />
-              <IntelRow label="Introduced" value={w.introduced || 'Unknown'} />
-              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="accent" />
-            </div>
-            {originMap && (
-              <button className="pap-btn pap-btn-primary" style={{ marginTop: 18, width: '100%' }} onClick={() => nav({ name: 'map', id: originMap.id })}>
-                {'Open map file ->'}
-              </button>
-            )}
-          </aside>
+          <IntelSheet
+            heading="Weapon File"
+            rows={[
+              ['Name', w.name, null, true],
+              ['Type', w.type || 'Wonder weapon'],
+              ['Images', String(gallery.length).padStart(2, '0'), 'accent'],
+            ]}
+          />
         </div>
 
         {gamesIn.length > 0 && (
@@ -4658,14 +4868,6 @@
           </section>
         )}
 
-        {originMap && (
-          <section style={{ marginTop: 44 }}>
-            <SectionHead kicker="Origin site" title={originMap.name} />
-            <div style={{ maxWidth: 420 }}>
-              <MapCard map={originMap} nav={nav} />
-            </div>
-          </section>
-        )}
       </div>
     );
   }
@@ -4681,13 +4883,10 @@
           nav={nav}
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: 18, rowGap: 34, marginTop: 32 }}>
-          {ZD.perks.map((p) => (
-            <button key={p.id} onClick={() => nav({ name: 'perk', id: p.id })} className="pap-card-clickable"
-              style={{ padding: 0, color: T.bone, textAlign: 'center', overflow: 'hidden', background: 'transparent', border: 0, boxShadow: 'none' }}>
-              <PerkImage perk={p} height={150} label={p.name} showOverlay={false} style={{ background: 'transparent', border: 0 }} />
-              <div style={{ padding: '10px 8px 0' }}>
-                <div className="pap-stencil" style={{ fontSize: 21, color: T.bone, lineHeight: 1.05 }}>{p.name}</div>
-              </div>
+          {ZD.perks.map((p, i) => (
+            <button key={p.id} onClick={() => nav({ name: 'perk', id: p.id })} className="pap-card-clickable pap-gum-card"
+              style={{ padding: '10px 0 4px', minHeight: 176, color: T.bone, textAlign: 'center', overflow: 'visible', background: 'transparent', border: 0, boxShadow: 'none' }}>
+              <PerkIconTile perk={p} index={i} />
             </button>
           ))}
         </div>
@@ -4702,6 +4901,7 @@
     const originGame = originMap ? ZD.games.find((g) => g.id === originMap.game) : null;
     const gamesIn = (p.gameIds || []).map((gid) => ZD.games.find((g) => g.id === gid)).filter(Boolean);
     const gallery = perkGalleryItems(p, true);
+    const perkIndex = Math.max(0, ZD.perks.findIndex((x) => x.id === p.id));
 
     return (
       <div>
@@ -4714,21 +4914,30 @@
         />
 
         <div style={{ display: 'grid', gridTemplateColumns: '0.95fr 1.05fr', gap: 28, marginTop: 32, alignItems: 'start' }}>
-          <PerkImage perk={p} height={420} label={p.name} loading="eager" showOverlay={false} />
-          <aside className="pap-card" style={{ padding: 22 }}>
-            <Mono color={T.e115} letter={2.5}>Machine File</Mono>
-            <div className="pap-stencil" style={{ fontSize: 30, color: T.bone, marginTop: 8 }}>{p.name}</div>
-            <div style={{ marginTop: 18 }}>
-              <IntelRow label="Introduced" value={p.introduced || 'Unknown'} />
-              <IntelRow label="Effect" value={p.effect || 'TBD'} />
-              <IntelRow label="Images" value={String(gallery.length).padStart(2, '0')} tone="accent" />
-            </div>
-            {originMap && (
-              <button className="pap-btn pap-btn-primary" style={{ marginTop: 18, width: '100%' }} onClick={() => nav({ name: 'map', id: originMap.id })}>
-                {'Open origin site ->'}
-              </button>
-            )}
-          </aside>
+          <div className="pap-gum-card" style={{ minHeight: 420, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible', background: 'transparent' }}>
+            <PerkIconTile
+              perk={p}
+              index={perkIndex}
+              size={390}
+              imageSize={333}
+              glowInset={33}
+              glowBlur={21}
+              showName={false}
+              showTooltip={false}
+              loading="eager"
+              hoverBehavior="nudge"
+              style={{ margin: '0 auto' }}
+            />
+          </div>
+          <IntelSheet
+            heading="Machine File"
+            rows={[
+              ['Name', p.name, null, true],
+              ['Introduced', p.introduced || 'Unknown'],
+              ['Effect', p.effect || 'TBD'],
+              ['Images', String(gallery.length).padStart(2, '0'), 'accent'],
+            ]}
+          />
         </div>
 
         {gamesIn.length > 0 && (
@@ -4755,14 +4964,6 @@
           </section>
         )}
 
-        {originMap && (
-          <section style={{ marginTop: 44 }}>
-            <SectionHead kicker="First filed site" title={originMap.name} />
-            <div style={{ maxWidth: 420 }}>
-              <MapCard map={originMap} nav={nav} />
-            </div>
-          </section>
-        )}
       </div>
     );
   }
