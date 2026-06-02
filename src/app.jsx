@@ -1110,6 +1110,10 @@
         #root [style*="height: 120px"] { height: 170px !important; }
         #root [style*="min-height: 480px"],
         #root [style*="min-height: 420px"] { min-height: 300px !important; }
+        #root .pap-perk-detail-layout { gap: 44px !important; }
+        #root .pap-perk-detail-icon-stage { min-height: clamp(350px, 90vw, 430px) !important; margin-bottom: 14px !important; position: relative; z-index: 1; }
+        #root .pap-perk-detail-icon-stage .pap-gum-float { width: min(390px, 86vw) !important; height: min(390px, 86vw) !important; }
+        #root .pap-perk-detail-icon-stage .pap-gum-hover-body img { width: min(333px, 74vw) !important; height: min(333px, 74vw) !important; }
         #root [style*="padding: 36px"],
         #root [style*="padding: 32px"] { padding: 20px !important; }
         #root [style*="padding: 28px"],
@@ -4913,8 +4917,8 @@
           nav={nav}
         />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '0.95fr 1.05fr', gap: 28, marginTop: 32, alignItems: 'start' }}>
-          <div className="pap-gum-card" style={{ minHeight: 420, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible', background: 'transparent' }}>
+        <div className="pap-perk-detail-layout" style={{ display: 'grid', gridTemplateColumns: '0.95fr 1.05fr', gap: 28, marginTop: 32, alignItems: 'start' }}>
+          <div className="pap-gum-card pap-perk-detail-icon-stage" style={{ minHeight: 420, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'visible', background: 'transparent' }}>
             <PerkIconTile
               perk={p}
               index={perkIndex}
