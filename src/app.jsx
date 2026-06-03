@@ -19,6 +19,17 @@
     IMG_BASE + '/Icons/115Shelf2.png',
     IMG_BASE + '/Icons/115Shelf3.png',
   ];
+  const METEOR_SPRITES = [
+    IMG_BASE + '/Icons/115meteor-fast.png',
+    IMG_BASE + '/Icons/115meteor1-fast.png',
+    IMG_BASE + '/Icons/115meteor2-fast.png',
+    IMG_BASE + '/Icons/115meteor3-fast.png',
+  ];
+  const METEOR_SIGNAL_SPRITE = IMG_BASE + '/Icons/115meteorGreen-signal.png';
+  const RADIO_SHELL_SPRITE = IMG_BASE + '/Icons/radiouse.png';
+  const RADIO_DIAL_SPRITE = IMG_BASE + '/Icons/radiodial.png';
+  const RADIO_LEFT_BUTTON_SPRITE = IMG_BASE + '/Icons/radioleftbutton.png';
+  const RADIO_RIGHT_BUTTON_SPRITE = IMG_BASE + '/Icons/radiorightbutton.png';
   function gameImg(game, file) { return IMG_BASE + '/Games/' + game.imgDir + '/' + file; }
   function charImg(portrait) { return portrait ? (IMG_BASE + '/Characters/' + portrait.dir + '/' + portrait.file) : null; }
   function mapImg(map, file) { return map && map.media && file ? (IMG_BASE + '/Games/' + map.media.dir + '/' + file) : null; }
@@ -213,6 +224,12 @@
       @font-face {
         font-family: "Saniretro";
         src: url("${FONT_BASE}/saniretro/Saniretro.ttf") format("truetype");
+        font-display: swap;
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "EnterSansman";
+        src: url("${FONT_BASE}/enter-sansman/entsans.ttf") format("truetype");
         font-display: swap;
         font-weight: 400;
       }
@@ -863,6 +880,276 @@
         transform: rotate(9deg);
         opacity: 0.11;
       }
+      .pap-shell { isolation: isolate; }
+      @keyframes pap-meteor-cross {
+        0% {
+          opacity: 0;
+          transform: translate3d(var(--meteor-start-x), var(--meteor-start-y), 0) rotate(var(--meteor-rot)) scale(var(--meteor-scale));
+        }
+        9% { opacity: var(--meteor-opacity); }
+        76% { opacity: var(--meteor-opacity); }
+        100% {
+          opacity: 0;
+          transform: translate3d(var(--meteor-end-x), var(--meteor-end-y), 0) rotate(var(--meteor-rot)) scale(var(--meteor-scale));
+        }
+      }
+      .pap-meteor-field {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .pap-meteor-field.is-front { z-index: 42; }
+      .pap-meteor {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: var(--meteor-size);
+        height: var(--meteor-size);
+        border: 0;
+        padding: 0;
+        background: transparent;
+        pointer-events: none;
+        opacity: 0;
+        animation: pap-meteor-cross var(--meteor-duration) linear both;
+        contain: layout paint style;
+        isolation: isolate;
+        transform: translate3d(var(--meteor-start-x), var(--meteor-start-y), 0) rotate(var(--meteor-rot)) scale(var(--meteor-scale));
+        will-change: transform, opacity;
+      }
+      .pap-meteor img {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
+      .pap-meteor.is-signal {
+        pointer-events: auto;
+        cursor: crosshair;
+      }
+      .pap-meteor.is-signal:hover,
+      .pap-meteor.is-signal:focus-visible {
+        outline: none;
+      }
+      .pap-radio-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        background: rgba(0, 0, 0, 0.62);
+        backdrop-filter: blur(2px);
+      }
+      .pap-radio-panel {
+        position: relative;
+        width: min(92vw, 540px, calc(88vh * 0.8003));
+        aspect-ratio: 1122 / 1402;
+        background: transparent;
+        color: ${T.bone};
+        filter: drop-shadow(0 26px 52px rgba(0,0,0,0.72));
+      }
+      .pap-radio-close {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        z-index: 8;
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(214, 162, 74, 0.42);
+        background: rgba(10, 9, 8, 0.88);
+        color: ${T.bone};
+        font-family: ${T.mono};
+        font-size: 16px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .pap-radio-close:hover,
+      .pap-radio-close:focus-visible {
+        color: ${T.e115};
+        border-color: rgba(214, 162, 74, 0.45);
+        outline: none;
+      }
+      .pap-radio-art {
+        position: absolute;
+        inset: 0;
+      }
+      .pap-radio-shell {
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+      }
+      .pap-radio-display {
+        position: absolute;
+        left: 25.13%;
+        top: 37.23%;
+        width: 49.38%;
+        height: 11.70%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 24px;
+        background:
+          radial-gradient(circle at 50% 50%, rgba(214,162,74,0.13), transparent 58%),
+          linear-gradient(180deg, rgba(0,0,0,0.92), rgba(5,8,6,0.98));
+        box-shadow: inset 0 0 22px rgba(0,0,0,0.82), inset 0 0 18px rgba(214,162,74,0.1);
+      }
+      .pap-radio-frequency {
+        font-family: "EnterSansman", ${T.mono};
+        font-size: clamp(24px, 7vw, 48px);
+        letter-spacing: 3px;
+        color: ${T.e115};
+        line-height: 1;
+        text-transform: uppercase;
+        text-align: center;
+        white-space: nowrap;
+        text-shadow: 0 0 12px rgba(214,162,74,0.42), 0 0 24px rgba(214,162,74,0.22);
+        transform: translateY(3%);
+      }
+      .pap-radio-dial-slot {
+        position: absolute;
+        left: 32.09%;
+        top: 63.69%;
+        width: 35.12%;
+        aspect-ratio: 394 / 402;
+        z-index: 6;
+      }
+      .pap-radio-dial-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform-origin: 50% 50%;
+        transition: transform .16s ease;
+        pointer-events: none;
+        user-select: none;
+      }
+      .pap-radio-dial-img.is-confirming {
+        transition: transform .92s cubic-bezier(.2, .82, .16, 1);
+        filter: brightness(1.08) drop-shadow(0 0 12px rgba(214,162,74,0.36));
+      }
+      .pap-radio-range {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        cursor: grab;
+        accent-color: ${T.e115};
+      }
+      .pap-radio-range:active { cursor: grabbing; }
+      .pap-radio-display.is-miss .pap-radio-frequency {
+        color: ${T.bloodH};
+        text-shadow: 0 0 12px rgba(239,58,58,0.5), 0 0 24px rgba(239,58,58,0.26);
+      }
+      .pap-radio-display.is-accepted .pap-radio-frequency {
+        color: ${T.bone};
+        font-size: clamp(10px, 2.85vw, 17px);
+        letter-spacing: 1.4px;
+        text-shadow: 0 0 10px rgba(214,162,74,0.52), 0 0 22px rgba(214,162,74,0.28);
+      }
+      .pap-radio-fine-button {
+        position: absolute;
+        z-index: 7;
+        width: 11.1%;
+        aspect-ratio: 173 / 172;
+        border: 0;
+        padding: 0;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.42));
+      }
+      .pap-radio-fine-button.is-left { left: 18.6%; top: 75.8%; }
+      .pap-radio-fine-button.is-right { left: 70.3%; top: 75.8%; }
+      .pap-radio-fine-button img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform .12s ease, filter .12s ease;
+        pointer-events: none;
+        user-select: none;
+      }
+      .pap-radio-fine-button:hover img,
+      .pap-radio-fine-button:focus-visible img {
+        transform: scale(1.045);
+        filter: brightness(1.08);
+      }
+      .pap-radio-fine-button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(214,162,74,0.44);
+      }
+      .pap-radio-fine-button:active img { transform: scale(0.96); }
+      .pap-radio-fine-button:disabled { pointer-events: none; opacity: 0.58; }
+      .pap-radio-set-button {
+        position: absolute;
+        left: 23.8%;
+        top: 86.4%;
+        z-index: 7;
+        width: 9.2%;
+        aspect-ratio: 1;
+        border: 0;
+        padding: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: ${T.e115};
+        cursor: pointer;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.42));
+      }
+      .pap-radio-set-button img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: transform .12s ease, filter .12s ease;
+        pointer-events: none;
+        user-select: none;
+      }
+      .pap-radio-set-button span {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: ${T.e115Font};
+        font-size: clamp(7px, 1.45vw, 10px);
+        letter-spacing: 1.35px;
+        text-transform: uppercase;
+        text-shadow: 0 0 8px rgba(214,162,74,0.48), 0 1px 2px rgba(0,0,0,0.9);
+        pointer-events: none;
+      }
+      .pap-radio-set-button:hover img,
+      .pap-radio-set-button:focus-visible img {
+        transform: scale(1.04);
+        filter: brightness(1.08);
+      }
+      .pap-radio-set-button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(214,162,74,0.44);
+      }
+      .pap-radio-set-button:active img { transform: scale(0.96); }
+      .pap-radio-set-button.is-complete { opacity: 0.66; cursor: default; }
+      .pap-radio-set-button:disabled { pointer-events: none; }
       .pap-card, .term-card, .pap-row, .term-row { min-width: 0; }
       .pap-main-nav { scrollbar-width: thin; scrollbar-color: ${T.lineHi} transparent; }
       .pap-main-nav::-webkit-scrollbar { height: 4px; }
@@ -980,6 +1267,11 @@
           width: clamp(100px, 34vw, 170px);
           opacity: 0.09;
         }
+        .pap-meteor { width: calc(var(--meteor-size) * 0.72); height: calc(var(--meteor-size) * 0.72); }
+        .pap-radio-modal { padding: 12px; align-items: center; }
+        .pap-radio-panel { width: min(94vw, calc(84vh * 0.8003)); }
+        .pap-radio-close { right: 0; top: 0; }
+        .pap-radio-frequency { font-size: clamp(22px, 8.2vw, 34px); letter-spacing: 2px; }
         .term-header, .term-menu { padding: 14px !important; align-items: stretch !important; flex-direction: column !important; gap: 12px !important; }
         .pap-construction-notice { display: none !important; }
         .pap-header-inner { padding: 12px 14px !important; align-items: center !important; flex-direction: row !important; gap: 10px !important; }
@@ -1163,6 +1455,10 @@
         #root [style*="height: 480px"] { height: 320px !important; }
         #root [style*="height: 420px"],
         #root [style*="height: 400px"] { height: 260px !important; min-height: 260px !important; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pap-meteor { display: none !important; }
+        .pap-radio-dial-img { transition: none; }
       }
     `;
     document.head.appendChild(s);
@@ -2031,9 +2327,399 @@
     );
   }
 
+  const METEOR_SPRITE_POOL = [
+    {
+      id: '115-archive-01',
+      src: METEOR_SPRITES[0],
+      size: 118,
+      scale: 1,
+      opacity: 0.5,
+    },
+    {
+      id: '115-archive-02',
+      src: METEOR_SPRITES[1],
+      size: 96,
+      scale: 0.94,
+      opacity: 0.72,
+    },
+    {
+      id: '115-archive-03',
+      src: METEOR_SPRITES[2],
+      size: 108,
+      scale: 0.9,
+      opacity: 0.46,
+    },
+    {
+      id: '115-archive-04',
+      src: METEOR_SPRITES[3],
+      size: 88,
+      scale: 0.86,
+      opacity: 0.42,
+    },
+    {
+      id: 'deadwave-signal',
+      src: METEOR_SIGNAL_SPRITE,
+      signal: true,
+      size: 122,
+      scale: 1,
+      opacity: 0.86,
+    },
+  ];
+
+  const METEOR_LANES = [
+    {
+      id: 'steep-fall-left',
+      layer: 'back',
+      startX: '-10vw',
+      startY: '-12vh',
+      endX: '110vw',
+      endY: '108vh',
+      duration: 8.8,
+      rot: 38,
+    },
+    {
+      id: 'steep-rise-left',
+      layer: 'front',
+      startX: '-12vw',
+      startY: '108vh',
+      endX: '112vw',
+      endY: '-10vh',
+      duration: 9.2,
+      rot: -38,
+    },
+    {
+      id: 'steep-fall-right',
+      layer: 'back',
+      startX: '110vw',
+      startY: '-10vh',
+      endX: '-12vw',
+      endY: '108vh',
+      duration: 9.6,
+      rot: 218,
+    },
+    {
+      id: 'steep-rise-right',
+      layer: 'front',
+      startX: '112vw',
+      startY: '108vh',
+      endX: '-12vw',
+      endY: '-12vh',
+      duration: 9.4,
+      rot: 142,
+    },
+    {
+      id: 'vertical-fall',
+      layer: 'back',
+      startX: '4vw',
+      startY: '-16vh',
+      endX: '96vw',
+      endY: '112vh',
+      duration: 8.4,
+      rot: 52,
+    },
+    {
+      id: 'vertical-rise',
+      layer: 'front',
+      startX: '96vw',
+      startY: '112vh',
+      endX: '4vw',
+      endY: '-16vh',
+      duration: 8.7,
+      rot: 128,
+    },
+  ];
+
+  const METEOR_FIRST_DELAY_MIN = 2500;
+  const METEOR_FIRST_DELAY_MAX = 9000;
+  const METEOR_INTERVAL_MIN = 30000;
+  const METEOR_INTERVAL_MAX = 60000;
+
+  function randomMeteorDelay() {
+    return METEOR_INTERVAL_MIN + Math.floor(Math.random() * (METEOR_INTERVAL_MAX - METEOR_INTERVAL_MIN + 1));
+  }
+
+  function randomFirstMeteorDelay() {
+    return METEOR_FIRST_DELAY_MIN + Math.floor(Math.random() * (METEOR_FIRST_DELAY_MAX - METEOR_FIRST_DELAY_MIN + 1));
+  }
+
+  function pickRandomItem(items, previousId) {
+    const options = items.length > 1 && previousId ? items.filter((item) => item.id !== previousId) : items;
+    return options[Math.floor(Math.random() * options.length)] || items[0];
+  }
+
+  function createMeteorPass(previousSpriteId, previousLaneId) {
+    const sprite = pickRandomItem(METEOR_SPRITE_POOL, previousSpriteId);
+    const lanePool = sprite.signal ? METEOR_LANES.filter((lane) => lane.layer === 'front') : METEOR_LANES;
+    const lane = pickRandomItem(lanePool, previousLaneId);
+    const durationJitter = (Math.random() * 0.6) - 0.3;
+    return {
+      ...lane,
+      id: sprite.id + '-' + lane.id,
+      spriteId: sprite.id,
+      laneId: lane.id,
+      src: sprite.src,
+      signal: !!sprite.signal,
+      layer: sprite.signal ? 'front' : lane.layer,
+      size: sprite.size,
+      scale: sprite.scale,
+      opacity: sprite.opacity,
+      duration: Math.max(7.8, lane.duration + durationJitter),
+    };
+  }
+
+  function MeteorSky({ onSignalClick }) {
+    const [activeMeteor, setActiveMeteor] = useState(null);
+    const passRef = React.useRef(0);
+    const lastSpriteRef = React.useRef(null);
+    const lastLaneRef = React.useRef(null);
+    useEffect(() => {
+      let spawnTimer = null;
+      let clearTimer = null;
+      let cancelled = false;
+      METEOR_SPRITE_POOL.forEach((sprite) => {
+        const image = new window.Image();
+        image.decoding = 'async';
+        image.src = sprite.src;
+        if (image.decode) image.decode().catch(() => {});
+      });
+      const spawn = () => {
+        if (cancelled) return;
+        const pass = passRef.current;
+        passRef.current += 1;
+        const track = createMeteorPass(lastSpriteRef.current, lastLaneRef.current);
+        lastSpriteRef.current = track.spriteId;
+        lastLaneRef.current = track.laneId;
+        setActiveMeteor({ ...track, instanceId: track.id + '-' + Date.now() + '-' + pass });
+        window.clearTimeout(clearTimer);
+        clearTimer = window.setTimeout(() => {
+          if (!cancelled) setActiveMeteor(null);
+        }, Math.ceil((track.duration + 0.8) * 1000));
+        spawnTimer = window.setTimeout(spawn, randomMeteorDelay());
+      };
+      spawnTimer = window.setTimeout(spawn, randomFirstMeteorDelay());
+      return () => {
+        cancelled = true;
+        window.clearTimeout(spawnTimer);
+        window.clearTimeout(clearTimer);
+      };
+    }, []);
+    return (
+      <>
+        <MeteorField layer="back" meteor={activeMeteor} onSignalClick={onSignalClick} />
+        <MeteorField layer="front" meteor={activeMeteor} onSignalClick={onSignalClick} />
+      </>
+    );
+  }
+
+  function MeteorField({ layer, meteor, onSignalClick }) {
+    const meteors = meteor && meteor.layer === layer ? [meteor] : [];
+    return (
+      <div className={'pap-meteor-field ' + (layer === 'front' ? 'is-front' : 'is-back')}>
+        {meteors.map((track) => {
+          const style = {
+            '--meteor-start-x': track.startX,
+            '--meteor-start-y': track.startY,
+            '--meteor-end-x': track.endX,
+            '--meteor-end-y': track.endY,
+            '--meteor-size': track.size + 'px',
+            '--meteor-duration': track.duration + 's',
+            '--meteor-rot': track.rot + 'deg',
+            '--meteor-scale': track.scale,
+            '--meteor-opacity': track.opacity,
+          };
+          const className = 'pap-meteor ' + (layer === 'front' ? 'is-front ' : '') + (track.signal ? 'is-signal' : '');
+          if (track.signal) {
+            return (
+              <button
+                key={track.instanceId}
+                type="button"
+                className={className}
+                style={style}
+                aria-label="Open Deadwave radio"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onSignalClick();
+                }}
+              >
+                <img src={track.src} alt="" aria-hidden="true" />
+              </button>
+            );
+          }
+          return (
+            <span key={track.instanceId} className={className} style={style} aria-hidden="true">
+              <img src={track.src} alt="" />
+            </span>
+          );
+        })}
+      </div>
+    );
+  }
+
+  const RADIO_BAND_MIN = 71.1;
+  const RADIO_BAND_MAX = 120.7;
+  const RADIO_TUNING_STEP = 0.1;
+  const RADIO_SEQUENCE = [
+    { id: '935', target: 93.5, start: 88.4, displayScale: 1 },
+    { id: '115', target: 115.0, start: 104.8, displayScale: 0.1 },
+  ];
+  const DEADWAVE_GAME_PATH = '/Deadwave/';
+
+  function clampRadioValue(value) {
+    return Number(Math.min(RADIO_BAND_MAX, Math.max(RADIO_BAND_MIN, value)).toFixed(1));
+  }
+
+  function formatRadioValue(value, step) {
+    return (value * step.displayScale).toFixed(1);
+  }
+
+  function radioStepMatches(value, step) {
+    return formatRadioValue(value, step) === formatRadioValue(step.target, step);
+  }
+
+  function launchDeadwaveGame() {
+    if (window.location.protocol === 'file:') {
+      window.location.assign('./Deadwave/index.html');
+      return;
+    }
+    window.location.assign(DEADWAVE_GAME_PATH);
+  }
+
+  function RadioTuningDial({ onClose }) {
+    const [radioStepIndex, setRadioStepIndex] = useState(0);
+    const [tuning, setTuning] = useState(() => RADIO_SEQUENCE[0].start);
+    const [setFeedback, setSetFeedback] = useState('idle');
+    const [confirmSpinTurns, setConfirmSpinTurns] = useState(0);
+    const launchTimerRef = React.useRef(null);
+    const feedbackTimerRef = React.useRef(null);
+    useEffect(() => {
+      const onKeyDown = (event) => {
+        if (event.key === 'Escape') onClose();
+      };
+      window.addEventListener('keydown', onKeyDown);
+      return () => {
+        window.removeEventListener('keydown', onKeyDown);
+        window.clearTimeout(feedbackTimerRef.current);
+        window.clearTimeout(launchTimerRef.current);
+      };
+    }, [onClose]);
+    const currentStep = RADIO_SEQUENCE[Math.min(radioStepIndex, RADIO_SEQUENCE.length - 1)];
+    const isComplete = radioStepIndex >= RADIO_SEQUENCE.length;
+    const isConfirming = setFeedback === 'accepted';
+    const tuningProgress = (tuning - RADIO_BAND_MIN) / (RADIO_BAND_MAX - RADIO_BAND_MIN);
+    const dialRotation = -142 + tuningProgress * 284 + confirmSpinTurns * 360;
+    const frequency = isConfirming
+      ? `code ${Math.min(radioStepIndex + 1, RADIO_SEQUENCE.length)} of ${RADIO_SEQUENCE.length} accepted`
+      : formatRadioValue(tuning, currentStep);
+    const visibleTuningStep = RADIO_TUNING_STEP / currentStep.displayScale;
+    const updateTuning = (value) => {
+      if (isConfirming) return;
+      window.clearTimeout(feedbackTimerRef.current);
+      setSetFeedback('idle');
+      setTuning(clampRadioValue(value));
+    };
+    const adjustTuning = (delta) => updateTuning(tuning + delta);
+    const setFrequency = () => {
+      if (isComplete || isConfirming) return;
+      if (!radioStepMatches(tuning, currentStep)) {
+        window.clearTimeout(feedbackTimerRef.current);
+        setSetFeedback('miss');
+        feedbackTimerRef.current = window.setTimeout(() => setSetFeedback('idle'), 520);
+        return;
+      }
+      const nextIndex = radioStepIndex + 1;
+      window.clearTimeout(feedbackTimerRef.current);
+      setSetFeedback('accepted');
+      setConfirmSpinTurns((turns) => turns + 1);
+      if (nextIndex < RADIO_SEQUENCE.length) {
+        feedbackTimerRef.current = window.setTimeout(() => {
+          setRadioStepIndex(nextIndex);
+          setTuning(RADIO_SEQUENCE[nextIndex].start);
+          setSetFeedback('idle');
+        }, 1050);
+      } else {
+        setTuning(currentStep.target);
+        setRadioStepIndex(nextIndex);
+        launchTimerRef.current = window.setTimeout(launchDeadwaveGame, 1050);
+      }
+    };
+    return (
+      <div className="pap-radio-modal" role="dialog" aria-modal="true" aria-label="Deadwave radio" onClick={onClose}>
+        <div className="pap-radio-panel" onClick={(event) => event.stopPropagation()}>
+          <button type="button" className="pap-radio-close" aria-label="Close Deadwave radio" onClick={onClose}>
+            x
+          </button>
+          <div className="pap-radio-art">
+            <div className={'pap-radio-display ' + (setFeedback === 'miss' ? 'is-miss' : '') + (isConfirming ? ' is-accepted' : '')} aria-live="polite">
+              <div className="pap-radio-frequency">{frequency}</div>
+            </div>
+            <div
+              className="pap-radio-dial-slot"
+              onWheel={(event) => {
+                event.preventDefault();
+                adjustTuning(event.deltaY > 0 ? -visibleTuningStep : visibleTuningStep);
+              }}
+            >
+              <img
+                className={'pap-radio-dial-img ' + (isConfirming ? 'is-confirming' : '')}
+                src={RADIO_DIAL_SPRITE}
+                alt=""
+                aria-hidden="true"
+                style={{ transform: `rotate(${dialRotation.toFixed(1)}deg)` }}
+              />
+              <input
+                id="deadwave-tuning"
+                className="pap-radio-range"
+                type="range"
+                min={RADIO_BAND_MIN}
+                max={RADIO_BAND_MAX}
+                step={RADIO_TUNING_STEP}
+                value={tuning}
+                aria-label="Deadwave tuning frequency"
+                disabled={isComplete || isConfirming}
+                onChange={(event) => updateTuning(Number(event.target.value))}
+              />
+            </div>
+            <button
+              type="button"
+              className="pap-radio-fine-button is-left"
+              aria-label="Tune Deadwave radio left"
+              disabled={isComplete || isConfirming}
+              onClick={() => adjustTuning(-visibleTuningStep)}
+            >
+              <img src={RADIO_LEFT_BUTTON_SPRITE} alt="" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="pap-radio-fine-button is-right"
+              aria-label="Tune Deadwave radio right"
+              disabled={isComplete || isConfirming}
+              onClick={() => adjustTuning(visibleTuningStep)}
+            >
+              <img src={RADIO_RIGHT_BUTTON_SPRITE} alt="" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className={'pap-radio-set-button ' + (isComplete ? 'is-complete' : '')}
+              aria-label="Set Deadwave radio frequency"
+              disabled={isComplete || isConfirming}
+              onClick={setFrequency}
+            >
+              <img src={RADIO_DIAL_SPRITE} alt="" aria-hidden="true" />
+              <span>Set</span>
+            </button>
+            <img className="pap-radio-shell" src={RADIO_SHELL_SPRITE} alt="" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function Shell({ route, nav, query, setQuery, children }) {
     const now = useNow();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [radioOpen, setRadioOpen] = useState(false);
+    const openRadio = useCallback(() => setRadioOpen(true), []);
+    const closeRadio = useCallback(() => setRadioOpen(false), []);
     const startItems = [
       { id: 'home', label: 'Home', desc: 'Return to the main archive dashboard.' },
       { id: 'site-index', label: 'Site Index', desc: 'Open every crawlable page in one list.' },
@@ -2091,6 +2777,7 @@
         <div className="pap-wall-lie" aria-hidden="true">Eddie is<br />A LIAR!!</div>
         <img className="pap-wall-image pap-wall-trinity" src={IMG_BASE + '/Background Images/embracethetrinity.png'} alt="" aria-hidden="true" />
         <img className="pap-wall-image pap-wall-aether" src={IMG_BASE + '/Background Images/returnthroughaether.png'} alt="" aria-hidden="true" />
+        <MeteorSky onSignalClick={openRadio} />
         <div style={{ background: T.bg1, borderBottom: `1px solid ${T.line}`, position: 'sticky', top: 0, zIndex: 30 }}>
           <div className="pap-topbar" style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div style={{ display: 'flex', gap: 18, alignItems: 'center', minWidth: 0, overflow: 'hidden' }}>
@@ -2271,6 +2958,7 @@
             <div>{'Compiled 2025 — Annot. Requiem'}</div>
           </div>
         </footer>
+        {radioOpen && <RadioTuningDial onClose={closeRadio} />}
       </div>
     );
   }
