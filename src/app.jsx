@@ -2433,6 +2433,7 @@
   const METEOR_FIRST_DELAY_MAX = 9000;
   const METEOR_INTERVAL_MIN = 30000;
   const METEOR_INTERVAL_MAX = 60000;
+  const DEADWAVE_SIGNAL_MOBILE_QUERY = '(max-width: 760px)';
 
   function randomMeteorDelay() {
     return METEOR_INTERVAL_MIN + Math.floor(Math.random() * (METEOR_INTERVAL_MAX - METEOR_INTERVAL_MIN + 1));
@@ -2447,8 +2448,8 @@
     return options[Math.floor(Math.random() * options.length)] || items[0];
   }
 
-  function createMeteorPass(previousSpriteId, previousLaneId) {
-    const sprite = pickRandomItem(METEOR_SPRITE_POOL, previousSpriteId);
+  function createMeteorPass(spritePool, previousSpriteId, previousLaneId) {
+    const sprite = pickRandomItem(spritePool, previousSpriteId);
     const lanePool = sprite.signal ? METEOR_LANES.filter((lane) => lane.layer === 'front') : METEOR_LANES;
     const lane = pickRandomItem(lanePool, previousLaneId);
     const durationJitter = (Math.random() * 0.6) - 0.3;
@@ -2467,16 +2468,39 @@
     };
   }
 
-  function MeteorSky({ onSignalClick }) {
+  function useMediaQuery(query) {
+    const getMatches = () => {
+      if (typeof window === 'undefined' || !window.matchMedia) return false;
+      return window.matchMedia(query).matches;
+    };
+    const [matches, setMatches] = useState(getMatches);
+    useEffect(() => {
+      if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+      const media = window.matchMedia(query);
+      const updateMatches = () => setMatches(media.matches);
+      updateMatches();
+      if (media.addEventListener) {
+        media.addEventListener('change', updateMatches);
+        return () => media.removeEventListener('change', updateMatches);
+      }
+      media.addListener(updateMatches);
+      return () => media.removeListener(updateMatches);
+    }, [query]);
+    return matches;
+  }
+
+  function MeteorSky({ onSignalClick, signalEnabled }) {
     const [activeMeteor, setActiveMeteor] = useState(null);
     const passRef = React.useRef(0);
     const lastSpriteRef = React.useRef(null);
     const lastLaneRef = React.useRef(null);
     useEffect(() => {
+      const spritePool = signalEnabled ? METEOR_SPRITE_POOL : METEOR_SPRITE_POOL.filter((sprite) => !sprite.signal);
       let spawnTimer = null;
       let clearTimer = null;
       let cancelled = false;
-      METEOR_SPRITE_POOL.forEach((sprite) => {
+      setActiveMeteor((meteor) => (meteor && meteor.signal && !signalEnabled ? null : meteor));
+      spritePool.forEach((sprite) => {
         const image = new window.Image();
         image.decoding = 'async';
         image.src = sprite.src;
@@ -2486,7 +2510,7 @@
         if (cancelled) return;
         const pass = passRef.current;
         passRef.current += 1;
-        const track = createMeteorPass(lastSpriteRef.current, lastLaneRef.current);
+        const track = createMeteorPass(spritePool, lastSpriteRef.current, lastLaneRef.current);
         lastSpriteRef.current = track.spriteId;
         lastLaneRef.current = track.laneId;
         setActiveMeteor({ ...track, instanceId: track.id + '-' + Date.now() + '-' + pass });
@@ -2502,7 +2526,7 @@
         window.clearTimeout(spawnTimer);
         window.clearTimeout(clearTimer);
       };
-    }, []);
+    }, [signalEnabled]);
     return (
       <>
         <MeteorField layer="back" meteor={activeMeteor} onSignalClick={onSignalClick} />
@@ -2718,8 +2742,14 @@
     const now = useNow();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [radioOpen, setRadioOpen] = useState(false);
-    const openRadio = useCallback(() => setRadioOpen(true), []);
+    const isDeadwaveSignalDisabled = useMediaQuery(DEADWAVE_SIGNAL_MOBILE_QUERY);
+    const openRadio = useCallback(() => {
+      if (!isDeadwaveSignalDisabled) setRadioOpen(true);
+    }, [isDeadwaveSignalDisabled]);
     const closeRadio = useCallback(() => setRadioOpen(false), []);
+    useEffect(() => {
+      if (isDeadwaveSignalDisabled) setRadioOpen(false);
+    }, [isDeadwaveSignalDisabled]);
     const startItems = [
       { id: 'home', label: 'Home', desc: 'Return to the main archive dashboard.' },
       { id: 'site-index', label: 'Site Index', desc: 'Open every crawlable page in one list.' },
@@ -2777,7 +2807,7 @@
         <div className="pap-wall-lie" aria-hidden="true">Eddie is<br />A LIAR!!</div>
         <img className="pap-wall-image pap-wall-trinity" src={IMG_BASE + '/Background Images/embracethetrinity.png'} alt="" aria-hidden="true" />
         <img className="pap-wall-image pap-wall-aether" src={IMG_BASE + '/Background Images/returnthroughaether.png'} alt="" aria-hidden="true" />
-        <MeteorSky onSignalClick={openRadio} />
+        <MeteorSky onSignalClick={openRadio} signalEnabled={!isDeadwaveSignalDisabled} />
         <div style={{ background: T.bg1, borderBottom: `1px solid ${T.line}`, position: 'sticky', top: 0, zIndex: 30 }}>
           <div className="pap-topbar" style={{ maxWidth: 1440, margin: '0 auto', padding: '7px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, fontFamily: T.mono, fontSize: 10, letterSpacing: 1.8, color: T.faint, textTransform: 'uppercase' }}>
             <div style={{ display: 'flex', gap: 18, alignItems: 'center', minWidth: 0, overflow: 'hidden' }}>
