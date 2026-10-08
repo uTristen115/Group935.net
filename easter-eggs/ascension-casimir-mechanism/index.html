@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Casimir Mechanism Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="Casimir Mechanism Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="Casimir Mechanism: Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Casimir Mechanism Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="Casimir Mechanism Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="Casimir Mechanism: Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device." />
 <meta property="og:url" content="https://group935.net/easter-eggs/ascension-casimir-mechanism/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Casimir Mechanism Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="Casimir Mechanism Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="Casimir Mechanism: Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/ascension-casimir-mechanism';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"Casimir Mechanism Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"Casimir Mechanism Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/ascension-casimir-mechanism/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"Casimir Mechanism Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/ascension-casimir-mechanism/","inLanguage":"en-US","description":"Casimir Mechanism: Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Casimir Mechanism Easter Egg Walkthrough | Group 935</h1><p>Casimir Mechanism Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Casimir Mechanism Easter Egg Walkthrough</h1> <p>Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device.</p> <p><a href="/maps/ascension/">Ascension</a> - Black Ops</p> <dl><dt>Difficulty</dt><dd>Hard</dd><dt>Duration</dt><dd>45-75 min</dd><dt>Party</dt><dd>4 players required</dd></dl> <h2>Requirements</h2><ul><li>4 players</li><li>2x Pack-a-Punched Ray Gun or Ray Gun Mark II (BO3)</li><li>Thundergun</li><li>Matryoshka Dolls</li><li>Gersh Devices</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Power, Landers, Rocket</h3><p>Open the map and complete the launch sequence before starting the Casimir nodes.</p><ul><li>Turn on the power.</li><li>Link Lunar Lander F in the scrapyard near Stamin-Up.</li><li>Link Lunar Lander B near Speed Cola and the Sickle.</li><li>Link Lunar Lander D near PhD Flopper in Black Ops or Widow&apos;s Wine in BO3.</li><li>Return to the power switch and launch the rocket.</li><li>Get Gersh Devices from the Mystery Box.</li><li>Throw a Gersh Device at the generator outside the map boundary near PhD Flopper or Widow&apos;s Wine.</li></ul></li><li><h3>Activate the First Node</h3><p>Use the scrapyard terminal to activate the first node.</p><ul><li>Go to Stamin-Up and enter the scrapyard near Lander F.</li><li>Look under the metal stairs for the computer monitor showing static.</li><li>Interact with the monitor to reveal the Illuminati pyramid.</li><li>Node 1 completes and the first Casimir Mechanism light turns on.</li></ul></li><li><h3>Press the Four Buttons</h3><p>This step must be completed during a Space Monkey round.</p><ul><li>Wait for the Space Monkey round to begin.</li><li>Send one player to the button near Stamin-Up.</li><li>Send one player to the button opposite Juggernog.</li><li>Send one player to the button in the PhD Flopper room in Black Ops or Widow&apos;s Wine room in BO3.</li><li>Send one player to the button near Speed Cola.</li><li>Press all four buttons at the same time.</li><li>If done correctly, the buttons sink into the walls and Node 2 completes.</li></ul></li><li><h3>Hold the Pressure Plate</h3><p>Hold the plate outside Pack-a-Punch until the node confirms.</p><ul><li>Go to the area just outside the Pack-a-Punch room.</li><li>Find the circular pressure plate near the wall clock.</li><li>All four players must stand on the plate together.</li><li>Hold the plate for 2 minutes.</li><li>When complete, a Nuke power-up activates and Node 3 completes.</li></ul></li><li><h3>Spell LUNA</h3><p>Collect the floating letters by calling the Lunar Lander along the correct route.</p><ul><li>Park the lander at Spawn.</li><li>Choose one player to stay on the lander while the others call it between pads.</li><li>Call the lander from Spawn to Lander F near Stamin-Up to collect L.</li><li>Call the lander back to Spawn to collect U.</li><li>Call the lander to Lander B near Speed Cola to collect N.</li><li>Call the lander back to Lander F near Stamin-Up to collect A.</li><li>Once LUNA is complete, Node 4 completes.</li></ul></li><li><h3>Free Gersh</h3><p>Use the required weapons on the final light to free Gersh.</p><ul><li>Complete all four nodes first.</li><li>Look for the fifth white light on the ground in front of the Casimir Mechanism.</li><li>Throw a Gersh Device as close to the white light as possible.</li><li>Shoot the active Gersh Device with one upgraded Thundergun.</li><li>Shoot it with two upgraded Ray Guns.</li><li>Throw one set of Matryoshka Dolls into it.</li><li>If done correctly, Gersh&apos;s soul is freed and the Easter Egg is complete.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Death Machines for 90 seconds in Black Ops</li><li>All perks in Zombies Chronicles</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

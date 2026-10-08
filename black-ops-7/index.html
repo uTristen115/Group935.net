@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Black Ops 7 Zombies Guides | Easter Eggs, Maps, Tutorials | Group 935" />
 <meta property="og:description" content="Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links." />
@@ -26,8 +26,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/black-ops-7';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/black-ops-7/#webpage","@type":"WebPage","url":"https://group935.net/black-ops-7/","name":"Black Ops 7 Zombies Guides | Easter Eggs, Maps, Tutorials | Group 935","description":"Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links.","inLanguage":"en-US","about":["Black Ops 7","Black Ops 7 Zombies","Black Ops 7 Easter Eggs","BO7 Zombies maps"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Black Ops 7 Zombies","item":"https://group935.net/black-ops-7/","@type":"ListItem"}],"@id":"https://group935.net/black-ops-7/#breadcrumbs","@type":"BreadcrumbList"},{"name":"Black Ops 7 Zombies","@id":"https://group935.net/black-ops-7/#featured-list","itemListElement":[{"url":"https://group935.net/maps/ashes/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Ashes of the Damned","position":1},{"url":"https://group935.net/maps/astra/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Astra Malorum","position":2},{"url":"https://group935.net/maps/paradox/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Paradox Junction","position":3},{"url":"https://group935.net/maps/totenreich/","description":"Black Ops 7 Zombies map","@type":"ListItem","name":"Totenreich","position":4}],"description":"Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links.","@type":"ItemList","numberOfItems":4}]}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@graph":[{"inLanguage":"en-US","url":"https://group935.net/black-ops-7/","about":["Black Ops 7","Black Ops 7 Zombies","Black Ops 7 Easter Eggs","BO7 Zombies maps"],"@id":"https://group935.net/black-ops-7/#webpage","description":"Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links.","name":"Black Ops 7 Zombies Guides | Easter Eggs, Maps, Tutorials | Group 935","isPartOf":{"@id":"https://group935.net/#website"},"@type":"WebPage"},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Black Ops 7 Zombies","item":"https://group935.net/black-ops-7/","@type":"ListItem"}],"@id":"https://group935.net/black-ops-7/#breadcrumbs","@type":"BreadcrumbList"},{"itemListElement":[{"position":1,"@type":"ListItem","url":"https://group935.net/maps/ashes/","description":"Black Ops 7 Zombies map","name":"Ashes of the Damned"},{"position":2,"@type":"ListItem","url":"https://group935.net/maps/astra/","description":"Black Ops 7 Zombies map","name":"Astra Malorum"},{"position":3,"@type":"ListItem","url":"https://group935.net/maps/paradox/","description":"Black Ops 7 Zombies map","name":"Paradox Junction"},{"position":4,"@type":"ListItem","url":"https://group935.net/maps/totenreich/","description":"Black Ops 7 Zombies map","name":"Totenreich"}],"@type":"ItemList","name":"Black Ops 7 Zombies","@id":"https://group935.net/black-ops-7/#featured-list","description":"Black Ops 7 Zombies guide hub for Easter Eggs, Easter Egg tutorials, maps, relics, GobbleGums, wonder weapons, perks, and story archive links.","numberOfItems":4}],"@context":"https://schema.org"}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Black Ops 7 Zombies</h1> <p>Black Ops 7 Zombies archive for players searching Black Ops 7 Easter Eggs, map tutorials, relic unlocks, GobbleGums, wonder weapons, and story files.</p> <h2>Featured archive pages</h2> <ul> <li><a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> - BO7 main quest guides for every indexed map.</li><li><a href="/black-ops-7-easter-egg-tutorials/">Black Ops 7 Easter Egg Tutorials</a> - Step-by-step BO7 Zombies Easter Egg walkthroughs.</li><li><a href="/black-ops-7-relics/">Black Ops 7 Relics</a> - Relic unlocks, effects, portals, trials, and prep notes.</li><li><a href="/gobblegums/">Black Ops 7 GobbleGums</a> - BO7 GobbleGum list by rarity.</li> </ul> <h2>Browse files</h2> <ul> <li><a href="/maps/ashes/">Ashes of the Damned</a> - Black Ops 7. 1 Easter egg file(s), 9 relic file(s).</li><li><a href="/maps/astra/">Astra Malorum</a> - Black Ops 7. 1 Easter egg file(s), 6 relic file(s).</li><li><a href="/maps/paradox/">Paradox Junction</a> - Black Ops 7. 1 Easter egg file(s), 3 relic file(s).</li><li><a href="/maps/totenreich/">Totenreich</a> - Black Ops 7. 1 Easter egg file(s), 6 relic file(s).</li> </ul></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Black Ops 7 Zombies</h1> <p>Black Ops 7 Zombies archive for players searching Black Ops 7 Easter Eggs, map tutorials, relic unlocks, GobbleGums, wonder weapons, and story files.</p> <h2>Featured archive pages</h2> <ul> <li><a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> - BO7 main quest guides for every indexed map.</li><li><a href="/black-ops-7-easter-egg-tutorials/">Black Ops 7 Easter Egg Tutorials</a> - Step-by-step BO7 Zombies Easter Egg walkthroughs.</li><li><a href="/black-ops-7-relics/">Black Ops 7 Relics</a> - Relic unlocks, effects, portals, trials, and prep notes.</li><li><a href="/gobblegums/">Black Ops 7 GobbleGums</a> - BO7 GobbleGum list by rarity.</li> </ul> <h2>Browse files</h2> <ul> <li><a href="/maps/ashes/">Ashes of the Damned</a> - Black Ops 7. 1 Easter egg guide(s), 9 relic file(s).</li><li><a href="/maps/astra/">Astra Malorum</a> - Black Ops 7. 1 Easter egg guide(s), 6 relic file(s).</li><li><a href="/maps/paradox/">Paradox Junction</a> - Black Ops 7. 1 Easter egg guide(s), 3 relic file(s).</li><li><a href="/maps/totenreich/">Totenreich</a> - Black Ops 7. 1 Easter egg guide(s), 6 relic file(s).</li> </ul></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

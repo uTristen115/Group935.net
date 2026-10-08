@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="Cryogenic Slumber Party / Big Bang Theory Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="Cryogenic Slumber Party / Big Bang Theory: Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap..." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="Cryogenic Slumber Party / Big Bang Theory Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="Cryogenic Slumber Party / Big Bang Theory: Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap..." />
 <meta property="og:url" content="https://group935.net/easter-eggs/moon-big-bang-theory/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="Cryogenic Slumber Party / Big Bang Theory Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="Cryogenic Slumber Party / Big Bang Theory: Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap..." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/moon-big-bang-theory';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"Cryogenic Slumber Party / Big Bang Theory Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/moon-big-bang-theory/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/moon-big-bang-theory/","inLanguage":"en-US","description":"Cryogenic Slumber Party / Big Bang Theory: Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap..."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough | Group 935</h1><p>Cryogenic Slumber Party / Big Bang Theory Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Cryogenic Slumber Party / Big Bang Theory Easter Egg Walkthrough</h1> <p>Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap Richtofen and Samantha, then arm the rockets that strike Earth.</p> <p><a href="/maps/moon/">Moon</a> - Black Ops</p> <dl><dt>Difficulty</dt><dd>Very Hard</dd><dt>Duration</dt><dd>75-120 min</dd><dt>Party</dt><dd>Solo for Cryogenic Slumber Party; 2+ for original BO1 Big Bang Theory</dd></dl> <h2>Requirements</h2><ul><li>Power on</li><li>Hacker</li><li>Wave Gun</li><li>QED</li><li>Gersh Device</li><li>Excavator Pi must breach Tunnel 6</li><li>Richtofen needs the Golden Rod and Focusing Stone for the full Big Bang Theory path</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Power and Samantha Says</h3><p>Start by opening Griffin Station, turning on power, and clearing the first Simon Says terminal sequence near the Receiving Bay.</p><ul><li>Reach the MPD room and turn on the power.</li><li>Return to the four computer terminals near the entrance to Tunnel 6.</li><li>Watch the colored terminal sequence, then repeat it back by interacting with the matching computers.</li><li>Continue until the terminals flash green and shut down.</li></ul></li><li><h3>Hack the Lab Buttons</h3><p>Use the Hacker in the labs to open the next control sequence, then hit the wall buttons together once the terminals are handled.</p><ul><li>Find the Hacker in the lab area.</li><li>Hack one of the four wall buttons in the server room.</li><li>Hack the green-lit lab terminals before the timer expires.</li><li>After the terminal hacks are complete, activate the four wall buttons at roughly the same time.</li><li>Listen for the confirmation tone before moving on.</li></ul></li><li><h3>Let Excavator Pi Breach Tunnel 6</h3><p>Tunnel 6 has to be breached by Excavator Pi before the Vril Sphere path can continue.</p><ul><li>Wait for Excavator Pi to target Tunnel 6.</li><li>Let Pi finish breaching the tunnel before you stop it.</li><li>Return to the Receiving Bay and hack the Excavator terminal to pull Pi back.</li><li>Once the tunnel is accessible again, move into Tunnel 6 to begin the Vril Sphere route.</li></ul></li><li><h3>Move the Vril Sphere</h3><p>Push the Vril Sphere through the station until it returns to the pyramid route.</p><ul><li>Find the Vril Sphere after Tunnel 6 is breached and Pi is hacked away.</li><li>Knife or shoot the sphere whenever it lodges in the tunnel path.</li><li>When it rises onto the satellite dish above the Receiving Bay, blast it loose with the Wave Gun.</li><li>Follow it through Tunnel 11 and dislodge it again when it gets stuck near the Semtex side.</li><li>Keep moving it until it reaches the pyramid area.</li></ul></li><li><h3>Reveal Samantha</h3><p>Once the Vril Sphere locks into the pyramid route, fill the exposed tube and open the MPD.</p><ul><li>Wait for the tube to extend from the pyramid after the sphere reaches the MPD.</li><li>Kill zombies near the tube until it finishes collecting souls.</li><li>Use the nearby switch after the tube is full.</li><li>The pyramid opens and Samantha is revealed, completing the Cryogenic Slumber Party portion.</li></ul></li><li><h3>Retrieve the Plates from Earth</h3><p>Move the plates from Area 51 back to Griffin Station and set up the Receiving Bay computer.</p><ul><li>Teleport to Area 51 and look to the shelf outside the playable space near the teleporter.</li><li>Use an explosive to knock the plates down.</li><li>Throw a Gersh Device on or next to the plates so they are pulled onto the teleporter pad.</li><li>Teleport back to the Moon.</li><li>Use a QED to move the plates into the computer station in the Receiving Bay.</li></ul></li><li><h3>Charge the Golden Rod</h3><p>Complete the computer assembly, then let Richtofen charge the Golden Rod at the Receiving Bay station.</p><ul><li>Find the wire needed for the computer setup, commonly around the labs, Tunnel 6, or nearby exterior areas.</li><li>Install the wire at the Receiving Bay computer.</li><li>Have the Richtofen player place the Golden Rod between the Casimir plates.</li><li>Continue interacting with the computer until the dialogue ends and the screen turns green.</li><li>Pick up the charged Golden Rod.</li></ul></li><li><h3>Complete Richtofen&apos;s Grand Scheme</h3><p>Charge the four MPD soul tubes, then place the charged Golden Rod into the pyramid device.</p><ul><li>Return to the MPD.</li><li>Kill zombies near each of the four raised tubes until all four are filled.</li><li>Interact with the Mythos Disc to place the charged Golden Rod.</li><li>Richtofen and Samantha swap souls, changing the announcer and pushing the quest into the Maxis finale.</li></ul></li><li><h3>Arm the Missiles</h3><p>Detach the Vril Sphere from the MPD, finish the harder Samantha Says rounds, then send the sphere away with a Gersh Device.</p><ul><li>Throw a QED at the Vril Sphere to detach it from the MPD.</li><li>Complete the Samantha Says computer sequence again.</li><li>Each successful sequence raises one rocket; repeat until all three rockets are ready.</li><li>Throw a Gersh Device at the Vril Sphere once the rockets are raised.</li></ul></li><li><h3>The Big Bang Theory</h3><p>The rockets launch, Earth is destroyed, and the full Moon quest completes.</p><ul><li>Wait through the final dialogue and countdown.</li><li>Watch the rockets fire toward Earth.</li><li>All players receive permanent perks after completion.</li><li>The Big Bang Theory achievement or trophy unlocks when the sequence finishes.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Cryogenic Slumber Party achievement or trophy</li><li>Big Bang Theory achievement or trophy</li><li>Permanent perks after quest completion</li><li>Moon ending sequence</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

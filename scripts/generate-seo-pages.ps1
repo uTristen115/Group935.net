@@ -18,9 +18,11 @@ $seoData = if (Test-Path -LiteralPath $seoDataPath) { Get-Content -Raw -LiteralP
 $script:SeoRelicsById = @{}
 $script:SeoMapsById = @{}
 $script:SeoEasterEggsById = @{}
+$script:SeoPerksById = @{}
 $script:SeoGames = @()
 $script:SeoMaps = @()
 $script:SeoEasterEggs = @()
+$script:SeoPerks = @()
 if ($seoData -and $seoData.relics) {
   foreach ($relic in $seoData.relics) {
     if ($relic.id) { $script:SeoRelicsById[[string]$relic.id] = $relic }
@@ -37,6 +39,12 @@ if ($seoData -and $seoData.easterEggs) {
   $script:SeoEasterEggs = @($seoData.easterEggs)
   foreach ($ee in $seoData.easterEggs) {
     if ($ee.id) { $script:SeoEasterEggsById[[string]$ee.id] = $ee }
+  }
+}
+if ($seoData -and $seoData.perks) {
+  $script:SeoPerks = @($seoData.perks)
+  foreach ($perk in $seoData.perks) {
+    if ($perk.id) { $script:SeoPerksById[[string]$perk.id] = $perk }
   }
 }
 $dataBundleName = 'data.js'
@@ -191,7 +199,7 @@ function Get-TopicItems {
 
   switch ($Kind) {
     'easter-eggs' {
-      return @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | Select-Object -First 28 | ForEach-Object {
+      return @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | ForEach-Object {
         @{
           '@type' = 'ListItem'
           position = 0
@@ -213,7 +221,7 @@ function Get-TopicItems {
       })
     }
     'maps' {
-      return @($script:SeoMaps | Sort-Object gameTitle, name | Select-Object -First 30 | ForEach-Object {
+      return @($script:SeoMaps | Sort-Object gameTitle, name | ForEach-Object {
         @{
           '@type' = 'ListItem'
           position = 0
@@ -735,6 +743,14 @@ function Get-RouteJsonLd {
   }
 }
 
+function Get-StaticTextList {
+  param([object[]]$Items)
+
+  $list = @($Items | Where-Object { $_ } | ForEach-Object { '<li>' + (Escape-Html ([string]$_)) + '</li>' })
+  if ($list.Count) { return '<ul>' + ($list -join '') + '</ul>' }
+  return ''
+}
+
 function Get-StaticSeoHtml {
   param(
     [string]$Route,
@@ -744,6 +760,68 @@ function Get-StaticSeoHtml {
   )
 
   $canonicalRoute = Get-CanonicalRoute $Route
+  if ($canonicalRoute -eq '/') {
+    $links = @((Get-SiteIndexGroups)[0].Links | Where-Object { $_.Href -ne '/' } | ForEach-Object {
+      '<li><a href="' + (Escape-Html ([string]$_.Href)) + '">' + (Escape-Html ([string]$_.Label)) + '</a> - ' + (Escape-Html ([string]$_.Text)) + '</li>'
+    })
+    return '<h1>Group935: CoD Zombies Easter Eggs, Maps &amp; Relics</h1><p>' + (Escape-Html $Description) + '</p><h2>Browse the archive</h2><ul>' + ($links -join '') + '</ul><p><a href="/site-index/">View all map, Easter egg, relic and perk files</a></p>'
+  }
+
+  if ($canonicalRoute -eq '/games' -or $canonicalRoute -eq '/maps') {
+    $sections = @()
+    foreach ($game in $script:SeoGames) {
+      $items = @($script:SeoMaps | Where-Object { [string]$_.game -eq [string]$game.id } | ForEach-Object {
+        '<li><a href="/maps/' + (Escape-Html ([string]$_.id)) + '/">' + (Escape-Html ([string]$_.name)) + '</a> - ' + (Escape-Html ([string]$_.location)) + '</li>'
+      })
+      $intro = if ($canonicalRoute -eq '/games' -and $game.description) { '<p>' + (Escape-Html ([string]$game.description)) + '</p>' } else { '' }
+      $sections += '<section id="' + (Escape-Html ([string]$game.id)) + '"><h2>' + (Escape-Html ([string]$game.title)) + ' (' + (Escape-Html ([string]$game.year)) + ')</h2>' + $intro + '<ul>' + ($items -join '') + '</ul></section>'
+    }
+    $heading = if ($canonicalRoute -eq '/games') { 'Treyarch Zombies Games' } else { 'Zombies Maps' }
+    return '<h1>' + $heading + '</h1><p>' + (Escape-Html $Description) + '</p>' + ($sections -join '')
+  }
+
+  if ($canonicalRoute -eq '/perks') {
+    $items = @($script:SeoPerks | ForEach-Object {
+      '<li><a href="/perks/' + (Escape-Html ([string]$_.id)) + '/">' + (Escape-Html ([string]$_.name)) + '</a> - ' + (Escape-Html ([string]$_.effect)) + '</li>'
+    })
+    return '<h1>Zombies Perks and Machines</h1><p>' + (Escape-Html $Description) + '</p><ul>' + ($items -join '') + '</ul>'
+  }
+
+  if ($canonicalRoute -match '^/perks/([^/]+)$' -and $script:SeoPerksById.ContainsKey($Matches[1])) {
+    $perk = $script:SeoPerksById[$Matches[1]]
+    $games = @($perk.games | ForEach-Object {
+      '<li><a href="/games/#' + (Escape-Html ([string]$_.id)) + '">' + (Escape-Html ([string]$_.title)) + '</a></li>'
+    })
+    $summary = if ($perk.summary) { '<p>' + (Escape-Html ([string]$perk.summary)) + '</p>' } else { '' }
+    $introduced = if ($perk.introduced) { '<p><strong>Introduced:</strong> ' + (Escape-Html ([string]$perk.introduced)) + '</p>' } else { '' }
+    $appearances = if ($games.Count) { '<h2>Game appearances</h2><ul>' + ($games -join '') + '</ul>' } else { '' }
+    return '<h1>' + (Escape-Html ([string]$perk.name)) + '</h1><h2>Perk effect</h2><p>' + (Escape-Html ([string]$perk.effect)) + '</p>' + $summary + $introduced + $appearances + '<p><a href="/perks/">Back to all Zombies perks</a></p>'
+  }
+
+  if ($canonicalRoute -match '^/easter-eggs/([^/]+)$' -and $script:SeoEasterEggsById.ContainsKey($Matches[1])) {
+    $ee = $script:SeoEasterEggsById[$Matches[1]]
+    $requirements = Get-StaticTextList -Items @($ee.requirements)
+    $rewards = Get-StaticTextList -Items @($ee.rewards)
+    $steps = @($ee.steps | ForEach-Object {
+      $body = if ($_.body) { '<p>' + (Escape-Html ([string]$_.body)) + '</p>' } else { '' }
+      '<li><h3>' + (Escape-Html ([string]$_.title)) + '</h3>' + $body + (Get-StaticTextList -Items @($_.bullets)) + '</li>'
+    })
+    $facts = @()
+    foreach ($field in @('difficulty', 'duration', 'party')) {
+      if ($ee.$field) { $facts += '<dt>' + (Convert-SlugTitle $field) + '</dt><dd>' + (Escape-Html ([string]$ee.$field)) + '</dd>' }
+    }
+    return @(
+      '<h1>' + (Escape-Html ([string]$ee.title)) + ' Easter Egg Walkthrough</h1>',
+      '<p>' + (Escape-Html ([string]$ee.summary)) + '</p>',
+      '<p><a href="/maps/' + (Escape-Html ([string]$ee.map)) + '/">' + (Escape-Html ([string]$ee.mapName)) + '</a> - ' + (Escape-Html ([string]$ee.gameTitle)) + '</p>',
+      '<dl>' + ($facts -join '') + '</dl>',
+      $(if ($requirements) { '<h2>Requirements</h2>' + $requirements }),
+      $(if ($steps.Count) { '<h2>Walkthrough steps</h2><ol>' + ($steps -join '') + '</ol>' }),
+      $(if ($rewards) { '<h2>Rewards</h2>' + $rewards }),
+      '<p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p>'
+    ) -join ''
+  }
+
   if ($canonicalRoute -eq '/site-index') {
     $groupsHtml = @()
     foreach ($group in (Get-SiteIndexGroups)) {
@@ -764,9 +842,9 @@ function Get-StaticSeoHtml {
   if ($topic) {
     $items = @()
     if ($topic.Kind -eq 'easter-eggs' -or $topic.Kind -eq 'bo7-easter-eggs') {
-      $easterEggSource = if ($topic.Kind -eq 'bo7-easter-eggs') { Get-Bo7EasterEggs } else { @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | Select-Object -First 28) }
+      $easterEggSource = if ($topic.Kind -eq 'bo7-easter-eggs') { Get-Bo7EasterEggs } else { @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title) }
       foreach ($ee in $easterEggSource) {
-        $href = '/easter-eggs/' + [string]$ee.id + '/'
+        $href = '/easter-eggs/' + (Escape-Html ([string]$ee.id)) + '/'
         $label = Escape-Html ([string]$ee.title)
         $mapName = Escape-Html ([string]$ee.mapName)
         $gameTitle = Escape-Html ([string]$ee.gameTitle)
@@ -774,12 +852,13 @@ function Get-StaticSeoHtml {
         $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $mapName + ' (' + $gameTitle + '). ' + $summary + '</li>'
       }
     } else {
-      $mapSource = if ($topic.Kind -eq 'bo7-maps') { Get-Bo7Maps } else { @($script:SeoMaps | Sort-Object gameTitle, name | Select-Object -First 30) }
+      $mapSource = if ($topic.Kind -eq 'bo7-maps') { Get-Bo7Maps } else { @($script:SeoMaps | Sort-Object gameTitle, name) }
       foreach ($map in $mapSource) {
-        $href = '/maps/' + [string]$map.id + '/'
+        $href = '/maps/' + (Escape-Html ([string]$map.id)) + '/'
         $label = Escape-Html ([string]$map.name)
         $gameTitle = Escape-Html ([string]$map.gameTitle)
-        $details = Escape-Html (([string]$map.eeCount) + ' Easter egg file(s), ' + ([string]$map.relicCount) + ' relic file(s)')
+        $guideCount = @(Get-MapEasterEggs -MapId ([string]$map.id)).Count
+        $details = Escape-Html (([string]$guideCount) + ' Easter egg guide(s), ' + ([string]$map.relicCount) + ' relic file(s)')
         $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $gameTitle + '. ' + $details + '.</li>'
       }
     }
@@ -804,9 +883,11 @@ function Get-StaticSeoHtml {
   if ($canonicalRoute -match '^/maps/([^/]+)$') {
     $id = $Matches[1]
     $map = if ($script:SeoMapsById.ContainsKey($id)) { $script:SeoMapsById[$id] } else { $null }
-    if ($map -and [string]$map.game -eq 'bo7') {
+    if ($map) {
       $mapName = [string]$map.name
-      $summary = if ($map.summary) { [string]$map.summary } else { $mapName + ' Black Ops 7 Zombies map guide with Easter Egg notes, relics, songs, images, and archive context.' }
+      $isBo7 = [string]$map.game -eq 'bo7'
+      $heading = if ($isBo7) { $mapName + ' Black Ops 7 Easter Egg Guide' } else { $mapName + ' Zombies Map' }
+      $summary = if ($map.summary) { '<p>' + (Escape-Html ([string]$map.summary)) + '</p>' } else { '' }
       $eggItems = @()
       foreach ($ee in (Get-MapEasterEggs -MapId $id)) {
         $eggItems += '<li><a href="/easter-eggs/' + (Escape-Html ([string]$ee.id)) + '/">' + (Escape-Html ([string]$ee.title)) + '</a> - ' + (Escape-Html ([string]$ee.summary)) + '</li>'
@@ -817,13 +898,25 @@ function Get-StaticSeoHtml {
       }
       $eggBlock = if ($eggItems.Count) { '<h2>' + (Escape-Html ($mapName + ' Easter Egg tutorial')) + '</h2><ul>' + ($eggItems -join '') + '</ul>' } else { '' }
       $relicBlock = if ($relicItems.Count) { '<h2>' + (Escape-Html ($mapName + ' relic guides')) + '</h2><ul>' + ($relicItems -join '') + '</ul>' } else { '' }
+      $songItems = @($map.songs | ForEach-Object {
+        $artist = if ($_.artist) { ' - ' + (Escape-Html ([string]$_.artist)) } else { '' }
+        $activation = if ($_.activation) { '<p>' + (Escape-Html ([string]$_.activation)) + '</p>' } else { '' }
+        '<li><strong>' + (Escape-Html ([string]$_.name)) + '</strong>' + $artist + $activation + '</li>'
+      })
+      $songBlock = if ($songItems.Count) { '<h2>Easter egg songs</h2><ul>' + ($songItems -join '') + '</ul>' } else { '' }
+      $tags = if ($map.tags.Count) { '<p><strong>Tags:</strong> ' + (Escape-Html ($map.tags -join ', ')) + '</p>' } else { '' }
+      $gameLink = if ($isBo7) { '/black-ops-7/' } else { '/games/#' + [string]$map.game }
+      $related = if ($isBo7) { '<p><a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p>' } else { '' }
       return @(
-        '<h1>' + (Escape-Html ($mapName + ' Black Ops 7 Easter Egg Guide')) + '</h1>',
-        '<p>' + (Escape-Html $summary) + '</p>',
-        '<p><strong>Game:</strong> Black Ops 7 Zombies | <strong>Location:</strong> ' + (Escape-Html ([string]$map.location)) + ' | <strong>Difficulty:</strong> ' + (Escape-Html ([string]$map.difficulty)) + '/5</p>',
+        '<h1>' + (Escape-Html $heading) + '</h1>',
+        $summary,
+        '<p><strong>Game:</strong> <a href="' + (Escape-Html $gameLink) + '">' + (Escape-Html ([string]$map.gameTitle)) + '</a> | <strong>Location:</strong> ' + (Escape-Html ([string]$map.location)) + ' | <strong>Difficulty:</strong> ' + (Escape-Html ([string]$map.difficulty)) + '/5</p>',
+        $tags,
         $eggBlock,
         $relicBlock,
-        '<p><a href="/black-ops-7/">Back to Black Ops 7 Zombies</a> | <a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p>'
+        $songBlock,
+        '<p><a href="/maps/">Back to all Zombies maps</a></p>',
+        $related
       ) -join ''
     }
   }
@@ -831,7 +924,7 @@ function Get-StaticSeoHtml {
   if ($canonicalRoute -eq '/black-ops-7-relics') {
     $items = @()
     foreach ($relic in $script:SeoRelicsById.Values | Sort-Object mapName, tier, name) {
-      $href = '/black-ops-7-relics/' + [string]$relic.id + '/'
+      $href = '/black-ops-7-relics/' + (Escape-Html ([string]$relic.id)) + '/'
       $label = Escape-Html (Get-RelicLabel ([string]$relic.name))
       $mapName = Escape-Html (Get-RelicMapName $relic)
       $effect = Escape-Html ([string]$relic.effect)
@@ -922,7 +1015,7 @@ function Set-StaticSeo {
   $dataBundleEsc = Escape-Html $DataBundle
   $appBundleEsc = Escape-Html $AppBundle
   $routeEsc = Escape-Html $RoutePath
-  $siteNameEsc = Escape-Html 'CoD Zombies Archive'
+  $siteNameEsc = Escape-Html 'Group935'
 
   $next = [regex]::Replace($Html, '<title>.*?</title>', '<title>' + $titleEsc + '</title>', 1)
   $next = Replace-HeadValue -Html $next -Pattern '(<meta name="description" content=")[^"]*(" />)' -Value $descriptionEsc
@@ -973,8 +1066,8 @@ function Get-RouteSeo {
 
   if ($canonicalRoute -eq '/') {
     return @{
-      Title = 'CoD Zombies Archive | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
-      Description = 'CoD Zombies Archive is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
+      Title = 'Group935 | CoD Zombies Easter Eggs, Maps & Relics'
+      Description = 'Group935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
       Url = $url
     }
   }
@@ -1075,10 +1168,11 @@ function Get-RouteSeo {
   }
   if ($canonicalRoute -match '^/perks/([^/]+)$') {
     $slug = $Matches[1]
-    $name = if ($script:PerkNameById -and $script:PerkNameById.ContainsKey($slug)) { $script:PerkNameById[$slug] } else { Convert-SlugTitle $slug }
+    $perk = if ($script:SeoPerksById.ContainsKey($slug)) { $script:SeoPerksById[$slug] } else { $null }
+    $name = if ($perk) { [string]$perk.name } elseif ($script:PerkNameById -and $script:PerkNameById.ContainsKey($slug)) { $script:PerkNameById[$slug] } else { Convert-SlugTitle $slug }
     return @{
       Title = $name + ' Zombies Perk | Group 935'
-      Description = $name + ' Zombies perk reference with effects, machines, images, and archive notes.'
+      Description = if ($perk -and $perk.effect) { Limit-Text ($name + ': ' + [string]$perk.effect) } else { $name + ' Zombies perk reference with effects, machines, images, and archive notes.' }
       Url = $url
     }
   }
@@ -1088,14 +1182,14 @@ function Get-RouteSeo {
     $name = if ($ee -and $ee.title) { [string]$ee.title } elseif ($script:EasterEggNameById -and $script:EasterEggNameById.ContainsKey($slug)) { $script:EasterEggNameById[$slug] } else { Convert-SlugTitle $slug }
     return @{
       Title = $name + ' Easter Egg Walkthrough | Group 935'
-      Description = $name + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.'
+      Description = if ($ee -and $ee.summary) { Limit-Text ($name + ': ' + [string]$ee.summary) } else { $name + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.' }
       Url = $url
     }
   }
 
   return @{
-    Title = 'CoD Zombies Archive | Zombies Easter Eggs, Black Ops 7 Relic Tutorials'
-    Description = 'CoD Zombies Archive is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
+    Title = 'Group935 | CoD Zombies Easter Eggs, Maps & Relics'
+    Description = 'Group935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.'
     Url = $url
   }
 }
@@ -1185,7 +1279,7 @@ $script:RelicNameById = Get-RelicNameMap -Source $dataSource
 $script:PerkNameById = Get-PerkNameMap -Source $dataSource
 $script:EasterEggNameById = Get-EasterEggNameMap -Source $dataSource
 $relicIds = Get-BlockIds -Source $dataSource -StartPattern 'const relics = \[' -EndPattern '\];\s*bo7EasterEggs\.forEach'
-$perkIds = Get-BlockIds -Source $dataSource -StartPattern 'const perkDetails = \[' -EndPattern '\];\s*perkDetails\.forEach'
+$perkIds = if ($script:SeoPerks.Count) { @($script:SeoPerks | ForEach-Object { [string]$_.id }) } else { Get-BlockIds -Source $dataSource -StartPattern 'const perkDetails = \[' -EndPattern '\];\s*perkDetails\.forEach' }
 $classicEasterEggIds = Get-BlockIds -Source $dataSource -StartPattern 'const classicEasterEggs = \[' -EndPattern '\];\s*const bo7EasterEggs'
 $bo7EasterEggIds = Get-BlockIds -Source $dataSource -StartPattern 'const bo7EasterEggs = \[' -EndPattern '\];\s*const relics'
 $mapIds = if ($script:SeoMaps.Count) {
@@ -1220,10 +1314,11 @@ $routes += $mapIds | ForEach-Object { '/maps/' + $_ }
 $routes += $relicIds | ForEach-Object { '/relics/' + $_ }
 $routes += $relicIds | ForEach-Object { '/black-ops-7-relics/' + $_ }
 $routes += $perkIds | ForEach-Object { '/perks/' + $_ }
-$routes += ($classicEasterEggIds + $bo7EasterEggIds) | ForEach-Object { '/easter-eggs/' + $_ }
+$easterEggIds = if ($script:SeoEasterEggs.Count) { @($script:SeoEasterEggs | ForEach-Object { [string]$_.id }) } else { @($classicEasterEggIds) + @($bo7EasterEggIds) }
+$routes += $easterEggIds | ForEach-Object { '/easter-eggs/' + $_ }
 
 $routes = $routes | Where-Object { $_ } | Select-Object -Unique
-$sitemapRoutes = $routes | Where-Object { $_ -notmatch '^/relics(/|$)' -and $_ -ne '/call-of-duty-zombies' -and $_ -ne '/games/bo7' }
+$sitemapRoutes = $routes | Where-Object { (Get-CanonicalRoute $_) -eq $_ }
 
 $rootSeo = Get-RouteSeo -Route '/' -SiteUrl $SiteUrl
 $rootHtml = Set-StaticSeo -Html $index -Title $rootSeo.Title -Description $rootSeo.Description -Url $rootSeo.Url -AssetBase './Images' -FontBase './Fonts' -AppBase './dist' -DataBundle $dataBundleName -AppBundle $appBundleName -RoutePath '' -SiteUrl $SiteUrl
@@ -1250,7 +1345,6 @@ foreach ($route in $routes) {
   Set-Content -LiteralPath (Join-Path $dir 'index.html') -Value $routeHtml -NoNewline
 }
 
-$today = Get-Date -Format 'yyyy-MM-dd'
 $sitemap = New-Object System.Text.StringBuilder
 [void]$sitemap.AppendLine('<?xml version="1.0" encoding="UTF-8"?>')
 [void]$sitemap.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
@@ -1258,7 +1352,6 @@ foreach ($route in $sitemapRoutes) {
   $loc = Get-PublicUrl -Route $route -SiteUrl $SiteUrl
   [void]$sitemap.AppendLine('  <url>')
   [void]$sitemap.AppendLine('    <loc>' + [System.Security.SecurityElement]::Escape($loc) + '</loc>')
-  [void]$sitemap.AppendLine('    <lastmod>' + $today + '</lastmod>')
   [void]$sitemap.AppendLine('    <changefreq>weekly</changefreq>')
   [void]$sitemap.AppendLine('    <priority>' + $(if ($route -eq '/') { '1.0' } elseif ($route -eq '/black-ops-7' -or $route -eq '/black-ops-7-easter-eggs' -or $route -eq '/black-ops-7-easter-egg-tutorials' -or $route -eq '/black-ops-7-relics' -or $route -eq '/gobblegums') { '0.95' } elseif ($route -match '^/maps/(ashes|astra|paradox|totenreich)$') { '0.9' } elseif ($route -match '^/black-ops-7-relics/') { '0.85' } else { '0.8' }) + '</priority>')
   [void]$sitemap.AppendLine('  </url>')

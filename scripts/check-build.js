@@ -23,6 +23,7 @@ const htmlRoots = [
   'black-ops-zombies',
   'treyarch-zombies',
   'easter-eggs',
+  'contribute',
 ];
 const manifestPath = path.join(root, 'dist', 'asset-manifest.json');
 
@@ -237,6 +238,164 @@ function assertGeneratedShells(files, bundles) {
   }
 }
 
+function readSourceData() {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(fs.readFileSync(path.join(root, 'src', 'data.js'), 'utf8'), context, { filename: 'src/data.js' });
+  return context.window.ZD;
+}
+
+function escapeHtml(value) {
+  const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' };
+  return String(value).replace(/[&<>"']/g, (char) => entities[char]);
+}
+
+function readStaticContent(route) {
+  const html = fs.readFileSync(path.join(root, route, 'index.html'), 'utf8');
+  const matches = [...html.matchAll(/<main id="seo-static-content" class="seo-static-content">([\s\S]*?)<\/main>/g)];
+  if (matches.length !== 1 || !matches[0][1].includes('<h1>')) {
+    throw new Error('Expected one substantive static content block: ' + (route || '/'));
+  }
+  return matches[0][1];
+}
+
+function assertContainsText(html, value, label) {
+  if (value && !html.includes(escapeHtml(value))) throw new Error('Static content missing ' + label + ': ' + value);
+}
+
+function sourceEasterEggs(data) {
+  return [data.sampleEE, ...(data.classicEasterEggs || []), ...(data.bo7EasterEggs || [])]
+    .filter(Boolean)
+    .filter((item, index, all) => all.findIndex((other) => other.id === item.id) === index);
+}
+
+function assertSubstantiveStaticContent(data) {
+  const eggs = sourceEasterEggs(data);
+  for (const egg of eggs) {
+    const html = readStaticContent('easter-eggs/' + egg.id);
+    for (const field of ['title', 'summary', 'difficulty', 'duration', 'party']) {
+      assertContainsText(html, egg[field], egg.id + ' ' + field);
+    }
+    for (const field of ['requirements', 'rewards']) {
+      const values = egg[field] || [];
+      if (!values.length) continue;
+      const heading = field[0].toUpperCase() + field.slice(1);
+      const section = html.match(new RegExp('<h2>' + heading + '</h2>([\\s\\S]*?)(?=<h2>|$)'));
+      if (!section) throw new Error('Missing ' + field + ' section: ' + egg.id);
+      for (const value of values) assertContainsText(section[1], value, egg.id + ' ' + field);
+    }
+    if ((html.match(/<h3>/g) || []).length !== (egg.steps || []).length) {
+      throw new Error('Incomplete walkthrough step count: ' + egg.id);
+    }
+    for (const step of egg.steps || []) {
+      assertContainsText(html, step.title, egg.id + ' step title');
+      assertContainsText(html, step.body, egg.id + ' step body');
+      for (const bullet of step.bullets || []) assertContainsText(html, bullet, egg.id + ' step bullet');
+    }
+    if (!html.includes('href="/maps/' + escapeHtml(egg.map) + '/"')) {
+      throw new Error('Guide is missing its map link: ' + egg.id);
+    }
+  }
+
+  for (const map of data.maps) {
+    const html = readStaticContent('maps/' + map.id);
+    for (const field of ['name', 'location', 'summary']) assertContainsText(html, map[field], map.id + ' ' + field);
+    for (const tag of map.tags || []) assertContainsText(html, tag, map.id + ' tag');
+    for (const song of map.songs || []) {
+      for (const field of ['name', 'artist', 'activation']) assertContainsText(html, song[field], map.id + ' song ' + field);
+    }
+    for (const egg of eggs.filter((egg) => egg.map === map.id)) {
+      if (!html.includes('href="/easter-eggs/' + escapeHtml(egg.id) + '/"')) {
+        throw new Error('Map is missing its published guide link: ' + map.id);
+      }
+    }
+  }
+
+  const perkHub = readStaticContent('perks');
+  for (const perk of data.perks) {
+    const html = readStaticContent('perks/' + perk.id);
+    for (const field of ['name', 'effect', 'introduced', 'summary']) assertContainsText(html, perk[field], perk.id + ' ' + field);
+    for (const id of perk.gameIds || []) {
+      const game = data.games.find((game) => game.id === id);
+      if (game) assertContainsText(html, game.title, perk.id + ' game appearance');
+    }
+    assertContainsText(perkHub, perk.effect, perk.id + ' hub effect');
+    if (!perkHub.includes('href="/perks/' + escapeHtml(perk.id) + '/"')) throw new Error('Perk hub is missing: ' + perk.id);
+  }
+  for (const hub of ['maps', 'games']) {
+    const html = readStaticContent(hub);
+    for (const map of data.maps) {
+      if (!html.includes('href="/maps/' + escapeHtml(map.id) + '/"')) throw new Error(hub + ' hub is missing: ' + map.id);
+    }
+  }
+  const home = readStaticContent('');
+  for (const href of ['/maps/', '/games/', '/perks/', '/zombies-easter-eggs/', '/black-ops-7-relics/']) {
+    if (!home.includes('href="' + href + '"')) throw new Error('Homepage is missing archive link: ' + href);
+  }
+}
+
+function assertSitemapIntegrity(data, files) {
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  if (!urls.length || new Set(urls).size !== urls.length) throw new Error('Sitemap is empty or contains duplicate URLs.');
+  if (/<lastmod>/.test(sitemap)) throw new Error('Sitemap must not claim per-build modification dates without verified content timestamps.');
+  const expectedRoutes = new Set([
+    '/', '/games/', '/maps/', '/site-index/', '/black-ops-7/', '/black-ops-7-easter-eggs/',
+    '/black-ops-7-easter-egg-tutorials/', '/black-ops-7-relics/', '/zombies-easter-eggs/',
+    '/zombies-easter-egg-tutorials/', '/cod-zombies/', '/black-ops-zombies/', '/treyarch-zombies/',
+    '/perks/', '/gobblegums/', '/contribute/',
+    ...data.maps.map((item) => '/maps/' + item.id + '/'),
+    ...data.perks.map((item) => '/perks/' + item.id + '/'),
+    ...data.relics.map((item) => '/black-ops-7-relics/' + item.id + '/'),
+    ...sourceEasterEggs(data).map((item) => '/easter-eggs/' + item.id + '/'),
+  ]);
+  const actualRoutes = new Set();
+  for (const url of urls) {
+    const parsed = new URL(url);
+    if (parsed.origin !== 'https://group935.net' || parsed.search || parsed.hash || !parsed.pathname.endsWith('/')) {
+      throw new Error('Invalid canonical sitemap URL: ' + url);
+    }
+    if (!expectedRoutes.has(parsed.pathname)) throw new Error('Unexpected or alias sitemap route: ' + parsed.pathname);
+    actualRoutes.add(parsed.pathname);
+    const file = path.join(root, parsed.pathname.slice(1), 'index.html');
+    if (!fs.existsSync(file)) throw new Error('Sitemap URL has no generated file: ' + url);
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('<link rel="canonical" href="' + url + '"')) throw new Error('Sitemap/file canonical mismatch: ' + url);
+  }
+  for (const route of expectedRoutes) {
+    if (!actualRoutes.has(route)) throw new Error('Sitemap is missing app content: ' + route);
+  }
+  for (const file of files) {
+    const relative = path.relative(root, file).replace(/\\/g, '/');
+    if (relative === '404.html') continue;
+    let route = relative === 'index.html' ? '/' : '/' + relative.replace(/index\.html$/, '');
+    route = route.replace(/^\/relics(?=\/)/, '/black-ops-7-relics');
+    if (route === '/games/bo7/') route = '/black-ops-7/';
+    if (route === '/call-of-duty-zombies/') route = '/cod-zombies/';
+    const html = fs.readFileSync(file, 'utf8');
+    if (!actualRoutes.has(route) || !html.includes('<link rel="canonical" href="https://group935.net' + route + '"')) {
+      throw new Error('Generated file has an incorrect or unlisted canonical: ' + relative);
+    }
+  }
+}
+
+function assertHomepageBranding(files) {
+  const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const title = escapeHtml('Group935 | CoD Zombies Easter Eggs, Maps & Relics');
+  for (const expected of ['<title>' + title + '</title>', '<meta property="og:title" content="' + title + '"', '<meta name="twitter:title" content="' + title + '"']) {
+    if (!home.includes(expected)) throw new Error('Homepage branding mismatch: ' + expected);
+  }
+  for (const file of files) {
+    const html = fs.readFileSync(file, 'utf8');
+    if (!html.includes('<meta property="og:site_name" content="Group935"')) throw new Error('Incorrect OG site name: ' + path.relative(root, file));
+    const schemas = [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+      .flatMap((match) => { const schema = JSON.parse(match[1]); return schema['@graph'] || [schema]; });
+    if (!schemas.some((schema) => schema['@type'] === 'WebSite' && schema.name === 'Group935')) {
+      throw new Error('Missing Group935 WebSite name: ' + path.relative(root, file));
+    }
+  }
+}
+
 function smokeSharedBundles(bundles) {
   const errors = [];
   let mounted = false;
@@ -281,6 +440,22 @@ function smokeSharedBundles(bundles) {
   if (context.window.__papBuildRoutePath({ name: 'game', id: 'bo7' }) !== '/black-ops-7/') {
     throw new Error('Client route builder must canonicalize Black Ops 7 to /black-ops-7/.');
   }
+  context.window.G935_ROUTE_PATH = '/maps/kino';
+  context.location.protocol = 'https:';
+  context.location.pathname = '/';
+  if (context.window.__papParseCurrentRoute().name !== 'home') {
+    throw new Error('Live navigation to home must ignore the initial static entry route.');
+  }
+  context.location.pathname = '/maps/ascension/';
+  let currentRoute = context.window.__papParseCurrentRoute();
+  if (currentRoute.name !== 'map' || currentRoute.id !== 'ascension') {
+    throw new Error('Live map navigation must follow the current URL, not the initial static entry route.');
+  }
+  context.location.protocol = 'file:';
+  currentRoute = context.window.__papParseCurrentRoute();
+  if (currentRoute.name !== 'map' || currentRoute.id !== 'kino') {
+    throw new Error('Local file entry pages must retain the static G935_ROUTE_PATH fallback.');
+  }
   if (!mounted) throw new Error('App did not reach the mount path.');
   if (errors.length) throw new Error('Boot errors: ' + JSON.stringify(errors));
 }
@@ -294,6 +469,10 @@ const jsonLdCount = parseJsonLd(htmlFiles);
 assertRelicSeoRoutes();
 assertTopicSeoRoutes();
 assertSiteIndexRoutes();
+const sourceData = readSourceData();
+assertSubstantiveStaticContent(sourceData);
+assertSitemapIntegrity(sourceData, htmlFiles);
+assertHomepageBranding(htmlFiles);
 smokeSharedBundles(bundles);
 
 console.log('Build check passed: ' + htmlFiles.length + ' HTML files, ' + scriptCount + ' inline scripts, ' + jsonLdCount + ' JSON-LD blocks, shared bundle smoke.');

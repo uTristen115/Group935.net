@@ -12,7 +12,7 @@ vm.createContext(context);
 vm.runInContext(fs.readFileSync(sourcePath, 'utf8'), context, { filename: 'src/data.js' });
 
 const zd = context.window.ZD;
-if (!zd || !Array.isArray(zd.relics) || !Array.isArray(zd.maps) || !Array.isArray(zd.games)) {
+if (!zd || !Array.isArray(zd.relics) || !Array.isArray(zd.maps) || !Array.isArray(zd.games) || !Array.isArray(zd.perks)) {
   throw new Error('src/data.js did not expose the expected Group 935 data.');
 }
 
@@ -51,8 +51,10 @@ const relics = zd.relics.map((relic) => {
   };
 });
 const easterEggs = []
+  .concat(zd.sampleEE ? [{ ...zd.sampleEE, era: 'classic' }] : [])
   .concat((zd.classicEasterEggs || []).map((ee) => ({ ...ee, era: 'classic' })))
   .concat((zd.bo7EasterEggs || []).map((ee) => ({ ...ee, era: 'bo7' })))
+  .filter((ee, index, all) => all.findIndex((item) => item.id === ee.id) === index)
   .map((ee) => ({
     id: ee.id,
     title: ee.title,
@@ -61,7 +63,17 @@ const easterEggs = []
     gameTitle: mapGameTitle(ee.map),
     era: ee.era,
     summary: ee.summary || '',
+    difficulty: ee.difficulty || '',
+    duration: ee.duration || '',
+    party: ee.party || '',
     requirements: Array.isArray(ee.requirements) ? ee.requirements : [],
+    rewards: Array.isArray(ee.rewards) ? ee.rewards : [],
+    steps: (Array.isArray(ee.steps) ? ee.steps : []).map((step) => ({
+      n: step.n,
+      title: step.title || '',
+      body: step.body || '',
+      bullets: Array.isArray(step.bullets) ? step.bullets : [],
+    })),
     stepCount: Array.isArray(ee.steps) ? ee.steps.length : 0,
   }));
 
@@ -73,6 +85,7 @@ const seoData = {
     title: game.title,
     year: game.year || '',
     era: game.era || '',
+    description: game.description || '',
     mapCount: game.mapCount || zd.maps.filter((map) => map.game === game.id).length,
   })),
   maps: zd.maps.map((map) => ({
@@ -86,6 +99,19 @@ const seoData = {
     relicCount: relics.filter((relic) => relic.map === map.id).length || map.relicCount || 0,
     summary: map.summary || '',
     tags: Array.isArray(map.tags) ? map.tags : [],
+    songs: (Array.isArray(map.songs) ? map.songs : []).map((song) => ({
+      name: song.name || '',
+      artist: song.artist || '',
+      activation: song.activation || '',
+    })),
+  })),
+  perks: zd.perks.map((perk) => ({
+    id: perk.id,
+    name: perk.name,
+    summary: perk.summary || '',
+    effect: perk.effect || '',
+    introduced: perk.introduced || '',
+    games: (Array.isArray(perk.gameIds) ? perk.gameIds : []).map((id) => ({ id, title: gameTitle(id) })),
   })),
   easterEggs,
   relics,
@@ -94,4 +120,4 @@ const seoData = {
 fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(outputPath, JSON.stringify(seoData, null, 2) + '\n', 'utf8');
 
-console.log(`Built dist/seo-data.json with ${relics.length} relic records and ${easterEggs.length} Easter egg records`);
+console.log(`Built dist/seo-data.json with ${relics.length} relics, ${easterEggs.length} Easter eggs, ${seoData.maps.length} maps and ${seoData.perks.length} perks`);

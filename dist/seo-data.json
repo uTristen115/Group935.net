@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T19:55:54.258Z",
+  "generatedAt": "2026-10-08T21:57:18.351Z",
   "games": [
     {
       "id": "waw",
@@ -7,6 +7,7 @@
       "title": "World at War",
       "year": 2008,
       "era": "Origins of Origins",
+      "description": "Call of Duty: World at War. Nacht der Untoten, Verrückt, Shi No Numa, and Der Riese.",
       "mapCount": 4
     },
     {
@@ -15,6 +16,7 @@
       "title": "Black Ops",
       "year": 2010,
       "era": "The Aether Story Begins",
+      "description": "Black Ops expanded Zombies into a full mode with seven maps spanning the globe. The Aether storyline took shape as players traveled from Kino to the Pentagon, through the cosmodrome and Shangri-La, and ultimately to Moon where Richtofen enacted his grand scheme.",
       "mapCount": 7
     },
     {
@@ -23,6 +25,7 @@
       "title": "Black Ops II",
       "year": 2012,
       "era": "Maxis vs. Richtofen",
+      "description": "Black Ops II introduced the Victis crew navigating a post-apocalyptic Earth after the events of the Moon Easter Egg, and featured some of the most iconic maps of all time in Mob of the Dead, and Origins.",
       "mapCount": 5
     },
     {
@@ -31,6 +34,7 @@
       "title": "Black Ops III",
       "year": 2015,
       "era": "The Final Chapter",
+      "description": "Black Ops III followed Primis across the multiverse to collect the souls of their Ultimis counterparts. Featured Gobblegums, Widow's Wine, four elemental bows in Der Eisendrache, and the conclusion of the cycle in Revelations.",
       "mapCount": 9
     },
     {
@@ -39,6 +43,7 @@
       "title": "Black Ops 4",
       "year": 2018,
       "era": "The Chaos Divergence",
+      "description": "Black Ops 4 ran two storylines in parallel: the Aether story concluded with Blood of the Dead and Tag der Toten, while the Chaos story introduced a new crew chasing artifacts through IX, Voyage of Despair, Dead of the Night, and Ancient Evil.",
       "mapCount": 8
     },
     {
@@ -47,6 +52,7 @@
       "title": "Cold War",
       "year": 2020,
       "era": "The Dark Aether",
+      "description": "Cold War began anew with a new Dark Aether storyline. Requiem and Omega Group investigated dimensional breaches across four round-based maps and Outbreak. Introduced weapon rarity, armor, field upgrades, and an open progression system shared with multiplayer.",
       "mapCount": 5
     },
     {
@@ -55,6 +61,7 @@
       "title": "Black Ops 6",
       "year": 2024,
       "era": "Pact with the Dark",
+      "description": "Black Ops 6 continued the Dark Aether storyline with Maya Aguinaldo and the Requiem team investigating the Order across six maps from Terminus to The Reckoning. It introduced Augments for perks, new Ammo Mods, and the return of round-based Zombies mechanics after MWZ.",
       "mapCount": 6
     },
     {
@@ -63,6 +70,7 @@
       "title": "Black Ops 7",
       "year": 2025,
       "era": "Relics & Rift Walkers",
+      "description": "Black Ops 7 sucks the characters into the depths of the Dark Aether. As they arrive, Requiem encounters a new version of the original crew. Together they have freed the Shadowsmiths at Ashes of the Damned, Astra Malorum, and Totenreich.",
       "mapCount": 4
     }
   ],
@@ -81,6 +89,13 @@
         "classic",
         "survival",
         "origin"
+      ],
+      "songs": [
+        {
+          "name": "WTF",
+          "artist": "Kevin Sherwood",
+          "activation": "Activate the radio on the second floor."
+        }
       ]
     },
     {
@@ -97,6 +112,13 @@
         "classic",
         "perks",
         "lore"
+      ],
+      "songs": [
+        {
+          "name": "Lullaby of a Dead Man",
+          "artist": "Kevin Sherwood",
+          "activation": "Three meteor rocks hidden around the asylum."
+        }
       ]
     },
     {
@@ -113,6 +135,13 @@
         "classic",
         "crew-debut",
         "hellhounds"
+      ],
+      "songs": [
+        {
+          "name": "The One",
+          "artist": "Elena Siegman",
+          "activation": "Three meteor rocks in the swamp."
+        }
       ]
     },
     {
@@ -129,6 +158,13 @@
         "classic",
         "teleporter",
         "pack-a-punch"
+      ],
+      "songs": [
+        {
+          "name": "Beauty of Annihilation",
+          "artist": "Elena Siegman",
+          "activation": "Hold the action button on three teddy bears around the factory."
+        }
       ]
     },
     {
@@ -145,6 +181,13 @@
         "classic",
         "teleporter",
         "samantha"
+      ],
+      "songs": [
+        {
+          "name": "115",
+          "artist": "Elena Siegman",
+          "activation": "Three meteor rocks: spawn, dressing room, theater."
+        }
       ]
     },
     {
@@ -161,7 +204,8 @@
         "pentagon",
         "classic",
         "defcon"
-      ]
+      ],
+      "songs": []
     },
     {
       "id": "ascension",
@@ -177,6 +221,13 @@
         "perks",
         "space-monkeys",
         "wonder-grenade"
+      ],
+      "songs": [
+        {
+          "name": "Abracadavre",
+          "artist": "Elena Siegman",
+          "activation": "Activate three teddy bears: one at Spawn, one near Stamin-Up, and one near Speed Cola."
+        }
       ]
     },
     {
@@ -193,6 +244,13 @@
         "celebrity-crew",
         "siberia",
         "vril"
+      ],
+      "songs": [
+        {
+          "name": "Not Ready to Die",
+          "artist": "Avenged Sevenfold",
+          "activation": "Activate three meteor rocks: one at Spawn, one by PhD Flopper, and one in the ship diner below Power."
+        }
       ]
     },
     {
@@ -209,6 +267,13 @@
         "temple",
         "vril",
         "time-loop"
+      ],
+      "songs": [
+        {
+          "name": "Pareidolia",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Activate three meteor rocks: one at Spawn, one near the Juggernog or Speed Cola side of the mud room, and one in the Semtex cave."
+        }
       ]
     },
     {
@@ -225,6 +290,13 @@
         "endgame",
         "space",
         "great-leap"
+      ],
+      "songs": [
+        {
+          "name": "Coming Home",
+          "artist": "Elena Siegman",
+          "activation": "Three teddy bears: tunnel, biodome, Area 51."
+        }
       ]
     },
     {
@@ -241,6 +313,13 @@
         "victis",
         "bus-route",
         "tower"
+      ],
+      "songs": [
+        {
+          "name": "Carrion",
+          "artist": "Kevin Sherwood feat. Clark S. Nova",
+          "activation": "Three teddy bears hidden along the bus route."
+        }
       ]
     },
     {
@@ -257,6 +336,13 @@
         "victis",
         "vertical",
         "tower"
+      ],
+      "songs": [
+        {
+          "name": "We All Fall Down",
+          "artist": "Kevin Sherwood feat. Clark S. Nova",
+          "activation": "Three teddy bears hidden across the towers."
+        }
       ]
     },
     {
@@ -273,6 +359,13 @@
         "purgatory",
         "acidgat",
         "noir"
+      ],
+      "songs": [
+        {
+          "name": "Where Are We Going?",
+          "artist": "Kevin Sherwood feat. Malukah",
+          "activation": "Three skulls hidden in the prison."
+        }
       ]
     },
     {
@@ -289,6 +382,13 @@
         "victis",
         "western",
         "final-tower"
+      ],
+      "songs": [
+        {
+          "name": "Always Running",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Three teddy bears around the underground town."
+        }
       ]
     },
     {
@@ -305,6 +405,13 @@
         "primis",
         "elemental-staves",
         "time-loop"
+      ],
+      "songs": [
+        {
+          "name": "Archangel",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Three gramophones found across the dig site."
+        }
       ]
     },
     {
@@ -321,6 +428,13 @@
         "noir",
         "apothicons",
         "gobblegums"
+      ],
+      "songs": [
+        {
+          "name": "Snakeskin Boots",
+          "artist": "Kevin Sherwood",
+          "activation": "Three ritual altars around Morg City."
+        }
       ]
     },
     {
@@ -337,6 +451,13 @@
         "primis",
         "factory",
         "teleporter"
+      ],
+      "songs": [
+        {
+          "name": "Beauty of Annihilation (Brian Tuey Remix)",
+          "artist": "Kevin Sherwood & Brian Tuey",
+          "activation": "Three green jars hidden around the facility."
+        }
       ]
     },
     {
@@ -353,6 +474,13 @@
         "castle",
         "bows",
         "primis"
+      ],
+      "songs": [
+        {
+          "name": "Dead Again",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Three teddy bears around the castle."
+        }
       ]
     },
     {
@@ -369,6 +497,13 @@
         "primis",
         "division-9",
         "swamp"
+      ],
+      "songs": [
+        {
+          "name": "Dead Flowers",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Three items around the island."
+        }
       ]
     },
     {
@@ -385,6 +520,18 @@
         "primis",
         "dragons",
         "stalingrad"
+      ],
+      "songs": [
+        {
+          "name": "Dead Ended",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the map."
+        },
+        {
+          "name": "Ace of Spades",
+          "artist": "Motörhead",
+          "activation": "Bonus song activation."
+        }
       ]
     },
     {
@@ -401,6 +548,13 @@
         "endgame",
         "patchwork",
         "cycle"
+      ],
+      "songs": [
+        {
+          "name": "The Gift",
+          "artist": "Elena Siegman & Kevin Sherwood",
+          "activation": "Three items across the patchwork map."
+        }
       ]
     },
     {
@@ -417,6 +571,13 @@
         "chaos",
         "arena",
         "trials"
+      ],
+      "songs": [
+        {
+          "name": "Mad Hatter",
+          "artist": "Avenged Sevenfold",
+          "activation": "Three items around the arena."
+        }
       ]
     },
     {
@@ -433,6 +594,13 @@
         "chaos",
         "titanic",
         "sentinel"
+      ],
+      "songs": [
+        {
+          "name": "Drowning",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the Titanic."
+        }
       ]
     },
     {
@@ -449,6 +617,13 @@
         "primis",
         "alcatraz",
         "cycle"
+      ],
+      "songs": [
+        {
+          "name": "Where Are We Going? (2018)",
+          "artist": "Kevin Sherwood feat. Malukah",
+          "activation": "Three items in the prison."
+        }
       ]
     },
     {
@@ -465,6 +640,13 @@
         "chaos",
         "manor",
         "occult"
+      ],
+      "songs": [
+        {
+          "name": "Mystery",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the manor."
+        }
       ]
     },
     {
@@ -481,6 +663,13 @@
         "chaos",
         "delphi",
         "gauntlets"
+      ],
+      "songs": [
+        {
+          "name": "Stormbound",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around Delphi."
+        }
       ]
     },
     {
@@ -497,6 +686,13 @@
         "aether",
         "siberia",
         "finale"
+      ],
+      "songs": [
+        {
+          "name": "A Light from the Shore",
+          "artist": "Kevin Sherwood",
+          "activation": "Three hidden items around the Siberian outpost."
+        }
       ]
     },
     {
@@ -513,6 +709,13 @@
         "dark-aether",
         "requiem",
         "reboot"
+      ],
+      "songs": [
+        {
+          "name": "Alone",
+          "artist": "Kevin Sherwood",
+          "activation": "Three teddy bears around Projekt Endstation."
+        }
       ]
     },
     {
@@ -529,6 +732,13 @@
         "dark-aether",
         "mimics",
         "peck"
+      ],
+      "songs": [
+        {
+          "name": "Lost",
+          "artist": "Kevin Sherwood",
+          "activation": "Collect three cassette tapes: one in the Motor Pool, one in Equipment Storage, and one in the Scientists Quarters."
+        }
       ]
     },
     {
@@ -545,7 +755,8 @@
         "dark-aether",
         "klaus",
         "urban"
-      ]
+      ],
+      "songs": []
     },
     {
       "id": "forsaken",
@@ -561,7 +772,8 @@
         "dark-aether",
         "finale",
         "elder"
-      ]
+      ],
+      "songs": []
     },
     {
       "id": "terminus",
@@ -577,6 +789,13 @@
         "bo6",
         "terminus",
         "maya"
+      ],
+      "songs": [
+        {
+          "name": "Can You Hear Me? (Come In)",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the prison island."
+        }
       ]
     },
     {
@@ -593,6 +812,13 @@
         "bo6",
         "small-town",
         "richtofen"
+      ],
+      "songs": [
+        {
+          "name": "Destroy Something Beautiful",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around town."
+        }
       ]
     },
     {
@@ -609,6 +835,13 @@
         "bo6",
         "castle",
         "elemental-swords"
+      ],
+      "songs": [
+        {
+          "name": "Slave",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the castle."
+        }
       ]
     },
     {
@@ -625,6 +858,13 @@
         "bo6",
         "underground",
         "staff"
+      ],
+      "songs": [
+        {
+          "name": "Dig",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the excavation site."
+        }
       ]
     },
     {
@@ -641,6 +881,13 @@
         "bo6",
         "mansion",
         "breach"
+      ],
+      "songs": [
+        {
+          "name": "Falling to Pieces",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the manor."
+        }
       ]
     },
     {
@@ -657,6 +904,13 @@
         "bo6",
         "facility",
         "finale"
+      ],
+      "songs": [
+        {
+          "name": "Remember Us",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the facility."
+        }
       ]
     },
     {
@@ -673,6 +927,13 @@
         "bo7",
         "dark-aether",
         "relics"
+      ],
+      "songs": [
+        {
+          "name": "Turn to Ashes",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the ruins."
+        }
       ]
     },
     {
@@ -689,6 +950,18 @@
         "bo7",
         "relics",
         "observatory"
+      ],
+      "songs": [
+        {
+          "name": "Pareidolia (Remastered 2025)",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the observatory."
+        },
+        {
+          "name": "Magic",
+          "artist": "Avenged Sevenfold",
+          "activation": "Bonus song activation."
+        }
       ]
     },
     {
@@ -705,6 +978,13 @@
         "bo7",
         "relics",
         "liminal"
+      ],
+      "songs": [
+        {
+          "name": "Come Back Down",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the station."
+        }
       ]
     },
     {
@@ -721,10 +1001,752 @@
         "bo7",
         "relics",
         "finale-hint"
+      ],
+      "songs": [
+        {
+          "name": "No One There",
+          "artist": "Kevin Sherwood",
+          "activation": "Three items around the realm."
+        }
+      ]
+    }
+  ],
+  "perks": [
+    {
+      "id": "jugg",
+      "name": "Juggernog",
+      "summary": "",
+      "effect": "Raises player health and gives mistakes a little more room to breathe.",
+      "introduced": "Verruckt",
+      "games": [
+        {
+          "id": "waw",
+          "title": "World at War"
+        },
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "qr",
+      "name": "Quick Revive",
+      "summary": "",
+      "effect": "Speeds up revives, with solo self-revive behavior in several rule sets.",
+      "introduced": "Verruckt",
+      "games": [
+        {
+          "id": "waw",
+          "title": "World at War"
+        },
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "sc",
+      "name": "Speed Cola",
+      "summary": "",
+      "effect": "Cuts reload time and keeps pressure weapons from going quiet too long.",
+      "introduced": "Verruckt",
+      "games": [
+        {
+          "id": "waw",
+          "title": "World at War"
+        },
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "ddc",
+      "name": "Double Tap Root Beer",
+      "summary": "",
+      "effect": "Improves rate of fire in early forms and adds extra projectile output in Double Tap II.",
+      "introduced": "Verruckt",
+      "games": [
+        {
+          "id": "waw",
+          "title": "World at War"
+        },
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "sf",
+      "name": "Stamin-Up",
+      "summary": "",
+      "effect": "Raises movement speed and extends sprint stamina.",
+      "introduced": "Ascension",
+      "games": [
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "phd",
+      "name": "PhD Flopper",
+      "summary": "",
+      "effect": "Protects against explosive and fall damage, with dive-triggered blast behavior in classic rules.",
+      "introduced": "Ascension",
+      "games": [
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "mule",
+      "name": "Mule Kick",
+      "summary": "",
+      "effect": "Adds a third weapon slot.",
+      "introduced": "Moon",
+      "games": [
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "deadshot-daiquiri",
+      "name": "Deadshot Daiquiri",
+      "summary": "",
+      "effect": "Improves precision and headshot handling, with rule-set-specific aim bonuses.",
+      "introduced": "Call of the Dead",
+      "games": [
+        {
+          "id": "bo1",
+          "title": "Black Ops"
+        },
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "tomb",
+      "name": "Tombstone Soda",
+      "summary": "",
+      "effect": "Creates a recovery path for gear or a second chance after a down, depending on the era.",
+      "introduced": "TranZit",
+      "games": [
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "whos-who",
+      "name": "Who's Who",
+      "summary": "",
+      "effect": "Spawns a temporary duplicate that can revive the downed player.",
+      "introduced": "Die Rise",
+      "games": [
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        }
+      ]
+    },
+    {
+      "id": "vulture-aid",
+      "name": "Vulture Aid",
+      "summary": "",
+      "effect": "Highlights useful objects and causes zombies to drop points, ammo, or concealment clouds.",
+      "introduced": "Buried",
+      "games": [
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "electric-cherry",
+      "name": "Electric Cherry",
+      "summary": "",
+      "effect": "Emits an electric burst while reloading, stronger when the magazine is low.",
+      "introduced": "Mob of the Dead",
+      "games": [
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "widows-wine",
+      "name": "Widow's Wine",
+      "summary": "",
+      "effect": "Converts grenades into web-like defensive bursts that slow attackers.",
+      "introduced": "Shadows of Evil",
+      "games": [
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        }
+      ]
+    },
+    {
+      "id": "der-wunderfizz",
+      "name": "Der Wunderfizz",
+      "summary": "",
+      "effect": "Dispenses a random or menu-selected perk, depending on the game rules.",
+      "introduced": "Origins",
+      "games": [
+        {
+          "id": "bo2",
+          "title": "Black Ops II"
+        },
+        {
+          "id": "bo3",
+          "title": "Black Ops III"
+        },
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "deadshot-dealer",
+      "name": "Deadshot Dealer",
+      "summary": "",
+      "effect": "BO4-era precision perk built around critical hits and accuracy.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "death-perception",
+      "name": "Death Perception",
+      "summary": "",
+      "effect": "Improves enemy awareness and highlights threats or resources by era.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        },
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "dying-wish",
+      "name": "Dying Wish",
+      "summary": "",
+      "effect": "Prevents a lethal hit and grants a brief survival window before entering cooldown.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "victorious-tortoise",
+      "name": "Victorious Tortoise",
+      "summary": "",
+      "effect": "Improves shield protection and triggers a defensive blast when the shield breaks.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "stone-cold-stronghold",
+      "name": "Stone Cold Stronghold",
+      "summary": "",
+      "effect": "Rewards staying in a marked area with defensive and damage bonuses.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "winters-wail",
+      "name": "Winter's Wail",
+      "summary": "",
+      "effect": "Releases frost bursts that slow or freeze attackers.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "timeslip",
+      "name": "Timeslip",
+      "summary": "",
+      "effect": "Speeds up equipment cooldowns, mystery box use, and several map interactions.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "ethereal-razor",
+      "name": "Ethereal Razor",
+      "summary": "",
+      "effect": "Improves melee damage and range, especially in modifier-style perk setups.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "electric-burst",
+      "name": "Electric Burst",
+      "summary": "",
+      "effect": "Creates electric effects tied to reload timing and weapon handling.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "zombshell",
+      "name": "Zombshell",
+      "summary": "",
+      "effect": "Creates debuff zones that slow or weaken nearby enemies.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "secret-sauce",
+      "name": "Secret Sauce",
+      "summary": "",
+      "effect": "Rolls a random perk into the selected slot.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "bandolier-bandit",
+      "name": "Bandolier Bandit",
+      "summary": "",
+      "effect": "Increases carried ammunition reserves.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "blaze-phase",
+      "name": "Blaze Phase",
+      "summary": "",
+      "effect": "Builds a charge while crouched, then releases a damaging dash.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "blood-wolf-bite",
+      "name": "Blood Wolf Bite",
+      "summary": "",
+      "effect": "Summons Luna to attack nearby enemies after enough kills.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "elemental-pop",
+      "name": "Elemental Pop",
+      "summary": "",
+      "effect": "Adds random ammo mod effects to weapon fire.",
+      "introduced": "Die Maschine",
+      "games": [
+        {
+          "id": "cw",
+          "title": "Cold War"
+        },
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "phd-slider",
+      "name": "PhD Slider",
+      "summary": "",
+      "effect": "Turns a charged slide into an explosive impact and protects against self-damage.",
+      "introduced": "Black Ops 4",
+      "games": [
+        {
+          "id": "bo4",
+          "title": "Black Ops 4"
+        }
+      ]
+    },
+    {
+      "id": "melee-macchiato",
+      "name": "Melee Macchiato",
+      "summary": "",
+      "effect": "Improves melee power and utility in the Dark Aether ruleset.",
+      "introduced": "Liberty Falls",
+      "games": [
+        {
+          "id": "bo6",
+          "title": "Black Ops 6"
+        },
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
+      ]
+    },
+    {
+      "id": "wisp-tea",
+      "name": "Wisp Tea",
+      "summary": "",
+      "effect": "Dark Aether perk brewed around spectral utility and escape pressure.",
+      "introduced": "Black Ops 7",
+      "games": [
+        {
+          "id": "bo7",
+          "title": "Black Ops 7"
+        }
       ]
     }
   ],
   "easterEggs": [
+    {
+      "id": "kindertot",
+      "title": "Kinder der Toten",
+      "map": "citadelle",
+      "mapName": "Citadelle des Morts",
+      "gameTitle": "Black Ops 6",
+      "era": "classic",
+      "summary": "Forge four elemental swords, wake the knight at the altar, and seal the rift in the courtyard before the eighth wave of Doppelganger zombies.",
+      "difficulty": "Hard",
+      "duration": "60–90 min",
+      "party": "Recommended 2‑4 players",
+      "requirements": [],
+      "rewards": [
+        "Permanent perk slot",
+        "Calling card: Carolingian",
+        "Dark Aether story shard #4"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Activate Power",
+          "body": "Restore power in the chapel basement. Three breakers, all on the north walls. The third only flips after you’ve killed a zombie within two metres of it.",
+          "bullets": []
+        },
+        {
+          "n": 2,
+          "title": "Find the Sword Hilt",
+          "body": "A blacksmith’s anvil in the courtyard. Drop a Sword Hilt charge near it. The hilt appears after one full round of melee‑only kills.",
+          "bullets": []
+        },
+        {
+          "n": 3,
+          "title": "Forge the Elemental Blade",
+          "body": "Carry the hilt through the elemental shrine matching your chosen path — Solais (light), Stachel (fire), Krause (lightning), or Ull (frost). Each shrine requires a different kill condition.",
+          "bullets": []
+        },
+        {
+          "n": 4,
+          "title": "Awaken the Knight",
+          "body": "Place your forged sword in the altar in the great hall. The knight rises and walks the perimeter. Follow him; he opens doors no key opens.",
+          "bullets": []
+        },
+        {
+          "n": 5,
+          "title": "Defeat the Doppelganger",
+          "body": "A reflection of your character spawns in the keep. Same loadout, same perks, same health. Outlast it. Do not let it down you.",
+          "bullets": []
+        },
+        {
+          "n": 6,
+          "title": "Seal the Rift",
+          "body": "Hold the centre of the courtyard for ninety seconds. The knight defends the four cardinal points; you defend the centre. Kill nothing inside the seal radius or it resets.",
+          "bullets": []
+        }
+      ],
+      "stepCount": 6
+    },
     {
       "id": "ascension-casimir-mechanism",
       "title": "Casimir Mechanism",
@@ -733,12 +1755,100 @@
       "gameTitle": "Black Ops",
       "era": "classic",
       "summary": "Link the Lunar Landers, activate each Casimir node, spell LUNA from the sky, and free Gersh from the device.",
+      "difficulty": "Hard",
+      "duration": "45-75 min",
+      "party": "4 players required",
       "requirements": [
         "4 players",
         "2x Pack-a-Punched Ray Gun or Ray Gun Mark II (BO3)",
         "Thundergun",
         "Matryoshka Dolls",
         "Gersh Devices"
+      ],
+      "rewards": [
+        "Death Machines for 90 seconds in Black Ops",
+        "All perks in Zombies Chronicles"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Power, Landers, Rocket",
+          "body": "Open the map and complete the launch sequence before starting the Casimir nodes.",
+          "bullets": [
+            "Turn on the power.",
+            "Link Lunar Lander F in the scrapyard near Stamin-Up.",
+            "Link Lunar Lander B near Speed Cola and the Sickle.",
+            "Link Lunar Lander D near PhD Flopper in Black Ops or Widow's Wine in BO3.",
+            "Return to the power switch and launch the rocket.",
+            "Get Gersh Devices from the Mystery Box.",
+            "Throw a Gersh Device at the generator outside the map boundary near PhD Flopper or Widow's Wine."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Activate the First Node",
+          "body": "Use the scrapyard terminal to activate the first node.",
+          "bullets": [
+            "Go to Stamin-Up and enter the scrapyard near Lander F.",
+            "Look under the metal stairs for the computer monitor showing static.",
+            "Interact with the monitor to reveal the Illuminati pyramid.",
+            "Node 1 completes and the first Casimir Mechanism light turns on."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Press the Four Buttons",
+          "body": "This step must be completed during a Space Monkey round.",
+          "bullets": [
+            "Wait for the Space Monkey round to begin.",
+            "Send one player to the button near Stamin-Up.",
+            "Send one player to the button opposite Juggernog.",
+            "Send one player to the button in the PhD Flopper room in Black Ops or Widow's Wine room in BO3.",
+            "Send one player to the button near Speed Cola.",
+            "Press all four buttons at the same time.",
+            "If done correctly, the buttons sink into the walls and Node 2 completes."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Hold the Pressure Plate",
+          "body": "Hold the plate outside Pack-a-Punch until the node confirms.",
+          "bullets": [
+            "Go to the area just outside the Pack-a-Punch room.",
+            "Find the circular pressure plate near the wall clock.",
+            "All four players must stand on the plate together.",
+            "Hold the plate for 2 minutes.",
+            "When complete, a Nuke power-up activates and Node 3 completes."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Spell LUNA",
+          "body": "Collect the floating letters by calling the Lunar Lander along the correct route.",
+          "bullets": [
+            "Park the lander at Spawn.",
+            "Choose one player to stay on the lander while the others call it between pads.",
+            "Call the lander from Spawn to Lander F near Stamin-Up to collect L.",
+            "Call the lander back to Spawn to collect U.",
+            "Call the lander to Lander B near Speed Cola to collect N.",
+            "Call the lander back to Lander F near Stamin-Up to collect A.",
+            "Once LUNA is complete, Node 4 completes."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Free Gersh",
+          "body": "Use the required weapons on the final light to free Gersh.",
+          "bullets": [
+            "Complete all four nodes first.",
+            "Look for the fifth white light on the ground in front of the Casimir Mechanism.",
+            "Throw a Gersh Device as close to the white light as possible.",
+            "Shoot the active Gersh Device with one upgraded Thundergun.",
+            "Shoot it with two upgraded Ray Guns.",
+            "Throw one set of Matryoshka Dolls into it.",
+            "If done correctly, Gersh's soul is freed and the Easter Egg is complete."
+          ]
+        }
       ],
       "stepCount": 6
     },
@@ -750,11 +1860,149 @@
       "gameTitle": "Black Ops",
       "era": "classic",
       "summary": "Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal, and sending the Vril Device through the vault tube.",
+      "difficulty": "Medium-Hard",
+      "duration": "50-80 min",
+      "party": "2-4 players for Ensemble Cast",
       "requirements": [
         "Power turned on",
         "Path to PhD Flopper open",
         "Semtex or other explosives",
         "V-R11 from the Mystery Box"
+      ],
+      "rewards": [
+        "Wunderwaffe DG-2 power-up",
+        "Ensemble Cast achievement or trophy",
+        "George Romero drops Wunderwaffe instead of Death Machine"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Power the Ship",
+          "body": "Open the map until you can reach the ship bridge. As usual, the main quest starts by restoring power to the facility.",
+          "bullets": [
+            "Move through the ship until you reach the bridge on the top level.",
+            "Flip the power switch in the bridge.",
+            "Open the route back toward the lighthouse and PhD Flopper building.",
+            "Start working on a V-R11 early, since the final sequence cannot be completed without it."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Restore the Vault Circuit",
+          "body": "Drop into the room below PhD Flopper and get the crew talking through the sealed vault. Once the argument settles, Richtofen needs a replacement fuse for the busted panel.",
+          "bullets": [
+            "Hit or use the vault door until Ultimis begins the request.",
+            "Sweep the PhD Flopper floor and the adjacent lower room for the loose fuse.",
+            "Look over desk surfaces, cabinet spaces, and small cluttered work areas for the pickup prompt.",
+            "Carry the fuse back downstairs and install it in the wall panel next to the sealed door.",
+            "Trigger the door again so the crew moves on to the next problem."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Break the Security Grid",
+          "body": "Nikolai trips the MDT security grid, leaving four red-lit units active across the coast. Use explosives and land the blast directly on the glowing machinery.",
+          "bullets": [
+            "Semtex is ideal because it sticks, but any reliable explosive can work if the detonation hits the red light.",
+            "One unit sits opposite the vault area, visible from the door side of the room.",
+            "Another is tucked past the ship railing, down by the water near Double Tap.",
+            "A third is lodged among the icy gaps in the central ship section.",
+            "The last one is outside the playable path near a Stamin-Up window.",
+            "When all four stop glowing, report back to the vault."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Send Nikolai a Drink",
+          "body": "Co-op only. Nikolai asks for vodka next, because of course he does. The bottle hangs in a block of ice above a lower walkway, so this step takes two players in sync.",
+          "bullets": [
+            "Put one player at the bottle and one player on the lower path beneath it.",
+            "The top player knifes the ice; the lower player catches the falling bottle.",
+            "Check the ramp that joins the broken ship sections.",
+            "Check the Mystery Box area on the upper PhD Flopper side.",
+            "Check the high ledge near the MPL wall buy.",
+            "Check the stairs that descend from the upper Mystery Box spot toward PhD Flopper.",
+            "Feed the bottle into the left-side tube beside the vault."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Wake the Sky Signal",
+          "body": "Co-op only. Four radios have to be used in sequence. Done correctly, the map answers with a blinking light in the sky.",
+          "bullets": [
+            "Start below the power room and use the radio resting on the right-side electrical cabinet.",
+            "Move to Stamin-Up and use the radio perched on the nearby barrel.",
+            "Go to the zipline-exit side of the ship and find the sideways radio inside the shipping container.",
+            "Finish beside the vault with the radio on the cabinet tucked under the stairs.",
+            "Keep the activations close together so the sequence does not drop.",
+            "Watch the sky for the blinking confirmation once the fourth radio registers."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Solve the Bridge Controls",
+          "body": "Return to the bridge controls opposite the power switch. The wheel and lever positions translate the signal into the submarine setup.",
+          "bullets": [
+            "Rotate the wheel until the brown handle sits in the lower-right position.",
+            "Move to the three-lever panel beside the wheel.",
+            "Pull the left lever one time.",
+            "Leave the middle lever alone.",
+            "Pull the right-most lever three times.",
+            "The accepted setup is marked by the ship horn sounding off."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Call the Submarine",
+          "body": "Co-op only. The foghorns have their own order. Hit them correctly and the submarine lines its green beam up with the lighthouse.",
+          "bullets": [
+            "Start at the shoreline horn on the right side of the AK-74u wall buy.",
+            "Use the horn around the right-hand corner after the slide toward Speed Cola.",
+            "Return to the AK-74u area and use the horn on the left side near the building base.",
+            "Finish with the horn straight ahead from the Speed Cola slide exit.",
+            "The successful sequence pulls a green submarine beam into the lighthouse shaft."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Align the Tower Dials",
+          "body": "Co-op only. Each lighthouse floor has a numbered color dial. The solved stack reads 2746 from the top floor down, but every turn can disturb another floor.",
+          "bullets": [
+            "Begin with the top yellow dial and put it on 2.",
+            "Use the blue-floor dial to move orange into 7.",
+            "Set the bottom purple dial to 6.",
+            "Use the orange-floor dial to bring blue onto 4.",
+            "Go back to yellow and correct it to 2 if the linked turns moved it.",
+            "Before leaving, verify the order as yellow 2, orange 7, blue 4, purple 6.",
+            "Purple loops back to yellow, so a final pass through all four floors is worth the time."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Feed the Lighthouse Beam",
+          "body": "One player needs the V-R11 from the Mystery Box. With the green beam active, use the weapon at the lighthouse base to create the sacrifice target.",
+          "bullets": [
+            "Lead a regular zombie onto the bottom floor of the lighthouse.",
+            "Hit it with the V-R11 so it changes form and sprints for the beam.",
+            "Let the runner enter the green light in the spiral stairwell.",
+            "Once the target begins floating upward, kill it before it disappears at the top.",
+            "The Scavenger, explosives, or concentrated fire can end the float quickly."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Hand Off the Vril Device",
+          "body": "After the portal sequence resolves, the Vril Device descends through the lighthouse. Get it back to Ultimis and close out the escape.",
+          "bullets": [
+            "Grab the Vril Device when it reaches the lower lighthouse floor.",
+            "Run it back to the vault room under PhD Flopper.",
+            "Load the device into the left tube that previously accepted Nikolai's vodka.",
+            "Wait for Richtofen to finish his dialogue.",
+            "Strike or use the fuse panel on the right side of the vault to send the crew out.",
+            "Pick up the Wunderwaffe DG-2 reward after the crew leaves.",
+            "After the quest, defeating George Romero rewards a Wunderwaffe drop in place of the usual Death Machine."
+          ]
+        }
       ],
       "stepCount": 10
     },
@@ -766,12 +2014,177 @@
       "gameTitle": "Black Ops",
       "era": "classic",
       "summary": "Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the Pack-a-Punch shrine.",
+      "difficulty": "Hard",
+      "duration": "60-90 min",
+      "party": "4 players required",
       "requirements": [
         "4 players from start to finish",
         "Power on and all doors open",
         "31-79 JGb215, upgraded to The Fractalizer for the crystal and meteor steps",
         "Spikemores in Black Ops or Trip Mines in Zombies Chronicles",
         "A live Napalm Zombie for the gas step"
+      ],
+      "rewards": [
+        "Time Travel Will Tell achievement or trophy",
+        "Focusing Stone",
+        "All perks for the player who picks up the Focusing Stone"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Power and Eclipse Setup",
+          "body": "Open the temple, restore power, and use the four eclipse buttons around Spawn whenever the team is ready to start a timed step.",
+          "bullets": [
+            "Turn on both power switches.",
+            "Open the water slide, tunnels, mud room, mine cart, and Pack-a-Punch routes before committing to the quest loop.",
+            "Start chasing the 31-79 JGb215 early, since the later crystal steps need it.",
+            "Have all four players press the eclipse buttons around Spawn at the same time.",
+            "Use the sun and moon symbols to confirm whether the map is in normal time or eclipse time."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Contact Brock and Gary",
+          "body": "In eclipse mode, trigger the wall button near the MPL side to start the Brock and Gary sequence and reveal the matching floor slabs.",
+          "bullets": [
+            "Enter eclipse mode.",
+            "Move to the wall near the MPL side of the map.",
+            "Press the round stone button under the statue relief.",
+            "Listen for Brock and Gary, then split players between the matching slab areas."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Match the Stone Slabs",
+          "body": "Two sides of the map receive matching floor symbols. Pair the symbols correctly before the eclipse timer expires.",
+          "bullets": [
+            "Keep one player on each slab side so callouts are fast.",
+            "Have one player read a glowing symbol and the other find its match.",
+            "Step on both matching slabs together to sink the pair.",
+            "Avoid stepping on a wrong match, or the puzzle can reset.",
+            "Finish every pair inside the same eclipse cycle."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Trigger the Water Slide Plate",
+          "body": "Use the water slide and lower pressure plate to release the next crystal from the temple machinery.",
+          "bullets": [
+            "Enter eclipse mode again.",
+            "Send three players to the lower steel grate or pressure plate near the water slide landing.",
+            "Have the fourth player take the water slide while hugging the right side.",
+            "Keep everyone planted on the plate until the step confirms and the eclipse ends."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Move the Crystal to the Geyser",
+          "body": "Knock the crystal loose, shrink it, and move it through the slide route until the geyser launches it back into position.",
+          "bullets": [
+            "At the top of the water slide, knock the wall crystal down with an explosive.",
+            "Shrink the fallen crystal with the 31-79 JGb215.",
+            "Knife or push the shrunken crystal down the water slide path.",
+            "Guide it into the geyser at the lower landing.",
+            "Stand on the geyser to launch the crystal onto its tower and complete the step."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Light the Gas Leaks",
+          "body": "Use a live Napalm Zombie to ignite the gas through the tunnel route, then return to the valve station to free the mechanism.",
+          "bullets": [
+            "Wait until a Napalm Zombie is active before starting this sequence.",
+            "Enter eclipse mode and move to the gas valve near the MPL tunnel route.",
+            "Turn the valve four times to start the leaks.",
+            "Lead the Napalm Zombie through the tunnel so each gas leak catches fire.",
+            "When the leaks are lit, return to the valve station and pull the lever beside it."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Plug the Spikemore Holes",
+          "body": "Set Spikemores or Trip Mines against the tunnel holes and use zombies to detonate them into the wall.",
+          "bullets": [
+            "Enter eclipse mode.",
+            "Go to the tunnel route that leads toward the waterfall side.",
+            "Place one Spikemore or Trip Mine facing each wall hole.",
+            "Lure zombies through the traps so the mines fire into the holes.",
+            "After all four holes are sealed, press the reservoir button by the waterfall to end the step."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Activate the Wall Slabs",
+          "body": "Knife the twelve wall slabs around the temple, then blow open the out-of-bounds frame near the mine cart area.",
+          "bullets": [
+            "Enter eclipse mode.",
+            "Knife the wall slabs around Spawn, the mud room, the mine cart area, the Stakeout room, and the power-side path.",
+            "Confirm each slab is activated before moving on.",
+            "At the mine cart side, throw an explosive toward the wooden frame or tent structure outside the playable path.",
+            "Wait for the explosion and dialogue confirmation before leaving the eclipse cycle."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Set the Mud Room Dials",
+          "body": "Rotate the four mud room dials until each symbol is sitting in the correct top position.",
+          "bullets": [
+            "Enter eclipse mode.",
+            "Use the mud room layout from the PM63 side toward Quick Revive.",
+            "Set the first dial to the three-dot symbol.",
+            "Set the second dial to the C-shaped symbol with the line and dot.",
+            "Set the third dial to the four-dot symbol.",
+            "Set the fourth dial to the one-dot symbol."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Find the Correct Gongs",
+          "body": "Use the crystal reactions to identify the four correct gongs before attempting the dynamite drop.",
+          "bullets": [
+            "Enter eclipse mode.",
+            "Knife candidate gongs one at a time.",
+            "If the crystals flash red, that gong is wrong for the current run.",
+            "Keep testing until four correct gongs have been hit.",
+            "When the correct sequence is active, the crystals glow yellow and the dynamite crystal is ready."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Drop and Catch the Dynamite",
+          "body": "Use the Pack-a-Punched shrink ray on the crystal path and catch the dynamite as it falls.",
+          "bullets": [
+            "Upgrade the 31-79 JGb215 into The Fractalizer.",
+            "Position one player under the dynamite near the crystal tower.",
+            "Shoot the correct crystal with The Fractalizer so the beam bounces across the crystal network.",
+            "Catch the dynamite before it hits the ground.",
+            "If the dynamite is missed, repeat the gong and crystal setup."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Shrink the Meteor",
+          "body": "Fire the upgraded shrink ray through the final crystal path, then use the Pack-a-Punch stairs to deliver the dynamite.",
+          "bullets": [
+            "Enter eclipse mode if needed and return to the mud room crystal path.",
+            "Shoot the crystal with The Fractalizer so the beam reaches the meteor above the shrine.",
+            "Stand on the four Pack-a-Punch pressure plates to raise the stairs.",
+            "Move up the shrine and place the dynamite in the wall opening.",
+            "Back away before the blast resolves."
+          ]
+        },
+        {
+          "n": 13,
+          "title": "Claim the Focusing Stone",
+          "body": "Return to the shrine after the blast and let one player take the Focusing Stone reward.",
+          "bullets": [
+            "Reactivate Pack-a-Punch access if the stairs are down.",
+            "Return to the wall where the dynamite was placed.",
+            "Have the chosen player pick up the Focusing Stone.",
+            "That player receives all perks for the rest of the game.",
+            "Use the radio at the base of the shrine if the team wants to repeat the quest for another player."
+          ]
+        }
       ],
       "stepCount": 13
     },
@@ -783,6 +2196,9 @@
       "gameTitle": "Black Ops 6",
       "era": "classic",
       "summary": "Open the mansion, secure the Ray Gun Mark II, build the W, R, and P variants, clear the three liminal painting trials, return the Sentinel Artifact to S.A.M., and defeat the Z-Rex.",
+      "difficulty": "Very Hard",
+      "duration": "90-120 min",
+      "party": "Solo or squad",
       "requirements": [
         "Power + Pack-a-Punch",
         "Ray Gun Mark II",
@@ -792,6 +2208,170 @@
         "Ray Gun Mark II-P",
         "Aether Shroud recommended",
         "Boss-ready loadout"
+      ],
+      "rewards": [
+        "PhDeadly Carver operator skin",
+        "Shattered Veil calling card",
+        "5,000 XP",
+        "Main quest completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Open Pack-a-Punch",
+          "body": "The first part is guided, but doing it cleanly matters because every later quest route uses the elevator, Mainframe Chamber, and mansion shortcuts.",
+          "bullets": [
+            "Open the route into the Library and kill the maintenance worker zombie that carries the Fuse.",
+            "Move toward the elevator objective to trigger the Circuit Board task.",
+            "Go to the Director's Quarters and break Richtofen's computer to recover the Circuit Board.",
+            "Return to the Banquet Hall elevator and repair it from the back side with the Fuse and Circuit Board.",
+            "Call the elevator from the front and clear the zombies that spill out.",
+            "Rappel down the elevator shaft, meet S.A.M. in the Mainframe Chamber, and use the stairs route to reach Pack-a-Punch."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Claim the Ray Gun Mark II",
+          "body": "You can pull the base Ray Gun Mark II from the Mystery Box, but the guaranteed path uses the Lab Technician, a fax-machine code, and the Armory scanner.",
+          "bullets": [
+            "Starting around Round 10, look for a purple-eyed Lab Technician in the Mainframe Chamber or nearby Service Tunnel route.",
+            "Kill the Lab Technician and take the Floppy Disk.",
+            "Use the Floppy Disk on the fax machine in the East Foyer and defend the area while it prints.",
+            "Read the printed note and write down the four-letter word for your match.",
+            "Go to the Nursery chalkboard and convert each letter into a digit by counting the size of the letter group it belongs to.",
+            "Enter the four-digit code on the glass door keypad in the Service Tunnel.",
+            "Kill the Doppelghast inside and pick up the Severed Arm.",
+            "Take the arm to the Armory scanner and use the handprint to open the Ray Gun Mark II case."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Collect Three Empty Canisters",
+          "body": "Each Mark II variant needs an Empty Canister. Gather three before committing to the variant devices.",
+          "bullets": [
+            "Rear Patio canister: craft or find an LT-53 Kazimir, then throw it outside the zombie window below Double Tap to pull the canister out.",
+            "Mainframe canister: note whether the cryo chamber shows A or B.",
+            "Service Tunnel valves: throw one Combat Axe at the center orange valve, then another at the A or B valve matching the Mainframe letter.",
+            "Return to the Mainframe Chamber, blow open the gassed cryo tube with an explosive, and collect the canister.",
+            "Crystal canister: shoot the large blue crystals that can appear high in Conservatory, East Foyer, Service Tunnel, or South West Balcony until one drops the canister.",
+            "Do not place a canister into a variant device until you are ready for that specific variant path."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Craft the Ray Gun Mark II-W",
+          "body": "The W variant starts outside at Shem's Henge and uses Abomination attacks to charge the stone formation.",
+          "bullets": [
+            "Take one Empty Canister to the device near Speed Cola at Shem's Henge.",
+            "Place the canister to spawn an Abomination in the rock circle.",
+            "Keep the Abomination alive and bait its eye beam into the three smaller stones until each glows blue.",
+            "Bait the Abomination charge attack through each glowing stone so the stones lift into the air.",
+            "Survive the lockdown and protect the central portal until the event completes.",
+            "Pick up the charged canister and take it to the Ray Gun workbench across from the Armory in the Service Tunnel.",
+            "Craft the Ray Gun Mark II-W."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Clear the Distillery Trial",
+          "body": "The first painting route uses the Mark II-W and ends with a shielded Elite in the Liminal Distillery.",
+          "bullets": [
+            "Find the loose sconce and place it beside the matching lamp near Juggernog in the Grand Foyer.",
+            "Interact with the lamps and repeat the light sequence until the hidden Distillery room opens.",
+            "With the Ray Gun Mark II-W equipped, interact with the machine beside the Distillery painting and charge the portal by killing zombies.",
+            "Enter the Liminal Distillery and collect the requested pieces: bell, flask, and bar-related item route.",
+            "For the flask step, use Brain Rot on a zombie where needed so it can help open the blocked pickup.",
+            "Return the completed item set to the Liminal Distillery objective.",
+            "Place the Sentinel Artifact on the pedestal and survive the lockdown.",
+            "Use the Ray Gun Mark II-W to break the Elite's blue shield, then finish the Elite and reclaim the Artifact."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Craft the Ray Gun Mark II-R",
+          "body": "The R variant grows from the outdoor plant route and the Conservatory planters.",
+          "bullets": [
+            "Destroy four orb-shaped plants around the outdoor map areas with the Ray Gun Mark II or explosives.",
+            "Check Garden Pond, Conservatory, Motor Court, Rear Patio, South West Balcony, West Balcony, and the Double Tap side of the mansion.",
+            "Take the four Plant Seeds and an Empty Canister to the Conservatory.",
+            "Place the canister in the Conservatory device.",
+            "Plant one seed in a planter and defend it from the purple-eyed zombies until it matures.",
+            "Repeat until all four plants are grown. Planting one at a time is safer for solo runs.",
+            "Collect the Toxic Canister and use the Garden Pond workbench to craft the Ray Gun Mark II-R."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Clear the Library Trial",
+          "body": "The Library route uses the Mark II-R and Aether Shroud to find Colton's requested records.",
+          "bullets": [
+            "With the Ray Gun Mark II-R equipped, charge the Library painting portal by killing zombies near its machine.",
+            "Enter the Liminal Library and listen to Colton's requested items.",
+            "Use Aether Shroud to safely search for the spectral records, including the Audio Log, Ledger, and Nuclear Plant ID Badge.",
+            "Return the items to the Liminal Library objective.",
+            "Back in the real Library, follow the new book or shelf interactions until the hidden report route opens.",
+            "Take the recovered inspection report back through the Library portal.",
+            "Place the Sentinel Artifact, survive the lockdown, and use the Ray Gun Mark II-R to strip the Amalgam shield.",
+            "Kill the Amalgam and take the Sentinel Artifact back."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Craft the Ray Gun Mark II-P",
+          "body": "The P variant uses light routing, Refractors, and an Essence Bomb to open the hidden Service Tunnel chamber.",
+          "bullets": [
+            "Find the two Refractors in the Conservatory fountain and the South West Balcony fountain.",
+            "Break white Project Janus crates around the map until an Essence Bomb drops.",
+            "Place the Essence Bomb on the cracked wall past the Level 3 Armor wall buy in the Service Tunnel.",
+            "Enter the newly opened room and place an Empty Canister in the device.",
+            "Use the Refractors to route the blue beam toward one of the three Doppelghast statues.",
+            "Trigger the crystal pulse to destroy the targeted statue, then kill the Doppelghast that spawns.",
+            "Repeat the beam route for all three statues.",
+            "Collect the Light Canister and craft the Ray Gun Mark II-P at the Director's Quarters workbench."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Clear the Banquet Hall Trial",
+          "body": "The Banquet Hall route uses the Mark II-P and ends with the last shielded Elite before the boss.",
+          "bullets": [
+            "With the Ray Gun Mark II-P equipped, charge the Banquet Hall painting portal.",
+            "Enter the Liminal Banquet Hall and collect the ritual item that starts the goblet route.",
+            "Search the marked mansion spaces for the required goblets and defeat the Elder Disciples tied to them.",
+            "Use the elevator shaft wall numbers to build the six-digit safe code.",
+            "Open the blue safe in the West Hallways and take the Antler Carving.",
+            "Return to the Liminal Banquet Hall and place the Sentinel Artifact.",
+            "Use the Ray Gun Mark II-P to break the final Elite shield during the lockdown.",
+            "Finish the fight and recover the Sentinel Artifact one last time."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Prepare for the Z-Rex",
+          "body": "Once all three painting trials are complete, the next S.A.M. handoff starts the finale. Treat the handoff as a point of no return.",
+          "bullets": [
+            "Pack-a-Punch the Ray Gun Mark II variant you are taking into the fight. The W variant is a strong general pick.",
+            "Bring a second high-rarity weapon for zombie control and emergency damage.",
+            "Buy Tier III armor and as many core perks as possible, especially Juggernog, Stamin-Up, Quick Revive, Speed Cola, Double Tap, and Deadshot Daiquiri.",
+            "A Chopper Gunner is useful for burning a dangerous phase, especially late in the fight.",
+            "Kazimirs, Monkey Bombs, Decoys, or Stim Shots can save revives and reload windows.",
+            "When ready, return to S.A.M. in the Mainframe Chamber and hand over the Sentinel Artifact."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Defeat the Z-Rex",
+          "body": "The Z-Rex fight has four phases. Stay mobile, clear the arena, and shoot the weak spots whenever the boss exposes them.",
+          "bullets": [
+            "Shoot the eyes whenever you have a clean angle.",
+            "When the Z-Rex eats a Toxic Zombie, watch for the glowing patch that appears on its ribs or side and focus it immediately.",
+            "Avoid acid pools because they damage and slow you, which can trap you during a tail swing or charge.",
+            "When the boss jumps away and becomes immune, thin the zombie horde, re-plate, and reload.",
+            "Later phases add heavier movement pressure, dive attacks, and faster charges.",
+            "Use Scorestreaks or field upgrades when the boss is vulnerable, not while it is immune or moving out of the arena.",
+            "After the final phase, the ending sequence plays and Shattered Veil main quest completion is awarded."
+          ]
+        }
       ],
       "stepCount": 11
     },
@@ -803,6 +2383,9 @@
       "gameTitle": "Black Ops 6",
       "era": "classic",
       "summary": "Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake Franken-Klaus, power the portal, and choose the final S.A.M. or Richtofen path.",
+      "difficulty": "Very Hard",
+      "duration": "90-120 min",
+      "party": "Solo or squad",
       "requirements": [
         "Power + Pack-a-Punch",
         "Gorgofex Wonder Weapon",
@@ -810,6 +2393,172 @@
         "Explosive lethal",
         "Two Klaus arms from special rounds",
         "Boss-ready loadout"
+      ],
+      "rewards": [
+        "Blood, Sweat, an' Gears Grey operator skin",
+        "Ending-specific calling card",
+        "Weapon charm",
+        "XP and main quest completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Open Pack-a-Punch",
+          "body": "Use the guided opener to bring Janus Towers online before starting the hidden quest work. This gives you the movement routes, the accelerator room, and the Pack-a-Punch machine.",
+          "bullets": [
+            "Move through Project Janus HQ and buy enough doors to keep the later route between Tower 1, Tower 2, and Sublevel 10 fast.",
+            "Follow the objective path through the Executive Office and down to Sublevel 10.",
+            "Restore the Particle Accelerator system.",
+            "Destroy the nearby Aetherium crystal growths until Pack-a-Punch appears.",
+            "During early Kommando Klaus rounds, shoot or kill enough robots to collect two Klaus arms for the later Franken-Klaus step."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Secure the DNA Route",
+          "body": "The Teleportation Lab route starts in Mutant Research and ends with the Fowler Mutant Injection opening the Tower 2 scanner door.",
+          "bullets": [
+            "In T1 Mutant Research, kill the Geneticist zombie and take the Keycard.",
+            "Use the Keycard on the locked cabinet near the Richtofen family tanks and take the DNA Vial.",
+            "Pick up the Syringe from the small table near the Mangler tank in Mutant Research.",
+            "Ride the Particle Accelerator beam in Sublevel 10 and collide with the suspended corpse to knock it down.",
+            "Use the Syringe on the fallen body to collect Dr. Fowler blood, then return the Syringe to the Mutant Research machine.",
+            "Defeat the HVT Mangler that spawns and take the Fowler Mutant Injection.",
+            "Use the Injection at the scanner door in T2 Dark Entity Containment to open the Teleportation Lab route."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Build the Gorgofex",
+          "body": "The Gorgofex can appear from the box, but the quest path gives a reliable build route through Mutant Research, Bioweapons Lab, Quantum Computing, and Dark Entity Containment.",
+          "bullets": [
+            "In T1 Mutant Research, watch the static monitors near the family tanks and Deadshot Daiquiri. Note the first letter shown on each monitor.",
+            "Match the one-letter or two-letter clue to an element on the nearby periodic table.",
+            "Use that element number as the keypad code for T1 Bioweapons Lab. Add leading zeroes if the code is shorter than three digits.",
+            "Inside Bioweapons Lab, feed the Cyst three Vermin first, then three regular zombies. Pick up the Cyst after the container opens.",
+            "Take the Cyst to the three glowing Aetheric Flora spots around T1 Quantum Computing and drain each one.",
+            "In T2 Dark Entity Containment, start the Power Surge terminal route and hit the active terminals before the window expires.",
+            "When Uber Klaus appears, break its shoulder generators and lure it onto the charged panel in front of The Forsaken.",
+            "Defeat the possessed Uber Klaus form, then interact with the released essence to create the Gorgofex."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Assemble Franken-Klaus",
+          "body": "Build the hanging Klaus body in Android Assembly, then force an Uber Klaus electric attack to wake it.",
+          "bullets": [
+            "Bring the two Klaus arms from special rounds to T2 Android Assembly.",
+            "Find the left and right Klaus legs in Android Assembly. Check shelves, scrap piles, behind panels or doors, and the floor around the work area.",
+            "Attach all four limbs to the hanging Klaus body.",
+            "Bait Uber Klaus into firing its electric attack at the assembled body.",
+            "After Franken-Klaus activates, let him work at the Android Assembly terminal.",
+            "Advance a round when needed, then follow him to the S.A.M. Trial area in T2 Dark Entity Containment.",
+            "Complete the kill trial so Franken-Klaus can move to the T2 Teleportation Lab terminal."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Give Klaus the Code",
+          "body": "Franken-Klaus needs a four-digit access code built from Maxis file folders scattered through the offices and Teleportation Lab.",
+          "bullets": [
+            "Search T1 Executive Suite, T1 Director's Office, and T2 Teleportation Lab for four folders tied to Maxis personal items.",
+            "Possible files include the BND Badge, Notso's Collar, Scarf, Wristwatch, Combat Goggles, and Katana.",
+            "Each folder gives a date and a digit. Write both down.",
+            "Order the digits from the oldest folder date to the newest folder date.",
+            "Enter the resulting four-digit code into the T2 Teleportation Lab computer that Franken-Klaus is working on."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Move the Project Janus Brain",
+          "body": "Use Melee Macchiato to break open the correct Janus container, then carry the brain to the Teleportation Lab.",
+          "bullets": [
+            "Buy Melee Macchiato before leaving the Teleportation Lab route.",
+            "Go to T1 Quantum Computing Core and find the Project Janus container that can be broken by a Melee Macchiato punch.",
+            "Punch the container open and pick up the purple brain.",
+            "While carrying the brain, treat yourself as vulnerable and take the safest route back.",
+            "Place the brain into the red-lit containment unit beside Franken-Klaus in T2 Teleportation Lab."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Break the Portal Crystals",
+          "body": "Charge the Gorgofex with Quantum Vermin energy, then spend that charge on the blocked portal in Teleportation Lab.",
+          "bullets": [
+            "Go to T2 Sublevel 10 and activate the red-button terminal to start the Quantum Vermin event.",
+            "Kill the blue Quantum Vermin with the Gorgofex until the control-room canister produces a blue orb.",
+            "Interact with the orb so the charge attaches to the Gorgofex.",
+            "Do not fire the Gorgofex on the way back. If the charge is wasted, repeat the Vermin event.",
+            "Return to T2 Teleportation Lab and fire a charged Gorgofex shot into the crystals blocking the portal."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Cleanse the Fungal Head",
+          "body": "The portal still needs a charged organic anchor. Set up the water bucket, knock down the Fungal Head, clean it, and feed it souls.",
+          "bullets": [
+            "Find a yellow mop bucket in T1 Project Janus Reception or T2 Android Assembly and melee it under a sprinkler.",
+            "If the sprinkler is inactive, use an explosive lethal on the nearby smoke detector to start the water.",
+            "In T1 Quantum Computing Core, look for the high square opening in the wall and fire a charged Gorgofex shot into it.",
+            "Pick up the Fungal Head that drops.",
+            "Place the Fungal Head into the bucket, wait for it to clean, then pick it back up.",
+            "Kill zombies while carrying the head until it stops absorbing souls. Watch for the shadowy attacker that harasses the carrier.",
+            "Take the charged head to T2 Teleportation Lab and place it in the center of the portal frame."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Power the Portal",
+          "body": "After the Fungal Head is placed, blue Project Janus canisters open and purple anomalies begin floating around the map.",
+          "bullets": [
+            "Open a blue Project Janus canister and take the Vacuum-Seal Device inside.",
+            "Find the nearby floating purple object and throw the device at it from a little distance.",
+            "Pick the filled device back up after it captures the object.",
+            "Repeat until four Vacuum-Seal Devices are filled.",
+            "Insert all four filled devices into the portal console in T2 Teleportation Lab.",
+            "During lockdown, turn each red switch green while managing the zombie pressure. The number of switches can scale with squad size.",
+            "When the lockdown ends, the portal becomes the boss-fight entry point."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Prepare Before Entering",
+          "body": "The portal is a point of no return. Do not enter until the whole team is set up for the chosen finale.",
+          "bullets": [
+            "Aim for Legendary rarity, Pack-a-Punch III, Tier III armor, Self-Revive, and full ammo.",
+            "Keep the Gorgofex for quest utility, but bring a reliable boss-damage weapon as your main damage source.",
+            "For the S.A.M. fight, high burst damage and cover discipline matter more than range.",
+            "For the Richtofen fight, ranged precision weapons, Smoke Grenades, and Aether Shroud are much safer.",
+            "Useful perks include Juggernog, Quick Revive, Stamin-Up, Deadshot Daiquiri, Speed Cola, and Vulture Aid.",
+            "Combat Stims, Death Machine, Decoys, or Smokes can rescue a bad phase."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Choose the Finale Path",
+          "body": "Enter the portal, interact with the Sentinel Artifact, and commit to one of the two ending paths. Read the prompt carefully, since the choice determines the boss route and ending card for that run.",
+          "bullets": [
+            "After the choice, ride the elevator sequence into the Dark Aether arena route.",
+            "Charge the three L.T.G. Canisters by killing zombies close to each canister.",
+            "Ride to the next level and destroy the Aether crystals blocking the ascent.",
+            "Use the transition time to reload, re-plate, and call out ammo or revive problems before the roof.",
+            "The next arena starts the selected boss fight."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Defeat S.A.M. or Uber Richtofen",
+          "body": "Both finales reward completion, but they play very differently. S.A.M. is more pattern-based; Uber Richtofen is faster, messier, and less forgiving.",
+          "bullets": [
+            "S.A.M. path: stay near cover, clear zombies between attacks, and wait for weak points to expose after major beam or volley patterns.",
+            "S.A.M. path: between phases, complete the trial objective if possible. Ignoring it can add harmful modifiers to the fight.",
+            "S.A.M. path: shoot the outer glowing weak points first, then pour damage into the central eye when it becomes vulnerable.",
+            "Richtofen path: in the mech phase, break shoulder armor and then damage the exposed core or cockpit area.",
+            "Richtofen path: clear Klaus adds before the arena becomes covered in electric hazards.",
+            "Richtofen path: in the jetpack phase, use cover against the Wunderwaffe, avoid bomb markers, and save Smoke Grenades or Aether Shroud for damage windows.",
+            "After the selected boss falls, the ending sequence plays and the run awards Reckoning main quest completion."
+          ]
+        }
       ],
       "stepCount": 12
     },
@@ -821,11 +2570,334 @@
       "gameTitle": "Black Ops 7",
       "era": "bo7",
       "summary": "Repair Ol' Tessie, install Pack-a-Punch, build the Necrofluid Gauntlet, brew the serum, unlock the Ashwood prism, clear the four area puzzles, collect the final wisps, and defeat Veytharion.",
+      "difficulty": "Very Hard",
+      "duration": "100-130 min",
+      "party": "Solo or squad",
       "requirements": [
         "Ol' Tessie active",
         "Pack-a-Punch installed",
         "Abomination Beam installed",
         "Necrofluid Gauntlet built"
+      ],
+      "rewards": [
+        "Ashes of the Damned calling card",
+        "Main quest completion",
+        "Cursed relic access after completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Repair Ol' Tessie and Install Pack-a-Punch",
+          "body": "Start the run by bringing Ol' Tessie online, restoring the first power pumps, and installing Pack-a-Punch on the truck so the full map opens up.",
+          "bullets": [
+            "At Janus Towers Plaza, enter the Server Room and melee the round floor grate to reveal T.E.D.D.'s head.",
+            "Carry T.E.D.D.'s head outside and install it on the old pickup truck to activate Ol' Tessie.",
+            "Drive through the wooden road barricades and watch the truck health. Red pods damage the truck, green pods repair it, and special zombies can latch onto the sides.",
+            "At Blackwater Lake, clear the orange pods from the Power Pump outside the cabin, destroy the final pod on top, and restore power there.",
+            "Inside the Blackwater cabin, pick up the Jar of Spores from the kitchen counter near the sink. Keep it for the Widow's Lantern step.",
+            "Drive to Ashwood, take the zipline up, buy through the doors, and clear the orange pods from the Power Pump on the wooden bridge.",
+            "Flip the nearby Ashwood power switch after the pump is clear.",
+            "Drop back to ground level, park Ol' Tessie in the Ashwood garage, pick up the Pack-a-Punch machine from the workbench, and install it on the truck."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Collect the Farm Serum Parts",
+          "body": "Use Vandorn Farm to set up the Widow's Lantern, Human Bones, and Ravager Eyes before the later serum ritual asks for them.",
+          "bullets": [
+            "Restore power at Vandorn Farm if you have not already done it.",
+            "On the road just before the farm property, find the horse carcass glowing red.",
+            "Use the Jar of Spores on the horse. Return after three rounds and pick up the Widow's Lantern.",
+            "In the barn, look at the hanging bodies and find the one in the middle that is dripping blood from its leg.",
+            "Throw a Combat Axe at the bleeding leg to sever the foot, then throw a Molotov at the fallen foot and collect the Human Bones.",
+            "Combat Axes can be found in Reba's Diner or the Blackwater cabin.",
+            "On a Ravager round, activate a Farm saw trap and lure a Ravager into the blades. Pick up the Ravager Eyes after the trap kills it.",
+            "Ravagers appear on special rounds, roughly every five rounds, so save this step for a round where one is already active."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Take the Abomination Carcass",
+          "body": "Use Reba's Diner at Exit 115 to obtain the Freezer Key and claim the Abomination Carcass for Tessie's beam upgrade.",
+          "bullets": [
+            "Drive Ol' Tessie to Exit 115 and enter Reba's Diner.",
+            "Kill zombies inside the diner until a named Cook zombie appears and drops the Freezer Key.",
+            "Stay inside the diner for these kills; leaving the diner can waste progress toward the Cook spawn.",
+            "Use the Freezer Key on the freezer in the southwest kitchen corner near the back door.",
+            "Pick up the Abomination Carcass from the freezer.",
+            "Grab the Combat Axe from the nearby room if you still need one for the Human Bones step."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Install the Abomination Beam",
+          "body": "Upgrade Ol' Tessie in the Ashwood garage, then use the beam on road-side purple pods to collect Hoard Husk Chunks.",
+          "bullets": [
+            "Return to Tessie's garage in Ashwood with the Abomination Carcass.",
+            "Install the carcass upgrade at the garage station to unlock Ol' Tessie's Abomination Beam.",
+            "Drive any road between the main points of interest and look for large glowing purple pods along the side of the road or in Fog lanes.",
+            "Destroy a purple pod with the Abomination Beam.",
+            "Pick up the Hoard Husk Chunks that drop from the destroyed pod. These are one of the six serum ingredients."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Free Klaus",
+          "body": "Defeat Uber Klaus for his chip, then wake Klaus in Ashwood so he can power the Cosmodrome controls.",
+          "bullets": [
+            "After you have at least Pack-a-Punch level I, return to spawn near the Project Janus container by the Blackwater gate.",
+            "Kill Uber Klaus and pick up the Stabilizer Chip he drops.",
+            "Drive to Ashwood, use the zipline, and enter the jail in the northeast corner of Market Square.",
+            "Install the Stabilizer Chip on the keypad by Klaus' cell door.",
+            "Throw Stun Grenades so Klaus is hit by the blast. Bring at least three Stuns to avoid a missed throw; two direct hits can be enough if both connect.",
+            "When Klaus wakes up, he follows the player who stunned him.",
+            "Use your Tactical equipment input to point Klaus at objectives during later steps."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Scan and Fill the Aether Barrel",
+          "body": "Use Klaus in the Zarya Cosmodrome support room, then charge the Aether Barrel at Blackwater Lake, Ashwood, and Vandorn Farm before the energy decays.",
+          "bullets": [
+            "Take Klaus to Zarya Cosmodrome and go underground to the Support Systems room.",
+            "Direct Klaus to the western wall control panel so he shocks it on.",
+            "Interact with the control panel yourself after Klaus powers it.",
+            "Stand inside the red scan circle and look up toward the security camera until the scan completes.",
+            "Pick up the Aether Barrel from the room.",
+            "Insert the Aether Barrel into the Blackwater Lake Power Pump and defend it until the charge completes.",
+            "Move the barrel to the Ashwood Power Pump and defend it again.",
+            "Move the barrel to the Vandorn Farm Power Pump and finish the third defense.",
+            "Move quickly between pumps. If the barrel energy decays before all three charges are complete, restart the pump sequence."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Solve the Barn Cube",
+          "body": "Use the jump pad to read the rooftop symbols at Vandorn Farm, then match those symbols on the barn-cellar cube.",
+          "bullets": [
+            "After the three Power Pump defenses, take the filled Aether Barrel to the cellar under the Vandorn Farm barn.",
+            "Insert the barrel into the strange cube in the middle of the cellar.",
+            "Use the jump pad that launches you from Vandorn Farm toward Janus Towers Plaza.",
+            "While airborne, look down at the farm rooftops and write down the three glowing red symbols.",
+            "Return to the barn-cellar cube.",
+            "Cycle the symbols inside the green circles on the cube until they match the three rooftop symbols.",
+            "Interact with the front of the cube after the symbols are set correctly."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Claim the Necrofluid Gauntlet",
+          "body": "Take the Necrofluid Gauntlet from the opened cube and use its fire-and-recall behavior to clear the six cysts.",
+          "bullets": [
+            "Pick up the Necrofluid Gauntlet after the cube opens.",
+            "Find the six cysts tied to the newly opened weapon route.",
+            "Shoot each cyst with the gauntlet's primary fire.",
+            "Recall each shot with alternate fire after it hits. Reload may also recall the shot.",
+            "Repeat the primary-fire and recall sequence on all six cysts to finish the wonder weapon step."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Collect the Final Serum Ingredients",
+          "body": "Use Wisp Tea and the Necrofluid Gauntlet for the powder, then kill a Zursa with Tessie's beam for the limb.",
+          "bullets": [
+            "Buy Wisp Tea at Zarya Cosmodrome if you do not already have it.",
+            "Go to the Tailor Shop in Ashwood, east of the Power Pump.",
+            "Stand near the mirror and let Wisp Tea activate around it.",
+            "Shoot the mirror with the Necrofluid Gauntlet and pick up the Powder of the Forgotten.",
+            "Reach round 16 so Zursa enemies can spawn.",
+            "Kill a Zursa with Ol' Tessie's Abomination Beam as the final damage source.",
+            "Pick up the Mysterious Limb from the Zursa kill.",
+            "Before moving on, confirm you have all six serum ingredients: Powder of the Forgotten, Widow's Lantern, Human Bones, Ravager Eyes, Hoard Husk Chunks, and Mysterious Limb."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Brew the Serum in Yuri's Lab",
+          "body": "Use the Cosmodrome lab cipher to choose the correct three ingredients, add blood to the flask, and survive the lockdown.",
+          "bullets": [
+            "Drive to Zarya Cosmodrome and enter Yuri's Lab in the southwest part of the area.",
+            "Go to the back-corner table where the six serum ingredients are laid out.",
+            "Interact with the Powder of the Forgotten on the table to reveal the cipher on the chalkboard.",
+            "Read the three ingredient symbols from top to bottom and interact with those three ingredients in that same top-to-bottom order.",
+            "Use these ingredient names when matching the symbols: Powder of the Forgotten, Widow's Lantern, Human Bones, Ravager Eyes, Hoard Husk Chunks, and Mysterious Limb.",
+            "When the ingredients are correct, interact with the flask to add blood.",
+            "The player who adds blood is reduced to 75 maximum HP for the rest of the session.",
+            "Survive the lab lockdown for about two minutes, then interact with the same flask area again after the ritual ends."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Collect the Three Keys",
+          "body": "After the serum ritual changes the map, use the Necrofluid Gauntlet to collect the Terrapin, Bruin, and Nightbird Keys and bring each one back to Rabbit Alley.",
+          "bullets": [
+            "For each key, look for its colored glow, shoot the object with the Necrofluid Gauntlet, then recall or reload the shot so the barb breaks and the key drops.",
+            "Terrapin Key, green glow: search the Grounded Ship between Ashwood and Vandorn Farm. Possible spots are a blue shipping container on the deck, the lower ship area by a lit staircase, or a zombie-spawning window on the southern side of the deck.",
+            "Terrapin Key penalty: sprinting is disabled after pickup. Park Ol' Tessie close before grabbing it.",
+            "Bruin Key, yellow glow: search the Crashed Rocket road between Ashwood and Zarya Cosmodrome. Possible spots are the fallen radio tower above the road, the edge of the Cosmodrome building with the spinning radar dish, or the cliff by the Ashwood gate.",
+            "Bruin Key penalty: you are forced to melee-only movement after pickup, so plan a direct route back.",
+            "Nightbird Key, red glow: search the road between Ashwood and Exit 115. Possible spots are the T-Rex skull mouth on the western wall, the southern T-Rex skull on the ground, or the Project Janus trucks near Exit 115.",
+            "Nightbird Key penalty: health regeneration is disabled after pickup. Get into Ol' Tessie immediately.",
+            "Deposit every key at the locked prism or pyramid structure in Rabbit Alley beside Ashwood's The Ruby Rabbit."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Install the DG-2 Turret Barrel",
+          "body": "Open the Ashwood prism with all three keys, install the DG-2 Turret Barrel on Ol' Tessie, and use it to enable the four late-game area puzzles.",
+          "bullets": [
+            "After the third key is deposited, the Ashwood prism opens and a mid-quest cinematic plays.",
+            "Pick up the DG-2 Turret Barrel reward.",
+            "Take the DG-2 Turret Barrel to the Ashwood garage and install it on Ol' Tessie.",
+            "A large clock tower now floats over Ashwood.",
+            "Shoot the floating Ashwood clock tower with the DG-2 Turret so it glows purple.",
+            "Shoot one of the clock faces with the Necrofluid Gauntlet and recall the shot to make the gauntlet purple.",
+            "Refreshing the purple gauntlet this way is required for the Vandorn Farm, Exit 115, Zarya Cosmodrome, and Blackwater Lake puzzles."
+          ]
+        },
+        {
+          "n": 13,
+          "title": "Solve the Vandorn Farm Clock",
+          "body": "Use the purple gauntlet at the Farmhouse dinner table, then collect and defend the family artifacts.",
+          "bullets": [
+            "Turn the Necrofluid Gauntlet purple at the Ashwood clock tower, then go to Vandorn Farm.",
+            "Enter the Farmhouse and read the clock on the wall above the TV.",
+            "Look at the Roman numerals etched into the floor around the dinner table.",
+            "Stand on the Roman numeral that matches the hour shown by the wall clock.",
+            "Wait for the father corpse at the head of the table to look at you.",
+            "Shoot him with the purple Necrofluid Gauntlet when his eyes glow red.",
+            "Collect the four Farm artifacts: the Teddy Bear from the second-floor bunk beds, the face mask from the upper barn corner, the chalice by the cellar bathtub, and the Pigsticker from the garage workbench.",
+            "Place the four artifacts in the red circles that appear outside and defend them from zombies until the challenge completes."
+          ]
+        },
+        {
+          "n": 14,
+          "title": "Solve the Exit 115 Lightning Puzzle",
+          "body": "On an even-numbered round, use the purple gauntlet to freeze the Exit 115 clock event, summon the three special zombies, and lead each one to its matching lightning strike.",
+          "bullets": [
+            "Refresh the purple gauntlet at the Ashwood clock tower, then go to Exit 115 on an even-numbered round.",
+            "Shoot the clock above the Diner or Service Station area with the purple gauntlet to freeze the lightning window.",
+            "Trucker zombie, red: use Ol' Tessie's Abomination Beam on the back of the red shipping container near the Diner, then ram the zombie loose.",
+            "Waitress zombie, purple: gun-butt melee the Diner cash register.",
+            "Mechanic zombie, yellow: summon Klaus in the Workshop and direct him to the dead zombie on the ground beside the lifted car.",
+            "Lead the red Trucker zombie to the red lightning strike on top of the gas station.",
+            "Lead the purple Waitress zombie to the purple lightning strike on top of the Diner.",
+            "Lead the yellow Mechanic zombie to the yellow lightning strike on top of the service station.",
+            "You can split the zombies among co-op players. Solo players should move one zombie at a time and repeat the freeze window if needed."
+          ]
+        },
+        {
+          "n": 15,
+          "title": "Solve the Zarya Cosmodrome Rocket Puzzle",
+          "body": "Use the purple gauntlet on both rotating satellites, read the control-room word, enter its A=0 number code, and launch the rocket.",
+          "bullets": [
+            "Refresh the purple gauntlet at the Ashwood clock tower, then drive to Zarya Cosmodrome.",
+            "Find the two rotating satellites in the Cosmodrome area.",
+            "Shoot both satellites with the purple Necrofluid Gauntlet. Refresh purple mode at Ashwood between satellites if it expires.",
+            "Enter the Cosmodrome control room and look at the right-side computers for the six-letter code word.",
+            "Use A=0, B=1, C=2, and so on to convert the word into numbers.",
+            "Known code words: Rocket = 17-14-02-10-04-19, Engine = 04-13-06-08-13-04, Launch = 11-00-20-13-02-07, Weapon = 22-04-00-15-14-13.",
+            "Use the top TV screens to identify which word is active.",
+            "Shoot the red button on each monitor to lock in the correct number for that position.",
+            "Interact with the middle control-room button to launch the rocket."
+          ]
+        },
+        {
+          "n": 16,
+          "title": "Solve the Blackwater Projector",
+          "body": "Use the dock wisp and cabin projector to reveal the random film-reel order, then shoot the four reels in that exact order.",
+          "bullets": [
+            "Refresh the purple gauntlet at the Ashwood clock tower, then drive to Blackwater Lake.",
+            "Interact with the blue soul or wisp on the dock.",
+            "Go into the cabin screening room and shoot the projector with the purple Necrofluid Gauntlet.",
+            "The projector shows four reel locations in a random order. Memorize the order before leaving the room.",
+            "Front/cabin-front reel: on a second-floor shelf near the power switch.",
+            "Back/cabin-rear reel: underneath the rear porch stairs.",
+            "Tool shed/left reel: on a shelf in the small side room or hut.",
+            "Boat house/right reel: in the rafters above you in the boat house area.",
+            "Shoot the four film reels with the Necrofluid Gauntlet in the exact order shown by the projector.",
+            "If you shoot the wrong reel order, the game gives a jump-scare failure and you must re-read the projector order."
+          ]
+        },
+        {
+          "n": 17,
+          "title": "Send Klaus to the Dock",
+          "body": "After the reels are correct, use the upstairs bedroom wisp and Klaus to move the final item to the dock.",
+          "bullets": [
+            "Go to the second-floor bedroom in the Blackwater cabin.",
+            "Interact with the wisp at the foot of the bed where Speed Cola is located.",
+            "Call Klaus to the box beside the bed.",
+            "Wait while Klaus takes the item from the box and walks down toward the dock.",
+            "Talk to Klaus at the pier when you are ready to begin the final sequence.",
+            "Accept the vote to continue the main Easter egg."
+          ]
+        },
+        {
+          "n": 18,
+          "title": "Collect the Final Road Wisps",
+          "body": "Drive Ol' Tessie through the timed wisp route, collecting three wisps on each road segment until the boss teleport triggers.",
+          "bullets": [
+            "Board Ol' Tessie after accepting Klaus' final vote.",
+            "Wait a few seconds before driving into Monolith Forest so the wisp route starts cleanly.",
+            "Collect three gray wisps in Monolith Forest.",
+            "Collect three more wisps on the Janus Towers Plaza to Collapsed Tower road segment.",
+            "Collect three more wisps on the Vandorn Farm to Grounded Ship road segment, including the path over the top of Grounded Ship.",
+            "Collect the final three wisps through the Garage, Ashwood, and Lost Cabins route back toward Blackwater.",
+            "The route is timed. If the timer expires, wait until the next round and restart from Klaus.",
+            "Collecting the final wisp instantly teleports the team into the Veytharion arena."
+          ]
+        },
+        {
+          "n": 19,
+          "title": "Fight Veytharion Phase 1",
+          "body": "Use Ol' Tessie for movement and damage, collect arena boost, ram Veytharion, and shoot exposed weak points.",
+          "bullets": [
+            "Stay mobile in Ol' Tessie. The arena is built around driving, ramming, and turret pressure.",
+            "Collect boost pickups around the arena.",
+            "Ram the center of the arena or Veytharion when the opening appears.",
+            "Use Ol' Tessie's laser fire and the DG-2 Turret to damage the boss.",
+            "When rams expose weak points, shoot the weak points with the DG-2 Turret or your carried weapon.",
+            "Watch the red ground circles from Veytharion's explosive attacks and keep the truck out of them."
+          ]
+        },
+        {
+          "n": 20,
+          "title": "Break Veytharion's Immunity",
+          "body": "When Veytharion starts spinning and becomes immune, power Ol' Tessie through the blue beam and ram the boss to open the next weak spot.",
+          "bullets": [
+            "Veytharion becomes immune during the spinning phase.",
+            "Shoot Veytharion with the DG-2 Turret until a blue beam of light appears.",
+            "Drive Ol' Tessie into the blue beam to charge the truck.",
+            "Use the charged truck to ram Veytharion and remove the immunity.",
+            "Focus the weak spot that opens underneath the boss.",
+            "A Max Ammo can spawn in an arena corner after this phase, so call it out before grabbing it in co-op."
+          ]
+        },
+        {
+          "n": 21,
+          "title": "Survive the Final Boss Stage",
+          "body": "Cancel the purple beam attack, repair Ol' Tessie if she is thrown, and finish Veytharion before exiting.",
+          "bullets": [
+            "In the final stage, Veytharion adds a purple beam attack that can quickly destroy Ol' Tessie or down players.",
+            "When the beam is charging, ram the boss with Ol' Tessie to interrupt it.",
+            "Players outside the truck should hide behind pillars if the beam starts tracking them.",
+            "Veytharion can grab Ol' Tessie and throw it across the arena, forcing players out.",
+            "If Ol' Tessie is disabled, spend Salvage to repair her before continuing the vehicle phases.",
+            "Decoy Grenades and other distractions are useful when the truck is disabled or a teammate needs a revive.",
+            "Finish the remaining boss health with rams, DG-2 Turret damage, and exposed weak-point shots."
+          ]
+        },
+        {
+          "n": 22,
+          "title": "Claim Completion and Cursed Access",
+          "body": "Finish the fight, let the quest cinematic trigger, and make sure the completion unlock is banked before moving on.",
+          "bullets": [
+            "After Veytharion reaches zero health, the Ashes of the Damned completion cinematic triggers.",
+            "The main quest calling card and completion confirmation are awarded after the cinematic.",
+            "Completing Ashes of the Damned once unlocks Cursed mode relic access for future runs.",
+            "After the cinematic, go to the docks and interact with the relic before leaving to make sure the Cursed unlock is recorded."
+          ]
+        }
       ],
       "stepCount": 22
     },
@@ -837,11 +2909,260 @@
       "gameTitle": "Black Ops 7",
       "era": "bo7",
       "summary": "Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.",
+      "difficulty": "Hard",
+      "duration": "90-120 min",
+      "party": "Solo or squad",
       "requirements": [
         "Power restored",
         "Pack-a-Punch open",
         "Hacksaw collected",
         "LGM-1 Wonder Weapon acquired"
+      ],
+      "rewards": [
+        "Astra Malorum calling card",
+        "Main quest completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Repair the Harmonic Oculus and Open Pack-a-Punch",
+          "body": "Reach the Observatory Dome objective, repair the Harmonic Oculus with both missing components, survive the power defense, then collect the Hacksaw from its display case.",
+          "bullets": [
+            "Follow the early objective route to the Observatory Dome and interact with the Harmonic Oculus to learn it is missing two components.",
+            "Search Luminarium and Machina Astralis for the Harmonic Components. Their exact spawn points can rotate, but they are found near dead bodies in those areas.",
+            "Return both components to the Harmonic Oculus and activate the power sequence.",
+            "Hold the Observatory Dome during the defense event. When the event ends, Pack-a-Punch becomes available in the dome.",
+            "Open the route into Museum Infinitum, break the glass display case beside the Exfil Machine, and pick up the Hacksaw.",
+            "The Hacksaw is needed later for the cryo-chamber brain extraction, so take it before leaving the museum route."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Gather Oscar Trap Materials",
+          "body": "Collect the four trap-material sets used to turn Oscar's attacks against him and earn the LGM-1 Wonder Weapon.",
+          "bullets": [
+            "Wires: shoot a blinking lamp post anywhere on the map.",
+            "Crystals: buy or roll Cryofreeze, apply it to a weapon, then shoot three Aetherium crystals.",
+            "Battery: shoot Tessie with a Pack-a-Punched weapon.",
+            "Drone part: kill one of Oscar's flying drones and pick up the part it drops.",
+            "These materials are not placed at a normal craft bench. They are used when activating Oscar's special trap interactions.",
+            "Keep one player ready to kite Oscar while the other players clear enemies; the trap interactions are much easier when the room is under control."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Kill Oscar with the Rocket Ship",
+          "body": "Use the rocket trap near Speed Cola as Oscar's first forced damage event and collect the first Shiny Trinket reward.",
+          "bullets": [
+            "Go to the rocket ship trap in the area in front of Speed Cola.",
+            "Lead Oscar behind or directly under the rocket ship before activating the trap.",
+            "Use the trap while Oscar is inside the danger area so the rocket hits him instead of missing.",
+            "After the trap kills him, pick up the Shiny Trinket that drops.",
+            "Oscar returns after a short delay, so use that time to restock ammo, buy armor, and move to the next trap setup."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Kill Oscar with the Electro-Volt Projector",
+          "body": "Use the trap room near Juggernog to overcharge the battery, electrocute Oscar, and collect the second Shiny Trinket.",
+          "bullets": [
+            "Go to the Electro-Volt projector room behind Juggernog.",
+            "Lead Oscar into the room before starting the trap interaction.",
+            "Hold interact on the trap lever to deposit the correct material set and begin the overcharge sequence.",
+            "Stay alive while the Battery Overcharge bar fills on the left side of the screen.",
+            "When the trap fires, keep Oscar inside the projector room so the electricity kills him.",
+            "Pick up the second Shiny Trinket after Oscar goes down."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Kill Oscar with the Sun Beam and Take the LGM-1",
+          "body": "Activate the Sun-aligned telescope beam in the Pack-a-Punch room, pull Oscar through it, and pick up the LGM-1 when he dies the third time.",
+          "bullets": [
+            "In the Pack-a-Punch room, shoot the smoking valves around the dome until the hissing sequence ends and the telescope makes a loud activation sound.",
+            "If a valve stops smoking, look for the next smoking valve and shoot it quickly enough to keep the sequence going.",
+            "Lead Oscar close to Pack-a-Punch before opening the telescope controls.",
+            "Interact with the left side of the Pack-a-Punch organ to open Search Mode through the Harmonic Oculus.",
+            "Aim the Harmonic Oculus at the Sun to trigger the sun beam.",
+            "Keep Oscar in the beam path until it kills him.",
+            "After this third Oscar trap kill, pick up the LGM-1 Wonder Weapon from his drop.",
+            "Before leaving Search Mode, hover over Mars and write down the coordinate values in the bottom-left of the screen for the later Teleporter Room locker."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Decode the Cryo Chamber Key",
+          "body": "Use Oscar's Thurston audio log to turn three planet names into a three-digit code, then unlock the Cryo Key beside Pack-a-Punch.",
+          "bullets": [
+            "Sneak behind Oscar and listen until his Thurston audio log plays three planet names.",
+            "Convert each planet into its position from the Sun to form the code.",
+            "Use this order: Mercury is 1, Venus is 2, Earth is 3, Mars is 4, Jupiter is 5, Saturn is 6, Uranus is 7, and Neptune is 8.",
+            "Example: if the log says Mars, Saturn, Neptune, the code is 468.",
+            "Enter the three digits into the code machine in the Pack-a-Punch room.",
+            "Pick up the Cryo Key beside the dead body on the platform that opens."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Extract and Perfuse the Brain",
+          "body": "Use the Cryo Key and Hacksaw on the frozen body, carry the brain through its defense event, then place it in the Teleporter Room.",
+          "bullets": [
+            "Go to the cryo capsule body inside Machina Astralis and use the Cryo Key.",
+            "Interact with the body again to cut out the brain with the Hacksaw.",
+            "Carry the brain to the Perfusion Device or container in front of Juggernog.",
+            "Place the brain in the device and survive the lockdown until the perfusion sequence completes.",
+            "Pick the brain back up after the defense ends.",
+            "Carry it to the Teleporter Room, place it on the table, and hold interact again to attempt portal creation.",
+            "The portal attempt fails because more data is required, which pushes you into the coordinate, book, and planetarium puzzles."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Open the Teleporter Room Locker",
+          "body": "Use the Mars coordinate values from Search Mode to open the upper Teleporter Room case.",
+          "bullets": [
+            "If you did not record Mars earlier, return to Pack-a-Punch and interact with the left side of the organ to reopen Search Mode.",
+            "Hover over Mars in the Harmonic Oculus view.",
+            "Write down the coordinate values shown in the bottom-left of the screen.",
+            "Go to the upper floor of the Teleporter Room.",
+            "Interact with the case or locker there and input the Mars coordinate code exactly as shown.",
+            "Confirm the case opens before moving to the Library puzzle."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Solve the Library Books and Claim Neptune",
+          "body": "Read the brain-machine book titles, count those titles in each Library section, rotate the matching busts, and climb to the Neptune planet.",
+          "bullets": [
+            "Return to the machine where you placed the brain in the Teleporter Room.",
+            "Watch the machine cycle through book names and write every listed title down.",
+            "Go to the Stamin-Up room, which is also the Library.",
+            "The Library has three sections. Each section has one bust and three bookshelves.",
+            "Interact with the shelves in a section and count how many times your listed book titles appear in that section.",
+            "Rotate that section's bust the same number of times as the matching book-title count.",
+            "The busts can only be moved during the opening window of a round, roughly the first 15-30 seconds. If they will not move, flip the round and listen for the ready sound.",
+            "Example: if one section contains two of the titles shown by the brain machine, rotate that section's bust two times.",
+            "When all three sections are solved, a ladder hatch opens in the Library. Climb the ladder and pick up the Neptune planet."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Record the Planet Papers and Align the Planetarium",
+          "body": "Find the Mars, Neptune, and Saturn direction papers, place Neptune, then shoot the planetarium bodies until each one matches its paper direction.",
+          "bullets": [
+            "Paper 1 is on top of the desk on the second floor of Machina Astralis.",
+            "Paper 2 is on the desk in the Electro-Volt trap room near Juggernog.",
+            "Paper 3 is on the middle desk in the Stamin-Up Library room.",
+            "Each paper shows one planet and one compass direction. The planets used for this step are Mars, Neptune, and Saturn, while the directions can change between runs.",
+            "Go to the top of Machina Astralis and place Neptune on the planetarium.",
+            "Find the loose or open wire hanging near the top stairs and interact with it to power the planetarium sequence.",
+            "Use the compass markings around the Sun Chandelier as your direction reference.",
+            "Shoot Mars, Neptune, and Saturn until each planet lines up with its paper direction. Example: if a paper shows Saturn SE, keep shooting Saturn until it reaches the SE marker."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Defend the Portal and Enter Mars",
+          "body": "Interact with the brain after the planetarium alignment and protect the portal from drones until the Mars portal stabilizes.",
+          "bullets": [
+            "After Mars, Neptune, and Saturn are aligned, return to the brain setup and interact with the brain.",
+            "A defense event begins around the portal.",
+            "Flying drones rush the portal and make a loud siren-like sound when they commit to the dive.",
+            "Kill the drones before they enter the portal. Letting too many through fails the objective and forces the portal defense to be repeated.",
+            "Keep one player focused on the portal mouth while the rest clear zombies and replace armor.",
+            "When the defense completes, use the portal to travel to Mars."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Capture the Ascendant Eye on Mars",
+          "body": "Place the brain by the Mars portal, trigger the bird, shoot the outer orbs, hold the bird in place, and grab the Ascendant Eye during anti-gravity.",
+          "bullets": [
+            "On Mars, pick up the brain from the center area and place it on the top machine by the portal.",
+            "Hold interact on the brain until the bird event starts. A sudden loud sound means the bird has spawned.",
+            "Shoot the four metal orbs outside the map in this order: back right, back left, front right, front left.",
+            "Correct outer orbs glow after being shot. If the orbs do not glow, wait for a new round and interact with the brain again to restart the bird cue.",
+            "After the four outer orbs are active, repeatedly shoot the matching metal orb above the portal inside the map to keep the bird held in place.",
+            "Continue until anti-gravity begins.",
+            "When the bird swoops down, jump through it and interact to capture the Ascendant Eye.",
+            "Place the Ascendant Eye artifact in the statue at the back right of the Mars area."
+          ]
+        },
+        {
+          "n": 13,
+          "title": "Read the Organ Symbols and Power the Pillars",
+          "body": "Use the Pack-a-Punch organ to read four symbols plus the static gap, then shoot the five Mars pillar tops with the LGM-1.",
+          "bullets": [
+            "Return to Pack-a-Punch and interact with the organ.",
+            "Watch the circular screen on the right side of the organ.",
+            "Write down the four symbols that flash. The melody has a clear beginning and end.",
+            "Also write down where the static appears in the sequence.",
+            "Mars uses five pillar symbols even though the organ clearly shows only four symbols. The static position tells you where the missing fifth pillar symbol belongs in the final order.",
+            "Return to Mars and locate the five symbol pillars.",
+            "Shoot the top of each pillar with the LGM-1 to charge them.",
+            "The top-shot order does not matter for charging, but visiting them in your planned code order helps you memorize the route before the timed input."
+          ]
+        },
+        {
+          "n": 14,
+          "title": "Enter the Timed Pillar Code",
+          "body": "Interact with the bottom symbols in the completed five-symbol order, using the static gap to place the missing symbol.",
+          "bullets": [
+            "Build the final order from the four organ symbols and the static gap. Insert the fifth Mars pillar symbol at the position where the static appeared.",
+            "Start only when the round is controlled, because the pillar input is timed.",
+            "Interact with the symbol at the bottom of each pillar in the completed five-symbol order.",
+            "A correct input turns blue.",
+            "A wrong input turns red.",
+            "Three wrong inputs fail the attempt, and you must advance to a new round before retrying.",
+            "After the five-symbol code is accepted, interact with the brain to start the Caltheris boss fight."
+          ]
+        },
+        {
+          "n": 15,
+          "title": "Defeat Caltheris Part 1",
+          "body": "In the opening phase, Caltheris floats above the arena and cannot be damaged directly, so fill the arena soul boxes and trigger the brain blasts instead.",
+          "bullets": [
+            "Enter the fight with Pack-a-Punch III weapons, full armor, self-revive coverage, and movement-focused perks if possible.",
+            "Watch the edge of the arena for the active soul box or generator-style charge objective.",
+            "Kill zombies near the active objective until it fills.",
+            "Stay mobile while the floating Caltheris tracks players with lasers; do not waste ammo shooting the boss during this phase.",
+            "When the screen flashes blue, the charge is ready.",
+            "Interact with the charged objective or brain device to fire a blast that removes a large chunk of Caltheris' health.",
+            "Repeat the soul-box charge and brain-blast sequence three times to end Part 1.",
+            "Use the LGM-1 and high-damage Pack-a-Punched weapons to clear specials before they crowd the activation point."
+          ]
+        },
+        {
+          "n": 16,
+          "title": "Defeat Caltheris Part 2 and Ascendant",
+          "body": "When Caltheris becomes a moving monster, strip armor, shoot glowing weak points, and keep distance from the targeted boulder and ground-slam attacks.",
+          "bullets": [
+            "Part 2 starts when Caltheris spawns as a large monster in the arena instead of floating out of reach.",
+            "Shoot the glowing weak points across Caltheris' body until a larger glowing damage spot appears.",
+            "Unload into the large glowing spot as soon as it opens, because that is the best damage window.",
+            "Keep distance from the player-targeted boulder throw; if the boulder is aimed at you, move laterally and keep sliding instead of backing straight up.",
+            "After Part 2 health is depleted, Caltheris returns as Caltheris Ascendant.",
+            "Ascendant uses the same weak-point damage plan but adds a ground-slam attack, so keep enough spacing to dodge the slam before committing to damage.",
+            "Clear drones, armored enemies, and specials before they trap you during a weak-point window.",
+            "Refresh armor between damage windows; going down while a large weak spot is open costs more time than restocking does."
+          ]
+        },
+        {
+          "n": 17,
+          "title": "Defeat Caltheris the Needle and Claim Completion",
+          "body": "The final phase keeps the weak-point pattern but upgrades the boulder attack with purple pools, so save the brain-jar power-up and finish the exposed weak spots cleanly.",
+          "bullets": [
+            "The last form is Caltheris the Needle.",
+            "Use the same armor-break and glowing weak-point damage plan from Part 2 and Ascendant.",
+            "The boulder attack now leaves purple pools on the ground. Avoid those pools and route your loop away from any lane that has been covered.",
+            "The brain jar can drop a strong emergency power-up that functions like an Insta-Kill, Max Ammo, and full Field Upgrade refill at the same time.",
+            "Save that power-up for a late damage window or a dangerous recovery moment instead of grabbing it immediately.",
+            "Use the wall-jump routes and low-gravity movement to stay off the ground when rocks, pools, or arena pressure would trap you.",
+            "Continue breaking armor and shooting exposed critical spots until Caltheris the Needle reaches zero health.",
+            "There is no extra symbol code, planet alignment, or item placement after the pillar code starts the boss fight.",
+            "After Caltheris dies, wait for the completion sequence and confirm the Astra Malorum calling card and main quest completion confirmation are awarded."
+          ]
+        }
       ],
       "stepCount": 17
     },
@@ -853,12 +3174,360 @@
       "gameTitle": "Black Ops 7",
       "era": "bo7",
       "summary": "Open Pack-a-Punch across both timelines, build the Blundergat, upgrade it into the Sundergat, restore the Twins through the swing, fireplace, music box, piano, cymbals, and golden-note routes, then destroy the Dark Heart.",
+      "difficulty": "Hard",
+      "duration": "90-120 min",
+      "party": "Solo or squad",
       "requirements": [
         "Pack-a-Punch open",
         "Blundergat crafted",
         "Sundergat upgraded",
         "Wisp Tea and Death Perception available",
         "Combat Axe, Molotov, and Brain Rot or Psych Grenade ready"
+      ],
+      "rewards": [
+        "Paradox Junction calling card",
+        "Main quest completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Open Pack-a-Punch and the Past Timeline",
+          "body": "Start in destroyed Nuketown, collect the Truck Keys, use the first forced time jump to reach the normal past timeline, then clear the temporal storm so Pack-a-Punch appears on Trinity Avenue.",
+          "bullets": [
+            "Use destroyed Nuketown for the ruined future timeline and normal Nuketown for the cleaner past timeline.",
+            "Buy through the early route toward the eastern side of the map and pick up the Truck Keys from the zombie corpse.",
+            "Continue rounds until the first dog-round timeline event, usually around round 6 or 7, pulls you into normal Nuketown.",
+            "Use the Truck Keys on the oil truck that blocks the road so the next section of normal Nuketown opens.",
+            "Go to the southern temporal storm area and shoot all four storm anchor points.",
+            "Zombies spawn out of the storm while the anchors are active. Clear them whenever the storm stops taking damage, then resume shooting the anchors.",
+            "When all four anchors are destroyed, Pack-a-Punch appears on Trinity Avenue.",
+            "Keep both timelines open from this point forward because almost every quest item asks you to move between matching locations in the future and past."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Collect the Blundergat Barrel from Cysts",
+          "body": "In destroyed Nuketown, feed yellow wall cysts with nearby zombie kills until one of them drops the Barrel.",
+          "bullets": [
+            "Stay in destroyed Nuketown for this step; the yellow cysts do not appear in normal Nuketown.",
+            "Find a yellow cyst stuck to a wall and train zombies close to it.",
+            "Kill about 10 zombies beside the cyst so it absorbs their souls.",
+            "When the cyst pops, check the dropped items for the Barrel.",
+            "If the Barrel does not drop, repeat the same soul-feed process at another cyst.",
+            "Check the southern part of the map carefully, because that side can have multiple cysts.",
+            "Do not leave the Barrel on the ground. Pick it up before flipping rounds or moving to another objective."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Take the Sealant and Make the Acid Vial",
+          "body": "Use the Yellow House Sealant, the SO3 vial, and the Green House sink to create acid for the mannequin route that awards the Hammer.",
+          "bullets": [
+            "In normal Nuketown, go to the second floor of the Yellow House and pick up the Sealant from the bookshelf.",
+            "In destroyed Nuketown, go to the second floor of the Yellow House and pick up the SO3 vial from the desk.",
+            "Still in destroyed Nuketown, take the vial to the Green House sink and interact with the sink to fill it.",
+            "The filled vial becomes the acid used on the mannequins.",
+            "In co-op, each player has their own vial progress. Vial charges are not shared across the squad.",
+            "A filled vial usually covers 2-3 mannequins before it needs to be refilled, so expect to return to the Green House sink more than once."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Acid the Mannequins and Claim the Hammer",
+          "body": "In normal Nuketown, mark every headed mannequin with the acid vial, then check the matching mannequin spots in destroyed Nuketown for the Hammer.",
+          "bullets": [
+            "Return to normal Nuketown with a filled acid vial.",
+            "Interact with mannequins that still have heads. Smoke above a mannequin confirms the acid was applied.",
+            "There are 12 headed mannequin targets in normal Nuketown.",
+            "If the vial runs out, return to destroyed Nuketown, refill at the Green House sink, then continue marking mannequins in normal Nuketown.",
+            "After all headed mannequins have been treated, go back to destroyed Nuketown.",
+            "Check the locations where those mannequins appeared. One of the matching future spots now contains the Hammer.",
+            "Pick up the Hammer and confirm you still have the Sealant and Barrel before moving to the Stock route."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Break the Noisy Growth and Take the Stock",
+          "body": "Use the black-growth audio cue in destroyed Nuketown to identify the correct wall, then blow that matching wall open in normal Nuketown and collect the Stock in the future.",
+          "bullets": [
+            "In destroyed Nuketown, check the three black growth wall spots and listen closely.",
+            "Growth spot 1: Yellow House Garage.",
+            "Growth spot 2: the Green House staircase area.",
+            "Growth spot 3: Trinity Avenue near the perk-side wall.",
+            "Only one growth makes the distinct audio cue. Remember that exact wall.",
+            "Travel to normal Nuketown and throw a Semtex or another explosive at the matching wall location.",
+            "After the wall is opened in normal Nuketown, return to the matching spot in destroyed Nuketown.",
+            "Pick up the Stock from the broken wall opening."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Craft the Blundergat in the Truck",
+          "body": "Bring the Barrel, Hammer, Stock, and Sealant to the truck workbench in destroyed Nuketown and build the Blundergat.",
+          "bullets": [
+            "Go to the red truck or middle truck in the Cul-de-Sac of destroyed Nuketown.",
+            "Find the workbench inside the truck.",
+            "Melee or interact with the workbench if it is closed.",
+            "Add the Blundergat parts to the bench.",
+            "Craft and pick up the Blundergat before starting the upgrade route.",
+            "If you are carrying another main weapon, decide which weapon to replace before crafting so the Blundergat is not left sitting on the bench."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Upgrade the Blundergat into the Sundergat",
+          "body": "Start rounds in destroyed Nuketown, release three fire-tornado enemies, kill each one at the truck with the Blundergat, then move the weapon through the past and future workbenches.",
+          "bullets": [
+            "Start a new round while you are in destroyed Nuketown. The fire-tornado enemy will not spawn if the round starts in normal Nuketown.",
+            "Look for the fire tornado in the Yellow House Backyard, Green House Backyard, or the Trinity Avenue alley.",
+            "Approach the fire tornado to release the Tortured Zombie with the blue aura.",
+            "Keep normal zombies away from the Tortured Zombie. If it absorbs too many, it can disappear before reaching the truck.",
+            "Lead the Tortured Zombie to the Blundergat workbench in the red truck.",
+            "Kill it with the Blundergat while it is close to or inside the truck so the blue aura is absorbed by the workbench.",
+            "Repeat the process on two more rounds. The third fire-tornado target becomes a Shock Mimic, and the final hit still needs to come from the Blundergat.",
+            "After all three souls are absorbed, travel to normal Nuketown, melee the workbench, and place the Blundergat inside.",
+            "Return to destroyed Nuketown, open the workbench again, and pick up the upgraded Sundergat. When Pack-a-Punched, it is named Holistic Dichotomizer."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Use the RC-XD to Open the Garage and Get Chalk",
+          "body": "Find the RC-XD Controller in destroyed Nuketown, drive the RC-XD through the ramp route, detonate it by the garage tank, then collect the Twins item and Chalk.",
+          "bullets": [
+            "The RC-XD Controller can spawn on the shelf in the Yellow House Garage.",
+            "It can also spawn by the crate to the right of Pack-a-Punch.",
+            "It can also spawn behind the Green House, near the backyard or perk-side area.",
+            "Interact with the controller to take control of the RC-XD.",
+            "Drive through the marked ramp route toward the garage. Watch the battery timer on the lower-left of the screen.",
+            "Use the final ramp to jump over the debris into the garage.",
+            "Detonate the RC-XD beside the red gas tank or barrel inside the garage to blow open the blocked door.",
+            "If the RC-XD runs out of time, search the controller spawn locations again and retry the route.",
+            "Enter the opened garage near Pack-a-Punch, pick up the head sitting on the crate to your left, then wait for the Chalk to appear on the floor and pick it up."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Repair the Swing Set for the Twins",
+          "body": "Take the swing seat from normal Nuketown, attach it to the destroyed Yellow House swing set, then place the Chalk to trigger the Twins scene.",
+          "bullets": [
+            "Open the needed doors in both timelines before starting this step so you can move between matching yards quickly.",
+            "In normal Nuketown, go to the Yellow House Backyard and shoot the wooden seat off the swing set.",
+            "Pick up the Swing Seat from the ground.",
+            "Travel to destroyed Nuketown and return to the Yellow House Backyard swing set.",
+            "Interact with the swing set to attach the Swing Seat.",
+            "Interact again to place the Chalk.",
+            "Watch for the short Twins scene at the swing set. This confirms the step is complete and makes the nearby red toolbox usable."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Plant the Seed and Light the Fireplace",
+          "body": "Use the Yellow House Garage toolbox seed to grow a tree, charge it with Blundergat-family kills, cut three Strange Firewood pieces, and light the Yellow House fireplace.",
+          "bullets": [
+            "After the Twins swing scene, go to the Yellow House Garage in destroyed Nuketown.",
+            "Open the red toolbox on the shelf and take the Irradiated Seeds or Plant Seeds.",
+            "Travel to normal Nuketown and go to the dug-up dirt spot on Trinity Avenue near Pack-a-Punch and the hedge.",
+            "Plant the seed in the dirt mound.",
+            "Kill zombies near the sprouting tree with the Blundergat or Sundergat until the tree finishes absorbing souls.",
+            "A white screen flash and Max Ammo confirm the tree is charged.",
+            "Travel to destroyed Nuketown and return to the same tree location.",
+            "Throw a Combat Axe at the fully grown tree three times and pick up all three Strange Firewood pieces.",
+            "Travel to normal Nuketown, place the Strange Firewood in the Yellow House fireplace, then throw a Molotov at the wood to light it."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Get the Goggles with Wisp Tea",
+          "body": "Shoot the speaker pole near Pack-a-Punch, then use a Wisp Tea wisp to drag the Goggles back into the playable area.",
+          "bullets": [
+            "In destroyed Nuketown, stand near Pack-a-Punch and look for the speaker pole to the left of the machine.",
+            "Shoot the very top of the pole. Aim for the pole cap, not the speakers.",
+            "The Goggles drop outside the fence if the shot is correct.",
+            "Buy Wisp Tea if you do not already have it.",
+            "Shoot a zombie to summon your wisp, then let the wisp move to the dropped Goggles.",
+            "Pick up the Goggles after the wisp carries them inside the map."
+          ]
+        },
+        {
+          "n": 12,
+          "title": "Find the Headset with Death Perception",
+          "body": "Use Death Perception in destroyed Nuketown to reveal the Headset outline at one of three possible locations.",
+          "bullets": [
+            "Buy Death Perception before searching so the Headset outline is visible.",
+            "Headset spot 1: Yellow House Backyard, near the mannequin hand and perk-side area.",
+            "Headset spot 2: Green House upstairs, on the wall connecting the two upstairs rooms.",
+            "Headset spot 3: Cul-de-Sac, in the trash can left of the GobbleGum machine.",
+            "Interact with the highlighted Headset once you find it.",
+            "You need both the Goggles and the Headset before the Toy Box step will progress."
+          ]
+        },
+        {
+          "n": 13,
+          "title": "Win Four Square and Escort the Cymbals",
+          "body": "Place the Goggles and Headset in the Toy Box, roll the red ball onto the Green House Backyard X, complete Four Square in the past, and escort the Cymbals with Sundergat souls.",
+          "bullets": [
+            "In normal Nuketown, go to the blue Toy Box on Trinity Avenue near the Exfil point and place the Goggles and Headset inside.",
+            "Return to destroyed Nuketown and go to the Green House Backyard behind the garage. A white X should be visible on the ground.",
+            "Find the red ball. Spawn spot 1: Trinity Avenue roofline directly above the M8A1 wall-buy side.",
+            "Spawn spot 2: stacked ammo crates on a wooden box near the Trinity Avenue alley.",
+            "Spawn spot 3: Yellow House Backyard, on the patio pillar.",
+            "Shoot the ball down, then keep shooting it along the ground until it rests in the middle of the Green House Backyard X.",
+            "When the X glows blue, travel to normal Nuketown and return to the same backyard spot.",
+            "Interact with the floating ball to start the Four Square minigame.",
+            "Melee the ball after it bounces so it moves to another square inside the white lines.",
+            "Do not let it bounce twice in the same square and do not leave the white lines. If you fail, wait for the ball to respawn and retry.",
+            "When the timer ends, the Cymbals appear.",
+            "Shoot the Cymbals with the Sundergat, then kill zombies near them with the Sundergat so they absorb souls and move toward the Toy Box.",
+            "The step is complete when the Cymbals reach the Toy Box and the screen flashes white."
+          ]
+        },
+        {
+          "n": 14,
+          "title": "Turn the Piano Teacher",
+          "body": "Use Brain Rot or a Psych Grenade on the Piano Teacher in destroyed Nuketown, then beat her to the normal-timeline piano before she dies.",
+          "bullets": [
+            "Go to the Green House Backyard in destroyed Nuketown.",
+            "Wait for the Piano Teacher to appear near the back fence. She is slower and less aggressive than normal zombies.",
+            "She usually appears once per round, so hold a zombie if you need a calm attempt.",
+            "Turn her with Brain Rot or a Psych Grenade.",
+            "After she turns, she moves into the Green House and goes to the piano.",
+            "Immediately travel to normal Nuketown and run to the Green House piano.",
+            "If you arrive in time, she opens and plays the piano before exploding.",
+            "If she dies before the piano interaction, advance to the next round and repeat the teacher step."
+          ]
+        },
+        {
+          "n": 15,
+          "title": "Read the Eight Blue Notes",
+          "body": "In destroyed Nuketown, interact with the eight blue notes in blink-count order, using the number of blinks as the sequence rather than the physical route.",
+          "bullets": [
+            "Each blue note blinks between one and eight times. The note that blinks once is first, the note that blinks twice is second, and so on.",
+            "Note location 1: Green House Backyard, on the left side of the bunker area.",
+            "Note location 2: Yellow House Backyard, on the garden fence.",
+            "Note location 3: Cul-de-Sac, on the yellow bus.",
+            "Note location 4: Cul-de-Sac, on the fence to the right of the teleporter.",
+            "Note location 5: Trinity Avenue, on the garage door left of the alleyway.",
+            "Note location 6: Trinity Avenue, on the brick wall left of the M8A1 wall buy.",
+            "Note location 7: Trinity Avenue, on the rock left of Pack-a-Punch near the strange tree.",
+            "Note location 8: Trinity Avenue, on the broken fence right of the Exfil phone.",
+            "Write down each location with its blink count before interacting so you do not lose the order mid-round.",
+            "Interact with all eight notes from one blink through eight blinks, then travel to normal Nuketown."
+          ]
+        },
+        {
+          "n": 16,
+          "title": "Play the Piano and Mark the Soul X",
+          "body": "Use the Green House piano in normal Nuketown, play the fixed melody, then return to destroyed Nuketown and activate the new Trinity Avenue X.",
+          "bullets": [
+            "In normal Nuketown, go to the Green House piano after the blue-note sequence is complete.",
+            "Interact with the piano when it glows yellow.",
+            "Play the melody A-F-G-E-F-E-C-E.",
+            "If you make a mistake or time out, wait for the piano to become interactable again. You do not need to flip the round just to retry the piano.",
+            "A successful input plays the full melody and confirms the piano route.",
+            "Return to destroyed Nuketown and go to Trinity Avenue near the truck.",
+            "A new white X appears on the ground after the piano is solved."
+          ]
+        },
+        {
+          "n": 17,
+          "title": "Shoot the Floating Zombies and Win the Bouncing Ball Game",
+          "body": "Free three out-of-map souls, then complete the circle minigame by killing launched zombies before they land.",
+          "bullets": [
+            "In destroyed Nuketown, search outside the playable fences for three floating zombies.",
+            "Good places to check are the Yellow House Backyard fence line, the Green House Backyard fence line, and the far map edges.",
+            "Shoot all three floating zombies. Each correct zombie leaves or sends a soul orb toward the Trinity Avenue X.",
+            "Confirm the X near the southern truck has three orbs above it.",
+            "Travel to normal Nuketown and go to the matching circle on the ground.",
+            "Interact with the floating ball in the middle of the circle to begin the minigame.",
+            "When the ball bounces, zombies are launched into the air.",
+            "Kill all three airborne zombies before they touch the ground.",
+            "Complete four successful bounce cycles.",
+            "The minigame fails if a zombie lands, if a player shoots too early, or if a player leaves the circle. Wait about two minutes before retrying after a fail.",
+            "A charged Sundergat shot is strong here because the ricochet can catch airborne targets quickly."
+          ]
+        },
+        {
+          "n": 18,
+          "title": "Escort the Golden Note to the Piano",
+          "body": "After the bouncing ball game, charge the Golden Note with Sundergat kills and move it into the Green House piano.",
+          "bullets": [
+            "When the bouncing ball game is complete, a Golden Note appears in the middle of the circle.",
+            "Shoot or activate the Golden Note with the Sundergat if it is not moving yet.",
+            "Kill zombies close to the Golden Note with the Sundergat so it absorbs souls.",
+            "The note moves from the circle toward the Green House.",
+            "Stay near it and keep using Sundergat kills whenever it pauses.",
+            "Escort it through the back of the house until it reaches the piano.",
+            "The piano glows with a golden aura when the Golden Note route is complete."
+          ]
+        },
+        {
+          "n": 19,
+          "title": "Set the Doomsday Clock and Summon the Twins",
+          "body": "Set both Green House clock hands to zero in destroyed Nuketown, shoot the red hand during the time jump, then follow the Twins to the boss portal.",
+          "bullets": [
+            "In destroyed Nuketown, climb or stand on the buses in the middle of the map to get a clean view of the Green House clock tower.",
+            "Shoot the clock hands until both the red hand and white hand line up with 0.",
+            "The white hand can move while you adjust the red hand. A reliable setup is to move the red hand to 2, move the white hand to 1, then finish both hands at 0.",
+            "When both hands are on 0, start the teleporter interaction to travel to normal Nuketown.",
+            "Shoot the red clock hand once just before the teleport animation completes.",
+            "In co-op, have one player hold the teleporter interaction while another player aims at the red hand.",
+            "If the timing works, unique music plays in normal Nuketown and the Twins appear at the Green House piano.",
+            "Follow the Twins from the piano to the Toy Box, then to the fireplace, then to the Yellow House Backyard swing set.",
+            "A gold orb appears at the swing set. This is the point-of-no-return boss start, so finish armor, perks, Pack-a-Punch, ammo, and equipment before interacting."
+          ]
+        },
+        {
+          "n": 20,
+          "title": "Dark Heart Phase 1",
+          "body": "Destroy the first three black-goo Loot Cysts, defend the Concentration Fields, then damage the Dark Heart weak points during the first spin window.",
+          "bullets": [
+            "Interact with the gold orb at the swing set when the squad is ready. Squad games may require a vote.",
+            "Phase 1 uses three black-goo sites: Trinity Avenue, Yellow House Backyard, and Green House Backyard.",
+            "Each site has a Loot Cyst attached to the black goo.",
+            "Kill zombies near a Loot Cyst until the cyst is destroyed and the quest item at that site is revealed.",
+            "After the three Loot Cysts are destroyed, a Concentration Field appears around one of the revealed items.",
+            "Defend the Concentration Field from zombies until its defense completes. If the field health reaches zero, repeat that defense.",
+            "Defend the Concentration Field at all three item sites.",
+            "When all three defenses are complete, the Dark Heart begins spinning and becomes vulnerable.",
+            "Avoid meteors and fire tornadoes during the damage window.",
+            "Shoot the glowing weak points on the Dark Heart. You can damage the boss from anywhere with a clear line of sight; you do not have to stand in the center.",
+            "After the weak points are destroyed, the boss becomes immune and Phase 2 begins."
+          ]
+        },
+        {
+          "n": 21,
+          "title": "Dark Heart Phase 2",
+          "body": "Repeat the three-site route, but clear the yellow-orb zombie spawns instead of soul-feeding Loot Cysts, then defend the fields and damage the faster-spinning Heart.",
+          "bullets": [
+            "Return to the same three black-goo sites: Trinity Avenue, Yellow House Backyard, and Green House Backyard.",
+            "This time, each site has a yellow orb above the goo.",
+            "Kill the zombies spawned by the yellow orb, similar to the Pack-a-Punch storm-clearing step.",
+            "After all three yellow-orb site clears are complete, defend the Concentration Fields again.",
+            "Rad-Hounds become a larger threat in this phase, so clear them before focusing on boss damage.",
+            "After the three field defenses, the Dark Heart becomes vulnerable again.",
+            "The Heart spins faster in Phase 2, so lead your shots and focus one visible weak point at a time.",
+            "Destroy the glowing weak points to push the fight into Phase 3."
+          ]
+        },
+        {
+          "n": 22,
+          "title": "Dark Heart Phase 3 and Completion",
+          "body": "Lead the fire-tornado Tortured Zombie to each black-goo site, kill it while tethered, defend the final fields, and finish the Dark Heart weak points.",
+          "bullets": [
+            "Phase 3 keeps the same three black-goo sites, but the unlock mechanic changes to a Tortured Zombie.",
+            "A fire tornado spawns near the center of the map.",
+            "Lead or wait for the fire tornado to approach one of the black-goo sites.",
+            "Release the Tortured Zombie and move it close enough to the black goo for the tether to appear.",
+            "Kill the Tortured Zombie only after it is tethered to the goo.",
+            "Repeat the tether-and-kill route at Trinity Avenue, Yellow House Backyard, and Green House Backyard.",
+            "Keep normal zombies, Rad-Hounds, and Shock Mimics under control so the Tortured Zombie reaches each site alive.",
+            "After the three tether kills, defend the Concentration Fields one final time.",
+            "The Dark Heart constantly spins during the last damage window, so wait for weak points to rotate into view and commit burst damage when they do.",
+            "Avoid the same meteor and fire-tornado attacks from earlier phases while clearing Rad-Hounds before they stack up.",
+            "Destroy the remaining glowing weak points until the Dark Heart reaches zero health.",
+            "Wait for the ending sequence and confirm the Paradox Junction calling card and main quest completion confirmation are awarded."
+          ]
+        }
       ],
       "stepCount": 22
     },
@@ -870,10 +3539,154 @@
       "gameTitle": "Black Ops 7",
       "era": "bo7",
       "summary": "Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.",
+      "difficulty": "Hard",
+      "duration": "60-90 min",
+      "party": "Solo or squad",
       "requirements": [
         "Power restored",
         "Pack-a-Punch open",
         "Jotun Star built"
+      ],
+      "rewards": [
+        "Totenreich calling card",
+        "Main quest completion"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Build the Jotun Star",
+          "body": "Open the map, run the Dry Dock crane sequence, and complete Astrid's lantern route to claim the wonder weapon.",
+          "bullets": [
+            "Restore power and unlock Pack-a-Punch.",
+            "Activate the green crane control at Dry Dock, then use the lowered wall to reach the ship tip and recover the chain.",
+            "Take the Chili Chunks from the crate behind the truck on the bridge, then place them on the Market Center table.",
+            "After placing the Chili Chunks, wait until the second special round. Kill the Zursa that appears partway through it and take the lantern to Burial Grounds.",
+            "Use the chain on the left side of the Burial Grounds door to open it, revealing the altar. Place the lantern on the altar, then match the constellations in left, right, back, front order.",
+            "Escort Astrid through three frozen zombie stops, climb the Lighthouse route, and take the Jotun Star at the top."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Open the Lab",
+          "body": "Open the Core Foundry vent route, then send an RC-XD through to breach the lab near Pack-a-Punch.",
+          "bullets": [
+            "Travel to the Core Foundry. Up some metal stairs along the wall, find the covered wall vent and shoot the cover to pop it off.",
+            "Drive an RC-XD through the duct, down the stairs, and over the ramp. No boosting is required to get across. Travel under the garage door on the other side, then detonate the RC-XD next to the explosive barrels in the room to open it. The entry is to the left of Pack-a-Punch.\nTIP: A free RC-XD spawns in Eidskallen Square."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Recover the Lab Sample",
+          "body": "Read the marked door numbers, match them to lettered jars, create the solution, and open the cell.",
+          "bullets": [
+            "From the lab near Pack-a-Punch, look at the numbered doors just outside the playable space. Two of them will have radioactive symbols beside them. Note those numbers.",
+            "Convert the two numbers into letters using the alphabet: 1=A, 2=B, 3=C, 4=D, and so on.",
+            "Identify your letters, then search the room for jars marked with those letters.",
+            "Place the two jars in the device next to the closed jail cell to create the solution.",
+            "Use the solution to melt the body on the bench across the room, revealing the cell key.",
+            "Open the cell and retrieve the uranium sample."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Secure the Fishing Canister",
+          "body": "Hook the green fish, shoot the Ravager that steals it, then hunt the Radiated Ravager on the next round.",
+          "bullets": [
+            "Find a fishing rod at Dry Dock, Storm Bridge, Fishery Island, or Beacon Island.",
+            "Check the fishing spots for a glowing green fish jumping at the surface.",
+            "Fish at that spot until the green fish drops. A Ravager will appear and take it, shoot the Ravager as it leaves.",
+            "On the next round, find the Radiated Ravager in each location it moves to and damage it whenever you catch up to it.",
+            "When the Radiated Ravager dies, collect the uranium canister it drops."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Recover the Final Canister",
+          "body": "The last canister is tied to a Glocke Drop and the zombies suspended inside its field.",
+          "bullets": [
+            "Call a Glocke Drop onto a full zombie group.",
+            "Kill the suspended zombies before the field resolves.",
+            "Collect the third uranium canister."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Fire the Lighthouse Cannon",
+          "body": "Use the War Factory manifest to identify the correct crate, fire the Lighthouse cannon, and recover the Signal Amplifier.",
+          "bullets": [
+            "Take the crowbar from the second floor of the Lighthouse.",
+            "In the War Factory Admin Room, find the shipping manifest on a shelf. Look for the ammo icon on the manifest and remember the number associated with it.",
+            "Search the numbered crates around Core Foundry, Dry Dock, War Factory, and Fjord Road. Use the crowbar to open the crate matching the manifest number and collect the artillery shell.",
+            "Load the recovered shell into the artillery cannon next to the Lighthouse, facing the Robot head at spawn.",
+            "Hit the cannon with the Jotun Star to fire it.",
+            "Travel to the Robot head and collect the Signal Amplifier."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Call the Rocket Barrage",
+          "body": "Install the Signal Amplifier in Tyr's head, read both light sequences, calibrate the rockets, and open the Dry Dock building marked 02.",
+          "bullets": [
+            "Install the Signal Amplifier in Tyr's head.",
+            "Two lights below Tyr's catwalk will start flashing. There will be two number sequences, so make note of each one.",
+            "Example: if the left light blinks twice and the right light blinks three times, the first code is 2-3.",
+            "Use the noted sequences to tune the Radio Tower dials. Put the left light number on the left dial and the right light number on the right dial.",
+            "Rockets will fire. If they hit the Radio Tower, the calibration is correct. If they miss, enter the second sequence.",
+            "Once the rockets are calibrated, collect a Rocket Barrage Controller.",
+            "Use the Rocket Barrage Controller on the large building with blocked stairs marked 02 in Dry Dock to open it."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Charge the Atomkraft Core",
+          "body": "Use the claw machine in the opened Dry Dock room, charge the Atomkraft Core at spawn, then carry it to the bridge.",
+          "bullets": [
+            "Enter the newly opened location at Dry Dock.",
+            "Use the claw machine in the opened room to pick up the uranium cores and slot them into the grid on the right.",
+            "Arrange the cores so the meter lands in the green zone, then collect the Atomkraft Core.",
+            "Carry the Atomkraft Core to Quick Revive at spawn and place it on the box just to the right.",
+            "Enter the building behind Quick Revive and interact with the generator to turn it on.",
+            "Defend the core while it charges. When the generator stops, return to it and interact again to resume charging.",
+            "Once finished, take the charged Atomkraft Core to the bridge. You cannot travel by zipline while carrying it."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Cook the Dravakar Shard",
+          "body": "Use the charged Atomkraft Core on the bridge, collect the Dravakar Shard, heat it at Vulture Aid, and take the Sunstone from the HVT.",
+          "bullets": [
+            "Place the Atomkraft Core on top of the barrel with a yellow stripe facing Tyr.",
+            "Tyr will retrieve the canister and fire his laser at Dravakar.",
+            "Collect the Dravakar Shard that drops to the left of the bridge, near Tyr's foot.",
+            "Take the shard to the church where Vulture Aid is and place it on the spit over the fire.",
+            "Fire a charged shot from the Jotun Star to start the fire.",
+            "Once the fire is lit, use a Disciple Injection to pick up zombies and throw them at the fire until a lockdown event starts.",
+            "Fight the HVT Necropincer and take the Sunstone it drops."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "Activate the Symbol Dial",
+          "body": "Take the Sunstone to the Eidskallen church, activate the Symbol Dial, and shoot the floating symbols in arrow order.",
+          "bullets": [
+            "Take the Sunstone to the church near Eidskallen Square.",
+            "Place it on the altar in the center and melee it with the Jotun Star to activate the Symbol Dial above the church.",
+            "Review the direction of the three arrows in the sky. The arrow with one line near the center of the dial is arrow 1, two lines is arrow 2, and three lines is arrow 3.",
+            "Around the map, find the symbols from the dial floating in the air.",
+            "Hit the symbols with charged shots from the Jotun Star in the order the arrows direct you.",
+            "If done incorrectly, the arrows will provide new symbols and you can try again."
+          ]
+        },
+        {
+          "n": 11,
+          "title": "Start the Boss Fight",
+          "body": "After the correct symbol sequence is entered, enter Tyr's head, prepare your loadout, and start the final encounter from his computer.",
+          "bullets": [
+            "Enter Tyr's head after the correct symbol sequence is entered.",
+            "Make sure you are adequately prepared with perks, Pack-a-Punch III, legendary rarity weapons, and any GobbleGums you want for the fight.",
+            "Interact with Tyr's computer to start the boss fight."
+          ]
+        }
       ],
       "stepCount": 11
     },
@@ -885,6 +3698,9 @@
       "gameTitle": "Black Ops",
       "era": "bo7",
       "summary": "Open Griffin Station, complete Samantha Says, move the Vril Sphere, assemble and charge the Golden Rod, swap Richtofen and Samantha, then arm the rockets that strike Earth.",
+      "difficulty": "Very Hard",
+      "duration": "75-120 min",
+      "party": "Solo for Cryogenic Slumber Party; 2+ for original BO1 Big Bang Theory",
       "requirements": [
         "Power on",
         "Hacker",
@@ -893,6 +3709,128 @@
         "Gersh Device",
         "Excavator Pi must breach Tunnel 6",
         "Richtofen needs the Golden Rod and Focusing Stone for the full Big Bang Theory path"
+      ],
+      "rewards": [
+        "Cryogenic Slumber Party achievement or trophy",
+        "Big Bang Theory achievement or trophy",
+        "Permanent perks after quest completion",
+        "Moon ending sequence"
+      ],
+      "steps": [
+        {
+          "n": 1,
+          "title": "Power and Samantha Says",
+          "body": "Start by opening Griffin Station, turning on power, and clearing the first Simon Says terminal sequence near the Receiving Bay.",
+          "bullets": [
+            "Reach the MPD room and turn on the power.",
+            "Return to the four computer terminals near the entrance to Tunnel 6.",
+            "Watch the colored terminal sequence, then repeat it back by interacting with the matching computers.",
+            "Continue until the terminals flash green and shut down."
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Hack the Lab Buttons",
+          "body": "Use the Hacker in the labs to open the next control sequence, then hit the wall buttons together once the terminals are handled.",
+          "bullets": [
+            "Find the Hacker in the lab area.",
+            "Hack one of the four wall buttons in the server room.",
+            "Hack the green-lit lab terminals before the timer expires.",
+            "After the terminal hacks are complete, activate the four wall buttons at roughly the same time.",
+            "Listen for the confirmation tone before moving on."
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Let Excavator Pi Breach Tunnel 6",
+          "body": "Tunnel 6 has to be breached by Excavator Pi before the Vril Sphere path can continue.",
+          "bullets": [
+            "Wait for Excavator Pi to target Tunnel 6.",
+            "Let Pi finish breaching the tunnel before you stop it.",
+            "Return to the Receiving Bay and hack the Excavator terminal to pull Pi back.",
+            "Once the tunnel is accessible again, move into Tunnel 6 to begin the Vril Sphere route."
+          ]
+        },
+        {
+          "n": 4,
+          "title": "Move the Vril Sphere",
+          "body": "Push the Vril Sphere through the station until it returns to the pyramid route.",
+          "bullets": [
+            "Find the Vril Sphere after Tunnel 6 is breached and Pi is hacked away.",
+            "Knife or shoot the sphere whenever it lodges in the tunnel path.",
+            "When it rises onto the satellite dish above the Receiving Bay, blast it loose with the Wave Gun.",
+            "Follow it through Tunnel 11 and dislodge it again when it gets stuck near the Semtex side.",
+            "Keep moving it until it reaches the pyramid area."
+          ]
+        },
+        {
+          "n": 5,
+          "title": "Reveal Samantha",
+          "body": "Once the Vril Sphere locks into the pyramid route, fill the exposed tube and open the MPD.",
+          "bullets": [
+            "Wait for the tube to extend from the pyramid after the sphere reaches the MPD.",
+            "Kill zombies near the tube until it finishes collecting souls.",
+            "Use the nearby switch after the tube is full.",
+            "The pyramid opens and Samantha is revealed, completing the Cryogenic Slumber Party portion."
+          ]
+        },
+        {
+          "n": 6,
+          "title": "Retrieve the Plates from Earth",
+          "body": "Move the plates from Area 51 back to Griffin Station and set up the Receiving Bay computer.",
+          "bullets": [
+            "Teleport to Area 51 and look to the shelf outside the playable space near the teleporter.",
+            "Use an explosive to knock the plates down.",
+            "Throw a Gersh Device on or next to the plates so they are pulled onto the teleporter pad.",
+            "Teleport back to the Moon.",
+            "Use a QED to move the plates into the computer station in the Receiving Bay."
+          ]
+        },
+        {
+          "n": 7,
+          "title": "Charge the Golden Rod",
+          "body": "Complete the computer assembly, then let Richtofen charge the Golden Rod at the Receiving Bay station.",
+          "bullets": [
+            "Find the wire needed for the computer setup, commonly around the labs, Tunnel 6, or nearby exterior areas.",
+            "Install the wire at the Receiving Bay computer.",
+            "Have the Richtofen player place the Golden Rod between the Casimir plates.",
+            "Continue interacting with the computer until the dialogue ends and the screen turns green.",
+            "Pick up the charged Golden Rod."
+          ]
+        },
+        {
+          "n": 8,
+          "title": "Complete Richtofen's Grand Scheme",
+          "body": "Charge the four MPD soul tubes, then place the charged Golden Rod into the pyramid device.",
+          "bullets": [
+            "Return to the MPD.",
+            "Kill zombies near each of the four raised tubes until all four are filled.",
+            "Interact with the Mythos Disc to place the charged Golden Rod.",
+            "Richtofen and Samantha swap souls, changing the announcer and pushing the quest into the Maxis finale."
+          ]
+        },
+        {
+          "n": 9,
+          "title": "Arm the Missiles",
+          "body": "Detach the Vril Sphere from the MPD, finish the harder Samantha Says rounds, then send the sphere away with a Gersh Device.",
+          "bullets": [
+            "Throw a QED at the Vril Sphere to detach it from the MPD.",
+            "Complete the Samantha Says computer sequence again.",
+            "Each successful sequence raises one rocket; repeat until all three rockets are ready.",
+            "Throw a Gersh Device at the Vril Sphere once the rockets are raised."
+          ]
+        },
+        {
+          "n": 10,
+          "title": "The Big Bang Theory",
+          "body": "The rockets launch, Earth is destroyed, and the full Moon quest completes.",
+          "bullets": [
+            "Wait through the final dialogue and countdown.",
+            "Watch the rockets fire toward Earth.",
+            "All players receive permanent perks after completion.",
+            "The Big Bang Theory achievement or trophy unlocks when the sequence finishes."
+          ]
+        }
       ],
       "stepCount": 10
     }

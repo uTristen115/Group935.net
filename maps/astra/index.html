@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Astra Malorum Black Ops 7 Easter Egg Guide | Group 935" />
 <meta property="og:description" content="Astra Malorum Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links." />
@@ -26,8 +26,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/maps/astra';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/maps/astra/#webpage","@type":"WebPage","url":"https://group935.net/maps/astra/","name":"Astra Malorum Black Ops 7 Easter Egg Guide | Group 935","description":"Astra Malorum Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","inLanguage":"en-US","about":["Black Ops 7 Zombies Astra Malorum Astra Malorum Easter Egg","Black Ops 7 Zombies","Black Ops 7 Easter Egg tutorials","BO7 Zombies maps"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Zombies Maps","item":"https://group935.net/maps/","@type":"ListItem"},{"position":3,"name":"Astra Malorum","item":"https://group935.net/maps/astra/","@type":"ListItem"}],"@id":"https://group935.net/maps/astra/#breadcrumbs","@type":"BreadcrumbList"},{"name":"Astra Malorum Black Ops 7 Zombies files","@id":"https://group935.net/maps/astra/#bo7-map-files","itemListElement":[{"position":1,"url":"https://group935.net/easter-eggs/astra-main-quest/","description":"Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.","name":"Astra Malorum Main Quest","@type":"ListItem"},{"position":2,"url":"https://group935.net/black-ops-7-relics/gong/","description":"Field Upgrades stop charging passively. You begin with a charge, but Full Power and other forced recharge tools become the main way back.","name":"Gong Relic","@type":"ListItem"},{"position":3,"url":"https://group935.net/black-ops-7-relics/seed/","description":"The Mystery Box is disabled.","name":"Seed Relic","@type":"ListItem"},{"position":4,"url":"https://group935.net/black-ops-7-relics/matryoshka-doll/","description":"Salvage drops are cut down.","name":"Matryoshka Doll Relic","@type":"ListItem"},{"position":5,"url":"https://group935.net/black-ops-7-relics/spider-fang/","description":"Perk prices stop falling over time.","name":"Spider Fang Relic","@type":"ListItem"},{"position":6,"url":"https://group935.net/black-ops-7-relics/civil-protector/","description":"After enough eliminations, one perk is removed.","name":"Civil Protector Relic","@type":"ListItem"},{"position":7,"url":"https://group935.net/black-ops-7-relics/golden-spork/","description":"Incoming zombie damage is doubled.","name":"Golden Spork Relic","@type":"ListItem"}],"description":"Astra Malorum Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","@type":"ItemList","numberOfItems":7}]}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@graph":[{"inLanguage":"en-US","url":"https://group935.net/maps/astra/","about":["Black Ops 7 Zombies Astra Malorum Astra Malorum Easter Egg","Black Ops 7 Zombies","Black Ops 7 Easter Egg tutorials","BO7 Zombies maps"],"@id":"https://group935.net/maps/astra/#webpage","description":"Astra Malorum Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","name":"Astra Malorum Black Ops 7 Easter Egg Guide | Group 935","isPartOf":{"@id":"https://group935.net/#website"},"@type":"WebPage"},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Zombies Maps","item":"https://group935.net/maps/","@type":"ListItem"},{"position":3,"name":"Astra Malorum","item":"https://group935.net/maps/astra/","@type":"ListItem"}],"@id":"https://group935.net/maps/astra/#breadcrumbs","@type":"BreadcrumbList"},{"itemListElement":[{"position":1,"url":"https://group935.net/easter-eggs/astra-main-quest/","name":"Astra Malorum Main Quest","description":"Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.","@type":"ListItem"},{"position":2,"url":"https://group935.net/black-ops-7-relics/gong/","name":"Gong Relic","description":"Field Upgrades stop charging passively. You begin with a charge, but Full Power and other forced recharge tools become the main way back.","@type":"ListItem"},{"position":3,"url":"https://group935.net/black-ops-7-relics/seed/","name":"Seed Relic","description":"The Mystery Box is disabled.","@type":"ListItem"},{"position":4,"url":"https://group935.net/black-ops-7-relics/matryoshka-doll/","name":"Matryoshka Doll Relic","description":"Salvage drops are cut down.","@type":"ListItem"},{"position":5,"url":"https://group935.net/black-ops-7-relics/spider-fang/","name":"Spider Fang Relic","description":"Perk prices stop falling over time.","@type":"ListItem"},{"position":6,"url":"https://group935.net/black-ops-7-relics/civil-protector/","name":"Civil Protector Relic","description":"After enough eliminations, one perk is removed.","@type":"ListItem"},{"position":7,"url":"https://group935.net/black-ops-7-relics/golden-spork/","name":"Golden Spork Relic","description":"Incoming zombie damage is doubled.","@type":"ListItem"}],"@type":"ItemList","name":"Astra Malorum Black Ops 7 Zombies files","@id":"https://group935.net/maps/astra/#bo7-map-files","description":"Astra Malorum Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","numberOfItems":7}],"@context":"https://schema.org"}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Astra Malorum Black Ops 7 Easter Egg Guide</h1> <p>Astra Malorum Black Ops 7 Zombies map guide with Easter Egg notes, relics, songs, images, and archive context.</p> <p><strong>Game:</strong> Black Ops 7 Zombies | <strong>Location:</strong> Mountaintop research site | <strong>Difficulty:</strong> 3/5</p> <h2>Astra Malorum Easter Egg tutorial</h2><ul><li><a href="/easter-eggs/astra-main-quest/">Astra Malorum Main Quest</a> - Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.</li></ul> <h2>Astra Malorum relic guides</h2><ul><li><a href="/black-ops-7-relics/gong/">Gong Relic</a> - Field Upgrades stop charging passively. You begin with a charge, but Full Power and other forced recharge tools become the main way back.</li><li><a href="/black-ops-7-relics/seed/">Seed Relic</a> - The Mystery Box is disabled.</li><li><a href="/black-ops-7-relics/matryoshka-doll/">Matryoshka Doll Relic</a> - Salvage drops are cut down.</li><li><a href="/black-ops-7-relics/spider-fang/">Spider Fang Relic</a> - Perk prices stop falling over time.</li><li><a href="/black-ops-7-relics/civil-protector/">Civil Protector Relic</a> - After enough eliminations, one perk is removed.</li><li><a href="/black-ops-7-relics/golden-spork/">Golden Spork Relic</a> - Incoming zombie damage is doubled.</li></ul> <p><a href="/black-ops-7/">Back to Black Ops 7 Zombies</a> | <a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Astra Malorum Black Ops 7 Easter Egg Guide</h1>  <p><strong>Game:</strong> <a href="/black-ops-7/">Black Ops 7</a> | <strong>Location:</strong> Mountaintop research site | <strong>Difficulty:</strong> 3/5</p> <p><strong>Tags:</strong> bo7, relics, observatory</p> <h2>Astra Malorum Easter Egg tutorial</h2><ul><li><a href="/easter-eggs/astra-main-quest/">Astra Malorum Main Quest</a> - Repair the Harmonic Oculus, use Oscar to earn the LGM-1, extract and route the brain, solve the planetarium, library, Mars bird, and pillar symbol steps, then defeat Caltheris.</li></ul> <h2>Astra Malorum relic guides</h2><ul><li><a href="/black-ops-7-relics/gong/">Gong Relic</a> - Field Upgrades stop charging passively. You begin with a charge, but Full Power and other forced recharge tools become the main way back.</li><li><a href="/black-ops-7-relics/seed/">Seed Relic</a> - The Mystery Box is disabled.</li><li><a href="/black-ops-7-relics/matryoshka-doll/">Matryoshka Doll Relic</a> - Salvage drops are cut down.</li><li><a href="/black-ops-7-relics/spider-fang/">Spider Fang Relic</a> - Perk prices stop falling over time.</li><li><a href="/black-ops-7-relics/civil-protector/">Civil Protector Relic</a> - After enough eliminations, one perk is removed.</li><li><a href="/black-ops-7-relics/golden-spork/">Golden Spork Relic</a> - Incoming zombie damage is doubled.</li></ul> <h2>Easter egg songs</h2><ul><li><strong>Pareidolia (Remastered 2025)</strong> - Kevin Sherwood<p>Three items around the observatory.</p></li><li><strong>Magic</strong> - Avenged Sevenfold<p>Bonus song activation.</p></li></ul> <p><a href="/maps/">Back to all Zombies maps</a></p> <p><a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

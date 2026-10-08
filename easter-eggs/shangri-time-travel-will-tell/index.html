@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Time Travel Will Tell Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="Time Travel Will Tell Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="Time Travel Will Tell: Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the..." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Time Travel Will Tell Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="Time Travel Will Tell Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="Time Travel Will Tell: Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the..." />
 <meta property="og:url" content="https://group935.net/easter-eggs/shangri-time-travel-will-tell/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Time Travel Will Tell Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="Time Travel Will Tell Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="Time Travel Will Tell: Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the..." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/shangri-time-travel-will-tell';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"Time Travel Will Tell Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"Time Travel Will Tell Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/shangri-time-travel-will-tell/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"Time Travel Will Tell Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/shangri-time-travel-will-tell/","inLanguage":"en-US","description":"Time Travel Will Tell: Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the..."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Time Travel Will Tell Easter Egg Walkthrough | Group 935</h1><p>Time Travel Will Tell Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Time Travel Will Tell Easter Egg Walkthrough</h1> <p>Enter eclipse loops, help Brock and Gary through the temple mechanisms, move the crystals, and claim the Focusing Stone from the Pack-a-Punch shrine.</p> <p><a href="/maps/shangri/">Shangri-La</a> - Black Ops</p> <dl><dt>Difficulty</dt><dd>Hard</dd><dt>Duration</dt><dd>60-90 min</dd><dt>Party</dt><dd>4 players required</dd></dl> <h2>Requirements</h2><ul><li>4 players from start to finish</li><li>Power on and all doors open</li><li>31-79 JGb215, upgraded to The Fractalizer for the crystal and meteor steps</li><li>Spikemores in Black Ops or Trip Mines in Zombies Chronicles</li><li>A live Napalm Zombie for the gas step</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Power and Eclipse Setup</h3><p>Open the temple, restore power, and use the four eclipse buttons around Spawn whenever the team is ready to start a timed step.</p><ul><li>Turn on both power switches.</li><li>Open the water slide, tunnels, mud room, mine cart, and Pack-a-Punch routes before committing to the quest loop.</li><li>Start chasing the 31-79 JGb215 early, since the later crystal steps need it.</li><li>Have all four players press the eclipse buttons around Spawn at the same time.</li><li>Use the sun and moon symbols to confirm whether the map is in normal time or eclipse time.</li></ul></li><li><h3>Contact Brock and Gary</h3><p>In eclipse mode, trigger the wall button near the MPL side to start the Brock and Gary sequence and reveal the matching floor slabs.</p><ul><li>Enter eclipse mode.</li><li>Move to the wall near the MPL side of the map.</li><li>Press the round stone button under the statue relief.</li><li>Listen for Brock and Gary, then split players between the matching slab areas.</li></ul></li><li><h3>Match the Stone Slabs</h3><p>Two sides of the map receive matching floor symbols. Pair the symbols correctly before the eclipse timer expires.</p><ul><li>Keep one player on each slab side so callouts are fast.</li><li>Have one player read a glowing symbol and the other find its match.</li><li>Step on both matching slabs together to sink the pair.</li><li>Avoid stepping on a wrong match, or the puzzle can reset.</li><li>Finish every pair inside the same eclipse cycle.</li></ul></li><li><h3>Trigger the Water Slide Plate</h3><p>Use the water slide and lower pressure plate to release the next crystal from the temple machinery.</p><ul><li>Enter eclipse mode again.</li><li>Send three players to the lower steel grate or pressure plate near the water slide landing.</li><li>Have the fourth player take the water slide while hugging the right side.</li><li>Keep everyone planted on the plate until the step confirms and the eclipse ends.</li></ul></li><li><h3>Move the Crystal to the Geyser</h3><p>Knock the crystal loose, shrink it, and move it through the slide route until the geyser launches it back into position.</p><ul><li>At the top of the water slide, knock the wall crystal down with an explosive.</li><li>Shrink the fallen crystal with the 31-79 JGb215.</li><li>Knife or push the shrunken crystal down the water slide path.</li><li>Guide it into the geyser at the lower landing.</li><li>Stand on the geyser to launch the crystal onto its tower and complete the step.</li></ul></li><li><h3>Light the Gas Leaks</h3><p>Use a live Napalm Zombie to ignite the gas through the tunnel route, then return to the valve station to free the mechanism.</p><ul><li>Wait until a Napalm Zombie is active before starting this sequence.</li><li>Enter eclipse mode and move to the gas valve near the MPL tunnel route.</li><li>Turn the valve four times to start the leaks.</li><li>Lead the Napalm Zombie through the tunnel so each gas leak catches fire.</li><li>When the leaks are lit, return to the valve station and pull the lever beside it.</li></ul></li><li><h3>Plug the Spikemore Holes</h3><p>Set Spikemores or Trip Mines against the tunnel holes and use zombies to detonate them into the wall.</p><ul><li>Enter eclipse mode.</li><li>Go to the tunnel route that leads toward the waterfall side.</li><li>Place one Spikemore or Trip Mine facing each wall hole.</li><li>Lure zombies through the traps so the mines fire into the holes.</li><li>After all four holes are sealed, press the reservoir button by the waterfall to end the step.</li></ul></li><li><h3>Activate the Wall Slabs</h3><p>Knife the twelve wall slabs around the temple, then blow open the out-of-bounds frame near the mine cart area.</p><ul><li>Enter eclipse mode.</li><li>Knife the wall slabs around Spawn, the mud room, the mine cart area, the Stakeout room, and the power-side path.</li><li>Confirm each slab is activated before moving on.</li><li>At the mine cart side, throw an explosive toward the wooden frame or tent structure outside the playable path.</li><li>Wait for the explosion and dialogue confirmation before leaving the eclipse cycle.</li></ul></li><li><h3>Set the Mud Room Dials</h3><p>Rotate the four mud room dials until each symbol is sitting in the correct top position.</p><ul><li>Enter eclipse mode.</li><li>Use the mud room layout from the PM63 side toward Quick Revive.</li><li>Set the first dial to the three-dot symbol.</li><li>Set the second dial to the C-shaped symbol with the line and dot.</li><li>Set the third dial to the four-dot symbol.</li><li>Set the fourth dial to the one-dot symbol.</li></ul></li><li><h3>Find the Correct Gongs</h3><p>Use the crystal reactions to identify the four correct gongs before attempting the dynamite drop.</p><ul><li>Enter eclipse mode.</li><li>Knife candidate gongs one at a time.</li><li>If the crystals flash red, that gong is wrong for the current run.</li><li>Keep testing until four correct gongs have been hit.</li><li>When the correct sequence is active, the crystals glow yellow and the dynamite crystal is ready.</li></ul></li><li><h3>Drop and Catch the Dynamite</h3><p>Use the Pack-a-Punched shrink ray on the crystal path and catch the dynamite as it falls.</p><ul><li>Upgrade the 31-79 JGb215 into The Fractalizer.</li><li>Position one player under the dynamite near the crystal tower.</li><li>Shoot the correct crystal with The Fractalizer so the beam bounces across the crystal network.</li><li>Catch the dynamite before it hits the ground.</li><li>If the dynamite is missed, repeat the gong and crystal setup.</li></ul></li><li><h3>Shrink the Meteor</h3><p>Fire the upgraded shrink ray through the final crystal path, then use the Pack-a-Punch stairs to deliver the dynamite.</p><ul><li>Enter eclipse mode if needed and return to the mud room crystal path.</li><li>Shoot the crystal with The Fractalizer so the beam reaches the meteor above the shrine.</li><li>Stand on the four Pack-a-Punch pressure plates to raise the stairs.</li><li>Move up the shrine and place the dynamite in the wall opening.</li><li>Back away before the blast resolves.</li></ul></li><li><h3>Claim the Focusing Stone</h3><p>Return to the shrine after the blast and let one player take the Focusing Stone reward.</p><ul><li>Reactivate Pack-a-Punch access if the stairs are down.</li><li>Return to the wall where the dynamite was placed.</li><li>Have the chosen player pick up the Focusing Stone.</li><li>That player receives all perks for the rest of the game.</li><li>Use the radio at the base of the shrine if the team wants to repeat the quest for another player.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Time Travel Will Tell achievement or trophy</li><li>Focusing Stone</li><li>All perks for the player who picks up the Focusing Stone</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

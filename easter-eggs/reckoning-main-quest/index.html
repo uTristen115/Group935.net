@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Reckoning Main Quest Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="The Reckoning Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="The Reckoning Main Quest: Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake..." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="The Reckoning Main Quest Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="The Reckoning Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="The Reckoning Main Quest: Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake..." />
 <meta property="og:url" content="https://group935.net/easter-eggs/reckoning-main-quest/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="The Reckoning Main Quest Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="The Reckoning Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="The Reckoning Main Quest: Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake..." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/reckoning-main-quest';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"The Reckoning Main Quest Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"The Reckoning Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/reckoning-main-quest/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"The Reckoning Main Quest Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/reckoning-main-quest/","inLanguage":"en-US","description":"The Reckoning Main Quest: Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake..."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>The Reckoning Main Quest Easter Egg Walkthrough | Group 935</h1><p>The Reckoning Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>The Reckoning Main Quest Easter Egg Walkthrough</h1> <p>Break into Janus Towers, restore the accelerator, secure the DNA route into Teleportation Lab, build the Gorgofex, wake Franken-Klaus, power the portal, and choose the final S.A.M. or Richtofen path.</p> <p><a href="/maps/reckoning/">The Reckoning</a> - Black Ops 6</p> <dl><dt>Difficulty</dt><dd>Very Hard</dd><dt>Duration</dt><dd>90-120 min</dd><dt>Party</dt><dd>Solo or squad</dd></dl> <h2>Requirements</h2><ul><li>Power + Pack-a-Punch</li><li>Gorgofex Wonder Weapon</li><li>Melee Macchiato</li><li>Explosive lethal</li><li>Two Klaus arms from special rounds</li><li>Boss-ready loadout</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Open Pack-a-Punch</h3><p>Use the guided opener to bring Janus Towers online before starting the hidden quest work. This gives you the movement routes, the accelerator room, and the Pack-a-Punch machine.</p><ul><li>Move through Project Janus HQ and buy enough doors to keep the later route between Tower 1, Tower 2, and Sublevel 10 fast.</li><li>Follow the objective path through the Executive Office and down to Sublevel 10.</li><li>Restore the Particle Accelerator system.</li><li>Destroy the nearby Aetherium crystal growths until Pack-a-Punch appears.</li><li>During early Kommando Klaus rounds, shoot or kill enough robots to collect two Klaus arms for the later Franken-Klaus step.</li></ul></li><li><h3>Secure the DNA Route</h3><p>The Teleportation Lab route starts in Mutant Research and ends with the Fowler Mutant Injection opening the Tower 2 scanner door.</p><ul><li>In T1 Mutant Research, kill the Geneticist zombie and take the Keycard.</li><li>Use the Keycard on the locked cabinet near the Richtofen family tanks and take the DNA Vial.</li><li>Pick up the Syringe from the small table near the Mangler tank in Mutant Research.</li><li>Ride the Particle Accelerator beam in Sublevel 10 and collide with the suspended corpse to knock it down.</li><li>Use the Syringe on the fallen body to collect Dr. Fowler blood, then return the Syringe to the Mutant Research machine.</li><li>Defeat the HVT Mangler that spawns and take the Fowler Mutant Injection.</li><li>Use the Injection at the scanner door in T2 Dark Entity Containment to open the Teleportation Lab route.</li></ul></li><li><h3>Build the Gorgofex</h3><p>The Gorgofex can appear from the box, but the quest path gives a reliable build route through Mutant Research, Bioweapons Lab, Quantum Computing, and Dark Entity Containment.</p><ul><li>In T1 Mutant Research, watch the static monitors near the family tanks and Deadshot Daiquiri. Note the first letter shown on each monitor.</li><li>Match the one-letter or two-letter clue to an element on the nearby periodic table.</li><li>Use that element number as the keypad code for T1 Bioweapons Lab. Add leading zeroes if the code is shorter than three digits.</li><li>Inside Bioweapons Lab, feed the Cyst three Vermin first, then three regular zombies. Pick up the Cyst after the container opens.</li><li>Take the Cyst to the three glowing Aetheric Flora spots around T1 Quantum Computing and drain each one.</li><li>In T2 Dark Entity Containment, start the Power Surge terminal route and hit the active terminals before the window expires.</li><li>When Uber Klaus appears, break its shoulder generators and lure it onto the charged panel in front of The Forsaken.</li><li>Defeat the possessed Uber Klaus form, then interact with the released essence to create the Gorgofex.</li></ul></li><li><h3>Assemble Franken-Klaus</h3><p>Build the hanging Klaus body in Android Assembly, then force an Uber Klaus electric attack to wake it.</p><ul><li>Bring the two Klaus arms from special rounds to T2 Android Assembly.</li><li>Find the left and right Klaus legs in Android Assembly. Check shelves, scrap piles, behind panels or doors, and the floor around the work area.</li><li>Attach all four limbs to the hanging Klaus body.</li><li>Bait Uber Klaus into firing its electric attack at the assembled body.</li><li>After Franken-Klaus activates, let him work at the Android Assembly terminal.</li><li>Advance a round when needed, then follow him to the S.A.M. Trial area in T2 Dark Entity Containment.</li><li>Complete the kill trial so Franken-Klaus can move to the T2 Teleportation Lab terminal.</li></ul></li><li><h3>Give Klaus the Code</h3><p>Franken-Klaus needs a four-digit access code built from Maxis file folders scattered through the offices and Teleportation Lab.</p><ul><li>Search T1 Executive Suite, T1 Director&apos;s Office, and T2 Teleportation Lab for four folders tied to Maxis personal items.</li><li>Possible files include the BND Badge, Notso&apos;s Collar, Scarf, Wristwatch, Combat Goggles, and Katana.</li><li>Each folder gives a date and a digit. Write both down.</li><li>Order the digits from the oldest folder date to the newest folder date.</li><li>Enter the resulting four-digit code into the T2 Teleportation Lab computer that Franken-Klaus is working on.</li></ul></li><li><h3>Move the Project Janus Brain</h3><p>Use Melee Macchiato to break open the correct Janus container, then carry the brain to the Teleportation Lab.</p><ul><li>Buy Melee Macchiato before leaving the Teleportation Lab route.</li><li>Go to T1 Quantum Computing Core and find the Project Janus container that can be broken by a Melee Macchiato punch.</li><li>Punch the container open and pick up the purple brain.</li><li>While carrying the brain, treat yourself as vulnerable and take the safest route back.</li><li>Place the brain into the red-lit containment unit beside Franken-Klaus in T2 Teleportation Lab.</li></ul></li><li><h3>Break the Portal Crystals</h3><p>Charge the Gorgofex with Quantum Vermin energy, then spend that charge on the blocked portal in Teleportation Lab.</p><ul><li>Go to T2 Sublevel 10 and activate the red-button terminal to start the Quantum Vermin event.</li><li>Kill the blue Quantum Vermin with the Gorgofex until the control-room canister produces a blue orb.</li><li>Interact with the orb so the charge attaches to the Gorgofex.</li><li>Do not fire the Gorgofex on the way back. If the charge is wasted, repeat the Vermin event.</li><li>Return to T2 Teleportation Lab and fire a charged Gorgofex shot into the crystals blocking the portal.</li></ul></li><li><h3>Cleanse the Fungal Head</h3><p>The portal still needs a charged organic anchor. Set up the water bucket, knock down the Fungal Head, clean it, and feed it souls.</p><ul><li>Find a yellow mop bucket in T1 Project Janus Reception or T2 Android Assembly and melee it under a sprinkler.</li><li>If the sprinkler is inactive, use an explosive lethal on the nearby smoke detector to start the water.</li><li>In T1 Quantum Computing Core, look for the high square opening in the wall and fire a charged Gorgofex shot into it.</li><li>Pick up the Fungal Head that drops.</li><li>Place the Fungal Head into the bucket, wait for it to clean, then pick it back up.</li><li>Kill zombies while carrying the head until it stops absorbing souls. Watch for the shadowy attacker that harasses the carrier.</li><li>Take the charged head to T2 Teleportation Lab and place it in the center of the portal frame.</li></ul></li><li><h3>Power the Portal</h3><p>After the Fungal Head is placed, blue Project Janus canisters open and purple anomalies begin floating around the map.</p><ul><li>Open a blue Project Janus canister and take the Vacuum-Seal Device inside.</li><li>Find the nearby floating purple object and throw the device at it from a little distance.</li><li>Pick the filled device back up after it captures the object.</li><li>Repeat until four Vacuum-Seal Devices are filled.</li><li>Insert all four filled devices into the portal console in T2 Teleportation Lab.</li><li>During lockdown, turn each red switch green while managing the zombie pressure. The number of switches can scale with squad size.</li><li>When the lockdown ends, the portal becomes the boss-fight entry point.</li></ul></li><li><h3>Prepare Before Entering</h3><p>The portal is a point of no return. Do not enter until the whole team is set up for the chosen finale.</p><ul><li>Aim for Legendary rarity, Pack-a-Punch III, Tier III armor, Self-Revive, and full ammo.</li><li>Keep the Gorgofex for quest utility, but bring a reliable boss-damage weapon as your main damage source.</li><li>For the S.A.M. fight, high burst damage and cover discipline matter more than range.</li><li>For the Richtofen fight, ranged precision weapons, Smoke Grenades, and Aether Shroud are much safer.</li><li>Useful perks include Juggernog, Quick Revive, Stamin-Up, Deadshot Daiquiri, Speed Cola, and Vulture Aid.</li><li>Combat Stims, Death Machine, Decoys, or Smokes can rescue a bad phase.</li></ul></li><li><h3>Choose the Finale Path</h3><p>Enter the portal, interact with the Sentinel Artifact, and commit to one of the two ending paths. Read the prompt carefully, since the choice determines the boss route and ending card for that run.</p><ul><li>After the choice, ride the elevator sequence into the Dark Aether arena route.</li><li>Charge the three L.T.G. Canisters by killing zombies close to each canister.</li><li>Ride to the next level and destroy the Aether crystals blocking the ascent.</li><li>Use the transition time to reload, re-plate, and call out ammo or revive problems before the roof.</li><li>The next arena starts the selected boss fight.</li></ul></li><li><h3>Defeat S.A.M. or Uber Richtofen</h3><p>Both finales reward completion, but they play very differently. S.A.M. is more pattern-based; Uber Richtofen is faster, messier, and less forgiving.</p><ul><li>S.A.M. path: stay near cover, clear zombies between attacks, and wait for weak points to expose after major beam or volley patterns.</li><li>S.A.M. path: between phases, complete the trial objective if possible. Ignoring it can add harmful modifiers to the fight.</li><li>S.A.M. path: shoot the outer glowing weak points first, then pour damage into the central eye when it becomes vulnerable.</li><li>Richtofen path: in the mech phase, break shoulder armor and then damage the exposed core or cockpit area.</li><li>Richtofen path: clear Klaus adds before the arena becomes covered in electric hazards.</li><li>Richtofen path: in the jetpack phase, use cover against the Wunderwaffe, avoid bomb markers, and save Smoke Grenades or Aether Shroud for damage windows.</li><li>After the selected boss falls, the ending sequence plays and the run awards Reckoning main quest completion.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Blood, Sweat, an&apos; Gears Grey operator skin</li><li>Ending-specific calling card</li><li>Weapon charm</li><li>XP and main quest completion</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>
