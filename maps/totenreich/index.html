@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Totenreich Black Ops 7 Easter Egg Guide | Group 935" />
 <meta property="og:description" content="Totenreich Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links." />
@@ -26,8 +26,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/maps/totenreich';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/maps/totenreich/#webpage","@type":"WebPage","url":"https://group935.net/maps/totenreich/","name":"Totenreich Black Ops 7 Easter Egg Guide | Group 935","description":"Totenreich Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","inLanguage":"en-US","about":["Black Ops 7 Zombies Totenreich Totenreich Easter Egg","Black Ops 7 Zombies","Black Ops 7 Easter Egg tutorials","BO7 Zombies maps"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Zombies Maps","item":"https://group935.net/maps/","@type":"ListItem"},{"position":3,"name":"Totenreich","item":"https://group935.net/maps/totenreich/","@type":"ListItem"}],"@id":"https://group935.net/maps/totenreich/#breadcrumbs","@type":"BreadcrumbList"},{"name":"Totenreich Black Ops 7 Zombies files","@id":"https://group935.net/maps/totenreich/#bo7-map-files","itemListElement":[{"position":1,"url":"https://group935.net/easter-eggs/totenreich-main-quest/","description":"Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.","name":"Totenreich Main Quest","@type":"ListItem"},{"position":2,"url":"https://group935.net/black-ops-7-relics/power-switch/","description":"Your lethal and tactical equipment changes at the start of each round, so long-term equipment planning becomes unreliable.","name":"Power Switch Relic","@type":"ListItem"},{"position":3,"url":"https://group935.net/black-ops-7-relics/wrestlers-belt/","description":"Wall-buy weapons randomize each round.","name":"Wrestler\u0027s Belt Relic","@type":"ListItem"},{"position":4,"url":"https://group935.net/black-ops-7-relics/dancing-arnie/","description":"Perk machines become cursed and dispense random perks.","name":"Dancing Arnie Relic","@type":"ListItem"},{"position":5,"url":"https://group935.net/black-ops-7-relics/stuffed-elephant/","description":"Health regeneration takes longer to begin.","name":"Stuffed Elephant Relic","@type":"ListItem"},{"position":6,"url":"https://group935.net/black-ops-7-relics/agarthan-device/","description":"The map rotates a different zombie variant into each round.","name":"Agarthan Device Relic","@type":"ListItem"},{"position":7,"url":"https://group935.net/black-ops-7-relics/music-box/","description":"Zombies only die to critical kills.","name":"Music Box Relic","@type":"ListItem"}],"description":"Totenreich Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","@type":"ItemList","numberOfItems":7}]}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@graph":[{"inLanguage":"en-US","url":"https://group935.net/maps/totenreich/","about":["Black Ops 7 Zombies Totenreich Totenreich Easter Egg","Black Ops 7 Zombies","Black Ops 7 Easter Egg tutorials","BO7 Zombies maps"],"@id":"https://group935.net/maps/totenreich/#webpage","description":"Totenreich Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","name":"Totenreich Black Ops 7 Easter Egg Guide | Group 935","isPartOf":{"@id":"https://group935.net/#website"},"@type":"WebPage"},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Zombies Maps","item":"https://group935.net/maps/","@type":"ListItem"},{"position":3,"name":"Totenreich","item":"https://group935.net/maps/totenreich/","@type":"ListItem"}],"@id":"https://group935.net/maps/totenreich/#breadcrumbs","@type":"BreadcrumbList"},{"itemListElement":[{"position":1,"url":"https://group935.net/easter-eggs/totenreich-main-quest/","name":"Totenreich Main Quest","description":"Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.","@type":"ListItem"},{"position":2,"url":"https://group935.net/black-ops-7-relics/power-switch/","name":"Power Switch Relic","description":"Your lethal and tactical equipment changes at the start of each round, so long-term equipment planning becomes unreliable.","@type":"ListItem"},{"position":3,"url":"https://group935.net/black-ops-7-relics/wrestlers-belt/","name":"Wrestler's Belt Relic","description":"Wall-buy weapons randomize each round.","@type":"ListItem"},{"position":4,"url":"https://group935.net/black-ops-7-relics/dancing-arnie/","name":"Dancing Arnie Relic","description":"Perk machines become cursed and dispense random perks.","@type":"ListItem"},{"position":5,"url":"https://group935.net/black-ops-7-relics/stuffed-elephant/","name":"Stuffed Elephant Relic","description":"Health regeneration takes longer to begin.","@type":"ListItem"},{"position":6,"url":"https://group935.net/black-ops-7-relics/agarthan-device/","name":"Agarthan Device Relic","description":"The map rotates a different zombie variant into each round.","@type":"ListItem"},{"position":7,"url":"https://group935.net/black-ops-7-relics/music-box/","name":"Music Box Relic","description":"Zombies only die to critical kills.","@type":"ListItem"}],"@type":"ItemList","name":"Totenreich Black Ops 7 Zombies files","@id":"https://group935.net/maps/totenreich/#bo7-map-files","description":"Totenreich Black Ops 7 Zombies Easter Egg tutorial with main quest steps, relics, map details, songs, images, and Group 935 archive links.","numberOfItems":7}],"@context":"https://schema.org"}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Totenreich Black Ops 7 Easter Egg Guide</h1> <p>Totenreich Black Ops 7 Zombies map guide with Easter Egg notes, relics, songs, images, and archive context.</p> <p><strong>Game:</strong> Black Ops 7 Zombies | <strong>Location:</strong> Aetheric reconstruction | <strong>Difficulty:</strong> 4/5</p> <h2>Totenreich Easter Egg tutorial</h2><ul><li><a href="/easter-eggs/totenreich-main-quest/">Totenreich Main Quest</a> - Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.</li></ul> <h2>Totenreich relic guides</h2><ul><li><a href="/black-ops-7-relics/power-switch/">Power Switch Relic</a> - Your lethal and tactical equipment changes at the start of each round, so long-term equipment planning becomes unreliable.</li><li><a href="/black-ops-7-relics/wrestlers-belt/">Wrestler&apos;s Belt Relic</a> - Wall-buy weapons randomize each round.</li><li><a href="/black-ops-7-relics/dancing-arnie/">Dancing Arnie Relic</a> - Perk machines become cursed and dispense random perks.</li><li><a href="/black-ops-7-relics/stuffed-elephant/">Stuffed Elephant Relic</a> - Health regeneration takes longer to begin.</li><li><a href="/black-ops-7-relics/agarthan-device/">Agarthan Device Relic</a> - The map rotates a different zombie variant into each round.</li><li><a href="/black-ops-7-relics/music-box/">Music Box Relic</a> - Zombies only die to critical kills.</li></ul> <p><a href="/black-ops-7/">Back to Black Ops 7 Zombies</a> | <a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Totenreich Black Ops 7 Easter Egg Guide</h1>  <p><strong>Game:</strong> <a href="/black-ops-7/">Black Ops 7</a> | <strong>Location:</strong> Aetheric reconstruction | <strong>Difficulty:</strong> 4/5</p> <p><strong>Tags:</strong> bo7, relics, finale-hint</p> <h2>Totenreich Easter Egg tutorial</h2><ul><li><a href="/easter-eggs/totenreich-main-quest/">Totenreich Main Quest</a> - Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.</li></ul> <h2>Totenreich relic guides</h2><ul><li><a href="/black-ops-7-relics/power-switch/">Power Switch Relic</a> - Your lethal and tactical equipment changes at the start of each round, so long-term equipment planning becomes unreliable.</li><li><a href="/black-ops-7-relics/wrestlers-belt/">Wrestler&apos;s Belt Relic</a> - Wall-buy weapons randomize each round.</li><li><a href="/black-ops-7-relics/dancing-arnie/">Dancing Arnie Relic</a> - Perk machines become cursed and dispense random perks.</li><li><a href="/black-ops-7-relics/stuffed-elephant/">Stuffed Elephant Relic</a> - Health regeneration takes longer to begin.</li><li><a href="/black-ops-7-relics/agarthan-device/">Agarthan Device Relic</a> - The map rotates a different zombie variant into each round.</li><li><a href="/black-ops-7-relics/music-box/">Music Box Relic</a> - Zombies only die to critical kills.</li></ul> <h2>Easter egg songs</h2><ul><li><strong>No One There</strong> - Kevin Sherwood<p>Three items around the realm.</p></li></ul> <p><a href="/maps/">Back to all Zombies maps</a></p> <p><a href="/black-ops-7-easter-eggs/">Black Ops 7 Easter Eggs</a> | <a href="/black-ops-7-relics/">Black Ops 7 relics</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>
