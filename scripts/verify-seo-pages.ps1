@@ -81,17 +81,17 @@ if ($index -notmatch $runtimeAssetPattern) {
 if ($index -notmatch $runtimeFontPattern) {
   Fail 'Runtime font base must use /Fonts on deployed pages and local relative paths for file:// pages.'
 }
-if ($index -notmatch '<meta property="og:site_name" content="CoD Zombies Archive" />') {
-  Fail 'Root index.html should declare CoD Zombies Archive as the Open Graph site name.'
+if ($index -notmatch '<meta property="og:site_name" content="Group935" />') {
+  Fail 'Root index.html should declare Group935 as the Open Graph site name.'
 }
-if ($index -notmatch '"@type": "WebSite"' -or $index -notmatch '"name": "CoD Zombies Archive"') {
-  Fail 'Root index.html should declare CoD Zombies Archive in WebSite structured data.'
+if ($index -notmatch '"@type": "WebSite"' -or $index -notmatch '"name": "Group935"') {
+  Fail 'Root index.html should declare Group935 in WebSite structured data.'
 }
-if ($index -match '<title>Group935\.net') {
-  Fail 'Root title still starts with Group935.net instead of CoD Zombies Archive.'
+if ($index -notmatch '<title>Group935 \|') {
+  Fail 'Root title should start with Group935.'
 }
-if ($appSource -notmatch 'SEO_SITE_NAME' -or $appSource -notmatch 'CoD Zombies Archive') {
-  Fail 'App route metadata should preserve CoD Zombies Archive as the site name.'
+if ($appSource -notmatch 'SEO_SITE_NAME' -or $appSource -notmatch 'Group935') {
+  Fail 'App route metadata should preserve Group935 as the site name.'
 }
 if ($index -notmatch [regex]::Escape("https://www.googletagmanager.com/gtag/js?id=$gaMeasurementId")) {
   Fail 'Root index.html is missing the Google Analytics tag.'

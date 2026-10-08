@@ -233,6 +233,8 @@
         font-display: swap;
         font-weight: 400;
       }
+      /* Match the former buttons before component-specific styles are applied. */
+      .pap-route-link { display: inline-block; text-align: center; text-decoration: none; font: 400 13.3333px Arial, sans-serif; color: ButtonText; background: ButtonFace; border: 2px outset ButtonBorder; padding: 2px 6px; }
       .pap-link { color: ${T.bone}; text-decoration: none; cursor: pointer; background: transparent; border: 0; font: inherit; padding: 0; }
       .pap-link:hover { color: ${T.e115}; }
       .pap-card { background: ${T.bg2}; border: 1px solid ${T.line}; transition: border-color .12s, transform .12s, background .12s; }
@@ -1203,7 +1205,7 @@
       @media (max-width: 1100px) {
         .pap-header-inner { flex-wrap: wrap !important; gap: 16px !important; }
         .pap-main-nav { order: 4; width: 100%; margin-left: 0 !important; overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
-        .pap-main-nav > button { flex: 0 0 auto; }
+        .pap-main-nav > :is(button, a) { flex: 0 0 auto; }
         .pap-search { margin-left: auto; }
         .pap-gallery-modal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .pap-relic-stage { min-height: auto; }
@@ -1284,7 +1286,7 @@
         .pap-mobile-menu-toggle { display: inline-flex !important; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid ${T.lineHi}; background: ${T.bg1}; color: ${T.bone}; cursor: pointer; }
         .pap-mobile-menu-toggle.is-open { color: ${T.e115}; border-color: ${T.e115dim}; background: ${T.e115bg}; }
         .pap-mobile-menu { display: block !important; border-top: 1px solid ${T.line}; border-bottom: 1px solid ${T.line}; background: rgba(16, 15, 13, 0.99); box-shadow: 0 18px 36px rgba(0,0,0,0.55); max-height: calc(100vh - 116px); overflow-y: auto; overscroll-behavior: contain; }
-        .pap-main-nav > button, .term-btn { min-height: 40px; white-space: nowrap; }
+        .pap-main-nav > :is(button, a), .term-btn { min-height: 40px; white-space: nowrap; }
         .pap-search, .term-search { width: 100% !important; min-width: 0 !important; margin: 0 !important; }
         #root .pap-search { order: 3; flex: 0 0 100%; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; min-height: 44px !important; padding: 0 12px !important; gap: 9px !important; }
         #root .pap-search svg { flex: 0 0 13px !important; }
@@ -2238,13 +2240,26 @@
     </div>
   );
 
+  // Native links expose routes to crawlers and keep browser new-tab/modifier behavior.
+  function RouteLink({ to, nav, onNavigate, className = '', children, ...props }) {
+    const href = window.location.protocol === 'file:' ? buildHash(to) : buildRoutePath(to);
+    const handleClick = (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || (props.target && props.target !== '_self') || props.download != null) return;
+      event.preventDefault();
+      event.stopPropagation();
+      nav(to);
+      if (onNavigate) onNavigate();
+    };
+    return <a {...props} href={href} className={'pap-route-link ' + className} onClick={handleClick}>{children}</a>;
+  }
+
   const Crumbs = ({ parts, nav }) => (
     <div style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.faint, textTransform: 'uppercase', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
       {parts.map((p, i) => (
         <React.Fragment key={i}>
           {i > 0 && <span style={{ color: T.faint }}>/</span>}
           {p.to ? (
-            <button className="pap-link" onClick={() => nav(p.to)} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.mute, textTransform: 'uppercase' }}>{p.label}</button>
+            <RouteLink className="pap-link" to={p.to} nav={nav} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 2, color: T.mute, textTransform: 'uppercase' }}>{p.label}</RouteLink>
           ) : (
             <span style={{ color: T.bone }}>{p.label}</span>
           )}
@@ -2302,7 +2317,7 @@
                 || (n.id === 'perks' && route.name === 'perk');
               return (
                 <React.Fragment key={n.id}>
-                  <button onClick={() => { nav({ name: n.id }); setOpen(false); }}
+                  <RouteLink to={{ name: n.id }} nav={nav} onNavigate={() => { setOpen(false); }}
                     style={{
                       display: 'block', width: '100%', textAlign: 'left',
                       background: active ? T.e115bg : 'transparent',
@@ -2314,7 +2329,7 @@
                     onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = 'transparent'; }}
                   >
                     {n.label}
-                  </button>
+                  </RouteLink>
                   {i < items.length - 1 && (
                     <div aria-hidden="true" style={{ width: 'calc(100% - 36px)', height: 1, margin: '0 auto', background: `linear-gradient(90deg, transparent 0%, ${T.lineHi} 16%, ${T.lineHi} 84%, transparent 100%)`, opacity: 0.58 }} />
                   )}
@@ -2829,7 +2844,7 @@
             <span className="pap-construction-notice" style={{ position: 'absolute', left: 32, top: '50%', transform: 'translate(calc(-100% - 14px), -50%)', display: 'inline-flex', alignItems: 'center', minHeight: 22, padding: '3px 7px 2px', border: `1px solid ${T.hazard}`, color: T.hazard, fontFamily: T.mono, fontSize: 8.5, letterSpacing: 1.55, textTransform: 'uppercase', lineHeight: 1.15, whiteSpace: 'nowrap', background: 'rgba(239, 181, 69, 0.08)', pointerEvents: 'none' }}>
               Site is under construction
             </span>
-            <button className="pap-brand" onClick={() => nav({ name: 'home' })} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
+            <RouteLink className="pap-brand" to={{ name: 'home' }} nav={nav} style={{ display: 'flex', alignItems: 'center', gap: 14, background: 'transparent', border: 0, cursor: 'pointer', padding: 0 }}>
               <Monogram />
               <div style={{ textAlign: 'left' }}>
                 <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, letterSpacing: 1.2 }}>
@@ -2839,14 +2854,14 @@
                   {'ELEMENT 115 · OPERATIONS DATABASE'}
                 </div>
               </div>
-            </button>
+            </RouteLink>
             <nav className="pap-main-nav" style={{ display: 'flex', gap: 4, marginLeft: 14, alignItems: 'center' }}>
               <NavDropdown label="Database" route={route} nav={nav} items={databaseItems} />
               <NavDropdown label="Story" route={route} nav={nav} items={storyItems} />
               <NavDropdown label="Community Votes" route={route} nav={nav} items={votingItems} />
-              <button
-                type="button"
-                onClick={() => nav({ name: 'relics' })}
+              <RouteLink
+
+                to={{ name: 'relics' }} nav={nav}
                 style={{
                   background: 'transparent',
                   border: 0,
@@ -2864,7 +2879,7 @@
                 onMouseLeave={(e) => { e.currentTarget.style.color = route.name === 'relics' ? T.bloodH : T.blood; }}
               >
                 Relics
-              </button>
+              </RouteLink>
             </nav>
             <div className="pap-header-spacer" style={{ flex: 1 }} />
             <button
@@ -2890,10 +2905,10 @@
                 style={{ background: 'transparent', border: 0, outline: 'none', color: T.bone, fontFamily: T.mono, fontSize: 11.5, width: '100%' }} />
               <span style={{ fontFamily: T.mono, fontSize: 9, color: T.faint, border: `1px solid ${T.line}`, padding: '1px 5px' }}>/</span>
             </div>
-            <button
-              type="button"
+            <RouteLink
+
               className="pap-contribute-cta"
-              onClick={() => nav({ name: 'contribute' })}
+              to={{ name: 'contribute' }} nav={nav}
               style={{
                 marginLeft: 14,
                 background: route.name === 'contribute' ? T.e115 : T.e115bg,
@@ -2912,7 +2927,7 @@
               onMouseLeave={(e) => { e.currentTarget.style.background = route.name === 'contribute' ? T.e115 : T.e115bg; e.currentTarget.style.color = route.name === 'contribute' ? T.bg0 : T.e115; }}
             >
               Contribute
-            </button>
+            </RouteLink>
             <a
               className="pap-support-link"
               href="https://www.etsy.com/shop/3DAlchemyShop"
@@ -2942,10 +2957,9 @@
                       {group.items.map((n) => {
                         const active = isItemActive(n);
                         return (
-                          <button
+                          <RouteLink
                             key={n.id}
-                            type="button"
-                            onClick={() => mobileNav({ name: n.id })}
+                            to={{ name: n.id }} nav={mobileNav}
                             className={'pap-mobile-nav-item ' + (active ? 'is-active' : '')}
                             aria-current={active ? 'page' : undefined}
                           >
@@ -2954,7 +2968,7 @@
                               <span className="pap-mobile-nav-desc">{n.desc}</span>
                             </span>
                             <span className="pap-mobile-nav-arrow" aria-hidden="true">-&gt;</span>
-                          </button>
+                          </RouteLink>
                         );
                       })}
                     </div>
@@ -2999,8 +3013,8 @@
         <div style={{ fontFamily: T.e115Font, fontSize: 10, letterSpacing: 2.5, color: T.e115, textTransform: 'uppercase', marginBottom: 14 }}>{title}</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {links.map(([label, page]) => (
-            <button key={page} onClick={() => nav({ name: page })} className="pap-link"
-              style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, letterSpacing: 1, color: T.bone, textAlign: 'left', textTransform: 'uppercase' }}>{label}</button>
+            <RouteLink key={page} to={{ name: page }} nav={nav} className="pap-link"
+              style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, letterSpacing: 1, color: T.bone, textAlign: 'left', textTransform: 'uppercase' }}>{label}</RouteLink>
           ))}
         </div>
       </div>
@@ -3091,28 +3105,28 @@
               </span>
             </h1>
             <div style={{ display: 'flex', gap: 12, marginTop: 72 }}>
-              <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'maps' })}>{'Explore the Maps'}</button>
-              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'timeline' })}>Read the Kronorium</button>
+              <RouteLink className="pap-btn pap-btn-primary" to={{ name: 'maps' }} nav={nav}>{'Explore the Maps'}</RouteLink>
+              <RouteLink className="pap-btn pap-btn-ghost" to={{ name: 'timeline' }} nav={nav}>Read the Kronorium</RouteLink>
             </div>
             <div style={{ flex: 1 }} />
           </div>
-          <div className="pap-home-feature-window" onClick={openFeaturedMap} onMouseMove={moveFeaturedImage} onMouseLeave={resetFeaturedImage}>
+          <div className="pap-home-feature-window" onClick={(event) => { if (!event.target.closest('a')) openFeaturedMap(); }} onMouseMove={moveFeaturedImage} onMouseLeave={resetFeaturedImage}>
             <MapImage key={featured.id} map={featured} height="100%" label={featured.name} kind="INTEL / FEATURE" tone="accent" loading="eager" showOverlay={false} objectFit="cover" style={{ minHeight: 380 }} />
             {featuredGameIcon && <img className={'pap-game-tile-icon pap-game-tile-icon-' + featuredGame.id} src={featuredGameIcon} alt="" aria-hidden loading="lazy" />}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(10,9,8,0.9) 100%)', padding: '32px 16px 14px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
               <div style={{ minWidth: 0 }}>
                 <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 4, lineHeight: 1 }}>{featured.name}</div>
               </div>
-              <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }} onClick={(event) => { event.stopPropagation(); openFeaturedMap(); }}>
+              <RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11, whiteSpace: 'nowrap', flexShrink: 0 }} to={{ name: 'map', id: featured.id }} nav={nav}>
                 {'Open →'}
-              </button>
+              </RouteLink>
             </div>
           </div>
         </section>
 
         <section style={{ marginBottom: 56 }}>
           <SectionHead kicker="The Games" title="Pick a chapter" action={
-            <button className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} onClick={() => nav({ name: 'games' })}>{'All games →'}</button>
+            <RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '10px 16px', fontSize: 11 }} to={{ name: 'games' }} nav={nav}>{'All games →'}</RouteLink>
           } />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
             {ZD.games.map((g) => <GameTile key={g.id} game={g} nav={nav} />)}
@@ -3147,7 +3161,7 @@
     const hoverSrc = game.imgHover ? gameImg(game, game.imgHover[hoverIdx] || game.imgHover[0]) : null;
     const iconSrc = game.imgIcon ? gameImg(game, game.imgIcon) : null;
     return (
-      <button onClick={() => nav({ name: 'game', id: game.id })}
+      <RouteLink to={{ name: 'game', id: game.id }} nav={nav}
         onMouseEnter={onEnter} onMouseLeave={() => setHover(false)}
         aria-label={game.title}
         className="pap-card pap-card-clickable"
@@ -3170,7 +3184,7 @@
           }} />
         )}
         {iconSrc && <img className={'pap-game-tile-icon pap-game-tile-icon-' + game.id} src={iconSrc} alt="" aria-hidden loading="lazy" />}
-      </button>
+      </RouteLink>
     );
   }
 
@@ -3197,10 +3211,10 @@
             <div className="pap-stencil" style={{ fontSize: 32, color: T.bone }}>{mapName + ' Main Quest'}</div>
             {subtitle && <p style={{ fontFamily: T.sans, fontSize: 14.5, color: T.bone, lineHeight: 1.55, margin: '10px 0 0' }}>{subtitle}</p>}
             <div>
-              <button className="pap-btn pap-btn-primary" style={{ marginTop: 16, padding: '11px 18px', fontSize: 12 }}
-                onClick={() => nav(route)}>
+              <RouteLink className="pap-btn pap-btn-primary" style={{ marginTop: 16, padding: '11px 18px', fontSize: 12 }}
+                to={route} nav={nav}>
                 {action}
-              </button>
+              </RouteLink>
             </div>
           </div>
         </div>
@@ -3230,10 +3244,10 @@
               <Mono color={T.e115} letter={2.5}>Daily Song</Mono>
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 6, lineHeight: 1 }}>{song.name}</div>
             </div>
-            <button className="pap-link" onClick={() => nav({ name: 'song', id: song.id })}
+            <RouteLink className="pap-link" to={{ name: 'song', id: song.id }} nav={nav}
               style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase', flexShrink: 0 }}>
               Open file
-            </button>
+            </RouteLink>
           </div>
           <Mono color={T.mute}>{song.artist + ' - ' + song.mapName + (game ? ' - ' + game.code : '')}</Mono>
         </div>
@@ -3339,7 +3353,7 @@
     const logoSrc = game.imgLogo ? gameImg(game, game.imgLogo) : null;
     const collage = useMemo(() => gameMapCollage(game), [game.id]);
     return (
-      <button onClick={() => nav({ name: 'game', id: game.id })}
+      <RouteLink to={{ name: 'game', id: game.id }} nav={nav}
         className="pap-card-clickable"
         style={{ display: 'grid', gridTemplateColumns: '190px 1fr', alignItems: 'center', minHeight: 158, padding: 0, color: T.bone, textAlign: 'left', overflow: 'hidden', background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`, boxShadow: 'none' }}>
         <div style={{ minHeight: 158, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '18px 18px 18px 0' }}>
@@ -3374,7 +3388,7 @@
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,9,8,0.22) 0%, rgba(10,9,8,0.02) 45%, rgba(10,9,8,0.42) 100%)', pointerEvents: 'none', zIndex: 20 }} />
           <div className="pap-stencil" style={{ position: 'relative', zIndex: 25, fontSize: 30, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>{game.title}</div>
         </div>
-      </button>
+      </RouteLink>
     );
   }
 
@@ -3445,7 +3459,7 @@
         {songsIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
             <SectionHead title="Songs"
-              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'songs' })}>All songs →</button>}
+              action={<RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} to={{ name: 'songs' }} nav={nav}>All songs →</RouteLink>}
             />
             <SongTable songs={songsIn} nav={nav} />
           </section>
@@ -3457,7 +3471,7 @@
             <SectionHead title="Wonder Weapons" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
               {wwIn.map((w, i) => (
-                <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card-clickable"
+                <RouteLink key={w.id} to={{ name: 'weapon', id: w.id }} nav={nav} className="pap-card-clickable"
                   style={{ padding: 0, color: T.bone, textAlign: 'left', background: 'transparent', border: 0, boxShadow: 'none', position: 'relative', overflow: 'hidden', minHeight: 230 }}>
                   <WeaponImage
                     weapon={w}
@@ -3469,7 +3483,7 @@
                   <div style={{ position: 'relative', minHeight: 230, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textAlign: 'center' }}>
                     <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, lineHeight: 1.05, textShadow: '0 2px 14px rgba(0,0,0,0.9)' }}>{w.name}</div>
                   </div>
-                </button>
+                </RouteLink>
               ))}
             </div>
           </section>
@@ -3482,7 +3496,7 @@
             items={g.gobblegums}
             kind="gobblegum"
             emptyHint={'Drop your ' + g.code + ' gobblegum spreadsheet rows into the gameContent block in the data IIFE — name, rarity, effect.'}
-            action={g.id === 'bo7' ? <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'gobblegums' })}>Full catalogue -></button> : null}
+            action={g.id === 'bo7' ? <RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} to={{ name: 'gobblegums' }} nav={nav}>Full catalogue -></RouteLink> : null}
           />
         )}
 
@@ -3500,20 +3514,20 @@
         {crewIn.length > 0 && (
           <section style={{ marginTop: 48 }}>
             <SectionHead title="Crew of this game"
-              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'characters' })}>All crew →</button>}
+              action={<RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} to={{ name: 'characters' }} nav={nav}>All crew →</RouteLink>}
             />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
               {crewIn.map((c) => {
                 const meta = crewCardMeta(g.id, c);
                 return (
-                  <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                  <RouteLink key={c.id} to={{ name: 'character', id: c.id }} nav={nav} className="pap-card pap-card-clickable"
                     style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
                     <CharacterImage character={c} variant={meta.variant} kind={meta.label.toUpperCase()} showKind={false} style={crewPortraitFrameStyle(meta.variant, 180)} />
                     <div style={{ padding: 14 }}>
                       <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
                       <Mono color={T.faint}>{meta.label}</Mono>
                     </div>
-                  </button>
+                  </RouteLink>
                 );
               })}
             </div>
@@ -3525,11 +3539,11 @@
           <section style={{ marginTop: 48 }}>
             <SectionHead
               title="Relics"
-              action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'relics' })}>Full catalogue →</button>}
+              action={<RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} to={{ name: 'relics' }} nav={nav}>Full catalogue →</RouteLink>}
             />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
               {relicMapsIn.map((m) => (
-                <button key={m.id} onClick={() => nav({ name: 'map', id: m.id })} className="pap-card pap-card-clickable"
+                <RouteLink key={m.id} to={{ name: 'map', id: m.id }} nav={nav} className="pap-card pap-card-clickable"
                   style={{ padding: 20, display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, color: T.bone, textAlign: 'left' }}>
                   <div>
                     <Mono color={T.e115}>{g.code + ' · ' + g.year}</Mono>
@@ -3540,7 +3554,7 @@
                     <div className="pap-stencil pap-num" style={{ fontSize: 44, color: T.hazard, lineHeight: 1 }}>{String(relicCountForMap(m)).padStart(2,'0')}</div>
                     <Mono color={T.faint}>Relics</Mono>
                   </div>
-                </button>
+                </RouteLink>
               ))}
             </div>
           </section>
@@ -3804,22 +3818,22 @@
           const iconSrc = relicIconImg(relic);
           const pending = relic.status === 'pending';
           return (
-            <button
+            <RouteLink
               key={relic.id}
-              type="button"
+
               role="listitem"
               className="pap-map-relic-icon"
               style={{ '--pap-relic-accent': relicTierTone(relic.tier) }}
               aria-label={'Open ' + relic.name + ' relic file'}
               title={relic.name}
-              onClick={() => nav({ name: 'relics', id: relic.id })}
+              to={{ name: 'relics', id: relic.id }} nav={nav}
             >
               {iconSrc ? (
                 <img src={iconSrc} alt="" loading="lazy" />
               ) : (
                 <span className="pap-relic-slot-placeholder" aria-hidden>{pending ? '?' : 'R'}</span>
               )}
-            </button>
+            </RouteLink>
           );
         })}
       </div>
@@ -3830,7 +3844,7 @@
     return (
       <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
         {songs.map((s, i) => (
-          <button key={s.id || i} onClick={() => nav({ name: 'song', id: s.id || songRouteId(s.mapId, s.name) })}
+          <RouteLink key={s.id || i} to={{ name: 'song', id: s.id || songRouteId(s.mapId, s.name) }} nav={nav}
             className="pap-row pap-song-row"
             style={{ borderTop: i ? `1px solid ${T.line}` : 0 }}>
             <div className="pap-song-index"><Mono color={T.e115} letter={2}>{String(i + 1).padStart(2, '0')}</Mono></div>
@@ -3841,7 +3855,7 @@
             <div className="pap-song-map"><Mono color={T.mute}>{s.mapName}</Mono></div>
             <div className="pap-song-activation">{s.activation}</div>
             <div className="pap-song-arrow"><Mono color={T.e115}>{'›'}</Mono></div>
-          </button>
+          </RouteLink>
         ))}
       </div>
     );
@@ -4499,14 +4513,14 @@
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
               <Mono color={T.faint}>{totalVotes + ' total votes'}</Mono>
-              <button
-                type="button"
-                onClick={() => nav({ name: 'vote-ranking', id: config.pollId })}
+              <RouteLink
+
+                to={{ name: 'vote-ranking', id: config.pollId }} nav={nav}
                 className="pap-btn pap-btn-ghost"
                 style={{ padding: '8px 12px', fontSize: 11 }}
               >
                 Full Ranking
-              </button>
+              </RouteLink>
             </div>
           </div>
           {message && (
@@ -4523,10 +4537,10 @@
                   <div key={item.id} className={'pap-vote-leader-row ' + (i === 0 ? 'is-first' : '')}>
                     <div className="pap-stencil pap-num pap-vote-rank" style={{ color: i === 0 ? T.e115 : T.mute }}>{String(i + 1).padStart(2, '0')}</div>
                     {config.renderImage(item, 58, true)}
-                    <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
+                    <RouteLink  to={config.getDetailRoute(item)} nav={nav} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
                       <div className="pap-stencil" style={{ fontSize: 19, color: T.bone }}>{item.name}</div>
                       <Mono color={T.faint}>{config.getMeta(item)}</Mono>
-                    </button>
+                    </RouteLink>
                     <div style={{ textAlign: 'right' }}>
                       <Mono color={T.e115}>{entry.count + ' votes'}</Mono>
                       <div style={{ marginTop: 3 }}><Mono color={T.faint}>{percent + '%'}</Mono></div>
@@ -4590,9 +4604,9 @@
                     >
                       {savingItemId === item.id ? 'Recording' : isSelected ? 'Current Vote' : locked ? 'Change Vote' : 'Vote'}
                     </button>
-                    <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
+                    <RouteLink  to={config.getDetailRoute(item)} nav={nav} className="pap-link" style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: T.mute }}>
                       Dossier
-                    </button>
+                    </RouteLink>
                   </div>
                 </div>
               </div>
@@ -4658,9 +4672,9 @@
         />
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap', marginTop: 24 }}>
-          <button type="button" onClick={() => nav({ name: config.routeName })} className="pap-btn pap-btn-ghost" style={{ padding: '9px 14px', fontSize: 11 }}>
+          <RouteLink  to={{ name: config.routeName }} nav={nav} className="pap-btn pap-btn-ghost" style={{ padding: '9px 14px', fontSize: 11 }}>
             Back to Vote
-          </button>
+          </RouteLink>
           <Mono color={T.faint}>{rankedItems.length + ' ranked entries'}</Mono>
         </div>
 
@@ -4686,10 +4700,10 @@
               }}>
                 <div className="pap-stencil pap-num" style={{ fontSize: 24, color: i === 0 ? T.e115 : T.mute, textAlign: 'center' }}>{String(i + 1).padStart(2, '0')}</div>
                 {config.renderImage(item, 64, true)}
-                <button type="button" onClick={() => nav(config.getDetailRoute(item))} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
+                <RouteLink  to={config.getDetailRoute(item)} nav={nav} className="pap-link" style={{ textAlign: 'left', minWidth: 0 }}>
                   <div className="pap-stencil" style={{ fontSize: 21, color: T.bone }}>{item.name}</div>
                   <Mono color={T.faint}>{config.getMeta(item)}</Mono>
-                </button>
+                </RouteLink>
                 <div style={{ textAlign: 'right' }}>
                   <Mono color={entry.count ? T.e115 : T.faint}>{entry.count + ' votes'}</Mono>
                   <div style={{ marginTop: 3 }}><Mono color={T.faint}>{percent + '%'}</Mono></div>
@@ -4750,7 +4764,7 @@
     const g = ZD.games.find((x) => x.id === map.game);
     const iconSrc = g && g.imgIcon ? gameImg(g, g.imgIcon) : null;
     return (
-      <button onClick={() => nav({ name: 'map', id: map.id })} className="pap-card pap-card-clickable"
+      <RouteLink to={{ name: 'map', id: map.id }} nav={nav} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: 260 }}>
         <MapImage
           map={map}
@@ -4768,7 +4782,7 @@
           <div className="pap-stencil" style={{ fontSize: 29, color: T.bone, lineHeight: 1.05 }}>{map.name}</div>
           <Mono color={T.e115} style={{ marginTop: 10 }}>{'Open ›'}</Mono>
         </div>
-      </button>
+      </RouteLink>
     );
   }
 
@@ -4794,14 +4808,14 @@
     return (
       <div className="pap-intel-links">
         {crew.map((member) => (
-          <button
+          <RouteLink
             key={member.id}
-            type="button"
+
             className="pap-intel-link"
-            onClick={() => nav({ name: 'character', id: member.id })}
+            to={{ name: 'character', id: member.id }} nav={nav}
           >
             {member.name}
-          </button>
+          </RouteLink>
         ))}
       </div>
     );
@@ -4811,14 +4825,14 @@
     return (
       <div className="pap-intel-links">
         {groups.map((group) => (
-          <button
+          <RouteLink
             key={group}
-            type="button"
+
             className="pap-intel-link"
-            onClick={() => nav(crewGroupRoute(group))}
+            to={crewGroupRoute(group)} nav={nav}
           >
             {group}
-          </button>
+          </RouteLink>
         ))}
       </div>
     );
@@ -4889,7 +4903,7 @@
           <section style={{ marginTop: 40 }}>
             <SectionHead kicker="Primary Easter Egg" title="Main Quest" />
             {ee ? (
-            <button onClick={() => nav({ name: 'ee', id: ee.id })} className="pap-card pap-card-clickable"
+            <RouteLink to={{ name: 'ee', id: ee.id }} nav={nav} className="pap-card pap-card-clickable"
               style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
               {ee.rewardGif ? (
                 <CallingCardReward ee={ee} height={180} />
@@ -4911,7 +4925,7 @@
               <div style={{ alignSelf: 'center', padding: '0 28px' }}>
                 <Mono color={T.e115} size={13} letter={2.5}>{'Begin →'}</Mono>
               </div>
-            </button>
+            </RouteLink>
             ) : (
               <ComingSoon what="Full walkthrough" />
             )}
@@ -4924,7 +4938,7 @@
             <SectionHead kicker={m.songs.length + ' track' + (m.songs.length === 1 ? '' : 's')} title="Hidden Songs" />
             <div className="pap-card" style={{ padding: 0, overflow: 'hidden' }}>
               {m.songs.map((s, i) => (
-                <button key={i} onClick={() => nav({ name: 'song', id: songRouteId(m.id, s.name) })}
+                <RouteLink key={i} to={{ name: 'song', id: songRouteId(m.id, s.name) }} nav={nav}
                   className="pap-row"
                   style={{
                   display: 'grid', gridTemplateColumns: '52px 1fr 1.4fr', gap: 18, alignItems: 'center',
@@ -4937,7 +4951,7 @@
                     <Mono color={T.faint}>{s.artist}</Mono>
                   </div>
                   <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, lineHeight: 1.55 }}>{s.activation}</div>
-                </button>
+                </RouteLink>
               ))}
             </div>
           </section>
@@ -4957,14 +4971,14 @@
             {playableCharactersForMap(m).map((c) => {
               const meta = crewCardMeta(m.game, c);
               return (
-                <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                <RouteLink key={c.id} to={{ name: 'character', id: c.id }} nav={nav} className="pap-card pap-card-clickable"
                   style={{ padding: 0, color: T.bone, textAlign: 'left' }}>
                   <CharacterImage character={c} variant={meta.variant} kind={meta.label.toUpperCase()} showKind={false} style={crewPortraitFrameStyle(meta.variant, 170)} />
                   <div style={{ padding: 14 }}>
                     <div className="pap-stencil" style={{ fontSize: 17, color: T.bone }}>{c.name}</div>
                     <Mono color={T.faint}>{meta.label}</Mono>
                   </div>
-                </button>
+                </RouteLink>
               );
             })}
           </div>
@@ -4972,8 +4986,8 @@
 
         <section style={{ marginTop: 40 }}>
           <SectionHead kicker="Other sites in this game" title="Continue" action={
-            <button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }}
-              onClick={() => nav({ name: 'game', id: g.id })}>{'All in ' + g.code + ' →'}</button>
+            <RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }}
+              to={{ name: 'game', id: g.id }} nav={nav}>{'All in ' + g.code + ' →'}</RouteLink>
           } />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
             {ZD.maps.filter((x) => x.game === g.id && x.id !== m.id).slice(0, 3).map((x) => (
@@ -5061,8 +5075,8 @@
               The reward file is live. The full step-by-step Easter egg tutorial is still being assembled.
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 22 }}>
-              {map && <button className="pap-btn pap-btn-primary" onClick={() => nav({ name: 'map', id: map.id })}>Open map file -></button>}
-              <button className="pap-btn pap-btn-ghost" onClick={() => nav({ name: 'black-ops-7' })}>Black Ops 7 -></button>
+              {map && <RouteLink className="pap-btn pap-btn-primary" to={{ name: 'map', id: map.id }} nav={nav}>Open map file -></RouteLink>}
+              <RouteLink className="pap-btn pap-btn-ghost" to={{ name: 'black-ops-7' }} nav={nav}>Black Ops 7 -></RouteLink>
             </div>
           </div>
         </div>
@@ -5438,7 +5452,7 @@
                   const variant = isOriginalCrew ? originalCrewVariant : undefined;
                   const isUltimisTile = variant === 'ultimis';
                   return (
-                    <button key={c.id} onClick={() => nav({ name: 'character', id: c.id })} className="pap-card pap-card-clickable"
+                    <RouteLink key={c.id} to={{ name: 'character', id: c.id }} nav={nav} className="pap-card pap-card-clickable"
                       style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: isUltimisTile ? 0 : 320, aspectRatio: isUltimisTile ? '1 / 1' : undefined }}>
                       <CharacterImage
                         character={c}
@@ -5451,7 +5465,7 @@
                       <div style={{ position: 'relative', minHeight: isUltimisTile ? '100%' : 320, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textShadow: '0 2px 14px rgba(0,0,0,0.82)' }}>
                         <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, lineHeight: 1.05 }}>{c.name}</div>
                       </div>
-                    </button>
+                    </RouteLink>
                   );
                 })}
               </div>
@@ -5501,7 +5515,7 @@
               <SectionHead kicker="Cross-Reference" title="Sites visited" />
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {ZD.maps.slice(0, 8).map((m) => (
-                  <button key={m.id} onClick={() => nav({ name: 'map', id: m.id })} className="pap-chip">{m.name}</button>
+                  <RouteLink key={m.id} to={{ name: 'map', id: m.id }} nav={nav} className="pap-chip">{m.name}</RouteLink>
                 ))}
               </div>
             </div>
@@ -5523,13 +5537,13 @@
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', columnGap: 28, rowGap: 38, marginTop: 32 }}>
           {ZD.wonderWeapons.map((w, i) => (
-            <button key={w.id} onClick={() => nav({ name: 'weapon', id: w.id })} className="pap-card-clickable"
+            <RouteLink key={w.id} to={{ name: 'weapon', id: w.id }} nav={nav} className="pap-card-clickable"
               style={{ padding: 0, color: T.bone, textAlign: 'center', overflow: 'hidden', background: 'transparent', border: 0, boxShadow: 'none' }}>
               <WeaponImage weapon={w} height={170} label={w.name} showOverlay={false} style={{ background: 'transparent', border: 0 }} />
               <div style={{ padding: '12px 8px 0' }}>
                 <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, lineHeight: 1.05 }}>{w.name}</div>
               </div>
-            </button>
+            </RouteLink>
           ))}
         </div>
       </div>
@@ -5571,9 +5585,9 @@
             <SectionHead kicker="Appearances" title="Filed under" />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {gamesIn.map((g) => (
-                <button key={g.id} onClick={() => nav({ name: 'game', id: g.id })} className="pap-chip">
+                <RouteLink key={g.id} to={{ name: 'game', id: g.id }} nav={nav} className="pap-chip">
                   {g.code + ' - ' + g.title}
-                </button>
+                </RouteLink>
               ))}
             </div>
           </section>
@@ -5606,10 +5620,10 @@
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: 18, rowGap: 34, marginTop: 32 }}>
           {ZD.perks.map((p, i) => (
-            <button key={p.id} onClick={() => nav({ name: 'perk', id: p.id })} className="pap-card-clickable pap-gum-card"
+            <RouteLink key={p.id} to={{ name: 'perk', id: p.id }} nav={nav} className="pap-card-clickable pap-gum-card"
               style={{ padding: '10px 0 4px', minHeight: 176, color: T.bone, textAlign: 'center', overflow: 'visible', background: 'transparent', border: 0, boxShadow: 'none' }}>
               <PerkIconTile perk={p} index={i} />
-            </button>
+            </RouteLink>
           ))}
         </div>
       </div>
@@ -5667,9 +5681,9 @@
             <SectionHead kicker="Appearances" title="Filed under" />
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
               {gamesIn.map((g) => (
-                <button key={g.id} onClick={() => nav({ name: 'game', id: g.id })} className="pap-chip">
+                <RouteLink key={g.id} to={{ name: 'game', id: g.id }} nav={nav} className="pap-chip">
                   {g.code + ' - ' + g.title}
-                </button>
+                </RouteLink>
               ))}
             </div>
           </section>
@@ -5748,8 +5762,8 @@
                   <Mono color={T.e115}>{game.code + ' · ' + game.year}</Mono>
                   <div className="pap-stencil" style={{ fontSize: 24, color: T.bone, marginTop: 4 }}>{game.title}</div>
                 </div>
-                <button className="pap-link" onClick={() => nav({ name: 'game', id: game.id })}
-                  style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open game →'}</button>
+                <RouteLink className="pap-link" to={{ name: 'game', id: game.id }} nav={nav}
+                  style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>{'Open game →'}</RouteLink>
               </div>
               <SongTable songs={songs} nav={nav} />
             </section>
@@ -5810,10 +5824,10 @@
                 <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>Find the triggers</div>
               </div>
               {map && (
-                <button className="pap-link" onClick={() => nav({ name: 'map', id: map.id })}
+                <RouteLink className="pap-link" to={{ name: 'map', id: map.id }} nav={nav}
                   style={{ fontFamily: T.e115Font, fontSize: 10.5, letterSpacing: 2, color: T.e115, textTransform: 'uppercase' }}>
                   Open map file
-                </button>
+                </RouteLink>
               )}
             </div>
             <p style={{ fontFamily: T.sans, fontSize: 15, color: T.bone, lineHeight: 1.65, margin: '0 0 22px' }}>{song.activation}</p>
@@ -5834,11 +5848,11 @@
 
         {map && (
           <section style={{ marginTop: 34 }}>
-            <button className="pap-card pap-card-clickable" onClick={() => nav({ name: 'map', id: map.id })}
+            <RouteLink className="pap-card pap-card-clickable" to={{ name: 'map', id: map.id }} nav={nav}
               style={{ width: '100%', padding: 22, textAlign: 'left', background: T.bg1, border: `1px solid ${T.line}`, cursor: 'pointer' }}>
               <Mono color={T.faint}>Map file</Mono>
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{map.name}</div>
-            </button>
+            </RouteLink>
           </section>
         )}
       </div>
@@ -5897,14 +5911,14 @@
           <React.Fragment>
         {bo7 && (
           <section style={{ marginTop: 34 }}>
-            <button className="pap-card pap-card-clickable" onClick={() => nav({ name: 'game', id: bo7.id })}
+            <RouteLink className="pap-card pap-card-clickable" to={{ name: 'game', id: bo7.id }} nav={nav}
               style={{ width: '100%', padding: 22, display: 'grid', gridTemplateColumns: '1fr auto', gap: 18, alignItems: 'center', color: T.bone, textAlign: 'left' }}>
               <div>
                 <Mono color={T.e115}>{bo7.code + ' · ' + bo7.year}</Mono>
                 <div className="pap-stencil" style={{ fontSize: 28, color: T.bone, marginTop: 6 }}>{bo7.title}</div>
               </div>
               <Mono color={T.e115}>Open game file →</Mono>
-            </button>
+            </RouteLink>
           </section>
         )}
 
@@ -5923,7 +5937,7 @@
               <SectionHead
                 kicker={mapRelics.length + ' relic file' + (mapRelics.length === 1 ? '' : 's')}
                 title={map.name}
-                action={<button className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} onClick={() => nav({ name: 'map', id: map.id })}>Map file →</button>}
+                action={<RouteLink className="pap-btn pap-btn-ghost" style={{ padding: '8px 14px', fontSize: 11 }} to={{ name: 'map', id: map.id }} nav={nav}>Map file →</RouteLink>}
               />
               <RelicGrid relics={mapRelics} />
             </section>
@@ -5955,7 +5969,7 @@
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, marginTop: 32 }}>
           {articles.map(([id, title, kicker, sub]) => (
-            <button key={id} onClick={() => nav({ name: 'lore', id })} className="pap-card pap-card-clickable"
+            <RouteLink key={id} to={{ name: 'lore', id }} nav={nav} className="pap-card pap-card-clickable"
               style={{ padding: 24, color: T.bone, textAlign: 'left' }}>
               <Mono color={T.e115}>{kicker}</Mono>
               <div className="pap-stencil" style={{ fontSize: 26, color: T.bone, marginTop: 8 }}>{title}</div>
@@ -5964,7 +5978,7 @@
                 <Mono color={T.faint}>Annot. Requiem</Mono>
                 <Mono color={T.e115}>{'Read →'}</Mono>
               </div>
-            </button>
+            </RouteLink>
           ))}
         </div>
       </div>
@@ -6080,7 +6094,7 @@
                        : h.kind === 'gobblegum' ? { name: 'gobblegums' }
                        : { name: 'home' };
             return (
-              <button key={i} onClick={() => nav(route)} className="pap-row"
+              <RouteLink key={i} to={route} nav={nav} className="pap-row"
                 style={{ display: 'grid', gridTemplateColumns: '90px 1fr auto', gap: 22, alignItems: 'center',
                   background: 'transparent', border: 0, borderBottom: `1px solid ${T.line}`, padding: '16px 6px',
                   cursor: 'pointer', color: T.bone, textAlign: 'left' }}>
@@ -6090,7 +6104,7 @@
                   <div style={{ fontFamily: T.sans, fontSize: 13.5, color: T.mute, marginTop: 3 }}>{h.sub}</div>
                 </div>
                 <span style={{ color: T.e115, fontFamily: T.mono, fontSize: 14 }}>{'›'}</span>
-              </button>
+              </RouteLink>
             );
           })}
         </div>
@@ -6122,8 +6136,8 @@
               <Mono color={T.e115}>Quick links</Mono>
               <div style={{ display: 'flex', flexDirection: 'column', marginTop: 12, gap: 2 }}>
                 {[['Browse all maps','maps'],['Read the Kronorium','timeline'],['Meet the crew','characters'],['Perk reference','perks'],['Wonder weapons','weapons']].map(([l, p]) => (
-                  <button key={p} onClick={() => nav({ name: p })} className="pap-link"
-                    style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, color: T.bone, textAlign: 'left', padding: '6px 0', borderBottom: `1px solid ${T.line}`, textTransform: 'uppercase' }}>{l + ' →'}</button>
+                  <RouteLink key={p} to={{ name: p }} nav={nav} className="pap-link"
+                    style={{ fontFamily: T.display, fontSize: 15, fontWeight: 500, color: T.bone, textAlign: 'left', padding: '6px 0', borderBottom: `1px solid ${T.line}`, textTransform: 'uppercase' }}>{l + ' →'}</RouteLink>
                 ))}
               </div>
             </div>
@@ -6281,15 +6295,15 @@
               <Mono color={T.e115}>{group.title}</Mono>
               <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
                 {group.links.map(([label, route, text]) => (
-                  <button
+                  <RouteLink
                     key={(route.name || '') + '-' + (route.id || '')}
-                    onClick={() => nav(route)}
+                    to={route} nav={nav}
                     className="pap-link"
                     style={{ textAlign: 'left', padding: '7px 0', borderBottom: `1px solid ${T.line}`, color: T.bone }}
                   >
                     <span style={{ display: 'block', fontFamily: T.display, fontSize: 15, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>{label}</span>
                     <span style={{ display: 'block', fontFamily: T.sans, fontSize: 12.5, color: T.mute, marginTop: 2 }}>{text}</span>
-                  </button>
+                  </RouteLink>
                 ))}
               </div>
             </section>
@@ -6307,7 +6321,7 @@
         <p style={{ fontFamily: T.sans, fontSize: 16, color: T.mute, marginTop: 12, maxWidth: 460, marginLeft: 'auto', marginRight: 'auto' }}>
           {'That ' + (what || 'page') + ' is not in the archive — or it’s been redacted since you last checked.'}
         </p>
-        <button className="pap-btn pap-btn-primary" style={{ marginTop: 22 }} onClick={() => nav({ name: 'home' })}>{'Return to archive →'}</button>
+        <RouteLink className="pap-btn pap-btn-primary" style={{ marginTop: 22 }} to={{ name: 'home' }} nav={nav}>{'Return to archive →'}</RouteLink>
       </div>
     );
   }
@@ -6381,7 +6395,7 @@
   function parseCurrentRoute() {
     if (window.location.hash && /^#\//.test(window.location.hash)) return parseHash(window.location.hash);
     const anchor = window.location.hash && !/^#\//.test(window.location.hash) ? window.location.hash : '';
-    if (window.G935_ROUTE_PATH) return parseRoutePath(window.G935_ROUTE_PATH + anchor);
+    if (window.location.protocol === 'file:' && window.G935_ROUTE_PATH) return parseRoutePath(window.G935_ROUTE_PATH + anchor);
     if (window.location.protocol === 'file:') return { name: 'home' };
     return parseRoutePath(window.location.pathname + anchor);
   }
@@ -6425,9 +6439,9 @@
   window.__papBuildRoutePath = buildRoutePath;
 
   const SEO_SITE_URL = 'https://group935.net';
-  const SEO_SITE_NAME = 'CoD Zombies Archive';
-  const SEO_DEFAULT_TITLE = 'CoD Zombies Archive | Zombies Easter Eggs, Black Ops 7 Relic Tutorials';
-  const SEO_DEFAULT_DESCRIPTION = 'CoD Zombies Archive is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
+  const SEO_SITE_NAME = 'Group935';
+  const SEO_DEFAULT_TITLE = 'Group935 | CoD Zombies Easter Eggs, Maps & Relics';
+  const SEO_DEFAULT_DESCRIPTION = 'Group935 is a Treyarch Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.';
   function seoPublicRoutePath(route) {
     const path = buildRoutePath(route || { name: 'home' }).split('#')[0];
     return path === '/' ? '/' : path.replace(/\/+$/, '') + '/';
@@ -6444,14 +6458,14 @@
     return map ? map.name : 'Black Ops 7';
   }
   function seoFindEasterEgg(id) {
-    return (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []).find((ee) => ee.id === id);
+    return (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || [], ZD.sampleEE ? [ZD.sampleEE] : []).find((ee) => ee.id === id);
   }
   function seoRelicLabel(relic) {
     if (!relic || !relic.name) return 'Black Ops 7 Relic';
     return /\brelic$/i.test(relic.name) ? relic.name : relic.name + ' Relic';
   }
   function seoTopicForRoute(name) {
-    const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []);
+    const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || [], ZD.sampleEE ? [ZD.sampleEE] : []);
     const bo7Maps = (ZD.maps || []).filter((map) => map.game === 'bo7');
     const bo7MapIds = new Set(bo7Maps.map((map) => map.id));
     const bo7EasterEggs = allEasterEggs.filter((ee) => bo7MapIds.has(ee.map));
@@ -6566,12 +6580,16 @@
   }
   function seoDescription(text, fallback) {
     const clean = String(text || fallback || SEO_DEFAULT_DESCRIPTION).replace(/\s+/g, ' ').trim();
-    return clean.length > 158 ? clean.slice(0, 155).replace(/\s+\S*$/, '') + '...' : clean;
+    if (clean.length <= 158) return clean;
+    let trimmed = clean.slice(0, 155).trimEnd();
+    const lastSpace = trimmed.lastIndexOf(' ');
+    if (lastSpace > 70) trimmed = trimmed.slice(0, lastSpace);
+    return trimmed + '...';
   }
   function seoForRoute(route) {
     const r = route || { name: 'home' };
     if (r.name === 'site-index') {
-      const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || []);
+      const allEasterEggs = (ZD.bo7EasterEggs || []).concat(ZD.classicEasterEggs || [], ZD.sampleEE ? [ZD.sampleEE] : []);
       const siteIndexRoutes = [
         { name: 'Group 935', route: { name: 'home' } },
         { name: 'Treyarch Zombies Games', route: { name: 'games' } },
@@ -6684,7 +6702,7 @@
       if (ee) {
         return {
           title: ee.title + ' Easter Egg Walkthrough | Group 935',
-          description: seoDescription(ee.summary, ee.title + ' Zombies Easter egg walkthrough with map steps, setup notes, reward details, and Group 935 archive context.'),
+          description: seoDescription(ee.summary ? ee.title + ': ' + ee.summary : '', ee.title + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.'),
           url: seoRouteUrl(r),
         };
       }
@@ -6756,7 +6774,7 @@
       if (perk) {
         return {
           title: perk.name + ' Zombies Perk | Group 935',
-          description: seoDescription(perk.summary, perk.name + ' Zombies perk reference with effects, machines, images, and archive notes.'),
+          description: seoDescription(perk.effect ? perk.name + ': ' + perk.effect : '', perk.name + ' Zombies perk reference with effects, machines, images, and archive notes.'),
           url: seoRouteUrl(r),
         };
       }
@@ -7565,6 +7583,9 @@
   }
 
   function App() {
+    React.useEffect(() => {
+      if (!window.__bootErrors.length) document.body.classList.add('booted');
+    }, []);
     if (window.PackAPunch) return <window.PackAPunch />;
     return React.createElement('div', null, 'Loading…');
   }
@@ -7582,7 +7603,6 @@
       ReactDOM.createRoot(document.getElementById('root')).render(
         <ErrorBoundary><App /></ErrorBoundary>
       );
-      document.body.classList.add('booted');
     } catch (err) {
       __bootShow('mount error', err);
     }

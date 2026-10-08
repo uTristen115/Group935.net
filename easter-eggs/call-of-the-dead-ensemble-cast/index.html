@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ensemble Cast Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="Ensemble Cast Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="Ensemble Cast: Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal,..." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Ensemble Cast Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="Ensemble Cast Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="Ensemble Cast: Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal,..." />
 <meta property="og:url" content="https://group935.net/easter-eggs/call-of-the-dead-ensemble-cast/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Ensemble Cast Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="Ensemble Cast Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="Ensemble Cast: Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal,..." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/call-of-the-dead-ensemble-cast';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"Ensemble Cast Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"Ensemble Cast Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/call-of-the-dead-ensemble-cast/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"Ensemble Cast Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/call-of-the-dead-ensemble-cast/","inLanguage":"en-US","description":"Ensemble Cast: Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal,..."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,7 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Ensemble Cast Easter Egg Walkthrough | Group 935</h1><p>Ensemble Cast Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Ensemble Cast Easter Egg Walkthrough</h1> <p>Help Ultimis escape the locked room beneath PhD Flopper by powering the ship, repairing their fuse box, decoding the lighthouse signal, and sending the Vril Device through the vault tube.</p> <p><a href="/maps/callofthedead/">Call of the Dead</a> - Black Ops</p> <dl><dt>Difficulty</dt><dd>Medium-Hard</dd><dt>Duration</dt><dd>50-80 min</dd><dt>Party</dt><dd>2-4 players for Ensemble Cast</dd></dl> <h2>Requirements</h2><ul><li>Power turned on</li><li>Path to PhD Flopper open</li><li>Semtex or other explosives</li><li>V-R11 from the Mystery Box</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Power the Ship</h3><p>Open the map until you can reach the ship bridge. As usual, the main quest starts by restoring power to the facility.</p><ul><li>Move through the ship until you reach the bridge on the top level.</li><li>Flip the power switch in the bridge.</li><li>Open the route back toward the lighthouse and PhD Flopper building.</li><li>Start working on a V-R11 early, since the final sequence cannot be completed without it.</li></ul></li><li><h3>Restore the Vault Circuit</h3><p>Drop into the room below PhD Flopper and get the crew talking through the sealed vault. Once the argument settles, Richtofen needs a replacement fuse for the busted panel.</p><ul><li>Hit or use the vault door until Ultimis begins the request.</li><li>Sweep the PhD Flopper floor and the adjacent lower room for the loose fuse.</li><li>Look over desk surfaces, cabinet spaces, and small cluttered work areas for the pickup prompt.</li><li>Carry the fuse back downstairs and install it in the wall panel next to the sealed door.</li><li>Trigger the door again so the crew moves on to the next problem.</li></ul></li><li><h3>Break the Security Grid</h3><p>Nikolai trips the MDT security grid, leaving four red-lit units active across the coast. Use explosives and land the blast directly on the glowing machinery.</p><ul><li>Semtex is ideal because it sticks, but any reliable explosive can work if the detonation hits the red light.</li><li>One unit sits opposite the vault area, visible from the door side of the room.</li><li>Another is tucked past the ship railing, down by the water near Double Tap.</li><li>A third is lodged among the icy gaps in the central ship section.</li><li>The last one is outside the playable path near a Stamin-Up window.</li><li>When all four stop glowing, report back to the vault.</li></ul></li><li><h3>Send Nikolai a Drink</h3><p>Co-op only. Nikolai asks for vodka next, because of course he does. The bottle hangs in a block of ice above a lower walkway, so this step takes two players in sync.</p><ul><li>Put one player at the bottle and one player on the lower path beneath it.</li><li>The top player knifes the ice; the lower player catches the falling bottle.</li><li>Check the ramp that joins the broken ship sections.</li><li>Check the Mystery Box area on the upper PhD Flopper side.</li><li>Check the high ledge near the MPL wall buy.</li><li>Check the stairs that descend from the upper Mystery Box spot toward PhD Flopper.</li><li>Feed the bottle into the left-side tube beside the vault.</li></ul></li><li><h3>Wake the Sky Signal</h3><p>Co-op only. Four radios have to be used in sequence. Done correctly, the map answers with a blinking light in the sky.</p><ul><li>Start below the power room and use the radio resting on the right-side electrical cabinet.</li><li>Move to Stamin-Up and use the radio perched on the nearby barrel.</li><li>Go to the zipline-exit side of the ship and find the sideways radio inside the shipping container.</li><li>Finish beside the vault with the radio on the cabinet tucked under the stairs.</li><li>Keep the activations close together so the sequence does not drop.</li><li>Watch the sky for the blinking confirmation once the fourth radio registers.</li></ul></li><li><h3>Solve the Bridge Controls</h3><p>Return to the bridge controls opposite the power switch. The wheel and lever positions translate the signal into the submarine setup.</p><ul><li>Rotate the wheel until the brown handle sits in the lower-right position.</li><li>Move to the three-lever panel beside the wheel.</li><li>Pull the left lever one time.</li><li>Leave the middle lever alone.</li><li>Pull the right-most lever three times.</li><li>The accepted setup is marked by the ship horn sounding off.</li></ul></li><li><h3>Call the Submarine</h3><p>Co-op only. The foghorns have their own order. Hit them correctly and the submarine lines its green beam up with the lighthouse.</p><ul><li>Start at the shoreline horn on the right side of the AK-74u wall buy.</li><li>Use the horn around the right-hand corner after the slide toward Speed Cola.</li><li>Return to the AK-74u area and use the horn on the left side near the building base.</li><li>Finish with the horn straight ahead from the Speed Cola slide exit.</li><li>The successful sequence pulls a green submarine beam into the lighthouse shaft.</li></ul></li><li><h3>Align the Tower Dials</h3><p>Co-op only. Each lighthouse floor has a numbered color dial. The solved stack reads 2746 from the top floor down, but every turn can disturb another floor.</p><ul><li>Begin with the top yellow dial and put it on 2.</li><li>Use the blue-floor dial to move orange into 7.</li><li>Set the bottom purple dial to 6.</li><li>Use the orange-floor dial to bring blue onto 4.</li><li>Go back to yellow and correct it to 2 if the linked turns moved it.</li><li>Before leaving, verify the order as yellow 2, orange 7, blue 4, purple 6.</li><li>Purple loops back to yellow, so a final pass through all four floors is worth the time.</li></ul></li><li><h3>Feed the Lighthouse Beam</h3><p>One player needs the V-R11 from the Mystery Box. With the green beam active, use the weapon at the lighthouse base to create the sacrifice target.</p><ul><li>Lead a regular zombie onto the bottom floor of the lighthouse.</li><li>Hit it with the V-R11 so it changes form and sprints for the beam.</li><li>Let the runner enter the green light in the spiral stairwell.</li><li>Once the target begins floating upward, kill it before it disappears at the top.</li><li>The Scavenger, explosives, or concentrated fire can end the float quickly.</li></ul></li><li><h3>Hand Off the Vril Device</h3><p>After the portal sequence resolves, the Vril Device descends through the lighthouse. Get it back to Ultimis and close out the escape.</p><ul><li>Grab the Vril Device when it reaches the lower lighthouse floor.</li><li>Run it back to the vault room under PhD Flopper.</li><li>Load the device into the left tube that previously accepted Nikolai&apos;s vodka.</li><li>Wait for Richtofen to finish his dialogue.</li><li>Strike or use the fuse panel on the right side of the vault to send the crew out.</li><li>Pick up the Wunderwaffe DG-2 reward after the crew leaves.</li><li>After the quest, defeating George Romero rewards a Wunderwaffe drop in place of the usual Death Machine.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Wunderwaffe DG-2 power-up</li><li>Ensemble Cast achievement or trophy</li><li>George Romero drops Wunderwaffe instead of Death Machine</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

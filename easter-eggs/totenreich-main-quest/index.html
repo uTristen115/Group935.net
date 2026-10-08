@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Totenreich Main Quest Easter Egg Walkthrough | Group 935</title>
-<meta name="description" content="Totenreich Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="description" content="Totenreich Main Quest: Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial,..." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#0a0908" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -12,22 +12,22 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Totenreich Main Quest Easter Egg Walkthrough | Group 935" />
-<meta property="og:description" content="Totenreich Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta property="og:description" content="Totenreich Main Quest: Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial,..." />
 <meta property="og:url" content="https://group935.net/easter-eggs/totenreich-main-quest/" />
 <meta property="og:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Totenreich Main Quest Easter Egg Walkthrough | Group 935" />
-<meta name="twitter:description" content="Totenreich Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context." />
+<meta name="twitter:description" content="Totenreich Main Quest: Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial,..." />
 <meta name="twitter:image" content="https://group935.net/Images/Icons/Group935icon.png" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/easter-eggs/totenreich-main-quest';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"name":"Totenreich Main Quest Easter Egg Walkthrough | Group 935","inLanguage":"en-US","@context":"https://schema.org","description":"Totenreich Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.","@type":"WebPage","url":"https://group935.net/easter-eggs/totenreich-main-quest/"}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@type":"WebPage","name":"Totenreich Main Quest Easter Egg Walkthrough | Group 935","@context":"https://schema.org","url":"https://group935.net/easter-eggs/totenreich-main-quest/","inLanguage":"en-US","description":"Totenreich Main Quest: Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial,..."}</script>
 </head>
 <body>
 <div id="boot">
@@ -123,7 +129,8 @@
   <div class="boot-line" style="color:#605949">awaiting shared data + compiled app bundle</div>
 </div>
 <div id="root"></div>
-<main id="seo-static-content" class="seo-static-content"><h1>Totenreich Main Quest Easter Egg Walkthrough | Group 935</h1><p>Totenreich Main Quest Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.</p></main>
+<main id="seo-static-content" class="seo-static-content"><h1>Totenreich Main Quest Easter Egg Walkthrough</h1> <p>Assemble the Jotun Star, recover three uranium canisters, charge the Atomkraft Core, claim the Sunstone, solve the Symbol Dial, and enter the robot for the final fight.</p> <p><a href="/maps/totenreich/">Totenreich</a> - Black Ops 7</p> <dl><dt>Difficulty</dt><dd>Hard</dd><dt>Duration</dt><dd>60-90 min</dd><dt>Party</dt><dd>Solo or squad</dd></dl> <h2>Requirements</h2><ul><li>Power restored</li><li>Pack-a-Punch open</li><li>Jotun Star built</li></ul> <h2>Walkthrough steps</h2><ol><li><h3>Build the Jotun Star</h3><p>Open the map, run the Dry Dock crane sequence, and complete Astrid&apos;s lantern route to claim the wonder weapon.</p><ul><li>Restore power and unlock Pack-a-Punch.</li><li>Activate the green crane control at Dry Dock, then use the lowered wall to reach the ship tip and recover the chain.</li><li>Take the Chili Chunks from the crate behind the truck on the bridge, then place them on the Market Center table.</li><li>After placing the Chili Chunks, wait until the second special round. Kill the Zursa that appears partway through it and take the lantern to Burial Grounds.</li><li>Use the chain on the left side of the Burial Grounds door to open it, revealing the altar. Place the lantern on the altar, then match the constellations in left, right, back, front order.</li><li>Escort Astrid through three frozen zombie stops, climb the Lighthouse route, and take the Jotun Star at the top.</li></ul></li><li><h3>Open the Lab</h3><p>Open the Core Foundry vent route, then send an RC-XD through to breach the lab near Pack-a-Punch.</p><ul><li>Travel to the Core Foundry. Up some metal stairs along the wall, find the covered wall vent and shoot the cover to pop it off.</li><li>Drive an RC-XD through the duct, down the stairs, and over the ramp. No boosting is required to get across. Travel under the garage door on the other side, then detonate the RC-XD next to the explosive barrels in the room to open it. The entry is to the left of Pack-a-Punch.
+TIP: A free RC-XD spawns in Eidskallen Square.</li></ul></li><li><h3>Recover the Lab Sample</h3><p>Read the marked door numbers, match them to lettered jars, create the solution, and open the cell.</p><ul><li>From the lab near Pack-a-Punch, look at the numbered doors just outside the playable space. Two of them will have radioactive symbols beside them. Note those numbers.</li><li>Convert the two numbers into letters using the alphabet: 1=A, 2=B, 3=C, 4=D, and so on.</li><li>Identify your letters, then search the room for jars marked with those letters.</li><li>Place the two jars in the device next to the closed jail cell to create the solution.</li><li>Use the solution to melt the body on the bench across the room, revealing the cell key.</li><li>Open the cell and retrieve the uranium sample.</li></ul></li><li><h3>Secure the Fishing Canister</h3><p>Hook the green fish, shoot the Ravager that steals it, then hunt the Radiated Ravager on the next round.</p><ul><li>Find a fishing rod at Dry Dock, Storm Bridge, Fishery Island, or Beacon Island.</li><li>Check the fishing spots for a glowing green fish jumping at the surface.</li><li>Fish at that spot until the green fish drops. A Ravager will appear and take it, shoot the Ravager as it leaves.</li><li>On the next round, find the Radiated Ravager in each location it moves to and damage it whenever you catch up to it.</li><li>When the Radiated Ravager dies, collect the uranium canister it drops.</li></ul></li><li><h3>Recover the Final Canister</h3><p>The last canister is tied to a Glocke Drop and the zombies suspended inside its field.</p><ul><li>Call a Glocke Drop onto a full zombie group.</li><li>Kill the suspended zombies before the field resolves.</li><li>Collect the third uranium canister.</li></ul></li><li><h3>Fire the Lighthouse Cannon</h3><p>Use the War Factory manifest to identify the correct crate, fire the Lighthouse cannon, and recover the Signal Amplifier.</p><ul><li>Take the crowbar from the second floor of the Lighthouse.</li><li>In the War Factory Admin Room, find the shipping manifest on a shelf. Look for the ammo icon on the manifest and remember the number associated with it.</li><li>Search the numbered crates around Core Foundry, Dry Dock, War Factory, and Fjord Road. Use the crowbar to open the crate matching the manifest number and collect the artillery shell.</li><li>Load the recovered shell into the artillery cannon next to the Lighthouse, facing the Robot head at spawn.</li><li>Hit the cannon with the Jotun Star to fire it.</li><li>Travel to the Robot head and collect the Signal Amplifier.</li></ul></li><li><h3>Call the Rocket Barrage</h3><p>Install the Signal Amplifier in Tyr&apos;s head, read both light sequences, calibrate the rockets, and open the Dry Dock building marked 02.</p><ul><li>Install the Signal Amplifier in Tyr&apos;s head.</li><li>Two lights below Tyr&apos;s catwalk will start flashing. There will be two number sequences, so make note of each one.</li><li>Example: if the left light blinks twice and the right light blinks three times, the first code is 2-3.</li><li>Use the noted sequences to tune the Radio Tower dials. Put the left light number on the left dial and the right light number on the right dial.</li><li>Rockets will fire. If they hit the Radio Tower, the calibration is correct. If they miss, enter the second sequence.</li><li>Once the rockets are calibrated, collect a Rocket Barrage Controller.</li><li>Use the Rocket Barrage Controller on the large building with blocked stairs marked 02 in Dry Dock to open it.</li></ul></li><li><h3>Charge the Atomkraft Core</h3><p>Use the claw machine in the opened Dry Dock room, charge the Atomkraft Core at spawn, then carry it to the bridge.</p><ul><li>Enter the newly opened location at Dry Dock.</li><li>Use the claw machine in the opened room to pick up the uranium cores and slot them into the grid on the right.</li><li>Arrange the cores so the meter lands in the green zone, then collect the Atomkraft Core.</li><li>Carry the Atomkraft Core to Quick Revive at spawn and place it on the box just to the right.</li><li>Enter the building behind Quick Revive and interact with the generator to turn it on.</li><li>Defend the core while it charges. When the generator stops, return to it and interact again to resume charging.</li><li>Once finished, take the charged Atomkraft Core to the bridge. You cannot travel by zipline while carrying it.</li></ul></li><li><h3>Cook the Dravakar Shard</h3><p>Use the charged Atomkraft Core on the bridge, collect the Dravakar Shard, heat it at Vulture Aid, and take the Sunstone from the HVT.</p><ul><li>Place the Atomkraft Core on top of the barrel with a yellow stripe facing Tyr.</li><li>Tyr will retrieve the canister and fire his laser at Dravakar.</li><li>Collect the Dravakar Shard that drops to the left of the bridge, near Tyr&apos;s foot.</li><li>Take the shard to the church where Vulture Aid is and place it on the spit over the fire.</li><li>Fire a charged shot from the Jotun Star to start the fire.</li><li>Once the fire is lit, use a Disciple Injection to pick up zombies and throw them at the fire until a lockdown event starts.</li><li>Fight the HVT Necropincer and take the Sunstone it drops.</li></ul></li><li><h3>Activate the Symbol Dial</h3><p>Take the Sunstone to the Eidskallen church, activate the Symbol Dial, and shoot the floating symbols in arrow order.</p><ul><li>Take the Sunstone to the church near Eidskallen Square.</li><li>Place it on the altar in the center and melee it with the Jotun Star to activate the Symbol Dial above the church.</li><li>Review the direction of the three arrows in the sky. The arrow with one line near the center of the dial is arrow 1, two lines is arrow 2, and three lines is arrow 3.</li><li>Around the map, find the symbols from the dial floating in the air.</li><li>Hit the symbols with charged shots from the Jotun Star in the order the arrows direct you.</li><li>If done incorrectly, the arrows will provide new symbols and you can try again.</li></ul></li><li><h3>Start the Boss Fight</h3><p>After the correct symbol sequence is entered, enter Tyr&apos;s head, prepare your loadout, and start the final encounter from his computer.</p><ul><li>Enter Tyr&apos;s head after the correct symbol sequence is entered.</li><li>Make sure you are adequately prepared with perks, Pack-a-Punch III, legendary rarity weapons, and any GobbleGums you want for the fight.</li><li>Interact with Tyr&apos;s computer to start the boss fight.</li></ul></li></ol> <h2>Rewards</h2><ul><li>Totenreich calling card</li><li>Main quest completion</li></ul> <p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p></main>
 
 <!-- Shared runtime: load data first, then the compiled app bundle. -->
 <script>

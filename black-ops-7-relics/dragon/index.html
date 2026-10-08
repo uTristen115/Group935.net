@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="../../Images/Icons/Group935iconBlack.png" />
 <link rel="icon" type="image/png" media="(prefers-color-scheme: dark)" href="../../Images/Icons/Group935icon.png" />
 <link rel="apple-touch-icon" href="../../Images/Icons/Group935icon.png" />
-<meta property="og:site_name" content="CoD Zombies Archive" />
+<meta property="og:site_name" content="Group935" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Dragon Relic Guide | BO7 Zombies Unlocks, Trial | Group 935" />
 <meta property="og:description" content="Dragon Relic Black Ops 7 Zombies guide for Ashes of the Damned with effect, unlock steps, portal location, trial rules, save note, and prep tips." />
@@ -26,8 +26,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "CoD Zombies Archive",
-  "alternateName": ["COD Zombies Archive", "Call of Duty Zombies Archive", "Group 935"],
+  "name": "Group935",
+  "alternateName": ["Group 935", "CoD Zombies Archive", "Call of Duty Zombies Archive"],
   "url": "https://group935.net/",
   "description": "A CoD Zombies archive with Black Ops 7 relic tutorials, map Easter egg walkthroughs, wonder weapons, perks, songs, characters, and lore.",
   "inLanguage": "en-US"
@@ -65,6 +65,8 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
   body.booted #boot { display: none; }
+  body.boot-failed #boot { position: relative; min-height: 180px; }
+  body.boot-failed #root { min-height: 0; }
   .seo-static-content {
     max-width: 920px; margin: 0 auto; padding: 32px 20px 80px;
     color: #e8e2d4; font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.58;
@@ -73,7 +75,7 @@
   .seo-static-content a { color: #d6a24a; }
   body.booted .seo-static-content { display: none; }
 </style>
-<noscript><style>#boot{display:none}</style></noscript>
+<noscript><style>#boot{display:none}#root{min-height:0}</style></noscript>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
@@ -86,6 +88,10 @@
   function __bootShow(label, err) {
     const msg = err && (err.stack || err.message) || String(err);
     window.__bootErrors.push({ label, msg });
+    if (document.body) {
+      document.body.classList.remove('booted');
+      document.body.classList.add('boot-failed');
+    }
     const boot = document.getElementById('boot');
     if (!boot) return;
     let box = boot.querySelector('.boot-err');
@@ -103,7 +109,7 @@
   window.G935_LOCAL_APP_BASE = '../../dist';
   window.G935_APP_BASE = window.location.protocol === 'file:' ? window.G935_LOCAL_APP_BASE : '/dist';
   window.G935_DATA_BUNDLE = 'data.58802f2993ab.js';
-  window.G935_APP_BUNDLE = 'app.037a057f7a7f.js';
+  window.G935_APP_BUNDLE = 'app.6a9eaa0cf037.js';
   window.G935_GA_MEASUREMENT_ID = 'G-7Q90XFJQFF';
   window.G935_ANALYTICS_ENABLED = window.location.protocol === 'https:' && /(^|.)group935.net$/i.test(window.location.hostname);
   window.dataLayer = window.dataLayer || [];
@@ -115,7 +121,7 @@
   window.G935_ROUTE_PATH = '/black-ops-7-relics/dragon';
   window.G935_FAVORITE_MAP_VOTE_ENDPOINT = 'https://group935-vote.utristen1.workers.dev/';
 </script>
-<script id="pap-route-jsonld" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://group935.net/black-ops-7-relics/dragon/#webpage","@type":"WebPage","url":"https://group935.net/black-ops-7-relics/dragon/","name":"Dragon Relic Guide | BO7 Zombies Unlocks, Trial | Group 935","description":"Dragon Relic Black Ops 7 Zombies guide for Ashes of the Damned with effect, unlock steps, portal location, trial rules, save note, and prep tips.","inLanguage":"en-US","about":["Black Ops 7 Zombies relics","BO7 relic effects","BO7 relic unlocks","Zombies relic trials"],"isPartOf":{"@id":"https://group935.net/#website"}},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Black Ops 7 Relics","item":"https://group935.net/black-ops-7-relics/","@type":"ListItem"},{"position":3,"name":"Dragon Relic","item":"https://group935.net/black-ops-7-relics/dragon/","@type":"ListItem"}],"@id":"https://group935.net/black-ops-7-relics/dragon/#breadcrumbs","@type":"BreadcrumbList"},{"@id":"https://group935.net/black-ops-7-relics/dragon/#article","headline":"Dragon Relic Tutorial","@type":"Article","keywords":["Black Ops 7 relics","BO7 relics","Dragon Relic guide","Ashes of the Damned relic"],"description":"Dragon Relic Black Ops 7 Zombies guide for Ashes of the Damned with effect, unlock steps, portal location, trial rules, save note, and prep tips.","inLanguage":"en-US","mainEntityOfPage":{"@id":"https://group935.net/black-ops-7-relics/dragon/#webpage"},"about":["Black Ops 7 Zombies","Ashes of the Damned","Dragon Relic"]}]}</script>
+<script id="pap-route-jsonld" type="application/ld+json">{"@graph":[{"inLanguage":"en-US","url":"https://group935.net/black-ops-7-relics/dragon/","about":["Black Ops 7 Zombies relics","BO7 relic effects","BO7 relic unlocks","Zombies relic trials"],"@id":"https://group935.net/black-ops-7-relics/dragon/#webpage","description":"Dragon Relic Black Ops 7 Zombies guide for Ashes of the Damned with effect, unlock steps, portal location, trial rules, save note, and prep tips.","name":"Dragon Relic Guide | BO7 Zombies Unlocks, Trial | Group 935","isPartOf":{"@id":"https://group935.net/#website"},"@type":"WebPage"},{"itemListElement":[{"position":1,"name":"Group 935","item":"https://group935.net/","@type":"ListItem"},{"position":2,"name":"Black Ops 7 Relics","item":"https://group935.net/black-ops-7-relics/","@type":"ListItem"},{"position":3,"name":"Dragon Relic","item":"https://group935.net/black-ops-7-relics/dragon/","@type":"ListItem"}],"@id":"https://group935.net/black-ops-7-relics/dragon/#breadcrumbs","@type":"BreadcrumbList"},{"inLanguage":"en-US","keywords":["Black Ops 7 relics","BO7 relics","Dragon Relic guide","Ashes of the Damned relic"],"about":["Black Ops 7 Zombies","Ashes of the Damned","Dragon Relic"],"@id":"https://group935.net/black-ops-7-relics/dragon/#article","headline":"Dragon Relic Tutorial","mainEntityOfPage":{"@id":"https://group935.net/black-ops-7-relics/dragon/#webpage"},"description":"Dragon Relic Black Ops 7 Zombies guide for Ashes of the Damned with effect, unlock steps, portal location, trial rules, save note, and prep tips.","@type":"Article"}],"@context":"https://schema.org"}</script>
 </head>
 <body>
 <div id="boot">
