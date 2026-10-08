@@ -1,16 +1,16 @@
 {
   "bundles": {
     "data": {
-      "file": "data.58802f2993ab.js",
+      "file": "data.5df0cd66972f.js",
       "stableFile": "data.js",
-      "hash": "58802f2993ab",
-      "bytes": 293797
+      "hash": "5df0cd66972f",
+      "bytes": 294153
     },
     "app": {
-      "file": "app.6a9eaa0cf037.js",
+      "file": "app.345f5e22a2f2.js",
       "stableFile": "app.js",
-      "hash": "6a9eaa0cf037",
-      "bytes": 317456
+      "hash": "345f5e22a2f2",
+      "bytes": 317327
     }
   }
 }

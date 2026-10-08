@@ -4525,11 +4525,11 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const gameContent = {
     bo3: {
       gobblegums: [
-        { name: 'Stock Option',         rarity: 'common',     effect: 'Instantly refills the reserve ammo for your current weapon.' },
-        { name: 'Anywhere But Here!',   rarity: 'rare',       effect: 'Teleport to a random location on the map. Resets your training.' },
-        { name: 'Perkaholic',           rarity: 'mega',       effect: 'Grants every perk on the map at once. Lost on down.' },
-        { name: 'Alchemical Antithesis',rarity: 'mega',       effect: 'For 60 seconds, every 10 points becomes one round of weapon ammo.' },
-        { name: 'Wall Power',           rarity: 'whimsical',  effect: 'Pack-a-Punches the next wall weapon you purchase, free.' },
+        { name: 'Stock Option',         imagePath: 'Games/Black Ops 3/GobbleGums/Stock_Option_GobbleGum_BO3.png', rarity: 'common',     effect: 'Instantly refills the reserve ammo for your current weapon.' },
+        { name: 'Anywhere But Here!',   imagePath: 'Games/Black Ops 3/GobbleGums/Anywhere_But_Here.png', rarity: 'rare',       effect: 'Teleport to a random location on the map. Resets your training.' },
+        { name: 'Perkaholic',           imagePath: 'Games/Black Ops 3/GobbleGums/Perkaholic_GobbleGum_BO3.png', rarity: 'mega',       effect: 'Grants every perk on the map at once. Lost on down.' },
+        { name: 'Alchemical Antithesis',imagePath: 'Games/Black Ops 3/GobbleGums/Alchemical_Antithesis_GobbleGum_BO3.png', rarity: 'mega',       effect: 'For 60 seconds, every 10 points becomes one round of weapon ammo.' },
+        { name: 'Wall Power',           imagePath: 'Games/Black Ops 3/GobbleGums/Wall_Power_GobbleGum_BO3.png', rarity: 'whimsical',  effect: 'Pack-a-Punches the next wall weapon you purchase, free.' },
       ],
     },
     bo6: {

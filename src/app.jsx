@@ -3874,15 +3874,6 @@
     'whimsical':  '#ff6eb5',
   };
 
-  function GumBubble({ color }) {
-    return (
-      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden>
-        <circle cx="24" cy="24" r="20" fill={color} opacity="0.12" />
-        <circle cx="24" cy="24" r="20" fill="none" stroke={color} strokeWidth="2.5" />
-        <circle cx="17" cy="17" r="3.5" fill="#fff" opacity="0.35" />
-      </svg>
-    );
-  }
   function AugmentIcon({ perk, type }) {
     const isMajor = type && type.toLowerCase() === 'major';
     const color = isMajor ? T.e115 : T.bone;
@@ -3903,7 +3894,8 @@
 
   function ContentCard({ kind, item }) {
     const color = item.rarity ? (RARITY_COLOR[item.rarity.toLowerCase()] || T.mute) : T.e115;
-    const icon = kind === 'gobblegum' ? <GumBubble color={color} />
+    const gumSrc = kind === 'gobblegum' ? gobblegumImageSrc(item) : null;
+    const icon = kind === 'gobblegum' ? (gumSrc ? <img src={gumSrc} alt={item.name + ' GobbleGum'} width="48" height="48" loading="lazy" decoding="async" style={{ display: 'block', objectFit: 'contain' }} /> : null)
               : kind === 'augment'   ? <AugmentIcon perk={item.perk} type={item.type} />
               : null;
     return (
@@ -3970,7 +3962,9 @@
   }
 
   function gobblegumImageSrc(gum) {
-    if (!gum || !gum.image) return null;
+    if (!gum) return null;
+    if (gum.imagePath) return IMG_BASE + '/' + gum.imagePath;
+    if (!gum.image) return null;
     const dir = GOBBLEGUM_RARITY_DIR[String(gum.rarity || '').toLowerCase()];
     return dir ? (IMG_BASE + '/Games/Black Ops 7/GobbleGums/' + dir + '/' + gum.image) : null;
   }
