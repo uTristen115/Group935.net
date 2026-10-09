@@ -78,7 +78,7 @@ const easterEggs = []
   }));
 
 const seoData = {
-  generatedAt: new Date().toISOString(),
+  routePages: require('./build-route-pages')(zd),
   games: zd.games.map((game) => ({
     id: game.id,
     code: game.code || '',
@@ -96,7 +96,7 @@ const seoData = {
     location: map.location || '',
     difficulty: map.difficulty || '',
     eeCount: map.eeCount || 0,
-    relicCount: relics.filter((relic) => relic.map === map.id).length || map.relicCount || 0,
+    relicCount: relics.filter((relic) => relic.map === map.id).length,
     summary: map.summary || '',
     tags: Array.isArray(map.tags) ? map.tags : [],
     songs: (Array.isArray(map.songs) ? map.songs : []).map((song) => ({

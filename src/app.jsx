@@ -3662,7 +3662,7 @@
 
   function relicCountForMap(map) {
     if (!map) return 0;
-    return Math.max(map.relicCount || 0, relicList(map.id).length);
+    return relicList(map.id).length;
   }
 
   function relicTierTone(tier) {
@@ -6352,12 +6352,20 @@
   function parseRoutePath(pathname) {
     const rawPath = String(pathname || '/');
     const anchorMatch = rawPath.match(/#([^/?#]+)/);
-    const anchor = anchorMatch ? decodeURIComponent(anchorMatch[1]) : '';
+    const decode = (value) => { try { return decodeURIComponent(value); } catch (err) { return value; } };
+    const anchor = anchorMatch ? decode(anchorMatch[1]) : '';
     const path = rawPath.replace(/[?#].*$/, '').replace(/\/index\.html$/i, '/');
-    const parts = path.split('/').filter(Boolean).map((part) => decodeURIComponent(part));
+    const parts = path.split('/').filter(Boolean).map(decode);
     if (!parts.length) return { name: 'home' };
     const top = parts[0];
     const id = parts[1];
+    const missing = { name: 'not-found', path: path || '/' };
+    if (parts.length > 2) return missing;
+    const recordSets = { games: ZD.games, maps: ZD.maps, characters: ZD.characters, weapons: ZD.wonderWeapons, 'wonder-weapons': ZD.wonderWeapons, perks: ZD.perks, relics: ZD.relics, 'black-ops-7-relics': ZD.relics, 'bo7-relics': ZD.relics, songs: songList(), 'easter-eggs': [ZD.sampleEE, ...(ZD.classicEasterEggs || []), ...(ZD.bo7EasterEggs || [])].filter(Boolean) };
+    if (id && recordSets[top] && !recordSets[top].some((record) => record.id === id)) return missing;
+    if (top === 'vote-ranking' && id && !['maps', 'weapons', 'perks', 'characters'].includes(id)) return missing;
+    if (id && !recordSets[top] && top !== 'vote-ranking') return missing;
+    if (top === 'lore') return missing;
     const topicRoutes = ['black-ops-7-easter-eggs', 'black-ops-7-easter-egg-tutorials', 'zombies-easter-eggs', 'zombies-easter-egg-tutorials', 'cod-zombies', 'black-ops-zombies', 'treyarch-zombies'];
     if (top === 'call-of-duty-zombies') return { name: 'cod-zombies' };
     if (top === 'black-ops-7' || top === 'bo7-zombies') return { name: 'black-ops-7' };
@@ -6384,7 +6392,8 @@
     if (top === 'vote-perks') return { name: 'vote-perks' };
     if (top === 'vote-characters') return { name: 'vote-characters' };
     if (top === 'vote-ranking') return { name: 'vote-ranking', id };
-    return { name: top || 'home', id };
+    if (top === 'site-index') return { name: 'site-index' };
+    return missing;
   }
   function parseCurrentRoute() {
     if (window.location.hash && /^#\//.test(window.location.hash)) return parseHash(window.location.hash);
@@ -6423,7 +6432,8 @@
       case 'vote-weapons': return withSlash('/vote-weapons');
       case 'vote-perks': return withSlash('/vote-perks');
       case 'vote-characters': return withSlash('/vote-characters');
-      case 'vote-ranking': return withSlash('/vote-ranking' + id);
+      case 'vote-ranking': return withSlash('/vote-ranking/' + encodeURIComponent(r.id || 'maps'));
+      case 'not-found': return r.path || '/404.html';
       default: return withSlash('/' + encodeURIComponent(r.name) + id);
     }
   }
@@ -6780,6 +6790,25 @@
         url: seoRouteUrl(r),
       };
     }
+    if (r.name === 'songs' || r.name === 'song') {
+      const song = r.name === 'song' ? songList().find((item) => item.id === r.id) : null;
+      return {
+        title: song ? song.name + ' — ' + song.mapName + ' Hidden Song | Group 935' : 'Zombies Hidden Songs | Group 935',
+        description: song ? seoDescription([song.name, song.artist, song.mapName, song.activation].filter(Boolean).join(' · '), '') : 'Hidden Zombies songs, artists, maps and activation methods.',
+        url: seoRouteUrl(r),
+      };
+    }
+    const utilityTitles = { games: 'Treyarch Zombies Games', about: 'About the Archive', contribute: 'Contribute to the Archive', search: 'Search the Archive', vote: 'Favorite Zombies Maps', 'vote-weapons': 'Favorite Zombies Wonder Weapons', 'vote-perks': 'Favorite Zombies Perks', 'vote-characters': 'Favorite Zombies Characters', 'vote-ranking': 'Zombies ' + ({ maps: 'Maps', weapons: 'Wonder Weapons', perks: 'Perks', characters: 'Characters' }[r.id || 'maps'] || '') + ' Rankings' };
+    if (utilityTitles[r.name]) return {
+      title: utilityTitles[r.name] + ' | Group 935',
+      description: utilityTitles[r.name] + ' in the Group 935 fan-built Zombies archive.',
+      url: seoRouteUrl(r),
+      noindex: r.name === 'search' || r.name.startsWith('vote'),
+    };
+    if (r.name === 'not-found' || r.name === 'lore') return {
+      title: 'Page Not Found | Group 935', description: 'This archive file does not exist.',
+      url: SEO_SITE_URL + (r.path || '/404.html'), noindex: true,
+    };
     if (r.name === 'timeline') {
       return {
         title: 'Kronorium Zombies Timeline | Group 935',
@@ -6835,7 +6864,11 @@
     seoSetMeta('meta[property="og:url"]', { property: 'og:url', content: seo.url });
     seoSetMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title });
     seoSetMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
-    seoSetCanonical(seo.url);
+    seoSetMeta('meta[name="robots"]', { name: 'robots', content: seo.noindex ? 'noindex, follow' : 'index, follow' });
+    if (route.name === 'not-found' || route.name === 'lore') {
+      const canonical = document.head.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.remove();
+    } else seoSetCanonical(seo.url);
     seoSetRouteJsonLd(seo.jsonLd);
   }
   function analyticsTrackPageView(route) {
@@ -6864,7 +6897,7 @@
     useEffect(() => {
       seoApplyRoute(route);
       analyticsTrackPageView(route);
-    }, [route.name, route.id]);
+    }, [route.name, route.id, route.path]);
     useEffect(() => {
       const onRoute = () => setRouteState(parseCurrentRoute());
       window.addEventListener('popstate', onRoute);
