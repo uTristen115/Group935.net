@@ -19,6 +19,8 @@ $script:SeoRelicsById = @{}
 $script:SeoMapsById = @{}
 $script:SeoEasterEggsById = @{}
 $script:SeoPerksById = @{}
+$script:SeoRoutePages = @{}
+foreach ($page in @($seoData.routePages)) { if ($page.route) { $script:SeoRoutePages[[string]$page.route] = $page } }
 $script:SeoGames = @()
 $script:SeoMaps = @()
 $script:SeoEasterEggs = @()
@@ -127,6 +129,10 @@ function Get-PublicUrl {
 function Get-CanonicalRoute {
   param([string]$Route)
 
+  $aliases = @{ '/weapons' = '/wonder-weapons'; '/kronorium' = '/timeline'; '/bo7-zombies' = '/black-ops-7'; '/bo7-relics' = '/black-ops-7-relics'; '/black-ops-7-gobblegums' = '/gobblegums'; '/easter-eggs' = '/maps'; '/help' = '/contribute'; '/submit' = '/contribute'; '/vote-ranking' = '/vote-ranking/maps' }
+  if ($aliases.ContainsKey($Route)) { return $aliases[$Route] }
+  if ($Route -match '^/weapons/([^/]+)$') { return '/wonder-weapons/' + $Matches[1] }
+  if ($Route -match '^/bo7-relics/([^/]+)$') { return '/black-ops-7-relics/' + $Matches[1] }
   if ($Route -eq '/relics') { return '/black-ops-7-relics' }
   if ($Route -match '^/relics/([^/]+)$') { return '/black-ops-7-relics/' + $Matches[1] }
   if ($Route -eq '/call-of-duty-zombies') { return '/cod-zombies' }
@@ -431,6 +437,10 @@ function Get-SiteIndexGroups {
   })
   if ($perkLinks.Count) { $groups += @{ Title = 'Perk files'; Links = $perkLinks } }
 
+  $extraLinks = @($seoData.routePages | Where-Object { $_.indexable } | ForEach-Object {
+    New-SiteIndexLink -Href ([string]$_.route + '/') -Label ([string]$_.title -replace ' \| Group 935$', '') -Text ([string]$_.description)
+  })
+  if ($extraLinks.Count) { $groups += @{ Title = 'Games, characters, weapons, songs and timeline'; Links = $extraLinks } }
   return $groups
 }
 
@@ -760,6 +770,7 @@ function Get-StaticSeoHtml {
   )
 
   $canonicalRoute = Get-CanonicalRoute $Route
+  if ($script:SeoRoutePages.ContainsKey($canonicalRoute)) { return [string]$script:SeoRoutePages[$canonicalRoute].html }
   if ($canonicalRoute -eq '/') {
     $links = @((Get-SiteIndexGroups)[0].Links | Where-Object { $_.Href -ne '/' } | ForEach-Object {
       '<li><a href="' + (Escape-Html ([string]$_.Href)) + '">' + (Escape-Html ([string]$_.Label)) + '</a> - ' + (Escape-Html ([string]$_.Text)) + '</li>'
@@ -1046,6 +1057,11 @@ function Set-StaticSeo {
   $staticHtml = Get-StaticSeoHtml -Route $routeForSeo -Title $Title -Description $Description -SiteUrl $SiteUrl
   $staticBlock = '<main id="seo-static-content" class="seo-static-content">' + $staticHtml + '</main>'
   $next = [regex]::Replace($next, '<main id="seo-static-content" class="seo-static-content">[\s\S]*?</main>', $staticBlock, 1)
+  $canonicalRoute = Get-CanonicalRoute $routeForSeo
+  $noindex = $script:SeoRoutePages.ContainsKey($canonicalRoute) -and -not $script:SeoRoutePages[$canonicalRoute].indexable
+  $robots = if ($noindex) { 'noindex, follow' } else { 'index, follow' }
+  $next = [regex]::Replace($next, '<meta name="robots"[^>]*>\s*', '')
+  $next = $next.Replace('</head>', '<meta name="robots" content="' + $robots + '" />' + "`n</head>")
   return $next
 }
 
@@ -1057,6 +1073,10 @@ function Get-RouteSeo {
 
   $canonicalRoute = Get-CanonicalRoute $Route
   $url = Get-PublicUrl -Route $canonicalRoute -SiteUrl $SiteUrl
+  if ($script:SeoRoutePages.ContainsKey($canonicalRoute)) {
+    $page = $script:SeoRoutePages[$canonicalRoute]
+    return @{ Title = [string]$page.title; Description = (Limit-Text -Value ([string]$page.description) -Max 180); Url = $url }
+  }
   $bo7Maps = @{
     ashes = 'Ashes of the Damned'
     astra = 'Astra Malorum'
@@ -1317,8 +1337,12 @@ $routes += $perkIds | ForEach-Object { '/perks/' + $_ }
 $easterEggIds = if ($script:SeoEasterEggs.Count) { @($script:SeoEasterEggs | ForEach-Object { [string]$_.id }) } else { @($classicEasterEggIds) + @($bo7EasterEggIds) }
 $routes += $easterEggIds | ForEach-Object { '/easter-eggs/' + $_ }
 
+$routes += @($seoData.routePages | ForEach-Object { [string]$_.route })
+$routes += @('/weapons', '/kronorium', '/bo7-zombies', '/bo7-relics', '/black-ops-7-gobblegums', '/easter-eggs', '/help', '/submit', '/vote-ranking')
+$routes += @($seoData.routePages | Where-Object { $_.route -match '^/wonder-weapons/' } | ForEach-Object { ([string]$_.route).Replace('/wonder-weapons/', '/weapons/') })
+$routes += $relicIds | ForEach-Object { '/bo7-relics/' + $_ }
 $routes = $routes | Where-Object { $_ } | Select-Object -Unique
-$sitemapRoutes = $routes | Where-Object { (Get-CanonicalRoute $_) -eq $_ }
+$sitemapRoutes = $routes | Where-Object { (Get-CanonicalRoute $_) -eq $_ -and (-not $script:SeoRoutePages.ContainsKey($_) -or $script:SeoRoutePages[$_].indexable) }
 
 $rootSeo = Get-RouteSeo -Route '/' -SiteUrl $SiteUrl
 $rootHtml = Set-StaticSeo -Html $index -Title $rootSeo.Title -Description $rootSeo.Description -Url $rootSeo.Url -AssetBase './Images' -FontBase './Fonts' -AppBase './dist' -DataBundle $dataBundleName -AppBundle $appBundleName -RoutePath '' -SiteUrl $SiteUrl
@@ -1332,6 +1356,14 @@ $fallbackFontScript = "window.G935_LOCAL_FONT_BASE = (function () { var p = wind
 $fallbackHtml = $fallbackHtml.Replace("window.G935_LOCAL_FONT_BASE = './Fonts';", $fallbackFontScript)
 $fallbackAppScript = "window.G935_LOCAL_APP_BASE = (function () { var p = window.location.pathname.replace(/\/index\.html$/i, '/'); var depth = p.split('/').filter(Boolean).length; return depth ? '../'.repeat(depth) + 'dist' : './dist'; })();"
 $fallbackHtml = $fallbackHtml.Replace("window.G935_LOCAL_APP_BASE = './dist';", $fallbackAppScript)
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<title>.*?</title>', '<title>Page Not Found | Group 935</title>')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*(" />)', '$1This archive file does not exist.$2')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '(<meta (?:name|property)="(?:og:title|twitter:title)" content=")[^"]*(" />)', '$1Page Not Found | Group 935$2')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<meta property="og:url"[^>]*>', '')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<script id="pap-route-jsonld" type="application/ld\+json">[\s\S]*?</script>', '')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<meta name="robots"[^>]*>', '<meta name="robots" content="noindex, follow" />')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<link rel="canonical"[^>]*>', '')
+$fallbackHtml = [regex]::Replace($fallbackHtml, '<main id="seo-static-content" class="seo-static-content">[\s\S]*?</main>', '<main id="seo-static-content" class="seo-static-content"><h1>Page not found</h1><p>This archive file does not exist.</p><p><a href="/site-index/">Browse the archive</a></p></main>')
 Set-Content -LiteralPath $fallbackPath -Value $fallbackHtml -NoNewline
 
 foreach ($route in $routes) {

@@ -24,6 +24,9 @@ const htmlRoots = [
   'treyarch-zombies',
   'easter-eggs',
   'contribute',
+  'characters', 'wonder-weapons', 'weapons', 'songs', 'timeline', 'kronorium',
+  'about', 'search', 'vote', 'vote-weapons', 'vote-perks', 'vote-characters', 'vote-ranking',
+  'bo7-zombies', 'bo7-relics', 'black-ops-7-gobblegums', 'help', 'submit',
 ];
 const manifestPath = path.join(root, 'dist', 'asset-manifest.json');
 
@@ -339,7 +342,11 @@ function assertSitemapIntegrity(data, files) {
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
   if (!urls.length || new Set(urls).size !== urls.length) throw new Error('Sitemap is empty or contains duplicate URLs.');
   if (/<lastmod>/.test(sitemap)) throw new Error('Sitemap must not claim per-build modification dates without verified content timestamps.');
+  const routePages = require('./build-route-pages')(data);
+  const routeAliases = { '/weapons/': '/wonder-weapons/', '/kronorium/': '/timeline/', '/bo7-zombies/': '/black-ops-7/', '/bo7-relics/': '/black-ops-7-relics/', '/black-ops-7-gobblegums/': '/gobblegums/', '/easter-eggs/': '/maps/', '/help/': '/contribute/', '/submit/': '/contribute/', '/vote-ranking/': '/vote-ranking/maps/' };
+  const noindexRoutes = new Set(routePages.filter((p) => !p.indexable).map((p) => p.route + '/'));
   const expectedRoutes = new Set([
+    ...routePages.filter((p) => p.indexable).map((p) => p.route + '/'),
     '/', '/games/', '/maps/', '/site-index/', '/black-ops-7/', '/black-ops-7-easter-eggs/',
     '/black-ops-7-easter-egg-tutorials/', '/black-ops-7-relics/', '/zombies-easter-eggs/',
     '/zombies-easter-egg-tutorials/', '/cod-zombies/', '/black-ops-zombies/', '/treyarch-zombies/',
@@ -372,7 +379,12 @@ function assertSitemapIntegrity(data, files) {
     route = route.replace(/^\/relics(?=\/)/, '/black-ops-7-relics');
     if (route === '/games/bo7/') route = '/black-ops-7/';
     if (route === '/call-of-duty-zombies/') route = '/cod-zombies/';
+    route = routeAliases[route] || route.replace(/^\/weapons\//, '/wonder-weapons/').replace(/^\/bo7-relics\//, '/black-ops-7-relics/');
     const html = fs.readFileSync(file, 'utf8');
+    if (noindexRoutes.has(route)) {
+      if (!html.includes('<meta name="robots" content="noindex, follow"') || !html.includes('<link rel="canonical" href="https://group935.net' + route + '"')) throw new Error('Invalid noindex utility page: ' + relative);
+      continue;
+    }
     if (!actualRoutes.has(route) || !html.includes('<link rel="canonical" href="https://group935.net' + route + '"')) {
       throw new Error('Generated file has an incorrect or unlisted canonical: ' + relative);
     }
@@ -451,6 +463,15 @@ function smokeSharedBundles(bundles) {
   if (currentRoute.name !== 'map' || currentRoute.id !== 'ascension') {
     throw new Error('Live map navigation must follow the current URL, not the initial static entry route.');
   }
+  for (const pathname of ['/games/bo3/', '/games/bo3/index.html']) {
+    context.location.pathname = pathname;
+    const route = context.window.__papParseCurrentRoute();
+    if (route.name !== 'game' || route.id !== 'bo3') throw new Error('BO3 route failed: ' + pathname);
+  }
+  for (const pathname of ['/not-a-route/', '/games/missing/', '/maps/kino/extra/', '/songs/missing/', '/vote-ranking/missing/', '/maps/%E0%A4%A/']) {
+    context.location.pathname = pathname;
+    if (context.window.__papParseCurrentRoute().name !== 'not-found') throw new Error('Unknown route accepted: ' + pathname);
+  }
   context.location.protocol = 'file:';
   currentRoute = context.window.__papParseCurrentRoute();
   if (currentRoute.name !== 'map' || currentRoute.id !== 'kino') {
@@ -474,5 +495,6 @@ assertSubstantiveStaticContent(sourceData);
 assertSitemapIntegrity(sourceData, htmlFiles);
 assertHomepageBranding(htmlFiles);
 smokeSharedBundles(bundles);
+require('./check-route-pages')(sourceData);
 
 console.log('Build check passed: ' + htmlFiles.length + ' HTML files, ' + scriptCount + ' inline scripts, ' + jsonLdCount + ' JSON-LD blocks, shared bundle smoke.');
