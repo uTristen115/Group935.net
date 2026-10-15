@@ -4715,27 +4715,46 @@
     );
   }
 
-  function Maps({ nav }) {
+  function easterEggGuideStatus(ee) {
+    if (!ee || !(ee.steps || []).length) return 'No walkthrough published';
+    return ee.guideStatus === 'partial' ? 'Partial setup guide' : 'Walkthrough available';
+  }
+
+  function Maps({ nav, topic = '' }) {
+    const isBo7 = topic.startsWith('black-ops-7-');
+    const isTutorial = topic.endsWith('-tutorials');
+    const topicTitle = topic ? (isBo7 ? 'Black Ops 7' : 'Zombies') + (isTutorial ? ' Easter Egg Tutorials' : ' Easter Eggs') : '';
+    const topicIntro = isTutorial
+      ? 'Open a published walkthrough directly. Step counts and party details are shown here; setup requirements are in each guide. Partial guides are marked.'
+      : 'Choose a map to explore its quest files, hidden songs, and related guides. Walkthrough availability is shown on each map.';
+    const eggs = [ZD.sampleEE, ...(ZD.classicEasterEggs || []), ...(ZD.bo7EasterEggs || [])].filter(Boolean);
+    const guideForMap = (map) => eggs.find((ee) => ee.map === map.id && (ee.steps || []).length);
     const [filter, setFilter] = useState('all');
     const [sort, setSort] = useState('newest');
+    const scope = isBo7 ? ZD.maps.filter((map) => map.game === 'bo7') : ZD.maps;
     const list = useMemo(() => {
-      let l = filter === 'all' ? ZD.maps : ZD.maps.filter((m) => m.game === filter);
+      let l = filter === 'all' ? scope : scope.filter((m) => m.game === filter);
+      if (isTutorial) l = l.filter(guideForMap);
       if (sort === 'newest')    l = [...l].reverse();
       if (sort === 'name')       l = [...l].sort((a, b) => a.name.localeCompare(b.name));
       return l;
-    }, [filter, sort]);
+    }, [filter, sort, topic]);
     return (
       <div>
         <PageHead
-          crumbs={[{label:'Archive',to:{name:'home'}},{label:'Maps'}]}
-          kicker={ZD.maps.length + ' catalogued sites'}
-          title="Maps"
+          crumbs={[{label:'Archive',to:{name:'home'}},{label:topicTitle || 'Maps'}]}
+          kicker={topic ? (isTutorial ? 'Published walkthroughs' : 'Map and quest directory') : ZD.maps.length + ' catalogued sites'}
+          title={topicTitle || 'Maps'}
           nav={nav}
         />
+        {topic && <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute, lineHeight: 1.65 }}>{topicIntro}</p>}
+        {topic && <RouteLink className="pap-link" to={{ name: (isBo7 ? 'black-ops-7' : 'zombies') + (isTutorial ? '-easter-eggs' : '-easter-egg-tutorials') }} nav={nav}>
+          {isTutorial ? 'Browse maps and quest files →' : 'Open the walkthrough directory →'}
+        </RouteLink>}
         <div style={{ display: 'flex', gap: 18, marginTop: 24, alignItems: 'center', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             <button className={'pap-chip ' + (filter==='all'?'is-active':'')} onClick={() => setFilter('all')}>All</button>
-            {ZD.games.map((g) => (
+            {ZD.games.filter((g) => !isBo7 || g.id === 'bo7').map((g) => (
               <button key={g.id} className={'pap-chip ' + (filter===g.id?'is-active':'')} onClick={() => setFilter(g.id)}>{g.code}</button>
             ))}
           </div>
@@ -4748,17 +4767,25 @@
           </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginTop: 24 }}>
-          {list.map((m) => <MapCard key={m.id} map={m} nav={nav} />)}
+          {list.map((m) => {
+            const guide = guideForMap(m);
+            return <MapCard key={m.id} map={m} nav={nav}
+              to={isTutorial && guide ? { name: 'ee', id: guide.id } : undefined}
+              actionLabel={topic ? (isTutorial ? (guide.guideStatus === 'partial' ? 'Partial setup guide ›' : 'Open walkthrough ›') : easterEggGuideStatus(guide)) : undefined}
+              detail={isTutorial && guide ? guide.steps.length + ' steps · ' + (guide.party || 'See party requirements') : undefined}
+            />;
+          })}
         </div>
+        {isTutorial && !list.length && <p style={{ fontFamily: T.sans, fontSize: 15, color: T.mute }}>No walkthroughs published for this game yet. Choose another game or browse its map files.</p>}
       </div>
     );
   }
 
-  function MapCard({ map, nav }) {
+  function MapCard({ map, nav, to, actionLabel, detail }) {
     const g = ZD.games.find((x) => x.id === map.game);
     const iconSrc = g && g.imgIcon ? gameImg(g, g.imgIcon) : null;
     return (
-      <RouteLink to={{ name: 'map', id: map.id }} nav={nav} className="pap-card pap-card-clickable"
+      <RouteLink to={to || { name: 'map', id: map.id }} nav={nav} className="pap-card pap-card-clickable"
         style={{ padding: 0, color: T.bone, textAlign: 'center', position: 'relative', overflow: 'hidden', minHeight: 260 }}>
         <MapImage
           map={map}
@@ -4774,7 +4801,8 @@
         {iconSrc && <img className={'pap-game-tile-icon pap-game-tile-icon-' + g.id} src={iconSrc} alt="" aria-hidden loading="lazy" />}
         <div style={{ position: 'relative', minHeight: 260, padding: 18, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center', textShadow: '0 2px 14px rgba(0,0,0,0.82)' }}>
           <div className="pap-stencil" style={{ fontSize: 29, color: T.bone, lineHeight: 1.05 }}>{map.name}</div>
-          <Mono color={T.e115} style={{ marginTop: 10 }}>{'Open ›'}</Mono>
+          {detail && <Mono color={T.mute} style={{ marginTop: 10 }}>{detail}</Mono>}
+          <Mono color={T.e115} style={{ marginTop: 10 }}>{actionLabel || 'Open ›'}</Mono>
         </div>
       </RouteLink>
     );
@@ -4846,7 +4874,7 @@
       ['Designation', map.name],
       ['Location', map.location],
       crewValue && ['Crew', crewValue],
-      hasEE && ['Main Quest', ee ? 'Guide catalogued' : 'Guide pending', ee ? 'accent' : 'muted'],
+      hasEE && ['Main Quest', ee ? (ee.guideStatus === 'partial' ? 'Partial setup guide' : 'Guide catalogued') : 'Guide pending', ee ? 'accent' : 'muted'],
       relicCount > 0 && ['Relics', relicCount + ' hidden', 'yellow'],
     ].filter(Boolean);
     return (
@@ -4895,7 +4923,7 @@
 
         {hasEE && (
           <section style={{ marginTop: 40 }}>
-            <SectionHead kicker="Primary Easter Egg" title="Main Quest" />
+            <SectionHead kicker="Primary Easter Egg" title={ee && ee.guideStatus === 'partial' ? 'Sword Setup' : 'Main Quest'} />
             {ee ? (
             <RouteLink to={{ name: 'ee', id: ee.id }} nav={nav} className="pap-card pap-card-clickable"
               style={{ display: 'grid', gridTemplateColumns: '220px 1fr auto', alignItems: 'stretch', padding: 0, width: '100%', color: T.bone, textAlign: 'left' }}>
@@ -4904,7 +4932,7 @@
               ) : ee.heroImage ? (
                 <EvidenceImage map={m} image={ee.heroImage} height={180} label={ee.title} kind="MAIN QUEST" tone="red" />
               ) : (
-                <Slot w={220} h={180} label="EE" kind="MAIN QUEST" tone="red" />
+                <Slot w={220} h={180} label="EE" kind={ee.guideStatus === 'partial' ? 'SETUP GUIDE' : 'MAIN QUEST'} tone="red" />
               )}
               <div style={{ padding: 22, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <PaperBadgeGroup
@@ -4917,7 +4945,7 @@
                 {ee.summary && <div style={{ fontFamily: T.sans, fontSize: 14, color: T.mute, marginTop: 6, maxWidth: 540 }}>{ee.summary}</div>}
               </div>
               <div style={{ alignSelf: 'center', padding: '0 28px' }}>
-                <Mono color={T.e115} size={13} letter={2.5}>{'Begin →'}</Mono>
+                <Mono color={T.e115} size={13} letter={2.5}>{ee.guideStatus === 'partial' ? 'Open setup →' : 'Begin →'}</Mono>
               </div>
             </RouteLink>
             ) : (
@@ -5083,9 +5111,10 @@
     const m = ZD.maps.find((x) => x.id === ee.map);
     const g = ZD.games.find((x) => x.id === (m && m.game));
     const steps = ee.steps || [];
-    const progressKey = 'g935.ee.progress.' + ee.id + '.steps.v2';
-    const bulletProgressKey = 'g935.ee.progress.' + ee.id + '.substeps.v2';
-    const activeKey = 'g935.ee.active.' + ee.id + '.v2';
+    const progressVersion = ee.progressVersion || 'v2';
+    const progressKey = 'g935.ee.progress.' + ee.id + '.steps.' + progressVersion;
+    const bulletProgressKey = 'g935.ee.progress.' + ee.id + '.substeps.' + progressVersion;
+    const activeKey = 'g935.ee.active.' + ee.id + '.' + progressVersion;
     const readStoredSet = (key) => {
       try {
         const raw = window.localStorage && window.localStorage.getItem(key);
@@ -5216,7 +5245,7 @@
             ...(m ? [{label:safeMapName,to:{name:'map',id:m.id}}] : []),
             {label:ee.title},
           ]}
-          kicker={'Main Quest - ' + safeMapName + ' - ' + safeGameCode}
+          kicker={(ee.guideStatus === 'partial' ? 'Sword Setup - ' : 'Main Quest - ') + safeMapName + ' - ' + safeGameCode}
           title={ee.title}
           sub={ee.id === 'ascension-casimir-mechanism' ? '' : ee.summary}
           titleNoWrap
@@ -5331,7 +5360,8 @@
 
                 <aside className="pap-ee-aside">
                   <div className="pap-ee-side-card">
-                    <h3>Quest file</h3>
+                    <h3>{ee.guideStatus === 'partial' ? 'Partial setup guide' : 'Quest file'}</h3>
+                    {ee.guideStatus === 'partial' && <p style={{ fontFamily: T.sans, fontSize: 13, color: T.mute, lineHeight: 1.55 }}>{ee.summary}</p>}
                     <ul>
                       <li>{'Difficulty: ' + ee.difficulty}</li>
                       <li>{'Duration: ' + ee.duration}</li>
@@ -5342,6 +5372,12 @@
                     <div className="pap-ee-side-card">
                       <h3>Requirements</h3>
                       <ul>{ee.requirements.map((item) => <li key={item}>{item}</li>)}</ul>
+                    </div>
+                  )}
+                  {ee.sources && ee.sources.length > 0 && (
+                    <div className="pap-ee-side-card">
+                      <h3>Sources</h3>
+                      <ul>{ee.sources.map((source) => <li key={source.url}><a className="pap-link" href={source.url}>{source.label}</a></li>)}</ul>
                     </div>
                   )}
                   {ee.rewards && ee.rewards.length > 0 && (
@@ -5360,7 +5396,7 @@
                 </button>
                 <button type="button" disabled={active === steps.length - 1} onClick={() => setActive(active + 1)}>
                   <Mono color={T.faint} letter={2}>Next</Mono>
-                  <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 5 }}>{active < steps.length - 1 ? steps[active + 1].title : 'Quest complete'}</div>
+                  <div className="pap-stencil" style={{ fontSize: 22, color: T.bone, marginTop: 5 }}>{active < steps.length - 1 ? steps[active + 1].title : (ee.guideStatus === 'partial' ? 'Setup guide complete' : 'Quest complete')}</div>
                 </button>
               </nav>
             </div>
@@ -6488,47 +6524,41 @@
       },
       'black-ops-7-easter-eggs': {
         title: 'Black Ops 7 Easter Eggs | Main Quest Guides | Group 935',
-        description: 'Black Ops 7 Easter Eggs hub with BO7 Zombies main quest guides for Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.',
+        description: 'Choose a Black Ops 7 map and check its published quest guides, hidden songs, and related archive files.',
         listName: 'Black Ops 7 Easter Eggs',
-        items: bo7EasterEggs.map((ee, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: ee.title,
-          description: ee.summary,
-          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        items: bo7Maps.map((map, index) => ({
+          '@type': 'ListItem', position: index + 1, name: map.name,
+          description: easterEggGuideStatus(bo7EasterEggs.find((ee) => ee.map === map.id)),
+          url: seoRouteUrl({ name: 'map', id: map.id }),
         })),
       },
       'black-ops-7-easter-egg-tutorials': {
         title: 'Black Ops 7 Easter Egg Tutorials | BO7 Walkthroughs | Group 935',
-        description: 'Black Ops 7 Easter Egg tutorials with BO7 Zombies walkthroughs, setup requirements, boss prep, rewards, and map links.',
+        description: 'Open published Black Ops 7 walkthroughs directly and compare their step counts and party details. Partial guides are marked.',
         listName: 'Black Ops 7 Easter Egg Tutorials',
-        items: bo7EasterEggs.map((ee, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: ee.title,
-          description: ee.summary,
+        items: bo7EasterEggs.filter((ee) => (ee.steps || []).length).map((ee, index) => ({
+          '@type': 'ListItem', position: index + 1, name: ee.title,
+          description: [easterEggGuideStatus(ee), ee.steps.length + ' steps', ee.party].filter(Boolean).join(' · '),
           url: seoRouteUrl({ name: 'ee', id: ee.id }),
         })),
       },
       'zombies-easter-eggs': {
         title: 'Zombies Easter Eggs | Main Quest Guides and Story Archives | Group 935',
-        description: 'Browse Zombies Easter eggs, main quest guides, map tutorials, rewards, requirements, and story archives for Treyarch and Black Ops Zombies.',
+        description: 'Browse Zombies maps by game, check walkthrough availability, and open map files for quest links and hidden songs.',
         listName: 'Zombies Easter Eggs',
-        items: allEasterEggs.map((ee, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: ee.title,
-          url: seoRouteUrl({ name: 'ee', id: ee.id }),
+        items: (ZD.maps || []).map((map, index) => ({
+          '@type': 'ListItem', position: index + 1, name: map.name,
+          description: easterEggGuideStatus(allEasterEggs.find((ee) => ee.map === map.id)),
+          url: seoRouteUrl({ name: 'map', id: map.id }),
         })),
       },
       'zombies-easter-egg-tutorials': {
         title: 'Zombies Easter Egg Tutorials | Main Quest Walkthroughs | Group 935',
-        description: 'Step-by-step Zombies Easter egg tutorials with setup requirements, main quest walkthroughs, reward notes, boss prep, and map links.',
+        description: 'Find published Zombies walkthroughs by map with step counts and party details. Partial guides are marked.',
         listName: 'Zombies Easter Egg Tutorials',
-        items: allEasterEggs.map((ee, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: ee.title,
+        items: allEasterEggs.filter((ee) => (ee.steps || []).length).map((ee, index) => ({
+          '@type': 'ListItem', position: index + 1, name: ee.title,
+          description: [easterEggGuideStatus(ee), ee.steps.length + ' steps', ee.party].filter(Boolean).join(' · '),
           url: seoRouteUrl({ name: 'ee', id: ee.id }),
         })),
       },
@@ -6578,7 +6608,7 @@
         '@type': 'ItemList',
         name: topic.listName,
         url,
-        itemListElement: topic.items.slice(0, 30),
+        itemListElement: topic.items,
       },
     };
   }
@@ -6705,8 +6735,8 @@
       const ee = seoFindEasterEgg(r.id);
       if (ee) {
         return {
-          title: ee.title + ' Easter Egg Walkthrough | Group 935',
-          description: seoDescription(ee.summary ? ee.title + ': ' + ee.summary : '', ee.title + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.'),
+          title: ee.title + (ee.guideStatus === 'partial' ? ' Setup Guide | Group 935' : ' Easter Egg Walkthrough | Group 935'),
+          description: seoDescription(ee.guideStatus === 'partial' ? ee.title + ' partial setup guide. ' + ee.summary : (ee.summary ? ee.title + ': ' + ee.summary : ''), ee.title + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.'),
           url: seoRouteUrl(r),
         };
       }
@@ -6932,7 +6962,7 @@
       case 'black-ops-7-easter-egg-tutorials':
       case 'zombies-easter-eggs':
       case 'zombies-easter-egg-tutorials':
-        page = <Maps nav={nav} />; break;
+        page = <Maps key={route.name} nav={nav} topic={route.name} />; break;
       case 'cod-zombies':
       case 'black-ops-zombies':
       case 'treyarch-zombies':
