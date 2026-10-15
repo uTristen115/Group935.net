@@ -985,16 +985,20 @@ Hiding in a closet at the Pentagon, Mcnamara records a message confirming that J
   const timeline = parseKronorium(kronoriumText);
   const sampleEE = {
     id: 'kindertot', map: 'citadelle', mapName: 'Citadelle des Morts',
-    title: 'Kinder der Toten', difficulty: 'Hard', duration: '60–90 min', party: 'Recommended 2‑4 players',
-    summary: 'Forge four elemental swords, wake the knight at the altar, and seal the rift in the courtyard before the eighth wave of Doppelganger zombies.',
-    rewards: ['Permanent perk slot', 'Calling card: Carolingian', 'Dark Aether story shard #4'],
+    title: 'Citadelle des Morts', difficulty: 'Not rated', duration: 'Not timed', party: 'Solo or co-op',
+    guideStatus: 'partial', progressVersion: 'verified-setup-v1',
+    summary: 'Verified sword setup and Caliburn upgrade. The remaining sword upgrades and full main quest walkthrough are not yet verified in this guide.',
+    requirements: ['Reveal Pack-a-Punch before collecting the sword puzzle piece.'],
+    rewards: [],
+    sources: [
+      { label: 'Official Citadelle des Morts guide', url: 'https://www.callofduty.com/guides/blackops6/zombies/call-of-duty-guides-black-ops-6-round-based-zombies-citadelle-des-morts' },
+      { label: 'Official elemental sword names', url: 'https://www.callofduty.com/uk/en/blog/2024/12/call-of-duty-black-ops-6-warzone-zombies-season-01-reloaded-announcement' },
+    ],
     steps: [
-      { n: 1, title: 'Activate Power', body: 'Restore power in the chapel basement. Three breakers, all on the north walls. The third only flips after you’ve killed a zombie within two metres of it.' },
-      { n: 2, title: 'Find the Sword Hilt', body: 'A blacksmith’s anvil in the courtyard. Drop a Sword Hilt charge near it. The hilt appears after one full round of melee‑only kills.' },
-      { n: 3, title: 'Forge the Elemental Blade', body: 'Carry the hilt through the elemental shrine matching your chosen path — Solais (light), Stachel (fire), Krause (lightning), or Ull (frost). Each shrine requires a different kill condition.' },
-      { n: 4, title: 'Awaken the Knight', body: 'Place your forged sword in the altar in the great hall. The knight rises and walks the perimeter. Follow him; he opens doors no key opens.' },
-      { n: 5, title: 'Defeat the Doppelganger', body: 'A reflection of your character spawns in the keep. Same loadout, same perks, same health. Outlast it. Do not let it down you.' },
-      { n: 6, title: 'Seal the Rift', body: 'Hold the centre of the courtyard for ninety seconds. The knight defends the four cardinal points; you defend the centre. Kill nothing inside the seal radius or it resets.' },
+      { n: 1, title: 'Reach Pack-a-Punch', body: 'Open a route from Town Square to the Hillside Ramparts. Rotate the cannon toward the castle entrance and fire to enter. Continue to the Oubliette and follow the map objective to reveal Pack-a-Punch.' },
+      { n: 2, title: 'Obtain a Bastard Sword', body: 'After revealing Pack-a-Punch, collect the puzzle piece dropped by an enemy. Exchange it at a sword-bearing statue inside the castle for a Bastard Sword. For Caliburn, choose the dragon-associated sword.' },
+      { n: 3, title: 'Identify the Elemental Swords', body: 'The four upgrades are Caliburn (Dragon’s Fire), Durendal (Stag of the Storms), Balmung (Raven’s Shadow), and Solais (Lion of Light). Only the Caliburn upgrade is documented below; the other upgrade sequences still need verification.' },
+      { n: 4, title: 'Upgrade Caliburn', body: 'Place the dragon-associated Bastard Sword in the dragon statue above the Entrance Hall stairs. Bring fire from each of the three braziers, on the Ramparts, at the Nature Path entrance, and in Town Square, back to the statue one at a time. Carrying fire damages you; melee kills restore some health. Collect Caliburn after returning all three fires.' },
     ],
   };
 

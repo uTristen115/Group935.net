@@ -496,5 +496,6 @@ assertSitemapIntegrity(sourceData, htmlFiles);
 assertHomepageBranding(htmlFiles);
 smokeSharedBundles(bundles);
 require('./check-route-pages')(sourceData);
+require('./check-guide-content')();
 
 console.log('Build check passed: ' + htmlFiles.length + ' HTML files, ' + scriptCount + ' inline scripts, ' + jsonLdCount + ' JSON-LD blocks, shared bundle smoke.');

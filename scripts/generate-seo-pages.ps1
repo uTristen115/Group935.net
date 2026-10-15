@@ -197,35 +197,65 @@ function Get-MapRelics {
   return @($script:SeoRelicsById.Values | Where-Object { [string]$_.map -eq $MapId } | Sort-Object tier, name)
 }
 
+function Get-EasterEggGuideStatus {
+  param($EasterEgg)
+
+  if (-not $EasterEgg -or @($EasterEgg.steps | Where-Object { $null -ne $_ }).Count -eq 0) { return 'No walkthrough published' }
+  if ([string]$EasterEgg.guideStatus -eq 'partial') { return 'Partial setup guide' }
+  return 'Walkthrough available'
+}
+
+function Get-MapGuideSummary {
+  param([string]$MapId)
+
+  $guides = @(Get-MapEasterEggs -MapId $MapId)
+  if (-not $guides.Count) { return 'No walkthrough published' }
+  return (@($guides | ForEach-Object {
+    ([string]$_.title) + ' - ' + (Get-EasterEggGuideStatus $_)
+  }) -join '; ')
+}
+
+function Get-EasterEggTutorialDetails {
+  param($EasterEgg)
+
+  $stepCount = @($EasterEgg.steps | Where-Object { $null -ne $_ }).Count
+  $party = if ($EasterEgg.party) { [string]$EasterEgg.party } else { 'Not listed' }
+  return (Get-EasterEggGuideStatus $EasterEgg) + '. ' + $stepCount + ' steps. Party: ' + $party
+}
+
 function Get-TopicItems {
   param(
     [string]$Kind,
-    [string]$SiteUrl
+    [string]$SiteUrl,
+    [string]$Mode
   )
 
+  if ($Kind -eq 'easter-eggs' -or $Kind -eq 'bo7-easter-eggs') {
+    if ($Mode -eq 'tutorials') {
+      $guides = if ($Kind -eq 'bo7-easter-eggs') { Get-Bo7EasterEggs } else { @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title) }
+      return @($guides | Where-Object { @($_.steps | Where-Object { $null -ne $_ }).Count -gt 0 } | ForEach-Object {
+        @{
+          '@type' = 'ListItem'
+          position = 0
+          name = [string]$_.title
+          description = ([string]$_.mapName) + ' (' + ([string]$_.gameTitle) + '). ' + (Get-EasterEggTutorialDetails $_)
+          url = Get-EasterEggUrl -Id ([string]$_.id) -SiteUrl $SiteUrl
+        }
+      })
+    }
+    $maps = if ($Kind -eq 'bo7-easter-eggs') { Get-Bo7Maps } else { @($script:SeoMaps | Sort-Object gameTitle, name) }
+    return @($maps | ForEach-Object {
+      @{
+        '@type' = 'ListItem'
+        position = 0
+        name = [string]$_.name
+        description = ([string]$_.gameTitle) + '. ' + (Get-MapGuideSummary -MapId ([string]$_.id))
+        url = Get-PublicUrl -Route ('/maps/' + [string]$_.id) -SiteUrl $SiteUrl
+      }
+    })
+  }
+
   switch ($Kind) {
-    'easter-eggs' {
-      return @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title | ForEach-Object {
-        @{
-          '@type' = 'ListItem'
-          position = 0
-          name = [string]$_.title
-          description = [string]$_.summary
-          url = Get-EasterEggUrl -Id ([string]$_.id) -SiteUrl $SiteUrl
-        }
-      })
-    }
-    'bo7-easter-eggs' {
-      return @(Get-Bo7EasterEggs | ForEach-Object {
-        @{
-          '@type' = 'ListItem'
-          position = 0
-          name = [string]$_.title
-          description = [string]$_.summary
-          url = Get-EasterEggUrl -Id ([string]$_.id) -SiteUrl $SiteUrl
-        }
-      })
-    }
     'maps' {
       return @($script:SeoMaps | Sort-Object gameTitle, name | ForEach-Object {
         @{
@@ -278,10 +308,11 @@ function Get-TopicConfig {
       return @{
         Key = 'black-ops-7-easter-eggs'
         Title = 'Black Ops 7 Easter Eggs | Main Quest Guides | Group 935'
-        Description = 'Black Ops 7 Easter Eggs hub with BO7 Zombies main quest guides for Ashes of the Damned, Astra Malorum, Paradox Junction, and Totenreich.'
+        Description = 'Discover Black Ops 7 Easter Eggs by map. Browse BO7 map files, quest titles, and published, partial, or unavailable guide status.'
         H1 = 'Black Ops 7 Easter Eggs'
-        Intro = 'A Black Ops 7 Easter Eggs hub collecting every BO7 Zombies main quest file, reward note, setup requirement, and map guide in the archive.'
+        Intro = 'Find Black Ops 7 Easter Eggs by map and see which quest guides are published, partial, or unavailable in this archive. Open a map file to explore its quests and related records.'
         Kind = 'bo7-easter-eggs'
+        Mode = 'discovery'
         About = @('Black Ops 7 Easter Eggs', 'BO7 Zombies main quests', 'Black Ops 7 Zombies')
         Links = @(
           @{ Label = 'Black Ops 7 Easter Egg Tutorials'; Href = '/black-ops-7-easter-egg-tutorials/'; Text = 'Step-by-step tutorial pages for BO7 main quests.' },
@@ -294,10 +325,11 @@ function Get-TopicConfig {
       return @{
         Key = 'black-ops-7-easter-egg-tutorials'
         Title = 'Black Ops 7 Easter Egg Tutorials | BO7 Walkthroughs | Group 935'
-        Description = 'Black Ops 7 Easter Egg tutorials with BO7 Zombies walkthroughs, setup requirements, boss prep, rewards, and map links.'
+        Description = 'Open published Black Ops 7 Easter Egg tutorials with step counts, party details, and clearly marked partial guides.'
         H1 = 'Black Ops 7 Easter Egg Tutorials'
-        Intro = 'Tutorial-focused Black Ops 7 Easter Egg pages for players who need BO7 Zombies setup requirements, main quest steps, boss prep, rewards, and map links.'
+        Intro = 'Choose a Black Ops 7 Easter Egg walkthrough using its step count and party details. Setup requirements are in each guide. Only guides with published steps appear here; partial setup guides are labeled.'
         Kind = 'bo7-easter-eggs'
+        Mode = 'tutorials'
         About = @('Black Ops 7 Easter Egg tutorials', 'BO7 Easter Egg walkthroughs', 'Black Ops 7 Zombies')
         Links = @(
           @{ Label = 'Black Ops 7 Easter Eggs'; Href = '/black-ops-7-easter-eggs/'; Text = 'BO7 main quest guide hub.' },
@@ -310,10 +342,11 @@ function Get-TopicConfig {
       return @{
         Key = 'zombies-easter-eggs'
         Title = 'Zombies Easter Eggs | Main Quest Guides and Story Archives | Group 935'
-        Description = 'Browse Zombies Easter eggs, main quest guides, map tutorials, rewards, requirements, and story archives for Treyarch and Black Ops Zombies.'
+        Description = 'Discover Zombies Easter eggs by map and game. Browse quest titles and check whether a guide is published, partial, or unavailable in the archive.'
         H1 = 'Zombies Easter Eggs'
-        Intro = 'A focused archive for Zombies Easter eggs, main quests, rewards, map objectives, story steps, and related Treyarch Zombies files.'
+        Intro = 'Explore Zombies maps and their quest records across the archive. Each map lists its published or partial guides, or shows when a guide is unavailable. Open a map file for its related records.'
         Kind = 'easter-eggs'
+        Mode = 'discovery'
         Links = @(
           @{ Label = 'Zombies Easter Egg Tutorials'; Href = '/zombies-easter-egg-tutorials/'; Text = 'Step-by-step main quest tutorials and setup notes.' },
           @{ Label = 'Black Ops 7 Relics'; Href = '/black-ops-7-relics/'; Text = 'BO7 relic effects, unlocks, portals, and trials.' },
@@ -325,10 +358,11 @@ function Get-TopicConfig {
       return @{
         Key = 'zombies-easter-egg-tutorials'
         Title = 'Zombies Easter Egg Tutorials | Main Quest Walkthroughs | Group 935'
-        Description = 'Step-by-step Zombies Easter egg tutorials with setup requirements, main quest walkthroughs, reward notes, boss prep, and map links.'
+        Description = 'Find Zombies Easter egg tutorials with available step counts, party details, and clearly marked partial guides.'
         H1 = 'Zombies Easter Egg Tutorials'
-        Intro = 'Tutorial-focused Zombies Easter egg pages built for players looking for main quest steps, setup requirements, boss prep, and reward notes.'
+        Intro = 'Open an existing Zombies Easter egg walkthrough after checking its step count and party details. Setup requirements are in each guide. Only guides with published steps appear here; partial setup guides are labeled.'
         Kind = 'easter-eggs'
+        Mode = 'tutorials'
         Links = @(
           @{ Label = 'Zombies Easter Eggs'; Href = '/zombies-easter-eggs/'; Text = 'Browse the wider Easter egg archive.' },
           @{ Label = 'Call of Duty Zombies'; Href = '/cod-zombies/'; Text = 'COD Zombies maps, guides, relics, perks, and story files.' },
@@ -529,7 +563,7 @@ function Get-RouteJsonLd {
   $topic = Get-TopicConfig $canonicalRoute
   if ($topic) {
     $breadcrumbItems += @{ '@type' = 'ListItem'; position = 2; name = [string]$topic.H1; item = $Url }
-    $items = Get-TopicItems -Kind ([string]$topic.Kind) -SiteUrl $SiteUrl
+    $items = Get-TopicItems -Kind ([string]$topic.Kind) -Mode ([string]$topic.Mode) -SiteUrl $SiteUrl
     $about = if ($topic.About) { @($topic.About) } else { @('Zombies Easter eggs', 'COD Zombies', 'Black Ops Zombies', 'Treyarch Zombies') }
     $position = 1
     foreach ($item in $items) {
@@ -811,24 +845,32 @@ function Get-StaticSeoHtml {
 
   if ($canonicalRoute -match '^/easter-eggs/([^/]+)$' -and $script:SeoEasterEggsById.ContainsKey($Matches[1])) {
     $ee = $script:SeoEasterEggsById[$Matches[1]]
+    $isPartial = [string]$ee.guideStatus -eq 'partial'
+    $heading = ([string]$ee.title) + $(if ($isPartial) { ' Setup Guide' } else { ' Easter Egg Walkthrough' })
     $requirements = Get-StaticTextList -Items @($ee.requirements)
     $rewards = Get-StaticTextList -Items @($ee.rewards)
     $steps = @($ee.steps | ForEach-Object {
       $body = if ($_.body) { '<p>' + (Escape-Html ([string]$_.body)) + '</p>' } else { '' }
       '<li><h3>' + (Escape-Html ([string]$_.title)) + '</h3>' + $body + (Get-StaticTextList -Items @($_.bullets)) + '</li>'
     })
+    $sources = @($ee.sources | Where-Object { $_.url } | ForEach-Object {
+      $label = if ($_.label) { [string]$_.label } else { [string]$_.url }
+      '<li><a href="' + (Escape-Html ([string]$_.url)) + '">' + (Escape-Html $label) + '</a></li>'
+    })
     $facts = @()
     foreach ($field in @('difficulty', 'duration', 'party')) {
       if ($ee.$field) { $facts += '<dt>' + (Convert-SlugTitle $field) + '</dt><dd>' + (Escape-Html ([string]$ee.$field)) + '</dd>' }
     }
     return @(
-      '<h1>' + (Escape-Html ([string]$ee.title)) + ' Easter Egg Walkthrough</h1>',
+      '<h1>' + (Escape-Html $heading) + '</h1>',
+      $(if ($isPartial) { '<p><strong>Partial setup guide</strong></p>' }),
       '<p>' + (Escape-Html ([string]$ee.summary)) + '</p>',
       '<p><a href="/maps/' + (Escape-Html ([string]$ee.map)) + '/">' + (Escape-Html ([string]$ee.mapName)) + '</a> - ' + (Escape-Html ([string]$ee.gameTitle)) + '</p>',
       '<dl>' + ($facts -join '') + '</dl>',
       $(if ($requirements) { '<h2>Requirements</h2>' + $requirements }),
-      $(if ($steps.Count) { '<h2>Walkthrough steps</h2><ol>' + ($steps -join '') + '</ol>' }),
+      $(if ($steps.Count) { '<h2>' + $(if ($isPartial) { 'Setup steps' } else { 'Walkthrough steps' }) + '</h2><ol>' + ($steps -join '') + '</ol>' }),
       $(if ($rewards) { '<h2>Rewards</h2>' + $rewards }),
+      $(if ($sources.Count) { '<h2>Sources</h2><ul>' + ($sources -join '') + '</ul>' }),
       '<p><a href="/zombies-easter-eggs/">Browse all Zombies Easter egg guides</a></p>'
     ) -join ''
   }
@@ -852,15 +894,30 @@ function Get-StaticSeoHtml {
   $topic = Get-TopicConfig $canonicalRoute
   if ($topic) {
     $items = @()
+    $listHeading = 'Browse files'
     if ($topic.Kind -eq 'easter-eggs' -or $topic.Kind -eq 'bo7-easter-eggs') {
-      $easterEggSource = if ($topic.Kind -eq 'bo7-easter-eggs') { Get-Bo7EasterEggs } else { @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title) }
-      foreach ($ee in $easterEggSource) {
-        $href = '/easter-eggs/' + (Escape-Html ([string]$ee.id)) + '/'
-        $label = Escape-Html ([string]$ee.title)
-        $mapName = Escape-Html ([string]$ee.mapName)
-        $gameTitle = Escape-Html ([string]$ee.gameTitle)
-        $summary = Escape-Html ([string]$ee.summary)
-        $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $mapName + ' (' + $gameTitle + '). ' + $summary + '</li>'
+      if ($topic.Mode -eq 'tutorials') {
+        $listHeading = 'Choose a walkthrough'
+        $easterEggSource = if ($topic.Kind -eq 'bo7-easter-eggs') { Get-Bo7EasterEggs } else { @($script:SeoEasterEggs | Sort-Object gameTitle, mapName, title) }
+        foreach ($ee in $easterEggSource) {
+          if (@($ee.steps | Where-Object { $null -ne $_ }).Count -eq 0) { continue }
+          $href = '/easter-eggs/' + (Escape-Html ([string]$ee.id)) + '/'
+          $label = Escape-Html ([string]$ee.title)
+          $mapName = Escape-Html ([string]$ee.mapName)
+          $gameTitle = Escape-Html ([string]$ee.gameTitle)
+          $details = Escape-Html (Get-EasterEggTutorialDetails $ee)
+          $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $mapName + ' (' + $gameTitle + '). ' + $details + '</li>'
+        }
+      } else {
+        $listHeading = 'Discover maps and quests'
+        $mapSource = if ($topic.Kind -eq 'bo7-easter-eggs') { Get-Bo7Maps } else { @($script:SeoMaps | Sort-Object gameTitle, name) }
+        foreach ($map in $mapSource) {
+          $href = '/maps/' + (Escape-Html ([string]$map.id)) + '/'
+          $label = Escape-Html ([string]$map.name)
+          $gameTitle = Escape-Html ([string]$map.gameTitle)
+          $details = Escape-Html (Get-MapGuideSummary -MapId ([string]$map.id))
+          $items += '<li><a href="' + $href + '">' + $label + '</a> - ' + $gameTitle + '. ' + $details + '</li>'
+        }
       }
     } else {
       $mapSource = if ($topic.Kind -eq 'bo7-maps') { Get-Bo7Maps } else { @($script:SeoMaps | Sort-Object gameTitle, name) }
@@ -884,7 +941,7 @@ function Get-StaticSeoHtml {
       '<ul>',
       ($linkItems -join ''),
       '</ul>',
-      '<h2>Browse files</h2>',
+      '<h2>' + (Escape-Html $listHeading) + '</h2>',
       '<ul>',
       ($items -join ''),
       '</ul>'
@@ -1200,9 +1257,10 @@ function Get-RouteSeo {
     $slug = $Matches[1]
     $ee = if ($script:SeoEasterEggsById.ContainsKey($slug)) { $script:SeoEasterEggsById[$slug] } else { $null }
     $name = if ($ee -and $ee.title) { [string]$ee.title } elseif ($script:EasterEggNameById -and $script:EasterEggNameById.ContainsKey($slug)) { $script:EasterEggNameById[$slug] } else { Convert-SlugTitle $slug }
+    $isPartial = $ee -and [string]$ee.guideStatus -eq 'partial'
     return @{
-      Title = $name + ' Easter Egg Walkthrough | Group 935'
-      Description = if ($ee -and $ee.summary) { Limit-Text ($name + ': ' + [string]$ee.summary) } else { $name + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.' }
+      Title = $name + $(if ($isPartial) { ' Setup Guide | Group 935' } else { ' Easter Egg Walkthrough | Group 935' })
+      Description = if ($isPartial) { Limit-Text ($name + ' partial setup guide. ' + [string]$ee.summary) } elseif ($ee -and $ee.summary) { Limit-Text ($name + ': ' + [string]$ee.summary) } else { $name + ' Zombies Easter egg walkthrough with setup notes, main quest steps, rewards, and Group 935 archive context.' }
       Url = $url
     }
   }

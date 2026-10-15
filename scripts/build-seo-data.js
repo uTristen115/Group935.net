@@ -63,6 +63,8 @@ const easterEggs = []
     gameTitle: mapGameTitle(ee.map),
     era: ee.era,
     summary: ee.summary || '',
+    guideStatus: ee.guideStatus || '',
+    sources: Array.isArray(ee.sources) ? ee.sources : [],
     difficulty: ee.difficulty || '',
     duration: ee.duration || '',
     party: ee.party || '',
