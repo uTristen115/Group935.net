@@ -102,3 +102,12 @@ Living notes for Codex work on this repo starting with the current site-polish a
 - The worktree has many generated static HTML changes after SEO regeneration.
 - `Deadwave/` and the meteor images were user-added/untracked when this note was created.
 - Do not revert unrelated user changes.
+
+## Verified Guide And Hub Content (2026-10-15)
+
+- Keep the existing `/easter-eggs/kindertot/` URL. Its record now describes Citadelle des Morts sword setup and the Caliburn upgrade, with official sources. The prior sample quest was inaccurate.
+- `guideStatus: 'partial'` means the guide is not a complete main quest walkthrough. Keep that status visible in discovery, tutorials, the map card, metadata, and the guide completion label. Do not add the remaining sword upgrades or full quest without verification.
+- `progressVersion` separates the corrected setup checklist from previously saved progress on the inaccurate sample. Other guide progress keys remain unchanged.
+- Easter egg discovery hubs open map files and show guide availability. Tutorial hubs link directly to existing walkthroughs and show step counts and party information. Setup requirements remain in each linked guide. They reuse the existing map-card styling.
+- Run `node scripts/check-guide-content.js --source-only` after the data/app builds for non-browser source and component regression checks. The normal build checker also checks generated content through this script.
+- Preserve all existing sitemap routes and the new-guide publication gate. No Kowakujo, Rex Infernus, or Super Easter Egg guide was added in this pass.
