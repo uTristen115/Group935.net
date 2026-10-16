@@ -105,9 +105,9 @@ Living notes for Codex work on this repo starting with the current site-polish a
 
 ## Verified Guide And Hub Content (2026-10-15)
 
-- Keep the existing `/easter-eggs/kindertot/` URL. Its record now describes Citadelle des Morts sword setup and the Caliburn upgrade, with official sources. The prior sample quest was inaccurate.
-- `guideStatus: 'partial'` means the guide is not a complete main quest walkthrough. Keep that status visible in discovery, tutorials, the map card, metadata, and the guide completion label. Do not add the remaining sword upgrades or full quest without verification.
-- `progressVersion` separates the corrected setup checklist from previously saved progress on the inaccurate sample. Other guide progress keys remain unchanged.
+- Keep the existing `/easter-eggs/kindertot/` URL. The inaccurate sample was initially narrowed to a partial setup guide, which removed expected main-quest coverage. On 2026-10-16 it was replaced with a researched 29-step complete walkthrough through the Guardian and final amulet, preserving all four sword upgrades and all main-quest puzzles.
+- Citadelle uses `guideStatus: 'complete'` and `progressVersion: 'verified-main-quest-v1'`. Never replace a complete-quest page with a setup excerpt as a content correction. Verify and correct the whole flow. Per-step sources use the existing Sources card and are also included in static HTML. Generic partial-guide support remains available for genuinely partial records.
+- `progressVersion` separates the complete quest checklist from both the inaccurate sample and the superseded setup-only checklist. Other guide progress keys remain unchanged.
 - Easter egg discovery hubs open map files and show guide availability. Tutorial hubs link directly to existing walkthroughs and show step counts and party information. Setup requirements remain in each linked guide. They reuse the existing map-card styling.
 - Run `node scripts/check-guide-content.js --source-only` after the data/app builds for non-browser source and component regression checks. The normal build checker also checks generated content through this script.
 - Preserve all existing sitemap routes and the new-guide publication gate. No Kowakujo, Rex Infernus, or Super Easter Egg guide was added in this pass.
