@@ -851,7 +851,11 @@ function Get-StaticSeoHtml {
     $rewards = Get-StaticTextList -Items @($ee.rewards)
     $steps = @($ee.steps | ForEach-Object {
       $body = if ($_.body) { '<p>' + (Escape-Html ([string]$_.body)) + '</p>' } else { '' }
-      '<li><h3>' + (Escape-Html ([string]$_.title)) + '</h3>' + $body + (Get-StaticTextList -Items @($_.bullets)) + '</li>'
+      $stepSources = @($_.sources | Where-Object { $_.url } | ForEach-Object {
+        '<a href="' + (Escape-Html ([string]$_.url)) + '">' + (Escape-Html ([string]$_.label)) + '</a>'
+      })
+      $sourceLinks = if ($stepSources.Count) { '<p>Sources: ' + ($stepSources -join '; ') + '</p>' } else { '' }
+      '<li><h3>' + (Escape-Html ([string]$_.title)) + '</h3>' + $body + (Get-StaticTextList -Items @($_.bullets)) + $sourceLinks + '</li>'
     })
     $sources = @($ee.sources | Where-Object { $_.url } | ForEach-Object {
       $label = if ($_.label) { [string]$_.label } else { [string]$_.url }

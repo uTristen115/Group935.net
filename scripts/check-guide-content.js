@@ -34,13 +34,26 @@ function checkGuideContent({ staticPages = true } = {}) {
   const guide = data.sampleEE;
   assert.equal(guide.id, 'kindertot', 'Existing guide URL must stay available');
   assert.equal(guide.title, 'Citadelle des Morts');
-  assert.equal(guide.guideStatus, 'partial');
-  assert.equal(guide.steps.length, 4);
-  assert.equal(guide.rewards.length, 0, 'Do not retain unverified rewards');
+  assert.equal(guide.guideStatus, 'complete', 'Citadelle must retain a complete main quest walkthrough');
+  assert(guide.steps.length >= 20, 'Do not replace the full quest with a short setup excerpt');
+  assert.deepEqual(Array.from(guide.steps, (step) => step.n), Array.from({ length: guide.steps.length }, (_, i) => i + 1));
+  for (const step of guide.steps) {
+    assert(step.body && step.bullets && step.bullets.length >= 2, 'Each quest phase needs actionable instructions: ' + step.title);
+    assert(step.sources && step.sources.length > 0, 'Each quest phase needs source coverage: ' + step.title);
+  }
+  for (const phase of [/Pack-a-Punch/i, /Krafft/i, /Caliburn/i, /Durendal/i, /Balmung/i, /Solais/i, /Incantation/i, /Pages/i, /Traps/i, /Statues/i, /Orb/i, /Guardian/i]) {
+    assert(guide.steps.some((step) => phase.test(step.title)), 'Missing complete-quest phase: ' + phase);
+  }
   for (const name of ['Caliburn', 'Durendal', 'Balmung', 'Solais']) assert(JSON.stringify(guide).includes(name));
+  const phaseText = (pattern) => JSON.stringify(guide.steps.find((step) => pattern.test(step.title)) || {});
+  for (const pair of ['Air + Gemini', 'Fire + Leo', 'Water + Pisces', 'Water + Scorpio', 'Fire + Aries']) assert(phaseText(/Antiquity Dial/).includes(pair), 'Missing randomized Antiquity solution: ' + pair);
+  assert(phaseText(/Repair the Book/).includes('top-left, bottom-left, top-right, then bottom-right'), 'Preserve the book reading order');
+  assert(phaseText(/Knight Statues/).includes('Weapon Inspect') && phaseText(/Knight Statues/).includes('varies by match'), 'Knight ceremony must explain the action and randomized order');
+  assert(phaseText(/Light Trial/).includes('wisps') && phaseText(/Light Trial/).includes('rather than an elemental-kill quota'), 'The Light Orb trial needs its distinct collection mechanic');
+  assert(phaseText(/Collect the Amulet/).includes('Obscurus Altilium'), 'Do not stop the walkthrough at boss death');
   assert(!/Stachel|Krause|\bUll\b|blacksmith|Carolingian|Seal the Rift|Awaken the Knight|chapel basement/i.test(JSON.stringify(guide)));
-  assert.equal(guide.sources.length, 2);
-  for (const source of guide.sources) assert.equal(new URL(source.url).hostname, 'www.callofduty.com');
+  assert(guide.sources.length >= 3, 'Full quest needs source coverage beyond the official setup-only guide');
+  for (const source of guide.sources) assert.equal(new URL(source.url).protocol, 'https:');
   const legacy = { window: {} };
   vm.createContext(legacy); vm.runInContext(read('data/zombies-data.js'), legacy);
   assert.equal(JSON.stringify(guide), JSON.stringify(legacy.window.ZD.sampleEE), 'Prototype data must not reintroduce old instructions');
@@ -100,22 +113,34 @@ function checkGuideContent({ staticPages = true } = {}) {
   const page = pageAt('/easter-eggs/kindertot/');
   readKeys.length = 0;
   let tree = render(page, true);
-  assert(readKeys.filter((key) => key.includes('kindertot')).every((key) => key.endsWith('verified-setup-v1')), 'Old fabricated-step progress must not carry into corrected steps');
-  assert.equal(walk(tree, (node) => node.type === 'a' && (node.props.href || '').startsWith('https://www.callofduty.com/')).length, 2);
-  assert(text(tree).includes('Partial setup guide'));
-  assert(text(tree).includes(guide.summary), 'The scope limitation must render visibly, not only in ignored header props');
+  assert(readKeys.filter((key) => key.includes('kindertot')).every((key) => key.endsWith('verified-main-quest-v1')), 'Setup-only or fabricated-step progress must not carry into the complete quest');
+  assert(text(tree).includes('Quest file'));
+  assert(!text(tree).includes('Partial setup guide'));
   const next = () => walk(tree, (node) => node.type === 'button' && text(node).startsWith('Next'))[0];
-  for (let i = 1; i < guide.steps.length; i++) { next().props.onClick(); tree = render(page); }
+  for (let i = 0; i < guide.steps.length; i++) {
+    const step = guide.steps[i];
+    assert(text(tree).includes(step.title) && text(tree).includes(step.body), 'Quest step is not rendered: ' + step.title);
+    for (const source of step.sources) assert.equal(walk(tree, (node) => node.type === 'a' && node.props.href === source.url).length, 1, 'Current step source is missing: ' + step.title);
+    const substeps = walk(tree, (node) => node.type === 'button' && String(node.props.className).includes('pap-ee-substep'));
+    assert.equal(substeps.length, step.bullets.length, 'Every detailed substep must remain available');
+    substeps[0].props.onClick(); tree = render(page);
+    assert(walk(tree, (node) => node.type === 'button' && String(node.props.className).includes('pap-ee-substep is-done')).length >= 1);
+    if (i < guide.steps.length - 1) { next().props.onClick(); tree = render(page); }
+  }
   assert(next().props.disabled);
-  assert(text(next()).includes('Setup guide complete'));
-  const markDone = walk(tree, (node) => node.type === 'button' && text(node) === 'Mark step complete')[0];
+  assert(text(next()).includes('Quest complete'));
+  const markDone = walk(tree, (node) => node.type === 'button' && text(node) === 'Mark substeps complete')[0];
   markDone.props.onClick(); tree = render(page);
   assert(walk(tree, (node) => node.type === 'button' && text(node) === 'Step complete')[0].props.disabled);
 
   if (staticPages) {
     const html = read('easter-eggs/kindertot/index.html');
-    assert(html.includes('Citadelle des Morts Setup Guide'));
-    assert(html.includes('Partial setup guide'));
+    assert(html.includes('Citadelle des Morts Easter Egg Walkthrough'));
+    assert(!html.includes('Partial setup guide'));
+    for (const step of guide.steps) {
+      assert(html.includes(step.title), 'Static quest step is missing: ' + step.title);
+      for (const source of step.sources) assert(html.includes(source.url), 'Static source is missing: ' + step.title);
+    }
     for (const source of guide.sources) assert(html.includes(source.url));
     assert(!/Stachel|Krause|\bUll\b|blacksmith|Carolingian|Seal the Rift|Awaken the Knight/.test(html));
     for (const prefix of ['black-ops-7', 'zombies']) {
@@ -129,7 +154,7 @@ function checkGuideContent({ staticPages = true } = {}) {
       assert(main(tutorial).includes('steps'));
     }
   }
-  console.log('Guide content checks passed: source accuracy guards, 4 live hub scopes/targets, repeated filters/sort, partial-guide progression and source links' + (staticPages ? ', generated content.' : ' (static pages not checked).'));
+  console.log('Guide content checks passed: complete quest coverage, 4 live hub scopes/targets, repeated filters/sort, all quest steps/substeps, progression and source links' + (staticPages ? ', generated content.' : ' (static pages not checked).'));
 }
 module.exports = checkGuideContent;
 if (require.main === module) checkGuideContent({ staticPages: !process.argv.includes('--source-only') });
