@@ -5225,6 +5225,7 @@
     );
 
     const activeStep = steps[active] || steps[0];
+    const activeSources = activeStep.sources || ee.sources || [];
     const activeImages = activeStep.images || (activeStep.image ? [activeStep.image] : []);
     const stepImageDisplay = (image) => {
       if (!image || typeof image === 'string' || image.layout || image.objectFit !== 'contain') return image;
@@ -5374,10 +5375,10 @@
                       <ul>{ee.requirements.map((item) => <li key={item}>{item}</li>)}</ul>
                     </div>
                   )}
-                  {ee.sources && ee.sources.length > 0 && (
+                  {activeSources.length > 0 && (
                     <div className="pap-ee-side-card">
                       <h3>Sources</h3>
-                      <ul>{ee.sources.map((source) => <li key={source.url}><a className="pap-link" href={source.url}>{source.label}</a></li>)}</ul>
+                      <ul>{activeSources.map((source) => <li key={source.url}><a className="pap-link" href={source.url}>{source.label}</a></li>)}</ul>
                     </div>
                   )}
                   {ee.rewards && ee.rewards.length > 0 && (

@@ -75,6 +75,7 @@ const easterEggs = []
       title: step.title || '',
       body: step.body || '',
       bullets: Array.isArray(step.bullets) ? step.bullets : [],
+      ...(Array.isArray(step.sources) ? { sources: step.sources } : {}),
     })),
     stepCount: Array.isArray(ee.steps) ? ee.steps.length : 0,
   }));
